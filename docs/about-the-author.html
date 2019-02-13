@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="box.html">
-<link rel="next" href="legend.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="intro.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -344,180 +344,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="hist" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Histograms</h1>
-<div id="introduction-6" class="section level2">
-<h2><span class="header-section-number">7.1</span> Introduction</h2>
-<p>In this chapter, we will learn to:</p>
+<div id="about-the-author" class="section level1 unnumbered">
+<h1>About the Author</h1>
+<p><a href="https://www.aravindhebbali.com">Aravind Hebbali</a> is the founder of
+<a href="https://www.rsquaredacademy.com">Rsquared Academy</a>. He earned his Masters in
+Economics from <a href="https://www.mse.ac.in">Madras School of Economics</a>. As an
+active R user, he has authored several R packages such as</p>
 <ul>
-<li>create a bare bones histogram</li>
-<li>specify the number of bins/intervals</li>
-<li>represent frequency density on the Y axis</li>
-<li>add colors to the bars and the border</li>
-<li>add labels to the bars</li>
+<li><a href="https://olsrr.rsquaredacademy.com">olsrr</a></li>
+<li><a href="https://rfm.rsquaredacademy.com">rfm</a></li>
+<li><a href="https://descriptr.rsquaredacademy.com">descriptr</a></li>
+<li><a href="https://blorr.rsquaredacademy.com">blorr</a></li>
+<li><a href="https://xplorerr.rsquaredacademy.com">xplorerr</a></li>
 </ul>
-<p>A histogram is a plot that can be used to examine the shape and spread of continuous data. It looks very similar to a bar graph and can be used to detect outliers and skewness in data. The histogram graphically shows the following:</p>
-<ul>
-<li>center (location) of the data</li>
-<li>spread (dispersion) of the data</li>
-<li>skewness</li>
-<li>outliers</li>
-<li>presence of multiple modes</li>
-</ul>
-<p>To construct a histogram, the data is split into intervals called bins. The intervals may or may not be equal sized. For each bin, the number of data points that fall into it are counted (frequency). The Y axis of the histogram represents the frequency and the X axis represents the variable.</p>
-</div>
-<div id="distributions" class="section level2">
-<h2><span class="header-section-number">7.2</span> Distributions</h2>
-<p>Before we learn how to create histograms, let us see how normal and skewed distributions look when represented by a histogram.</p>
-<div id="normal-distribution" class="section level3">
-<h3><span class="header-section-number">7.2.1</span> Normal Distribution</h3>
-<p><img src="data-visualization-with-base_files/figure-html/hist1-1.png" width="480" style="display: block; margin: auto;" /></p>
-</div>
-<div id="skewed-distributions" class="section level3">
-<h3><span class="header-section-number">7.2.2</span> Skewed Distributions</h3>
-<p><img src="data-visualization-with-base_files/figure-html/hist2-1.png" width="960" style="display: block; margin: auto;" /></p>
-</div>
-</div>
-<div id="basics" class="section level2">
-<h2><span class="header-section-number">7.3</span> Basics</h2>
-<p>Histograms are created using the <code>hist()</code> function in R. The minimum input required to create a bare bones histogram is a continuous variable. Below is an example:</p>
-<p><img src="data-visualization-with-base_files/figure-html/hist3-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>The <code>hist()</code> functions returns details of the histogram which can be accessed by assigning the histogram to a variable. Let us assign the above histogram to a variable <code>h</code> and use the <code>$</code> symbol to access the details stored in the variable.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="co"># store the results of hist function</span></a>
-<a class="sourceLine" id="cb87-2" data-line-number="2">h &lt;-<span class="st"> </span><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg)</a></code></pre></div>
-<p><img src="data-visualization-with-base_files/figure-html/hist4-1.png" width="672" /></p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb88-2" data-line-number="2"><span class="co"># display number of breaks</span></a>
-<a class="sourceLine" id="cb88-3" data-line-number="3">h<span class="op">$</span>breaks</a>
-<a class="sourceLine" id="cb88-4" data-line-number="4">## [1] 10 15 20 25 30 35</a>
-<a class="sourceLine" id="cb88-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb88-6" data-line-number="6"><span class="co"># frequency of the intervals</span></a>
-<a class="sourceLine" id="cb88-7" data-line-number="7">h<span class="op">$</span>counts</a>
-<a class="sourceLine" id="cb88-8" data-line-number="8">## [1]  6 12  8  2  4</a>
-<a class="sourceLine" id="cb88-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb88-10" data-line-number="10"><span class="co"># frequency density</span></a>
-<a class="sourceLine" id="cb88-11" data-line-number="11">h<span class="op">$</span>density</a>
-<a class="sourceLine" id="cb88-12" data-line-number="12">## [1] 0.0375 0.0750 0.0500 0.0125 0.0250</a>
-<a class="sourceLine" id="cb88-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb88-14" data-line-number="14"><span class="co"># mid points of the intervals</span></a>
-<a class="sourceLine" id="cb88-15" data-line-number="15">h<span class="op">$</span>mids</a>
-<a class="sourceLine" id="cb88-16" data-line-number="16">## [1] 12.5 17.5 22.5 27.5 32.5</a>
-<a class="sourceLine" id="cb88-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb88-18" data-line-number="18"><span class="co"># varible name</span></a>
-<a class="sourceLine" id="cb88-19" data-line-number="19">h<span class="op">$</span>xname</a>
-<a class="sourceLine" id="cb88-20" data-line-number="20">## [1] &quot;mtcars$mpg&quot;</a>
-<a class="sourceLine" id="cb88-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb88-22" data-line-number="22"><span class="co"># whether intervals are of equal size</span></a>
-<a class="sourceLine" id="cb88-23" data-line-number="23">h<span class="op">$</span>equidist</a>
-<a class="sourceLine" id="cb88-24" data-line-number="24">## [1] TRUE</a></code></pre></div>
-</div>
-<div id="bins" class="section level2">
-<h2><span class="header-section-number">7.4</span> Bins</h2>
-<p>The <code>hist()</code> function creates equidistant intervals by default. We can specify the number of bins using the <code>breaks</code> argument.</p>
-<p><img src="data-visualization-with-base_files/figure-html/hist5-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>The below plot displays histograms with different number of bins:</p>
-<p><img src="data-visualization-with-base_files/figure-html/hist6-1.png" width="960" style="display: block; margin: auto;" /></p>
-</div>
-<div id="intervals" class="section level2">
-<h2><span class="header-section-number">7.5</span> Intervals</h2>
-<p>If we want to create histograms with specific intervals, the <code>breaks</code> argument can be supplied with the intervals.</p>
-<p><img src="data-visualization-with-base_files/figure-html/hist7-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>If you observe the Y axis, it does not represent frequency any more. Instead, it represents the frequency density. What is frequency density?</p>
-<div id="frequency-density" class="section level3">
-<h3><span class="header-section-number">7.5.1</span> Frequency Density</h3>
-<p>Frequency Density = Relative Frequency / Class Width</p>
-<p>Relative Frequency = Frequency / Total Observations</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">h &lt;-<span class="st"> </span><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg, <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">24</span>, <span class="dv">30</span>, <span class="dv">35</span>))</a></code></pre></div>
-<p><img src="data-visualization-with-base_files/figure-html/hist8-1.png" width="672" /></p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1">frequency &lt;-<span class="st"> </span>h<span class="op">$</span>counts</a>
-<a class="sourceLine" id="cb90-2" data-line-number="2">class_width &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb90-3" data-line-number="3">rel_freq &lt;-<span class="st"> </span>frequency <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(mtcars<span class="op">$</span>mpg)</a>
-<a class="sourceLine" id="cb90-4" data-line-number="4">freq_density &lt;-<span class="st"> </span>rel_freq <span class="op">/</span><span class="st"> </span>class_width</a>
-<a class="sourceLine" id="cb90-5" data-line-number="5">d &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">frequency =</span> frequency, <span class="dt">class_width =</span> class_width, <span class="dt">relative_frequency =</span> rel_freq, <span class="dt">frequency_density =</span> freq_density)</a>
-<a class="sourceLine" id="cb90-6" data-line-number="6">d</a></code></pre></div>
-<pre><code>##   frequency class_width relative_frequency frequency_density
-## 1        13           8            0.40625        0.05078125
-## 2        12           6            0.37500        0.06250000
-## 3         3           6            0.09375        0.01562500
-## 4         4           5            0.12500        0.02500000</code></pre>
-<p>When multiplied by the class width, the product will always sum upto 1.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="kw">sum</span>(d<span class="op">$</span>frequency_density <span class="op">*</span><span class="st"> </span>d<span class="op">$</span>class_width)</a></code></pre></div>
-<pre><code>## [1] 1</code></pre>
-<p>We will learn more about frequency density in a bit. Before we end this section, we need to learn about one more way to specify the intervals of the histogram, algorithms. The <code>hist()</code> function allows us to specify the following algorithms:</p>
-<ul>
-<li>Sturges (default)</li>
-<li>Scott</li>
-<li>Freedman-Diaconis (FD)</li>
-</ul>
-<p>In the below plot, we examine how th algorithms work:</p>
-<p><img src="data-visualization-with-base_files/figure-html/hist10-1.png" width="1440" style="display: block; margin: auto;" /></p>
-</div>
-</div>
-<div id="frequency-distribution-ii" class="section level2">
-<h2><span class="header-section-number">7.6</span> Frequency Distribution II</h2>
-<p>Let us come back to frequency density. If you want the Y axis of the histogram to represent frequency density instead of counts, set the <code>freq</code> argument to <code>FALSE</code>.</p>
-<p><img src="data-visualization-with-base_files/figure-html/hist11-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>The same result can be achieved by using the <code>probability</code> argument as well. It takes only logical values as inputs and the default is <code>FALSE</code>. If set to <code>TRUE</code>, the Y axis will represent the frequency density instead of counts.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1"><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg, <span class="dt">probability =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="data-visualization-with-base_files/figure-html/hist12-1.png" width="480" style="display: block; margin: auto;" /></p>
-</div>
-<div id="color-5" class="section level2">
-<h2><span class="header-section-number">7.7</span> Color</h2>
-<p>To add colors to the bars of the histogram, use the <code>col</code> argument. If the number of colors specified is less than the number of bars, the colors are recycled. Below are a few examples:</p>
-<div id="single-color-1" class="section level3">
-<h3><span class="header-section-number">7.7.1</span> Single Color</h3>
-<p><img src="data-visualization-with-base_files/figure-html/hist13-1.png" width="480" style="display: block; margin: auto;" /></p>
-</div>
-<div id="different-colors-1" class="section level3">
-<h3><span class="header-section-number">7.7.2</span> Different Colors</h3>
-<p><img src="data-visualization-with-base_files/figure-html/hist14-1.png" width="480" style="display: block; margin: auto;" /></p>
-</div>
-<div id="recycled-colors" class="section level3">
-<h3><span class="header-section-number">7.7.3</span> Recycled Colors</h3>
-<p><img src="data-visualization-with-base_files/figure-html/hist15-1.png" width="480" style="display: block; margin: auto;" /></p>
-</div>
-</div>
-<div id="border-color-1" class="section level2">
-<h2><span class="header-section-number">7.8</span> Border Color</h2>
-<p>Colors can be specified for the borders of the histogrambars using the <code>border</code> argument.</p>
-<p><img src="data-visualization-with-base_files/figure-html/hist20-1.png" width="480" style="display: block; margin: auto;" /></p>
-<div id="different-colors-2" class="section level3">
-<h3><span class="header-section-number">7.8.1</span> Different Colors</h3>
-<p><img src="data-visualization-with-base_files/figure-html/hist16-1.png" width="480" style="display: block; margin: auto;" /></p>
-</div>
-</div>
-<div id="labels-1" class="section level2">
-<h2><span class="header-section-number">7.9</span> Labels</h2>
-<p>In certain cases, we might want to add the frequency counts on the histogram bars. It is easier for the user to know the frequencies of each bin when they are present on top of the bars. Let us add the frequency counts on top of the bars using the <code>labels</code> argument. We can either set it to <code>TRUE</code> or a character vector containing the label values. Let us look at both the methods.</p>
-<div id="method-1" class="section level3">
-<h3><span class="header-section-number">7.9.1</span> Method 1</h3>
-<p>Set <code>labels</code> to <code>TRUE</code>.</p>
-<p><img src="data-visualization-with-base_files/figure-html/hist17-1.png" width="480" style="display: block; margin: auto;" /></p>
-</div>
-<div id="method-2" class="section level3">
-<h3><span class="header-section-number">7.9.2</span> Method 2</h3>
-<p>Specify the label values in a character vector.</p>
-<p><img src="data-visualization-with-base_files/figure-html/hist18-1.png" width="480" style="display: block; margin: auto;" /></p>
-</div>
-</div>
-<div id="putting-it-all-together.." class="section level2">
-<h2><span class="header-section-number">7.10</span> Putting it all together..</h2>
-<p>Let us add a title and axis labels to the histogram.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg, <span class="dt">labels =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb95-2" data-line-number="2">     <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>), <span class="dt">xlab =</span> <span class="st">&#39;Miles Per Gallon&#39;</span>,</a>
-<a class="sourceLine" id="cb95-3" data-line-number="3">     <span class="dt">main =</span> <span class="st">&#39;Distribution of Miles Per Gallon&#39;</span>,</a>
-<a class="sourceLine" id="cb95-4" data-line-number="4">     <span class="dt">col =</span> <span class="kw">rainbow</span>(<span class="dv">5</span>))</a></code></pre></div>
-<p><img src="data-visualization-with-base_files/figure-html/hist19-1.png" width="672" /></p>
+<p>In 2015, he founded <a href="https://www.rsquaredacademy.com">Rsquared Academy</a>, a
+free and open source education initiative with focus on data science and
+analytics. Apart from self paced online courses, Rsquared Academy offers
+customized learning modules for corporates and universities.</p>
+<p>You can find him on <a href="https://github.com/aravindhebbali">GitHub</a>.</p>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="box.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="legend.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="intro.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

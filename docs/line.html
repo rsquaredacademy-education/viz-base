@@ -25,6 +25,7 @@
 <meta name="author" content="Aravind Hebbali">
 
 
+<meta name="date" content="2019-02-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -130,7 +131,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="https://github.com/rsquaredacademy-education/viz-base/">Data Visualization with R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-information"><i class="fa fa-check"></i>Software information</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#what-is-data-visualization"><i class="fa fa-check"></i><b>1.2</b> What is data visualization?</a></li>
@@ -321,7 +325,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.6" data-path="facet.html"><a href="facet.html#putting-it-all-together-3"><i class="fa fa-check"></i><b>10.6</b> Putting it all together…</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -359,29 +362,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="basic-plot-1" class="section level2">
 <h2><span class="header-section-number">4.2</span> Basic Plot</h2>
 <p>To build a line graph, we will learn a new argument in the <code>plot()</code> function called <code>type</code>. It allows us to specify the symbol that must be used to represent the data. Let us begin by building a simple line graph. We will use the <code>AirPassengers</code> data set in this chapter. Before we begin to build the plot, let us take a quick look at the data in order to understand what we are plotting.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">head</span>(AirPassengers)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">head</span>(AirPassengers)</a></code></pre></div>
 <pre><code>## [1] 112 118 132 129 121 135</code></pre>
 <p>In order to build a line plot, we will set the <code>type</code> argument in the <code>plot()</code> function to <strong>l</strong> (line). There are other values which <code>type</code> takes but we will explore them later.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">head</span>(AirPassengers)</a>
-<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">head</span>(AirPassengers)</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/line1-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>If you do not like plain lines, you can represent the data using lines interspersed with points by setting the <code>type</code> argument to <strong>b</strong> (both lines and points).</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/line2-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Another option is to have the points and lines overplotted. It can be achieved by setting the <code>type</code> argument to <strong>o</strong> (overplotted).</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;o&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;o&#39;</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/line3-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>You can also create lines without points but with breaks instead by setting the <code>type</code> argument to <strong>c</strong>.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;c&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;c&#39;</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/line4-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="color-1" class="section level2">
 <h2><span class="header-section-number">4.3</span> Color</h2>
 <p>So now we know how to build a simple line graph. Let us now make this plot more elegant by modifying its appearance. Let us begin by adding some color to the line using the <code>col</code> argument in the <code>plot()</code> function.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/line5-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>If you have points along with the line, they will have the same color as well.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>, <span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>, <span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/line6-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="line-type" class="section level2">
@@ -395,7 +398,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>5:longdash</li>
 <li>6:twodash</li>
 </ul>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">lty =</span> <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">lty =</span> <span class="dv">3</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/line9-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Let us look at all the line types in the below example:</p>
 <p><img src="data-visualization-with-base_files/figure-html/lin7-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -405,7 +408,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="line-width" class="section level2">
 <h2><span class="header-section-number">4.5</span> Line Width</h2>
 <p>The width of the lines can be modified using the <code>lwd</code> argument in the <code>plot()</code> function. The default value for width is 1.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">lwd =</span> <span class="fl">2.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">lwd =</span> <span class="fl">2.5</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/line10-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>In the below example, we look at the width of the lines relative to the default value.</p>
 <p><img src="data-visualization-with-base_files/figure-html/lin11-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -413,7 +416,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="enhance-points" class="section level2">
 <h2><span class="header-section-number">4.6</span> Enhance Points</h2>
 <p>We can enhance the points in the line plot in the same way as we enhanced the points in the scatter plot in this previous chapter. Let us look at an example:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>, <span class="dt">pch =</span> <span class="dv">23</span>, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>, <span class="dt">pch =</span> <span class="dv">23</span>, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/line12-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>We have used the <code>pch</code>, <code>col</code> and <code>cex</code> arguments to modify the shape, color and size of the points. One drawback of the above method is that the color of the line and the points will be the same. What if we want them to have different colors? The solution is as follows:</p>
 <ul>
@@ -421,8 +424,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>add the points to the above plot using the <code>points()</code> function</li>
 </ul>
 <p>In the next example, let us first build the line plot, add points using the <code>points()</code> function and then specify separate colors to the line and the points.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>)</a>
-<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="kw">points</span>(data, <span class="dt">pch =</span> <span class="dv">23</span>, <span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>, <span class="dt">bg =</span> <span class="st">&#39;green&#39;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">plot</span>(data, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>)</a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">points</span>(data, <span class="dt">pch =</span> <span class="dv">23</span>, <span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>, <span class="dt">bg =</span> <span class="st">&#39;green&#39;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/line13-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="additional-lines" class="section level2">
@@ -430,23 +433,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If you want to compare variables, you would want to add additional lines to the line graph. In R, this can be achieved using the <code>lines()</code> function. First we create the line plot using the base variable and then we can add as many lines as we want using the <code>lines()</code> function.</p>
 <p><strong>Before you add additional lines, it is important to ensure that the range of both the axis are modified to accommodate the data of the additional lines. If we do not modify the axis range, some of the lines will be outside the plot.</strong></p>
 <p>Let us now create a line plot and add an additional line using the <code>lines()</code> function.We will use some dummy data for this example:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">data1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">7.2</span>, <span class="fl">7.6</span>, <span class="fl">6.8</span>, <span class="fl">6.5</span>, <span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb39-2" data-line-number="2">data2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">6.8</span>, <span class="fl">7.2</span>, <span class="fl">7.8</span>, <span class="dv">7</span>, <span class="fl">6.2</span>)</a>
-<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="kw">plot</span>(data1, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</a>
-<a class="sourceLine" id="cb39-4" data-line-number="4"><span class="kw">lines</span>(data2, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">data1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">7.2</span>, <span class="fl">7.6</span>, <span class="fl">6.8</span>, <span class="fl">6.5</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2">data2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">6.8</span>, <span class="fl">7.2</span>, <span class="fl">7.8</span>, <span class="dv">7</span>, <span class="fl">6.2</span>)</a>
+<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="kw">plot</span>(data1, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="kw">lines</span>(data2, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/line14-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>As you can see the second line is outside the plot. Let us recreate the plot but this time we will modify the range of the axis to accommodate the second line (data2).</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">plot</span>(data1, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">9</span>))</a>
-<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">lines</span>(data2, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">plot</span>(data1, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">9</span>))</a>
+<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="kw">lines</span>(data2, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/line15-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="putting-it-all-together" class="section level2">
 <h2><span class="header-section-number">4.8</span> Putting it all together…</h2>
 <p>Finally let us enhance the plot by adding a title and modifying the axis labels.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">plot</span>(data1, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, </a>
-<a class="sourceLine" id="cb41-2" data-line-number="2">     <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">9</span>), <span class="dt">main =</span> <span class="st">&#39;Line Graph&#39;</span>,</a>
-<a class="sourceLine" id="cb41-3" data-line-number="3">     <span class="dt">xlab =</span> <span class="st">&#39;Index&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Data&#39;</span>)</a>
-<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="kw">lines</span>(data2, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">plot</span>(data1, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, </a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">     <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">9</span>), <span class="dt">main =</span> <span class="st">&#39;Line Graph&#39;</span>,</a>
+<a class="sourceLine" id="cb43-3" data-line-number="3">     <span class="dt">xlab =</span> <span class="st">&#39;Index&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Data&#39;</span>)</a>
+<a class="sourceLine" id="cb43-4" data-line-number="4"><span class="kw">lines</span>(data2, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/line16-1.png" width="480" style="display: block; margin: auto;" /></p>
 
 </div>

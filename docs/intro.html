@@ -25,13 +25,14 @@
 <meta name="author" content="Aravind Hebbali">
 
 
+<meta name="date" content="2019-02-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="index.html">
+<link rel="prev" href="about-the-author.html">
 <link rel="next" href="titlelabels.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -130,7 +131,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="https://github.com/rsquaredacademy-education/viz-base/">Data Visualization with R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-information"><i class="fa fa-check"></i>Software information</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#what-is-data-visualization"><i class="fa fa-check"></i><b>1.2</b> What is data visualization?</a></li>
@@ -321,7 +325,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.6" data-path="facet.html"><a href="facet.html#putting-it-all-together-3"><i class="fa fa-check"></i><b>10.6</b> Putting it all together…</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -401,11 +404,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="getting-help" class="section level2">
 <h2><span class="header-section-number">1.5</span> Getting Help</h2>
 <p>Use the <code>help()</code> to learn more about <code>plot()</code> function and <code>mtcars</code> data set.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">help</span>(plot)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">help</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">help</span>(plot)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">help</span>(mtcars)</a></code></pre></div>
 <div id="mtcars" class="section level3">
 <h3><span class="header-section-number">1.5.1</span> mtcars</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">head</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">head</span>(mtcars)</a></code></pre></div>
 <pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 ## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
@@ -416,7 +419,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="variable-info" class="section level3">
 <h3><span class="header-section-number">1.5.2</span> Variable Info</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">str</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">str</span>(mtcars)</a></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    32 obs. of  11 variables:
 ##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
 ##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
@@ -444,32 +447,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="one-continuous-variable" class="section level3">
 <h3><span class="header-section-number">1.6.1</span> One continuous variable</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>mpg)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/plot1-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="one-categorical-variable" class="section level3">
 <h3><span class="header-section-number">1.6.2</span> One categorical variable</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl))</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl))</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/plot2-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="two-continuous-variables" class="section level3">
 <h3><span class="header-section-number">1.6.3</span> Two continuous variables</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/plot3-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="two-categorical-variables" class="section level3">
 <h3><span class="header-section-number">1.6.4</span> Two categorical variables</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>am), <span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl))</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>am), <span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl))</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/plot4-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="continuouscategorical-variable" class="section level3">
 <h3><span class="header-section-number">1.6.5</span> Continuous/Categorical variable</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>mpg, mtcars<span class="op">$</span>cyl)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>mpg, mtcars<span class="op">$</span>cyl)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/plot5-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="categoricalcontinuous-variable" class="section level3">
 <h3><span class="header-section-number">1.6.6</span> Categorical/Continuous variable</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl), mtcars<span class="op">$</span>mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl), mtcars<span class="op">$</span>mpg)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/plot6-1.png" width="480" style="display: block; margin: auto;" /></p>
 
 </div>
@@ -480,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="about-the-author.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="titlelabels.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

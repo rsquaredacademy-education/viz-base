@@ -25,6 +25,7 @@
 <meta name="author" content="Aravind Hebbali">
 
 
+<meta name="date" content="2019-02-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -130,7 +131,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="https://github.com/rsquaredacademy-education/viz-base/">Data Visualization with R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-information"><i class="fa fa-check"></i>Software information</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#what-is-data-visualization"><i class="fa fa-check"></i><b>1.2</b> What is data visualization?</a></li>
@@ -321,7 +325,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.6" data-path="facet.html"><a href="facet.html#putting-it-all-together-3"><i class="fa fa-check"></i><b>10.6</b> Putting it all together…</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -404,54 +407,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="title" class="section level2">
 <h2><span class="header-section-number">2.3</span> Title</h2>
 <p>You can add a title to the plot using the <code>main</code> argument in the <code>plot()</code> function. Ensure that the title is enclosed in single/double quotes as it is a string. Let us create a scatter plot of <code>disp</code> and <code>mpg</code> from <code>mtcars</code> data set, and add a title to it.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, </a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">     <span class="dt">main =</span> <span class="st">&#39;Displacement vs Miles Per Gallon&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, </a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">     <span class="dt">main =</span> <span class="st">&#39;Displacement vs Miles Per Gallon&#39;</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/title-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="subtitle" class="section level2">
 <h2><span class="header-section-number">2.4</span> Subtitle</h2>
 <p>You can add a subtitle to the plot using the <code>sub</code> argument in the <code>plot()</code> function. The subtitle will appear below the X axis label. Ensure that the subtitle is enclosed in single/double quotes as it is a string. Let us add a subtitle to the plot we created in the previous example:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, </a>
-<a class="sourceLine" id="cb13-2" data-line-number="2">     <span class="dt">main =</span> <span class="st">&#39;Displacement vs Miles Per Gallon&#39;</span>,</a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">     <span class="dt">sub =</span> <span class="st">&#39;Mileage is inversely related to Displacement&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, </a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">     <span class="dt">main =</span> <span class="st">&#39;Displacement vs Miles Per Gallon&#39;</span>,</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3">     <span class="dt">sub =</span> <span class="st">&#39;Mileage is inversely related to Displacement&#39;</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/subtitle-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="axis-labels" class="section level2">
 <h2><span class="header-section-number">2.5</span> Axis Labels</h2>
 <p>In the plots created in the previous examples, the axis labels appear as <code>mtcars$mpg</code> and <code>mtcars$disp</code>. It is not the best way to name the axis and it will make more sense to use names that describe the data. Let us modify the axis labels using the <code>xlab</code> and <code>ylab</code> arguments in the <code>plot()</code> function:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, </a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">     <span class="dt">main =</span> <span class="st">&#39;Displacement vs Miles Per Gallon&#39;</span>,</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3">     <span class="dt">sub =</span> <span class="st">&#39;Mileage is inversely related to Displacement&#39;</span>,</a>
-<a class="sourceLine" id="cb14-4" data-line-number="4">     <span class="dt">xlab =</span> <span class="st">&#39;Displacement&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Miles Per Gallon&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, </a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">     <span class="dt">main =</span> <span class="st">&#39;Displacement vs Miles Per Gallon&#39;</span>,</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">     <span class="dt">sub =</span> <span class="st">&#39;Mileage is inversely related to Displacement&#39;</span>,</a>
+<a class="sourceLine" id="cb16-4" data-line-number="4">     <span class="dt">xlab =</span> <span class="st">&#39;Displacement&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Miles Per Gallon&#39;</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/axis-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="title-1" class="section level2">
 <h2><span class="header-section-number">2.6</span> title()</h2>
 <p>We can add title, subtitle and axis labels using the <code>title()</code> function as well. Let us recreate the plots from the previous examples but this time we will use the <code>title()</code> instead of the <code>plot()</code> function. We will continue to use the <code>plot()</code> function to create the plot.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># create scatter plot</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg) </a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co"># add title, subtitle and axis labels</span></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="kw">title</span>(<span class="dt">main =</span> <span class="st">&#39;Displacement vs Miles Per Gallon&#39;</span>,</a>
-<a class="sourceLine" id="cb15-6" data-line-number="6">      <span class="dt">sub =</span> <span class="st">&#39;Mileage is inversely related to Displacement&#39;</span>,</a>
-<a class="sourceLine" id="cb15-7" data-line-number="7">      <span class="dt">xlab =</span> <span class="st">&#39;Displacement&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Miles Per Gallon&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="co"># create scatter plot</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg) </a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co"># add title, subtitle and axis labels</span></a>
+<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="kw">title</span>(<span class="dt">main =</span> <span class="st">&#39;Displacement vs Miles Per Gallon&#39;</span>,</a>
+<a class="sourceLine" id="cb17-6" data-line-number="6">      <span class="dt">sub =</span> <span class="st">&#39;Mileage is inversely related to Displacement&#39;</span>,</a>
+<a class="sourceLine" id="cb17-7" data-line-number="7">      <span class="dt">xlab =</span> <span class="st">&#39;Displacement&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Miles Per Gallon&#39;</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/title1-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Do you notice that the axis labels are overwritten? This happens because the <code>plot()</code> function adds the default labels and we add a new set of labels without modifying the existing ones. The solution is to instruct the <code>plot()</code> function not to add any labels to the X and Y axis. This can be achieved using the <code>ann</code> (annotate) argument in the <code>plot()</code> function and set it to <code>FALSE</code>. Let us try it:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># create scatter plot</span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">ann =</span> <span class="ot">FALSE</span>) </a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co"># add title, subtitle and axis labels</span></a>
-<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="kw">title</span>(<span class="dt">main =</span> <span class="st">&#39;Displacement vs Miles Per Gallon&#39;</span>,</a>
-<a class="sourceLine" id="cb16-6" data-line-number="6">      <span class="dt">sub =</span> <span class="st">&#39;Mileage is inversely related to Displacement&#39;</span>,</a>
-<a class="sourceLine" id="cb16-7" data-line-number="7">      <span class="dt">xlab =</span> <span class="st">&#39;Displacement&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Miles Per Gallon&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co"># create scatter plot</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">ann =</span> <span class="ot">FALSE</span>) </a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="co"># add title, subtitle and axis labels</span></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="kw">title</span>(<span class="dt">main =</span> <span class="st">&#39;Displacement vs Miles Per Gallon&#39;</span>,</a>
+<a class="sourceLine" id="cb18-6" data-line-number="6">      <span class="dt">sub =</span> <span class="st">&#39;Mileage is inversely related to Displacement&#39;</span>,</a>
+<a class="sourceLine" id="cb18-7" data-line-number="7">      <span class="dt">xlab =</span> <span class="st">&#39;Displacement&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Miles Per Gallon&#39;</span>)</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/title2-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The axis labels are legible and not overwritten. You can use either the <code>plot()</code> function or the <code>title()</code> function to add title, subtitle and axis labels but ensure that in case you use the <code>title()</code> function, set <code>ann</code> argument to <code>FALSE</code> in the <code>plot()</code> function.</p>
 </div>
 <div id="axis-range" class="section level2">
 <h2><span class="header-section-number">2.7</span> Axis Range</h2>
 <p>In certain cases, you would want to modify the range of the axis of the plots. By default, the <code>plot()</code> function will take into account the <code>min</code> and <code>max</code> values of the variable(s) and set the range for the axis. We can modify the range by using the <code>xlim</code> and <code>ylim</code> arguments in the <code>plot()</code> function. Both the <code>xlim</code> and <code>ylim</code> arguments take 2 values as inputes. The first value is the minimum value for the axis and the second value is the maximum value for the axis. The <code>plot()</code> function will return an error if we do not specify two values for both <code>xlim</code> and <code>ylim</code> arguments. Let us recreate the plot from the previous examples but change the range of both the X and Y axis:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, </a>
-<a class="sourceLine" id="cb17-2" data-line-number="2">     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">600</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">50</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, </a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">600</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">50</span>))</a></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/axisrange-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Keep in mind that the axis ranges cannot be modified using the <code>title()</code> function.</p>
 
