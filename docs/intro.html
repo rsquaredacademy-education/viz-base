@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data Visualization with R</title>
-  <meta name="description" content="Learn to visualize data with base R.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Introduction | Data Visualization with R</title>
+  <meta name="description" content="Learn to visualize data with base R." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Data Visualization with R" />
+  <meta property="og:title" content="Chapter 1 Introduction | Data Visualization with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,29 +16,31 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data Visualization with R" />
+  <meta name="twitter:title" content="Chapter 1 Introduction | Data Visualization with R" />
   
   <meta name="twitter:description" content="Learn to visualize data with base R." />
   
 
-<meta name="author" content="Aravind Hebbali">
+<meta name="author" content="Aravind Hebbali" />
 
 
-<meta name="date" content="2019-02-13">
+<meta name="date" content="2020-06-20" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="about-the-author.html">
-<link rel="next" href="titlelabels.html">
+<link rel="prev" href="about-the-author.html"/>
+<link rel="next" href="titlelabels.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -47,31 +48,41 @@
 
 
 
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-57270671-37"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-57270671-37');
+</script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +91,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -365,7 +376,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">1.2</span> What is data visualization?</h2>
 <p>In simple words, data visualization is the representation of data in graphical format.</p>
 <div class="figure">
-<img src="data-viz.png" alt="data-viz" />
+<img src="data-viz.png" alt="" />
 <p class="caption">data-viz</p>
 </div>
 </div>
@@ -404,11 +415,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="getting-help" class="section level2">
 <h2><span class="header-section-number">1.5</span> Getting Help</h2>
 <p>Use the <code>help()</code> to learn more about <code>plot()</code> function and <code>mtcars</code> data set.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">help</span>(plot)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">help</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1"></a><span class="kw">help</span>(plot)</span>
+<span id="cb3-2"><a href="intro.html#cb3-2"></a><span class="kw">help</span>(mtcars)</span></code></pre></div>
 <div id="mtcars" class="section level3">
 <h3><span class="header-section-number">1.5.1</span> mtcars</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">head</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1"></a><span class="kw">head</span>(mtcars)</span></code></pre></div>
 <pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 ## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
@@ -419,7 +430,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="variable-info" class="section level3">
 <h3><span class="header-section-number">1.5.2</span> Variable Info</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">str</span>(mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro.html#cb6-1"></a><span class="kw">str</span>(mtcars)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    32 obs. of  11 variables:
 ##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
 ##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
@@ -447,32 +458,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="one-continuous-variable" class="section level3">
 <h3><span class="header-section-number">1.6.1</span> One continuous variable</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="intro.html#cb8-1"></a><span class="kw">plot</span>(mtcars<span class="op">$</span>mpg)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/plot1-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="one-categorical-variable" class="section level3">
 <h3><span class="header-section-number">1.6.2</span> One categorical variable</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl))</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="intro.html#cb9-1"></a><span class="kw">plot</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/plot2-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="two-continuous-variables" class="section level3">
 <h3><span class="header-section-number">1.6.3</span> Two continuous variables</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="intro.html#cb10-1"></a><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/plot3-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="two-categorical-variables" class="section level3">
 <h3><span class="header-section-number">1.6.4</span> Two categorical variables</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>am), <span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl))</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="intro.html#cb11-1"></a><span class="kw">plot</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>am), <span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/plot4-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="continuouscategorical-variable" class="section level3">
 <h3><span class="header-section-number">1.6.5</span> Continuous/Categorical variable</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>mpg, mtcars<span class="op">$</span>cyl)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="intro.html#cb12-1"></a><span class="kw">plot</span>(mtcars<span class="op">$</span>mpg, mtcars<span class="op">$</span>cyl)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/plot5-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="categoricalcontinuous-variable" class="section level3">
 <h3><span class="header-section-number">1.6.6</span> Categorical/Continuous variable</h3>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl), mtcars<span class="op">$</span>mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="intro.html#cb13-1"></a><span class="kw">plot</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl), mtcars<span class="op">$</span>mpg)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/plot6-1.png" width="480" style="display: block; margin: auto;" /></p>
 
 </div>
@@ -489,11 +500,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -501,12 +514,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -514,6 +526,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },

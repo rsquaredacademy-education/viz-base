@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data Visualization with R</title>
-  <meta name="description" content="Learn to visualize data with base R.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Scatter Plots | Data Visualization with R</title>
+  <meta name="description" content="Learn to visualize data with base R." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Data Visualization with R" />
+  <meta property="og:title" content="Chapter 3 Scatter Plots | Data Visualization with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,29 +16,31 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data Visualization with R" />
+  <meta name="twitter:title" content="Chapter 3 Scatter Plots | Data Visualization with R" />
   
   <meta name="twitter:description" content="Learn to visualize data with base R." />
   
 
-<meta name="author" content="Aravind Hebbali">
+<meta name="author" content="Aravind Hebbali" />
 
 
-<meta name="date" content="2019-02-13">
+<meta name="date" content="2020-06-20" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="titlelabels.html">
-<link rel="next" href="line.html">
+<link rel="prev" href="titlelabels.html"/>
+<link rel="next" href="line.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -47,31 +48,41 @@
 
 
 
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-57270671-37"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-57270671-37');
+</script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +91,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -358,36 +369,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="basic-plot" class="section level2">
 <h2><span class="header-section-number">3.2</span> Basic Plot</h2>
 <p>Let us recreate the plot that we had created in the first post by using the <code>mtcars</code> data set. We will use the <code>disp</code> (displacement) and <code>mpg</code> (miles per gallon) variables. <code>disp</code> will be on the X axis and <code>mpg</code> will be on the Y axis.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="scatter.html#cb20-1"></a><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/scatter1-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>We have created a very basic plot and any one looking at it for the first time will get confused with the axis labels <code>mtcars$disp</code> and <code>mtcars$mpg</code>. Let us put into practice what we learnt in the second post, and add a title to the plot, and make the axis labels more meaningful.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg,</a>
-<a class="sourceLine" id="cb21-2" data-line-number="2">     <span class="dt">main =</span> <span class="st">&#39;Displacement vs Miles Per Gallon&#39;</span>,</a>
-<a class="sourceLine" id="cb21-3" data-line-number="3">     <span class="dt">xlab =</span> <span class="st">&#39;Displacement&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Miles Per Gallon&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="scatter.html#cb21-1"></a><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg,</span>
+<span id="cb21-2"><a href="scatter.html#cb21-2"></a>     <span class="dt">main =</span> <span class="st">&#39;Displacement vs Miles Per Gallon&#39;</span>,</span>
+<span id="cb21-3"><a href="scatter.html#cb21-3"></a>     <span class="dt">xlab =</span> <span class="st">&#39;Displacement&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Miles Per Gallon&#39;</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/scatter2-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Now the plot clearly communicates that it represents the relationship between the displacement and mileage of cars. Now the color of the points in the plot is black by default. Some of us may agree that black is beautiful but not all of us will like it. As a first step in enhancing the way our plot looks, let us change the shape of the points.</p>
 </div>
 <div id="shape" class="section level2">
 <h2><span class="header-section-number">3.3</span> Shape</h2>
 <p>The shape of the point can be specified using the <code>pch</code> argument. It will take values between <strong>0</strong> and <strong>25</strong>. Below is an example:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co"># point shape</span></a>
-<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">pch =</span> <span class="dv">6</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="scatter.html#cb22-1"></a><span class="co"># point shape</span></span>
+<span id="cb22-2"><a href="scatter.html#cb22-2"></a><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">pch =</span> <span class="dv">6</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/scatter-shape-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Let us check out a few of the other shapes:</p>
 <p><img src="data-visualization-with-base_files/figure-html/scatter-pch-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>We can specify the shape based on a third (categorical variable as well). In the below plot, the shape is based on the levels of the categorical variable <code>cyl</code> (number of cylinders) from the <code>mtcars</code> data set:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co"># shape  based on number of levels of a third variable</span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">pch =</span> <span class="kw">nlevels</span>(<span class="kw">factor</span>(mtcars<span class="op">$</span>cyl)))</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="scatter.html#cb23-1"></a><span class="co"># shape  based on number of levels of a third variable</span></span>
+<span id="cb23-2"><a href="scatter.html#cb23-2"></a><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">pch =</span> <span class="kw">nlevels</span>(<span class="kw">factor</span>(mtcars<span class="op">$</span>cyl)))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/scatter-pch2-1.png" width="480" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co"># shape based on a third categorical variable</span></a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">pch =</span> <span class="kw">unclass</span>(mtcars<span class="op">$</span>cyl))</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="scatter.html#cb24-1"></a><span class="co"># shape based on a third categorical variable</span></span>
+<span id="cb24-2"><a href="scatter.html#cb24-2"></a><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">pch =</span> <span class="kw">unclass</span>(mtcars<span class="op">$</span>cyl))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/scatter-pch3-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="size" class="section level2">
 <h2><span class="header-section-number">3.4</span> Size</h2>
 <p>The size of the points in the scatter plot can be specified using the <code>cex</code> argument in the <code>plot()</code> function. The default value for <code>cex</code> is 1.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co"># point size</span></a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="scatter.html#cb25-1"></a><span class="co"># point size</span></span>
+<span id="cb25-2"><a href="scatter.html#cb25-2"></a><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/scatter-size-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The below plots show the size of the points for values relative to 1.</p>
 <p><img src="data-visualization-with-base_files/figure-html/scatter-cex-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -395,16 +406,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="color" class="section level2">
 <h2><span class="header-section-number">3.5</span> Color</h2>
 <p>We can specify a border color for the points using the <code>col</code> argument and a background color using the <code>bg</code> argument. The background color can be specified only for points whose <code>pch</code> argument takes values between <strong>21</strong> and <strong>25</strong>. Let us look at some examples to understand this distinction between border and background color.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># shape between 0 and 21</span></a>
-<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">pch =</span> <span class="dv">5</span>, <span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>, <span class="dt">bg =</span> <span class="st">&#39;red&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="scatter.html#cb26-1"></a><span class="co"># shape between 0 and 21</span></span>
+<span id="cb26-2"><a href="scatter.html#cb26-2"></a><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">pch =</span> <span class="dv">5</span>, <span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>, <span class="dt">bg =</span> <span class="st">&#39;red&#39;</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/col1-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>You can observe that although we have specified a background color using the <code>bg</code> argument, we do not see the red background color as the value specified for the <code>pch</code> (shape) argument is not between 21 and 25. In the next example, we will use a value between 21 and 25 so that the <code>pch</code> argument is effective.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># shape between 22 and 25</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">pch =</span> <span class="dv">24</span>, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">bg =</span> <span class="st">&#39;blue&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="scatter.html#cb27-1"></a><span class="co"># shape between 22 and 25</span></span>
+<span id="cb27-2"><a href="scatter.html#cb27-2"></a><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">pch =</span> <span class="dv">24</span>, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">bg =</span> <span class="st">&#39;blue&#39;</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/col2-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The color of the points can be specified using (levels) of a categorical variable as well. In the next example, we will use the <code>cyl</code> variable to specify the color of the points.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="co"># color based on a third variable</span></a>
-<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">pch =</span> <span class="dv">5</span>, <span class="dt">col =</span> <span class="kw">factor</span>(mtcars<span class="op">$</span>cyl))</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="scatter.html#cb28-1"></a><span class="co"># color based on a third variable</span></span>
+<span id="cb28-2"><a href="scatter.html#cb28-2"></a><span class="kw">plot</span>(mtcars<span class="op">$</span>disp, mtcars<span class="op">$</span>mpg, <span class="dt">pch =</span> <span class="dv">5</span>, <span class="dt">col =</span> <span class="kw">factor</span>(mtcars<span class="op">$</span>cyl))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/col3-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Since <code>cyl</code> is a categorical variable with 3 levels, we can see that the points now have 3 different colors. The above method is useful when you want to segregate the points in a scatter plot based on a third variable.</p>
 
@@ -421,11 +432,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -433,12 +446,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -446,6 +458,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },

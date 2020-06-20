@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Data Visualization with R</title>
-  <meta name="description" content="Learn to visualize data with base R.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Histograms | Data Visualization with R</title>
+  <meta name="description" content="Learn to visualize data with base R." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Data Visualization with R" />
+  <meta property="og:title" content="Chapter 7 Histograms | Data Visualization with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,29 +16,31 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Data Visualization with R" />
+  <meta name="twitter:title" content="Chapter 7 Histograms | Data Visualization with R" />
   
   <meta name="twitter:description" content="Learn to visualize data with base R." />
   
 
-<meta name="author" content="Aravind Hebbali">
+<meta name="author" content="Aravind Hebbali" />
 
 
-<meta name="date" content="2019-02-13">
+<meta name="date" content="2020-06-20" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="box.html">
-<link rel="next" href="legend.html">
+<link rel="prev" href="box.html"/>
+<link rel="next" href="legend.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -47,31 +48,41 @@
 
 
 
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-57270671-37"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-57270671-37');
+</script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +91,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -383,33 +394,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Histograms are created using the <code>hist()</code> function in R. The minimum input required to create a bare bones histogram is a continuous variable. Below is an example:</p>
 <p><img src="data-visualization-with-base_files/figure-html/hist3-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The <code>hist()</code> functions returns details of the histogram which can be accessed by assigning the histogram to a variable. Let us assign the above histogram to a variable <code>h</code> and use the <code>$</code> symbol to access the details stored in the variable.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="co"># store the results of hist function</span></a>
-<a class="sourceLine" id="cb87-2" data-line-number="2">h &lt;-<span class="st"> </span><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="hist.html#cb87-1"></a><span class="co"># store the results of hist function</span></span>
+<span id="cb87-2"><a href="hist.html#cb87-2"></a>h &lt;-<span class="st"> </span><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/hist4-1.png" width="672" /></p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb88-2" data-line-number="2"><span class="co"># display number of breaks</span></a>
-<a class="sourceLine" id="cb88-3" data-line-number="3">h<span class="op">$</span>breaks</a>
-<a class="sourceLine" id="cb88-4" data-line-number="4">## [1] 10 15 20 25 30 35</a>
-<a class="sourceLine" id="cb88-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb88-6" data-line-number="6"><span class="co"># frequency of the intervals</span></a>
-<a class="sourceLine" id="cb88-7" data-line-number="7">h<span class="op">$</span>counts</a>
-<a class="sourceLine" id="cb88-8" data-line-number="8">## [1]  6 12  8  2  4</a>
-<a class="sourceLine" id="cb88-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb88-10" data-line-number="10"><span class="co"># frequency density</span></a>
-<a class="sourceLine" id="cb88-11" data-line-number="11">h<span class="op">$</span>density</a>
-<a class="sourceLine" id="cb88-12" data-line-number="12">## [1] 0.0375 0.0750 0.0500 0.0125 0.0250</a>
-<a class="sourceLine" id="cb88-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb88-14" data-line-number="14"><span class="co"># mid points of the intervals</span></a>
-<a class="sourceLine" id="cb88-15" data-line-number="15">h<span class="op">$</span>mids</a>
-<a class="sourceLine" id="cb88-16" data-line-number="16">## [1] 12.5 17.5 22.5 27.5 32.5</a>
-<a class="sourceLine" id="cb88-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb88-18" data-line-number="18"><span class="co"># varible name</span></a>
-<a class="sourceLine" id="cb88-19" data-line-number="19">h<span class="op">$</span>xname</a>
-<a class="sourceLine" id="cb88-20" data-line-number="20">## [1] &quot;mtcars$mpg&quot;</a>
-<a class="sourceLine" id="cb88-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb88-22" data-line-number="22"><span class="co"># whether intervals are of equal size</span></a>
-<a class="sourceLine" id="cb88-23" data-line-number="23">h<span class="op">$</span>equidist</a>
-<a class="sourceLine" id="cb88-24" data-line-number="24">## [1] TRUE</a></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="hist.html#cb88-1"></a></span>
+<span id="cb88-2"><a href="hist.html#cb88-2"></a><span class="co"># display number of breaks</span></span>
+<span id="cb88-3"><a href="hist.html#cb88-3"></a>h<span class="op">$</span>breaks</span>
+<span id="cb88-4"><a href="hist.html#cb88-4"></a><span class="co">## [1] 10 15 20 25 30 35</span></span>
+<span id="cb88-5"><a href="hist.html#cb88-5"></a></span>
+<span id="cb88-6"><a href="hist.html#cb88-6"></a><span class="co"># frequency of the intervals</span></span>
+<span id="cb88-7"><a href="hist.html#cb88-7"></a>h<span class="op">$</span>counts</span>
+<span id="cb88-8"><a href="hist.html#cb88-8"></a><span class="co">## [1]  6 12  8  2  4</span></span>
+<span id="cb88-9"><a href="hist.html#cb88-9"></a></span>
+<span id="cb88-10"><a href="hist.html#cb88-10"></a><span class="co"># frequency density</span></span>
+<span id="cb88-11"><a href="hist.html#cb88-11"></a>h<span class="op">$</span>density</span>
+<span id="cb88-12"><a href="hist.html#cb88-12"></a><span class="co">## [1] 0.0375 0.0750 0.0500 0.0125 0.0250</span></span>
+<span id="cb88-13"><a href="hist.html#cb88-13"></a></span>
+<span id="cb88-14"><a href="hist.html#cb88-14"></a><span class="co"># mid points of the intervals</span></span>
+<span id="cb88-15"><a href="hist.html#cb88-15"></a>h<span class="op">$</span>mids</span>
+<span id="cb88-16"><a href="hist.html#cb88-16"></a><span class="co">## [1] 12.5 17.5 22.5 27.5 32.5</span></span>
+<span id="cb88-17"><a href="hist.html#cb88-17"></a></span>
+<span id="cb88-18"><a href="hist.html#cb88-18"></a><span class="co"># varible name</span></span>
+<span id="cb88-19"><a href="hist.html#cb88-19"></a>h<span class="op">$</span>xname</span>
+<span id="cb88-20"><a href="hist.html#cb88-20"></a><span class="co">## [1] &quot;mtcars$mpg&quot;</span></span>
+<span id="cb88-21"><a href="hist.html#cb88-21"></a></span>
+<span id="cb88-22"><a href="hist.html#cb88-22"></a><span class="co"># whether intervals are of equal size</span></span>
+<span id="cb88-23"><a href="hist.html#cb88-23"></a>h<span class="op">$</span>equidist</span>
+<span id="cb88-24"><a href="hist.html#cb88-24"></a><span class="co">## [1] TRUE</span></span></code></pre></div>
 </div>
 <div id="bins" class="section level2">
 <h2><span class="header-section-number">7.4</span> Bins</h2>
@@ -427,21 +438,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.5.1</span> Frequency Density</h3>
 <p>Frequency Density = Relative Frequency / Class Width</p>
 <p>Relative Frequency = Frequency / Total Observations</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">h &lt;-<span class="st"> </span><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg, <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">24</span>, <span class="dv">30</span>, <span class="dv">35</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="hist.html#cb89-1"></a>h &lt;-<span class="st"> </span><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg, <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">24</span>, <span class="dv">30</span>, <span class="dv">35</span>))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/hist8-1.png" width="672" /></p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1">frequency &lt;-<span class="st"> </span>h<span class="op">$</span>counts</a>
-<a class="sourceLine" id="cb90-2" data-line-number="2">class_width &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb90-3" data-line-number="3">rel_freq &lt;-<span class="st"> </span>frequency <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(mtcars<span class="op">$</span>mpg)</a>
-<a class="sourceLine" id="cb90-4" data-line-number="4">freq_density &lt;-<span class="st"> </span>rel_freq <span class="op">/</span><span class="st"> </span>class_width</a>
-<a class="sourceLine" id="cb90-5" data-line-number="5">d &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">frequency =</span> frequency, <span class="dt">class_width =</span> class_width, <span class="dt">relative_frequency =</span> rel_freq, <span class="dt">frequency_density =</span> freq_density)</a>
-<a class="sourceLine" id="cb90-6" data-line-number="6">d</a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="hist.html#cb90-1"></a>frequency &lt;-<span class="st"> </span>h<span class="op">$</span>counts</span>
+<span id="cb90-2"><a href="hist.html#cb90-2"></a>class_width &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">5</span>)</span>
+<span id="cb90-3"><a href="hist.html#cb90-3"></a>rel_freq &lt;-<span class="st"> </span>frequency <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(mtcars<span class="op">$</span>mpg)</span>
+<span id="cb90-4"><a href="hist.html#cb90-4"></a>freq_density &lt;-<span class="st"> </span>rel_freq <span class="op">/</span><span class="st"> </span>class_width</span>
+<span id="cb90-5"><a href="hist.html#cb90-5"></a>d &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">frequency =</span> frequency, <span class="dt">class_width =</span> class_width, <span class="dt">relative_frequency =</span> rel_freq, <span class="dt">frequency_density =</span> freq_density)</span>
+<span id="cb90-6"><a href="hist.html#cb90-6"></a>d</span></code></pre></div>
 <pre><code>##   frequency class_width relative_frequency frequency_density
 ## 1        13           8            0.40625        0.05078125
 ## 2        12           6            0.37500        0.06250000
 ## 3         3           6            0.09375        0.01562500
 ## 4         4           5            0.12500        0.02500000</code></pre>
 <p>When multiplied by the class width, the product will always sum upto 1.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="kw">sum</span>(d<span class="op">$</span>frequency_density <span class="op">*</span><span class="st"> </span>d<span class="op">$</span>class_width)</a></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="hist.html#cb92-1"></a><span class="kw">sum</span>(d<span class="op">$</span>frequency_density <span class="op">*</span><span class="st"> </span>d<span class="op">$</span>class_width)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>We will learn more about frequency density in a bit. Before we end this section, we need to learn about one more way to specify the intervals of the histogram, algorithms. The <code>hist()</code> function allows us to specify the following algorithms:</p>
 <ul>
@@ -458,7 +469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let us come back to frequency density. If you want the Y axis of the histogram to represent frequency density instead of counts, set the <code>freq</code> argument to <code>FALSE</code>.</p>
 <p><img src="data-visualization-with-base_files/figure-html/hist11-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>The same result can be achieved by using the <code>probability</code> argument as well. It takes only logical values as inputs and the default is <code>FALSE</code>. If set to <code>TRUE</code>, the Y axis will represent the frequency density instead of counts.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1"><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg, <span class="dt">probability =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="hist.html#cb94-1"></a><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg, <span class="dt">probability =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/hist12-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="color-5" class="section level2">
@@ -503,10 +514,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="putting-it-all-together.." class="section level2">
 <h2><span class="header-section-number">7.10</span> Putting it all together..</h2>
 <p>Let us add a title and axis labels to the histogram.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg, <span class="dt">labels =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb95-2" data-line-number="2">     <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>), <span class="dt">xlab =</span> <span class="st">&#39;Miles Per Gallon&#39;</span>,</a>
-<a class="sourceLine" id="cb95-3" data-line-number="3">     <span class="dt">main =</span> <span class="st">&#39;Distribution of Miles Per Gallon&#39;</span>,</a>
-<a class="sourceLine" id="cb95-4" data-line-number="4">     <span class="dt">col =</span> <span class="kw">rainbow</span>(<span class="dv">5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="hist.html#cb95-1"></a><span class="kw">hist</span>(mtcars<span class="op">$</span>mpg, <span class="dt">labels =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb95-2"><a href="hist.html#cb95-2"></a>     <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>), <span class="dt">xlab =</span> <span class="st">&#39;Miles Per Gallon&#39;</span>,</span>
+<span id="cb95-3"><a href="hist.html#cb95-3"></a>     <span class="dt">main =</span> <span class="st">&#39;Distribution of Miles Per Gallon&#39;</span>,</span>
+<span id="cb95-4"><a href="hist.html#cb95-4"></a>     <span class="dt">col =</span> <span class="kw">rainbow</span>(<span class="dv">5</span>))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/hist19-1.png" width="672" /></p>
 
 </div>
@@ -522,11 +533,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -534,12 +547,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -547,6 +559,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
