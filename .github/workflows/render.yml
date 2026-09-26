@@ -29,6 +29,9 @@ jobs:
       - name: Render book (HTML + PDF + EPUB)
         run: quarto render
 
+      - name: Install static sitemap (Quarto reserves the path)
+        run: cp sitemap.xml docs/sitemap.xml
+
       - name: Verify legacy slugs
         run: |
           for f in index intro titlelabels scatter line bar box hist legend textann facet about-the-author; do
