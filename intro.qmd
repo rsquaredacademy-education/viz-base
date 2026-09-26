@@ -14,9 +14,7 @@ This is the first chapter of **Data Visualization With R**. The objective of the
 
 ## What is data visualization?
 
-In simple words, data visualization is the representation of data in graphical format. 
-
-![Introduction to R](img/intro-r.png)
+In simple words, data visualization is the representation of data in graphical format.
 
 ## Why visualize data?
 
