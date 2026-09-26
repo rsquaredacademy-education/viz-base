@@ -1,0 +1,47 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Data Visualization with R"
+  subtitle: "Base Graphics"
+  author: "Aravind Hebbali"
+  date: last-modified
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - titlelabels.qmd
+    - scatter.qmd
+    - line.qmd
+    - bar.qmd
+    - box.qmd
+    - hist.qmd
+    - legend.qmd
+    - textann.qmd
+    - facet.qmd
+    - about-the-author.qmd
+  downloads: [pdf, epub]
+
+execute:
+  freeze: auto
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    toc-depth: 3
+    code-tools: true
+    code-copy: true
+    code-overflow: wrap
+  pdf:
+    pdf-engine: typst
+    toc-depth: 3
+    code-overflow: wrap
+    # PNG figures: Typst < 0.12 cannot embed PDF images, and this also
+    # sidesteps external pdfcrop tooling entirely. 300 dpi stays print-crisp.
+    fig-format: png
+    fig-dpi: 300
+  epub:
+    toc-depth: 2
+    code-overflow: wrap

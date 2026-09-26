@@ -1,14 +1,11 @@
---- 
+---
 title: "Data Visualization with R"
+subtitle: "Base Graphics"
 author: "Aravind Hebbali"
-date: "`r Sys.Date()`"
-site: bookdown::bookdown_site
-documentclass: book
-link-citations: yes
 description: "Learn to visualize data with base R."
 ---
 
-# Preface {-}
+# Preface {.unnumbered}
 
 ```{r fig.align='center', echo=FALSE, out.width="60%"}
 knitr::include_graphics('img/viz-base.png')

@@ -1,4 +1,4 @@
-# About the Author {-}
+# About the Author {.unnumbered}
 
 [Aravind Hebbali](https://www.aravindhebbali.com) is the founder of 
 [Rsquared Academy](https://www.rsquaredacademy.com). He earned his Masters in 
