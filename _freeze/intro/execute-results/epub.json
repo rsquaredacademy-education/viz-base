@@ -1,0 +1,21 @@
+{
+  "hash": "1071ba053f48aaa1066467e9bca713f9",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Introduction {#intro}\n\n## Introduction\n\nThis is the first chapter of **Data Visualization With R**. The objective of the book is to provide a gentle introduction to working with base graphics in R. \n\n- what is data visualization\n- why visualize data\n- understand R graphics system\n    - graphics\n    - ggplot2\n    - lattice\n- build some simple plots\n\n## What is data visualization?\n\nIn simple words, data visualization is the representation of data in graphical format. \n\n![Introduction to R](img/intro-r.png)\n\n## Why visualize data?\n\n- Explore: Visualization helps in exploring and explaining patterns and trends\n- Detect: Patterns or anomalies in data can be detected by looking at graphs\n- Make sense: Possible to make sense of large amount of data efficiently and in time\n- Communicate: Easy to communicate and share the insights from data\n\n## R Graphics System\n\n- graphics \n- ggplot2\n- lattice\n\n### Graphics\n\n- It is part of base R and is the fundamental package for visualizing data.\n- It has a lot of good features and we can create all the basic plots using it.\n\n### ggplot2\n\n[ggplot2](https://ggplot2.tidyverse.org/index.html), created by [Hadley Wickham](https://hadley.nz/), is based on the Grammar of Graphics written by Leland Wilkinson. It has a structured approach to data visualization and builds upon the features available in the Graphics and Lattice packages.\n\n### Lattice\n\nThe [lattice](https://CRAN.R-project.org/package=lattice) package is inspired by Trellis Graphics and created by [Deepayan Sarkar](https://www.isid.ac.in/~deepayan/). It is a very powerful data visualization system with an emphasis on multivariate data.\n\n\n## Getting Help\n\nUse the `help()` to learn more about `plot()` function and `mtcars` data set.\n\n\n\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nhelp(plot)\nhelp(mtcars)\n```\n:::\n\n\n\n\n\n\n\n\n### mtcars \n\n```{webr-r}\nhead(mtcars)\n```\n\n### Variable Info\n\n```{webr-r}\nstr(mtcars)\n```\n\n## plot()\n\nNow that we have some idea about the data set, let us explore the `plot()` function. We will use the following different data inputs and observe the kind of plots that are generated:\n\n- Case 1: 1 continuous variable\n- Case 2: 1 categorical variable\n- Case 3: 2 continuous variables\n- Case 4: 2 categorical variables\n- Case 5: 1 continuous and 1 categorical variable\n- Case 6: 1 categorical and 1 continuous variable\n\n### One continuous variable\n\n```{webr-r}\nplot(mtcars$mpg)\n```\n\n### One categorical variable\n\n```{webr-r}\nplot(as.factor(mtcars$cyl))\n```\n\n### Two continuous variables\n\n```{webr-r}\nplot(mtcars$disp, mtcars$mpg)\n```\n\n### Two categorical variables\n\n```{webr-r}\nplot(as.factor(mtcars$am), as.factor(mtcars$cyl))\n```\n\n### Continuous/Categorical variable\n\n```{webr-r}\nplot(mtcars$mpg, as.factor(mtcars$cyl))\n```\n\n### Categorical/Continuous variable\n\n```{webr-r}\nplot(as.factor(mtcars$cyl), mtcars$mpg)\n```\n\n",
+    "supporting": [
+      "intro_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}

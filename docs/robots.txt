@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://viz-base.rsquaredacademy.com/sitemap.xml

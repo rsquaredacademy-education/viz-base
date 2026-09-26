@@ -1,0 +1,962 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Data Visualization with R",
+    "section": "",
+    "text": "Preface\nThis work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.\nThis book requires R 4.1 or later.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Visualization with R</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#software-information",
+    "href": "index.html#software-information",
+    "title": "Data Visualization with R",
+    "section": "Software information",
+    "text": "Software information\nThe R session information when compiling this book is shown below:\n\nsessionInfo()\n\nR version 4.5.2 (2025-10-31 ucrt)\nPlatform: x86_64-w64-mingw32/x64\nRunning under: Windows 10 x64 (build 19045)\n\nMatrix products: default\n  LAPACK version 3.12.1\n\nlocale:\n[1] LC_COLLATE=English_India.utf8  LC_CTYPE=English_India.utf8   \n[3] LC_MONETARY=English_India.utf8 LC_NUMERIC=C                  \n[5] LC_TIME=English_India.utf8    \n\ntime zone: Asia/Calcutta\ntzcode source: internal\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n [1] htmlwidgets_1.6.4 compiler_4.5.2    fastmap_1.2.0     cli_3.6.5        \n [5] tools_4.5.2       htmltools_0.5.9   yaml_2.3.12       rmarkdown_2.30   \n [9] knitr_1.50        jsonlite_2.0.0    xfun_0.61         digest_0.6.39    \n[13] rlang_1.2.0       evaluate_1.0.5   \n\n\nWe do not add prompts (&gt; and +) to R source code in this book, and we comment out the text output with two hashes ## by default, as you can see from the R session information above. This is for your convenience when you want to copy and run the code (the text output will be ignored since it is commented out). Package names are in bold text (e.g., rmarkdown), and function names are followed by parentheses (e.g., bookdown::render_book()). The double-colon operator :: means accessing an object from a package.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Visualization with R</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "2  Introduction",
+    "section": "",
+    "text": "2.1 Introduction\nThis is the first chapter of Data Visualization With R. The objective of the book is to provide a gentle introduction to working with base graphics in R.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html#introduction",
+    "href": "intro.html#introduction",
+    "title": "2  Introduction",
+    "section": "",
+    "text": "what is data visualization\nwhy visualize data\nunderstand R graphics system\n\ngraphics\nggplot2\nlattice\n\nbuild some simple plots",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html#what-is-data-visualization",
+    "href": "intro.html#what-is-data-visualization",
+    "title": "2  Introduction",
+    "section": "2.2 What is data visualization?",
+    "text": "2.2 What is data visualization?\nIn simple words, data visualization is the representation of data in graphical format.\n\n\n\nIntroduction to R",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html#why-visualize-data",
+    "href": "intro.html#why-visualize-data",
+    "title": "2  Introduction",
+    "section": "2.3 Why visualize data?",
+    "text": "2.3 Why visualize data?\n\nExplore: Visualization helps in exploring and explaining patterns and trends\nDetect: Patterns or anomalies in data can be detected by looking at graphs\nMake sense: Possible to make sense of large amount of data efficiently and in time\nCommunicate: Easy to communicate and share the insights from data",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html#r-graphics-system",
+    "href": "intro.html#r-graphics-system",
+    "title": "2  Introduction",
+    "section": "2.4 R Graphics System",
+    "text": "2.4 R Graphics System\n\ngraphics\nggplot2\nlattice\n\n\n2.4.1 Graphics\n\nIt is part of base R and is the fundamental package for visualizing data.\nIt has a lot of good features and we can create all the basic plots using it.\n\n\n\n2.4.2 ggplot2\nggplot2, created by Hadley Wickham, is based on the Grammar of Graphics written by Leland Wilkinson. It has a structured approach to data visualization and builds upon the features available in the Graphics and Lattice packages.\n\n\n2.4.3 Lattice\nThe lattice package is inspired by Trellis Graphics and created by Deepayan Sarkar. It is a very powerful data visualization system with an emphasis on multivariate data.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html#getting-help",
+    "href": "intro.html#getting-help",
+    "title": "2  Introduction",
+    "section": "2.5 Getting Help",
+    "text": "2.5 Getting Help\nUse the help() to learn more about plot() function and mtcars data set.\n\nhelp(plot)\nhelp(mtcars)\n\n\n2.5.1 mtcars\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n2.5.2 Variable Info\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html#plot",
+    "href": "intro.html#plot",
+    "title": "2  Introduction",
+    "section": "2.6 plot()",
+    "text": "2.6 plot()\nNow that we have some idea about the data set, let us explore the plot() function. We will use the following different data inputs and observe the kind of plots that are generated:\n\nCase 1: 1 continuous variable\nCase 2: 1 categorical variable\nCase 3: 2 continuous variables\nCase 4: 2 categorical variables\nCase 5: 1 continuous and 1 categorical variable\nCase 6: 1 categorical and 1 continuous variable\n\n\n2.6.1 One continuous variable\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n2.6.2 One categorical variable\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n2.6.3 Two continuous variables\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n2.6.4 Two categorical variables\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n2.6.5 Continuous/Categorical variable\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n2.6.6 Categorical/Continuous variable\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "titlelabels.html",
+    "href": "titlelabels.html",
+    "title": "3  Title & Axis Labels",
+    "section": "",
+    "text": "3.1 Introduction\nIn this chapter, we will learn how to add:\nto a plot and to modify:\nIn the previous chapter, we created plots which did not have any title or labels. Such plots are of no use to any one as they do not indicate what the X and Y axis represent or the primary information being communicated by the plot. The title and labels play an important part in making the plot holistic. There are two ways to add them to a plot:\nWe will explore both the above methods one by one, and you can choose the method most convenient to you. Let us begin with the plot() function:",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Title & Axis Labels</span>"
+    ]
+  },
+  {
+    "objectID": "titlelabels.html#introduction",
+    "href": "titlelabels.html#introduction",
+    "title": "3  Title & Axis Labels",
+    "section": "",
+    "text": "Title\nSubtitle\nAxis Labels\n\n\n\nthe range of an axis\n\n\n\nuse the relevant arguments within the plot() function\nuse the title() function",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Title & Axis Labels</span>"
+    ]
+  },
+  {
+    "objectID": "titlelabels.html#syntax",
+    "href": "titlelabels.html#syntax",
+    "title": "3  Title & Axis Labels",
+    "section": "3.2 Syntax",
+    "text": "3.2 Syntax\n\n\n\nFeature\nArgument\nValue\nExample\n\n\n\n\nTitle\nmain\nstring\n“Scatter Plot”\n\n\nSubtitle\nsub\nstring\n“Displacement vs Miles Per Gallon”\n\n\nX Axis Label\nxlab\nstring\n“Displacement”\n\n\nY Axis Label\nylab\nstring\n“Miles Per Gallon”",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Title & Axis Labels</span>"
+    ]
+  },
+  {
+    "objectID": "titlelabels.html#title",
+    "href": "titlelabels.html#title",
+    "title": "3  Title & Axis Labels",
+    "section": "3.3 Title",
+    "text": "3.3 Title\nYou can add a title to the plot using the main argument in the plot() function. Ensure that the title is enclosed in single/double quotes as it is a string. Let us create a scatter plot of disp and mpg from mtcars data set, and add a title to it.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Title & Axis Labels</span>"
+    ]
+  },
+  {
+    "objectID": "titlelabels.html#subtitle",
+    "href": "titlelabels.html#subtitle",
+    "title": "3  Title & Axis Labels",
+    "section": "3.4 Subtitle",
+    "text": "3.4 Subtitle\nYou can add a subtitle to the plot using the sub argument in the plot() function. The subtitle will appear below the X axis label. Ensure that the subtitle is enclosed in single/double quotes as it is a string. Let us add a subtitle to the plot we created in the previous example:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Title & Axis Labels</span>"
+    ]
+  },
+  {
+    "objectID": "titlelabels.html#axis-labels",
+    "href": "titlelabels.html#axis-labels",
+    "title": "3  Title & Axis Labels",
+    "section": "3.5 Axis Labels",
+    "text": "3.5 Axis Labels\nIn the plots created in the previous examples, the axis labels appear as mtcars$mpg and mtcars$disp. It is not the best way to name the axis and it will make more sense to use names that describe the data. Let us modify the axis labels using the xlab and ylab arguments in the plot() function:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Title & Axis Labels</span>"
+    ]
+  },
+  {
+    "objectID": "titlelabels.html#title-1",
+    "href": "titlelabels.html#title-1",
+    "title": "3  Title & Axis Labels",
+    "section": "3.6 title()",
+    "text": "3.6 title()\nWe can add title, subtitle and axis labels using the title() function as well. Let us recreate the plots from the previous examples but this time we will use the title() instead of the plot() function. We will continue to use the plot() function to create the plot.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nDo you notice that the axis labels are overwritten? This happens because the plot() function adds the default labels and we add a new set of labels without modifying the existing ones. The solution is to instruct the plot() function not to add any labels to the X and Y axis. This can be achieved using the ann (annotate) argument in the plot() function and set it to FALSE. Let us try it:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nThe axis labels are legible and not overwritten. You can use either the plot() function or the title() function to add title, subtitle and axis labels but ensure that in case you use the title() function, set ann argument to FALSE in the plot() function.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Title & Axis Labels</span>"
+    ]
+  },
+  {
+    "objectID": "titlelabels.html#axis-range",
+    "href": "titlelabels.html#axis-range",
+    "title": "3  Title & Axis Labels",
+    "section": "3.7 Axis Range",
+    "text": "3.7 Axis Range\nIn certain cases, you would want to modify the range of the axis of the plots. By default, the plot() function will take into account the min and max values of the variable(s) and set the range for the axis. We can modify the range by using the xlim and ylim arguments in the plot() function. Both the xlim and ylim arguments take 2 values as inputes. The first value is the minimum value for the axis and the second value is the maximum value for the axis. The plot() function will return an error if we do not specify two values for both xlim and ylim arguments. Let us recreate the plot from the previous examples but change the range of both the X and Y axis:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nKeep in mind that the axis ranges cannot be modified using the title() function.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Title & Axis Labels</span>"
+    ]
+  },
+  {
+    "objectID": "scatter.html",
+    "href": "scatter.html",
+    "title": "4  Scatter Plots",
+    "section": "",
+    "text": "4.1 Introduction\nIn this chapter, we will learn how to create scatter plots.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Scatter Plots</span>"
+    ]
+  },
+  {
+    "objectID": "scatter.html#introduction",
+    "href": "scatter.html#introduction",
+    "title": "4  Scatter Plots",
+    "section": "",
+    "text": "adding color to the points\nmodify shape of the points\nmodify size of the points",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Scatter Plots</span>"
+    ]
+  },
+  {
+    "objectID": "scatter.html#basic-plot",
+    "href": "scatter.html#basic-plot",
+    "title": "4  Scatter Plots",
+    "section": "4.2 Basic Plot",
+    "text": "4.2 Basic Plot\nLet us recreate the plot that we had created in Chapter 1 by using the mtcars data set. We will use the disp (displacement) and mpg (miles per gallon) variables. disp will be on the X axis and mpg will be on the Y axis.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nWe have created a very basic plot and any one looking at it for the first time will get confused with the axis labels mtcars$disp and mtcars$mpg. Let us put into practice what we learnt in Chapter 2, and add a title to the plot, and make the axis labels more meaningful.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nNow the plot clearly communicates that it represents the relationship between the displacement and mileage of cars. Now the color of the points in the plot is black by default. Some of us may agree that black is beautiful but not all of us will like it. As a first step in enhancing the way our plot looks, let us change the shape of the points.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Scatter Plots</span>"
+    ]
+  },
+  {
+    "objectID": "scatter.html#shape",
+    "href": "scatter.html#shape",
+    "title": "4  Scatter Plots",
+    "section": "4.3 Shape",
+    "text": "4.3 Shape\nThe shape of the point can be specified using the pch argument. It will take values between 0 and 25. Below is an example:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nLet us check out a few of the other shapes:\n\n\n\n\n\n\n\n\n\nWe can specify the shape based on a third (categorical variable as well). In the below plot, the shape is based on the levels of the categorical variable cyl (number of cylinders) from the mtcars data set. Note that nlevels(factor(mtcars$cyl)) returns a single value (3), so it would give every point the same shape — instead, map each observation to its own level with as.numeric(factor(...)):\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Scatter Plots</span>"
+    ]
+  },
+  {
+    "objectID": "scatter.html#size",
+    "href": "scatter.html#size",
+    "title": "4  Scatter Plots",
+    "section": "4.4 Size",
+    "text": "4.4 Size\nThe size of the points in the scatter plot can be specified using the cex argument in the plot() function. The default value for cex is 1.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nThe below plots show the size of the points for values relative to 1.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Scatter Plots</span>"
+    ]
+  },
+  {
+    "objectID": "scatter.html#color",
+    "href": "scatter.html#color",
+    "title": "4  Scatter Plots",
+    "section": "4.5 Color",
+    "text": "4.5 Color\nWe can specify a border color for the points using the col argument and a background color using the bg argument. The background color can be specified only for points whose pch argument takes values between 21 and 25. Let us look at some examples to understand this distinction between border and background color.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nYou can observe that although we have specified a background color using the bg argument, we do not see the red background color as the value specified for the pch (shape) argument is not between 21 and 25. In the next example, we will use a value between 21 and 25 so that the pch argument is effective.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nThe color of the points can be specified using (levels) of a categorical variable as well. In the next example, we will use the cyl variable to specify the color of the points.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nSince cyl is a categorical variable with 3 levels, we can see that the points now have 3 different colors. The above method is useful when you want to segregate the points in a scatter plot based on a third variable.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Scatter Plots</span>"
+    ]
+  },
+  {
+    "objectID": "line.html",
+    "href": "line.html",
+    "title": "5  Line Graphs",
+    "section": "",
+    "text": "5.1 Introduction\nIn this chapter, we will build line graphs. To be more specific we will learn to",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Line Graphs</span>"
+    ]
+  },
+  {
+    "objectID": "line.html#introduction",
+    "href": "line.html#introduction",
+    "title": "5  Line Graphs",
+    "section": "",
+    "text": "create line plots\nadd color to lines\nmodify line type/style\nmodify line width\nadd points to the lines\nmodify axis range\nadd additional lines to the plot",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Line Graphs</span>"
+    ]
+  },
+  {
+    "objectID": "line.html#basic-plot",
+    "href": "line.html#basic-plot",
+    "title": "5  Line Graphs",
+    "section": "5.2 Basic Plot",
+    "text": "5.2 Basic Plot\nTo build a line graph, we will learn a new argument in the plot() function called type. It allows us to specify the symbol that must be used to represent the data. Let us begin by building a simple line graph. We will use the AirPassengers data set in this chapter. Before we begin to build the plot, let us take a quick look at the data in order to understand what we are plotting.\n\nhead(AirPassengers)\n\n     Jan Feb Mar Apr May Jun\n1949 112 118 132 129 121 135\n\n\nIn order to build a line plot, we will set the type argument in the plot() function to l (line). There are other values which type takes but we will explore them later.\n\ndata &lt;- head(AirPassengers)\nplot(data, type = 'l')\n\n\n\n\n\n\n\n\nIf you do not like plain lines, you can represent the data using lines interspersed with points by setting the type argument to b (both lines and points).\n\nplot(data, type = 'b')\n\n\n\n\n\n\n\n\nAnother option is to have the points and lines overplotted. It can be achieved by setting the type argument to o (overplotted).\n\nplot(data, type = 'o')\n\n\n\n\n\n\n\n\nYou can also create lines without points but with breaks instead by setting the type argument to c.\n\nplot(data, type = 'c')",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Line Graphs</span>"
+    ]
+  },
+  {
+    "objectID": "line.html#color",
+    "href": "line.html#color",
+    "title": "5  Line Graphs",
+    "section": "5.3 Color",
+    "text": "5.3 Color\nSo now we know how to build a simple line graph. Let us now make this plot more elegant by modifying its appearance. Let us begin by adding some color to the line using the col argument in the plot() function.\n\nplot(data, type = 'l', col = 'blue')\n\n\n\n\n\n\n\n\nIf you have points along with the line, they will have the same color as well.\n\nplot(data, type = 'b', col = 'blue')",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Line Graphs</span>"
+    ]
+  },
+  {
+    "objectID": "line.html#line-type",
+    "href": "line.html#line-type",
+    "title": "5  Line Graphs",
+    "section": "5.4 Line Type",
+    "text": "5.4 Line Type\nThe line type can be modified using the lty argument. It takes values from 1 to 6 and the default value is 1. Below is an example:\n\n1:solid\n2:dashed\n3:dotted\n4:dotdash\n5:longdash\n6:twodash\n\n\nplot(data, type = 'l', lty = 3)\n\n\n\n\n\n\n\n\nLet us look at all the line types in the below example:\n\n\n\n\n\n\n\n\n\nInstead of specifying the numbers 1:6, you can use their description as well.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Line Graphs</span>"
+    ]
+  },
+  {
+    "objectID": "line.html#line-width",
+    "href": "line.html#line-width",
+    "title": "5  Line Graphs",
+    "section": "5.5 Line Width",
+    "text": "5.5 Line Width\nThe width of the lines can be modified using the lwd argument in the plot() function. The default value for width is 1.\n\nplot(data, type = 'l', lwd = 2.5)\n\n\n\n\n\n\n\n\nIn the below example, we look at the width of the lines relative to the default value.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Line Graphs</span>"
+    ]
+  },
+  {
+    "objectID": "line.html#enhance-points",
+    "href": "line.html#enhance-points",
+    "title": "5  Line Graphs",
+    "section": "5.6 Enhance Points",
+    "text": "5.6 Enhance Points\nWe can enhance the points in the line plot in the same way as we enhanced the points in the scatter plot in this previous chapter. Let us look at an example:\n\nplot(data, type = 'b', pch = 23, col = 'red', cex = 1.5)\n\n\n\n\n\n\n\n\nWe have used the pch, col and cex arguments to modify the shape, color and size of the points. One drawback of the above method is that the color of the line and the points will be the same. What if we want them to have different colors? The solution is as follows:\n\nbuild the line graph using the plot() function\nadd the points to the above plot using the points() function\n\nIn the next example, let us first build the line plot, add points using the points() function and then specify separate colors to the line and the points.\n\nplot(data, type = 'l', col = 'red')\npoints(data, pch = 23, col = 'blue', bg = 'green', cex = 1.5)",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Line Graphs</span>"
+    ]
+  },
+  {
+    "objectID": "line.html#additional-lines",
+    "href": "line.html#additional-lines",
+    "title": "5  Line Graphs",
+    "section": "5.7 Additional Lines",
+    "text": "5.7 Additional Lines\nIf you want to compare variables, you would want to add additional lines to the line graph. In R, this can be achieved using the lines() function. First we create the line plot using the base variable and then we can add as many lines as we want using the lines() function.\nBefore you add additional lines, it is important to ensure that the range of both the axis are modified to accommodate the data of the additional lines. If we do not modify the axis range, some of the lines will be outside the plot.\nLet us now create a line plot and add an additional line using the lines() function.We will use some dummy data for this example:\n\ndata1 &lt;- c(7.2, 7.6, 6.8, 6.5, 7)\ndata2 &lt;- c(6.8, 7.2, 7.8, 7, 6.2)\nplot(data1, type = \"b\", col = \"blue\")\nlines(data2, type = \"b\", col = \"red\")\n\n\n\n\n\n\n\n\nAs you can see the second line is outside the plot. Let us recreate the plot but this time we will modify the range of the axis to accommodate the second line (data2).\n\nplot(data1, type = \"b\", col = \"blue\", ylim = c(5, 9))\nlines(data2, type = \"b\", col = \"red\")",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Line Graphs</span>"
+    ]
+  },
+  {
+    "objectID": "line.html#putting-it-all-together",
+    "href": "line.html#putting-it-all-together",
+    "title": "5  Line Graphs",
+    "section": "5.8 Putting it all together…",
+    "text": "5.8 Putting it all together…\nFinally let us enhance the plot by adding a title and modifying the axis labels.\n\nplot(data1, type = \"b\", col = \"blue\", \n     ylim = c(5, 9), main = 'Line Graph',\n     xlab = 'Index', ylab = 'Data')\nlines(data2, type = \"b\", col = \"red\")",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Line Graphs</span>"
+    ]
+  },
+  {
+    "objectID": "bar.html",
+    "href": "bar.html",
+    "title": "6  Bar Plots",
+    "section": "",
+    "text": "6.1 Introduction\nIn this chapter, we will visualize categorical data using univariate and bivariate bar plots. More specifically, we will learn to:",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Bar Plots</span>"
+    ]
+  },
+  {
+    "objectID": "bar.html#introduction",
+    "href": "bar.html#introduction",
+    "title": "6  Bar Plots",
+    "section": "",
+    "text": "create\n\nsimple bar plot\nstacked bar plot\ngrouped bar plot\n\nmodify bar\n\ndirection\ncolor\nline color\nwidth\nlabels\n\nmodify axis range\nremove axes from the plot\nspecify the line type of the X axes\noffset the Y axes\nmodify legend",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Bar Plots</span>"
+    ]
+  },
+  {
+    "objectID": "bar.html#bar-plot",
+    "href": "bar.html#bar-plot",
+    "title": "6  Bar Plots",
+    "section": "6.2 Bar Plot",
+    "text": "6.2 Bar Plot\nA bar plot represents data in rectangular bars. The length of the bars are proportional to the values they represent. Bar plots can be either horizontal or vertical. The X axis of the plot represents the levels or the categories and the Y axis represents the frequency/count of the variable.\nA univariate bar plot represents a single categorical variable. The categories in the variable are represented on the X axis and their frequencies on the Y axis. In the below example, the cyl variable from the mtcars data set is visualized using a bar plot. The categories or levels are 4, 6 and 8 which represent the number of cylinders in the automobile and are represented on the X axis. The frequency for each type of cylinder is represented by the Y axis.\nIn R, bar plots can be created using either the plot() or barplot() function. The input to both the functions are different. In case of the plot() function, we can specify the variable but it must be converted to a factor variable. In case of the barplot() function, the input must be the count or frequency of the variable. The table() function can be used to generate the counts/frequency for a variable. Let us use both the functions to create the bar plot:\n\n6.2.1 Using plot function\n\nplot(as.factor(mtcars$cyl))\n\n\n\n\n\n\n\n\n\n\n6.2.2 Using barplot function\n\nbarplot(table(mtcars$cyl))\n\n\n\n\n\n\n\n\nIf you observe carefully, the same plot is generated by both the functions. Before we explore the bar plots further, let us store the data in a new variable instead of using the table() function in every example:\n\ncyl_freq &lt;- table(mtcars$cyl)\ncyl_freq\n\n\n 4  6  8 \n11  7 14",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Bar Plots</span>"
+    ]
+  },
+  {
+    "objectID": "bar.html#horizontal-or-vertical",
+    "href": "bar.html#horizontal-or-vertical",
+    "title": "6  Bar Plots",
+    "section": "6.3 Horizontal or Vertical",
+    "text": "6.3 Horizontal or Vertical\nBar plots can be horizontal or veritcal (which is the default). Use the horiz argument in the barplot() function to build a horizontal bar plot. As you can see, the axis have been flipped. The Y axis represents the categories and the X axis represents their counts/frequencies.\n\nbarplot(cyl_freq, horiz = TRUE)",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Bar Plots</span>"
+    ]
+  },
+  {
+    "objectID": "bar.html#bar-width",
+    "href": "bar.html#bar-width",
+    "title": "6  Bar Plots",
+    "section": "6.4 Bar Width",
+    "text": "6.4 Bar Width\nIn the bar plot, the width of the bars and the space between them are same. A specific category of the variable can be highlighted by increasing/decreasing the width of the bar representing it. In our example, we will increase the width of the bar that represents automobiles with 8 cylinders. The width argument is used to specify the width of the bars. The width must be specified for all the bars in the plot. It must be a vector the length of which must be equal to the number of categories of the variable.\n\n6.4.1 Equal Width\n\nbarplot(cyl_freq, width = 2)\n\n\n\n\n\n\n\n\n\n\n6.4.2 Different Widths\nIn the below example, the width of the third bar is twice the width of the other two bars\n\nbarplot(cyl_freq, width = c(1, 1, 2))\n\n\n\n\n\n\n\n\nIn the below example, the width of the second bar is half the width of the other first bar and the third bar is twice the width of the first bar.\n\nbarplot(cyl_freq, width = c(1, 0.5, 2))\n\n\n\n\n\n\n\n\nThe space between the bars can be specified in a similar manner but using the space argument in the barplot() function: In the below example, the space between the third bar and the second bar is twice the space between first and second bar.\n\nbarplot(cyl_freq, space = c(1, 1, 2))",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Bar Plots</span>"
+    ]
+  },
+  {
+    "objectID": "bar.html#labels",
+    "href": "bar.html#labels",
+    "title": "6  Bar Plots",
+    "section": "6.5 Labels",
+    "text": "6.5 Labels\nIt is important to add appropriate labels to the bars in order to communicate properly. In our example, the bars represent automobiles with different number of cylinders. The labels likewise indicate the number of cylinders represented by the bars. In order to demonstrate how to add labels, we will change the labels from numbers to their corresponding words. The names.arg argument is used to add labels to the bars in a plot. Below is our example:\n\nbarplot(cyl_freq, names.arg = c('Four', 'Six', 'Eight'))\n\n\n\n\n\n\n\n\nIt is important to specify labels for all the bars in the plot else R will return an error.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Bar Plots</span>"
+    ]
+  },
+  {
+    "objectID": "bar.html#color",
+    "href": "bar.html#color",
+    "title": "6  Bar Plots",
+    "section": "6.6 Color",
+    "text": "6.6 Color\nLet us add some color to the plots. In a bar plot, we can specify different colors for the bars and their borders. Use the col argument to add color to the bars.\n\n6.6.1 Same color for all bars\n\nbarplot(cyl_freq, col = 'blue')\n\n\n\n\n\n\n\n\n\n\n6.6.2 Differnt color for the bars\n\nbarplot(cyl_freq, col = c('blue', 'red', 'green'))\n\n\n\n\n\n\n\n\nWhat happens if we do not specify color for all the bars? The colors you specify are recycled.\n\n\n6.6.3 Recycling colors\n\nbarplot(cyl_freq, col = c('blue', 'red'))\n\n\n\n\n\n\n\n\nThe border argument specifies the color of the border of the bars. The rules that apply to col argument apply here also. Below are the examples:\n\n\n6.6.4 Same color for all bars\n\nbarplot(cyl_freq, border = 'blue')\n\n\n\n\n\n\n\n\n\n\n6.6.5 Differnt color for the bars\n\nbarplot(cyl_freq, border = c('blue', 'red', 'green'))\n\n\n\n\n\n\n\n\nWhat happens if we do not specify color for all the bars? The colors you specify are recycled.\n\n\n6.6.6 Recycling colors\n\nbarplot(cyl_freq, border = c('blue', 'red'))",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Bar Plots</span>"
+    ]
+  },
+  {
+    "objectID": "bar.html#axes",
+    "href": "bar.html#axes",
+    "title": "6  Bar Plots",
+    "section": "6.7 Axes",
+    "text": "6.7 Axes\nIn this section, we will learn to\n\nremove axes from the plot\nspecify the line type of the X axes\noffset the Y axes\n\n\n6.7.1 Remove axes\nThe axes argument can be used to retain/remove the axes from the plot. It takes logical values as input and the default is TRUE. Set it to FALSE to remove the axes from the plot:\n\nbarplot(cyl_freq, axes = FALSE)\n\n\n\n\n\n\n\n\nIf we decide to retain the axes, the line type of the X axes can be specified using the axis.lty argument. It does not modify the line type of the Y axes and it will not work if the axes argument is set to FALSE.\n\nbarplot(cyl_freq, axis.lty = 3)\n\n\n\n\n\n\n\n\nThough we cannot modify the line type of the Y axes, we can offset it using the offset argument. In the below example, we will offset the Y axes and you can observe that the minimum value of the Y axes is now 5 instead of 0.\n\nbarplot(cyl_freq, offset = 5)\n\n\n\n\n\n\n\n\nYou can similarly modify the range of the Y axes using the ylim argument. Although in case of bar plots, modifying the range of the plot may not be very useful.\n\nbarplot(cyl_freq, ylim = c(0, 30))",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Bar Plots</span>"
+    ]
+  },
+  {
+    "objectID": "bar.html#putting-it-all-together",
+    "href": "bar.html#putting-it-all-together",
+    "title": "6  Bar Plots",
+    "section": "6.8 Putting it all together…",
+    "text": "6.8 Putting it all together…\nLet us quickly revise what we have learnt so far and build a bar plot for visualizing the cyl variable in the mtcars data set:\n\nbarplot(cyl_freq, col = c('blue', 'red', 'green'),\n        horiz = TRUE, width = c(1, 1, 2),\n        names.arg = c('Four', 'Six', 'Eight'),\n        axis.lty = 2, offset = 2)\n\n\n\n\n\n\n\n\n\n6.8.1 Title & Axis Labels\nWell the plot looks good but for someone who does not know the underlying data, it will diffficult to understand what is being communicated. Let us add a title and labels for the axes.\n\nbarplot(cyl_freq, col = c('blue', 'red', 'green'),\n        horiz = TRUE, width = c(1, 1, 2),\n        names.arg = c('Four', 'Six', 'Eight'),\n        axis.lty = 2, offset = 2)\ntitle(main = 'Distribution of Cylinders',\n      xlab = 'Frequency', ylab = 'Number of Cylinders')",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Bar Plots</span>"
+    ]
+  },
+  {
+    "objectID": "bar.html#bivariate-bar-plots",
+    "href": "bar.html#bivariate-bar-plots",
+    "title": "6  Bar Plots",
+    "section": "6.9 Bivariate Bar Plots",
+    "text": "6.9 Bivariate Bar Plots\nA bivariate bar plot represents the cross table or two way table of categorical variables. They are of two types:\n\nStacked Bar Plots\nGrouped Bar Plots\n\nBefore we look at bivariate bar plots, let us create a two way table of cyl (number of cylinders) and gear (number of gears) using the table() function:\n\ntable(mtcars$gear)\n\n\n 3  4  5 \n15 12  5 \n\ncyl_gear &lt;- table(mtcars$cyl, mtcars$gear)\ncyl_gear\n\n   \n     3  4  5\n  4  1  8  2\n  6  2  4  1\n  8 12  0  2\n\n\nThe number of gears is represented by the columns in the table and the numbe rof cylinders is represented by the rows.\n\n6.9.1 Stacked Bar Plot\n\nbarplot(cyl_gear)\n\n\n\n\n\n\n\n\nThe bars in the plot represent the distribution of cyl for each level of category of the gear variable. The first bar represents the distribution of cylinders for automobiles with 3 gears. From the two way table we saw earlier, the columns are the bars. The rows are represented by different sections of the bar. Let us add some colors to the plot as the default colors of the plot are not very intuitive. It will also allow us to clearly examine the distribution of cyl for the different levels of gear.\n\nbarplot(cyl_gear, col = c('blue', 'red', 'green'))\n\n\n\n\n\n\n\n\nIf you carefully observe the table and the plot:\n\nthe blue sections of the bars represent the number of automobiles with 4 cylinders (in each gear group)\nthe red sections represent the number of automobiles with 6 cylinders (in each gear group)\nthe green sections represent the number of automobiles with 8 cylinders (in each gear group)\n\nWe need to convey the above information in some way and will do that using the legend.text argument. It takes logical values as inputs and the default values is FALSE. It adds a legend to the plot when it is set to TRUE. In the next example, we add a legend as well as other relevant information such as title and axis labels.\n\nbarplot(cyl_gear, col = c('blue', 'red', 'green'),\n        main = 'Gears vs Cylinders', legend.text = c('4 cyl', '6 cyl', '8 cyl'),\n        xlab = 'Number of Gears', ylab = 'Frequency')\n\n\n\n\n\n\n\n\n\n\n6.9.2 Grouped Bar Plot\nA grouped bar plot represents the same data as the stacked bar plot but instead of being stacked, the bars are now grouped and placed besides each other.\n\nbarplot(cyl_gear, col = c('blue', 'red', 'green'),\n        beside = TRUE, legend.text = c('4 cyl', '6 cyl', '8 cyl'),\n        main = 'Gears vs Cylinders',\n        xlab = 'Number of Gears', ylab = 'Frequency')\n\n\n\n\n\n\n\n\nThe beside argument in barplot() function is set to TRUE to build grouped bar plots. It takes logical values as inputs and the default values is FALSE. As you can observe from the plot, the bars are placed besides each other instead of being stacked.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Bar Plots</span>"
+    ]
+  },
+  {
+    "objectID": "box.html",
+    "href": "box.html",
+    "title": "7  Box Plots",
+    "section": "",
+    "text": "7.1 Introduction\nIn this chapter, we will learn to",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Box Plots</span>"
+    ]
+  },
+  {
+    "objectID": "box.html#introduction",
+    "href": "box.html#introduction",
+    "title": "7  Box Plots",
+    "section": "",
+    "text": "create univariate/multivariate box plots\ninterpret box plots\ncreate horizontal box plots\ndetect outliers\nmodify box color\nuse formula to compare distributions of different variables\nuse notches to compare medians",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Box Plots</span>"
+    ]
+  },
+  {
+    "objectID": "box.html#box-plot",
+    "href": "box.html#box-plot",
+    "title": "7  Box Plots",
+    "section": "7.2 Box Plot",
+    "text": "7.2 Box Plot\nThe box plot is a standardized way of displaying the distribution of data based on the five number summary: minimum, first quartile, median, third quartile, and maximum. Box plots are useful for detecting outliers and for comparing distributions. It shows the shape, central tendancy and variability of the data.\n\n7.2.1 Structure\nA boxplot splits the data set into quartiles. The body of the boxplot consists of a “box” (hence, the name), which goes from the first quartile (Q1) to the third quartile (Q3). Within the box, a vertical line is drawn at the Q2, the median of the data set. Two horizontal lines, called whiskers, extend from the front and back of the box. The front whisker goes from Q1 to the smallest non-outlier in the data set, and the back whisker goes from Q3 to the largest non-outlier. If the data set includes one or more outliers, they are plotted separately as points on the chart.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Box Plots</span>"
+    ]
+  },
+  {
+    "objectID": "box.html#univariate-box-plot",
+    "href": "box.html#univariate-box-plot",
+    "title": "7  Box Plots",
+    "section": "7.3 Univariate Box Plot",
+    "text": "7.3 Univariate Box Plot\n\n7.3.1 Basic Plot\nLet us begin by creating a basic box plot. We will use the boxplot() function and specify the data.\n\nboxplot(mtcars$mpg)\n\n\n\n\n\n\n\n\n\n\n7.3.2 Horizontal Box Plot\nUse the horizontal argument in the boxplot() function to create a horizontal box plot.\n\nboxplot(mtcars$mpg, horizontal = TRUE)\n\n\n\n\n\n\n\n\n\n\n7.3.3 Color\nLet us add some color to the boxplot. Use the col argument to specify a color for the plot.\n\nboxplot(mtcars$mpg, col = 'blue')\n\n\n\n\n\n\n\n\n\n\n7.3.4 Border Color\nWe can specify a separate color for the border of the box in the boxplot. To modify the border color, use the border argument.\n\nboxplot(mtcars$mpg, border = 'red')\n\n\n\n\n\n\n\n\n\n\n7.3.5 Range\nThe range argument determines how far the plot whiskers extend out from the box. If range is positive, the whiskers extend to the most extreme data point which is no more than range times the interquartile range from the box. A value of zero causes the whiskers to extend to the data extremes.\nLet us set the value of range to 0 and observe the plot.\n\nboxplot(mtcars$mpg, range = 0)\n\n\n\n\n\n\n\n\nIn the below plot, we set the value of range to 1.\n\nboxplot(mtcars$mpg, range = 1)\n\n\n\n\n\n\n\n\nLet us observe how the plot appears as we change the value of range from 0 to 1.\n\n\n\n\n\n\n\n\n\n\n\n7.3.6 Outline\nThe outliers in the plot are not drawn if the outline argument is set to FALSE. The default value is TRUE.\n\nboxplot(mtcars$mpg, range = 1, outline = FALSE)\n\n\n\n\n\n\n\n\nThe below plot displays how the plot changes with the values set for outline:\n\n\n\n\n\n\n\n\n\n\n\n7.3.7 Varwidth\nIf the varwidth argument is set to TRUE, the boxes are drawn with widths proportional to the square-roots of the number of observations in the groups.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Box Plots</span>"
+    ]
+  },
+  {
+    "objectID": "box.html#bivariatemultivariate-box-plot",
+    "href": "box.html#bivariatemultivariate-box-plot",
+    "title": "7  Box Plots",
+    "section": "7.4 Bivariate/Multivariate Box Plot",
+    "text": "7.4 Bivariate/Multivariate Box Plot\nAs we said in the introduction, box plots can be used to compare distributions of several variables. Let us use the mtcars data set and compare the distribution of Miles Per Gallon (mpg) for automobiles with different number of cylinders (cyl). We will do this by specifying a formula as shown in the below example.\n\nboxplot(mtcars$mpg ~ mtcars$cyl)\n\n\n\n\n\n\n\n\nWe use the formula when we are comparing the distribution of a continuous variable across different levels of a categorical variable. If we want to compare the distributions without using a categorical variable, we need to specify the variable separately in the boxplot() function. Below is an illustration of this method. We will split the mpg data using the split() function and plot them separately. The split() function splits a continuous variable based on the levels of a categorical variable.\n\nmpg_split &lt;- split(mtcars$mpg, mtcars$cyl)\n\nmpg_split\n## $`4`\n##  [1] 22.8 24.4 22.8 32.4 30.4 33.9 21.5 27.3 26.0 30.4 21.4\n## \n## $`6`\n## [1] 21.0 21.0 21.4 18.1 19.2 17.8 19.7\n## \n## $`8`\n##  [1] 18.7 14.3 16.4 17.3 15.2 10.4 10.4 14.7 15.5 15.2 13.3 19.2 15.8 15.0\n\nmpg_4 &lt;- mpg_split$`4`\nmpg_6 &lt;- mpg_split$`6`\nmpg_8 &lt;- mpg_split$`8`\n\nboxplot(mpg_4, mpg_6, mpg_8)\n\n\n\n\n\n\n\n\nThe same plot can be created in two ways. If you are comparing the distribution of a continuous variable for the different levels of a categorical variable, use the formula. If you are comparing distribution of independent variables, specify all the variablels in the boxplot() function.\n\n7.4.1 Color\nLet us add some color to the plot. We can specify as many colors as the boxes or we can specify the same color for all of them. Below are two examples where we specify the same color in the first one and different colors in the second one.\n\n7.4.1.1 Single Color\n\nboxplot(mtcars$mpg ~ mtcars$cyl, col = 'blue')\n\n\n\n\n\n\n\n\n\n\n7.4.1.2 Different Colors\n\nboxplot(mtcars$mpg ~ mtcars$cyl, \n        col = c('red', 'blue', 'yellow'))\n\n\n\n\n\n\n\n\n\n\n\n7.4.2 Compare Medians\nIf we want to test whether the medians of the different groups differ, we can use the notch argument and set it to TRUE. A notch is drawn in each side of the boxes and if the notches of the plots do not overlap, it is strong evidence that the medians differ.\nWe will use a different data set for this example. We use the hsb2 data (High School and Beyond survey, 200 observations; vendored as data/hsb2.csv, originally from the UCLA Institute for Digital Research and Education) and compare the distribution of reading score (read) for males and females (female).\n\nhsb &lt;- read.csv('data/hsb2.csv')\nboxplot(hsb$read ~ hsb$female, notch = TRUE, \n        col = c('red', 'blue'))\n\n\n\n\n\n\n\n\nSince the notches overlap, there is no strong evidence that the medians differ.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Box Plots</span>"
+    ]
+  },
+  {
+    "objectID": "box.html#putting-it-all-together",
+    "href": "box.html#putting-it-all-together",
+    "title": "7  Box Plots",
+    "section": "7.5 Putting it all together",
+    "text": "7.5 Putting it all together\nLet us conclude by adding a title and axis labels to the box plot.\n\nboxplot(mtcars$mpg ~ mtcars$cyl, range = 1, outline = TRUE, \n        horizontal = TRUE, col = c('red', 'blue', 'yellow'),\n        main = 'Miles Per Gallon by Cylinders', \n        ylab = 'Number of Cylinders', xlab = 'Miles Per Gallon',\n        names = c('Four', 'Six', 'Eight'))",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Box Plots</span>"
+    ]
+  },
+  {
+    "objectID": "hist.html",
+    "href": "hist.html",
+    "title": "8  Histograms",
+    "section": "",
+    "text": "8.1 Introduction\nIn this chapter, we will learn to:\nA histogram is a plot that can be used to examine the shape and spread of continuous data. It looks very similar to a bar graph and can be used to detect outliers and skewness in data. The histogram graphically shows the following:\nTo construct a histogram, the data is split into intervals called bins. The intervals may or may not be equal sized. For each bin, the number of data points that fall into it are counted (frequency). The Y axis of the histogram represents the frequency and the X axis represents the variable.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Histograms</span>"
+    ]
+  },
+  {
+    "objectID": "hist.html#introduction",
+    "href": "hist.html#introduction",
+    "title": "8  Histograms",
+    "section": "",
+    "text": "create a bare bones histogram\nspecify the number of bins/intervals\nrepresent frequency density on the Y axis\nadd colors to the bars and the border\nadd labels to the bars\n\n\n\ncenter (location) of the data\nspread (dispersion) of the data\nskewness\noutliers\npresence of multiple modes",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Histograms</span>"
+    ]
+  },
+  {
+    "objectID": "hist.html#distributions",
+    "href": "hist.html#distributions",
+    "title": "8  Histograms",
+    "section": "8.2 Distributions",
+    "text": "8.2 Distributions\nBefore we learn how to create histograms, let us see how normal and skewed distributions look when represented by a histogram.\n\n8.2.1 Normal Distribution\n\nset.seed(1)\nhist(rbeta(10000, 5, 5), ann = FALSE, col = 'blue')\n\n\n\n\n\n\n\n\n\n\n8.2.2 Skewed Distributions\n\nset.seed(1)\ninit &lt;- par(no.readonly = TRUE)\npar(mfrow = c(1, 2))\nhist(rbeta(10000, 2, 5), ann = FALSE, col = 'blue')\nhist(rbeta(10000, 5, 2), ann = FALSE, col = 'blue')\n\n\n\n\n\n\n\npar(init)",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Histograms</span>"
+    ]
+  },
+  {
+    "objectID": "hist.html#basics",
+    "href": "hist.html#basics",
+    "title": "8  Histograms",
+    "section": "8.3 Basics",
+    "text": "8.3 Basics\nHistograms are created using the hist() function in R. The minimum input required to create a bare bones histogram is a continuous variable. Below is an example:\n\nhist(mtcars$mpg)\n\n\n\n\n\n\n\n\nThe hist() functions returns details of the histogram which can be accessed by assigning the histogram to a variable. Let us assign the above histogram to a variable h and use the $ symbol to access the details stored in the variable.\n\n# store the results of hist function\nh &lt;- hist(mtcars$mpg)\n\n\n\n\n\n\n\n\n# display number of breaks\nh$breaks\n## [1] 10 15 20 25 30 35\n\n# frequency of the intervals\nh$counts\n## [1]  6 12  8  2  4\n\n# frequency density\nh$density\n## [1] 0.0375 0.0750 0.0500 0.0125 0.0250\n\n# mid points of the intervals\nh$mids\n## [1] 12.5 17.5 22.5 27.5 32.5\n\n# varible name\nh$xname\n## [1] \"mtcars$mpg\"\n\n# whether intervals are of equal size\nh$equidist\n## [1] TRUE",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Histograms</span>"
+    ]
+  },
+  {
+    "objectID": "hist.html#bins",
+    "href": "hist.html#bins",
+    "title": "8  Histograms",
+    "section": "8.4 Bins",
+    "text": "8.4 Bins\nThe hist() function creates equidistant intervals by default. We can specify the number of bins using the breaks argument.\n\nhist(mtcars$mpg, breaks = 10)\n\n\n\n\n\n\n\n\nThe below plot displays histograms with different number of bins:\n\ninit &lt;- par(no.readonly = TRUE)\npar(mfrow = c(2, 2))\nvalues &lt;- c(5, 10, 15, 20)\nfor (i in values) {\n    hist(mtcars$mpg, breaks = i)\n    mtext(paste(\"breaks = \", i), side = 3, col = \"blue\")\n}\n\n\n\n\n\n\n\npar(init)",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Histograms</span>"
+    ]
+  },
+  {
+    "objectID": "hist.html#intervals",
+    "href": "hist.html#intervals",
+    "title": "8  Histograms",
+    "section": "8.5 Intervals",
+    "text": "8.5 Intervals\nIf we want to create histograms with specific intervals, the breaks argument can be supplied with the intervals.\n\nhist(mtcars$mpg, breaks = c(10, 18, 24, 30, 35))\n\n\n\n\n\n\n\n\nIf you observe the Y axis, it does not represent frequency any more. Instead, it represents the frequency density. What is frequency density?\n\n8.5.1 Frequency Density\nFrequency Density = Relative Frequency / Class Width\nRelative Frequency = Frequency / Total Observations\n\nh &lt;- hist(mtcars$mpg, breaks = c(10, 18, 24, 30, 35))\n\n\n\n\n\n\n\nfrequency &lt;- h$counts\nclass_width &lt;- c(8, 6, 6, 5)\nrel_freq &lt;- frequency / length(mtcars$mpg)\nfreq_density &lt;- rel_freq / class_width\nd &lt;- data.frame(frequency = frequency, class_width = class_width, relative_frequency = rel_freq, frequency_density = freq_density)\nd\n\n  frequency class_width relative_frequency frequency_density\n1        13           8            0.40625        0.05078125\n2        12           6            0.37500        0.06250000\n3         3           6            0.09375        0.01562500\n4         4           5            0.12500        0.02500000\n\n\nWhen multiplied by the class width, the product will always sum upto 1.\n\nsum(d$frequency_density * d$class_width)\n\n[1] 1\n\n\nWe will learn more about frequency density in a bit. Before we end this section, we need to learn about one more way to specify the intervals of the histogram, algorithms. The hist() function allows us to specify the following algorithms:\n\nSturges (default)\nScott\nFreedman-Diaconis (FD)\n\nIn the below plot, we examine how th algorithms work:\n\ninit &lt;- par(no.readonly = TRUE)\npar(mfrow = c(1, 3))\nvalues &lt;- c(\"Sturges\", \"Scott\", \"FD\")\nfor (i in values) {\n    hist(mtcars$mpg, breaks = i)\n    mtext(paste(\"algo = \", i), side = 3, col = \"blue\")\n}\n\n\n\n\n\n\n\npar(init)",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Histograms</span>"
+    ]
+  },
+  {
+    "objectID": "hist.html#frequency-distribution-ii",
+    "href": "hist.html#frequency-distribution-ii",
+    "title": "8  Histograms",
+    "section": "8.6 Frequency Distribution II",
+    "text": "8.6 Frequency Distribution II\nLet us come back to frequency density. If you want the Y axis of the histogram to represent frequency density instead of counts, set the freq argument to FALSE.\n\ninit &lt;- par(no.readonly = TRUE)\npar(mfrow = c(1, 2))\nvalues &lt;- c(TRUE, FALSE)\nfor (i in values) {\n    hist(mtcars$mpg, freq = i)\n    mtext(paste(\"freq = \", i), side = 3, col = \"blue\")\n}\n\n\n\n\n\n\n\npar(init)\n\nThe same result can be achieved by using the probability argument as well. It takes only logical values as inputs and the default is FALSE. If set to TRUE, the Y axis will represent the frequency density instead of counts.\n\nhist(mtcars$mpg, probability = TRUE)",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Histograms</span>"
+    ]
+  },
+  {
+    "objectID": "hist.html#color",
+    "href": "hist.html#color",
+    "title": "8  Histograms",
+    "section": "8.7 Color",
+    "text": "8.7 Color\nTo add colors to the bars of the histogram, use the col argument. If the number of colors specified is less than the number of bars, the colors are recycled. Below are a few examples:\n\n8.7.1 Single Color\n\nhist(mtcars$mpg, col = 'blue')\n\n\n\n\n\n\n\n\n\n\n8.7.2 Different Colors\n\nhist(mtcars$mpg, col = c('red', 'blue', 'green', 'yellow', 'brown'))\n\n\n\n\n\n\n\n\n\n\n8.7.3 Recycled Colors\n\nhist(mtcars$mpg, col = c('red', 'blue'))",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Histograms</span>"
+    ]
+  },
+  {
+    "objectID": "hist.html#border-color",
+    "href": "hist.html#border-color",
+    "title": "8  Histograms",
+    "section": "8.8 Border Color",
+    "text": "8.8 Border Color\nColors can be specified for the borders of the histogrambars using the border argument.\n\nhist(mtcars$mpg, border = 'red')\n\n\n\n\n\n\n\n\n\n8.8.1 Different Colors\n\nhist(mtcars$mpg, border = c('red', 'blue', 'green', 'yellow', 'brown'))",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Histograms</span>"
+    ]
+  },
+  {
+    "objectID": "hist.html#labels",
+    "href": "hist.html#labels",
+    "title": "8  Histograms",
+    "section": "8.9 Labels",
+    "text": "8.9 Labels\nIn certain cases, we might want to add the frequency counts on the histogram bars. It is easier for the user to know the frequencies of each bin when they are present on top of the bars. Let us add the frequency counts on top of the bars using the labels argument. We can either set it to TRUE or a character vector containing the label values. Let us look at both the methods.\n\n8.9.1 Method 1\nSet labels to TRUE.\n\nhist(mtcars$mpg, labels = TRUE)\n\n\n\n\n\n\n\n\n\n\n8.9.2 Method 2\nSpecify the label values in a character vector.\n\nhist(mtcars$mpg, labels = c(\"6\", \"12\", \"8\", \"2\", \"4\"))",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Histograms</span>"
+    ]
+  },
+  {
+    "objectID": "hist.html#putting-it-all-together..",
+    "href": "hist.html#putting-it-all-together..",
+    "title": "8  Histograms",
+    "section": "8.10 Putting it all together..",
+    "text": "8.10 Putting it all together..\nLet us add a title and axis labels to the histogram.\n\nhist(mtcars$mpg, labels = TRUE, prob = TRUE,\n     ylim = c(0, 0.1), xlab = 'Miles Per Gallon',\n     main = 'Distribution of Miles Per Gallon',\n     col = rainbow(5))",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Histograms</span>"
+    ]
+  },
+  {
+    "objectID": "legend.html",
+    "href": "legend.html",
+    "title": "9  Legends",
+    "section": "",
+    "text": "9.1 Introduction\nIn this chapter, we will learn how to:\nLegends are used to convey information about the data being represented by a plot. To understand the importance of legends, let us look at the two plots below. In the first plot, would you be able to understand what the lines represent in the absence of a legend? May be yes but only if the author provides information in a textual form outside the plot. While such information will be useful, it will also be very inconvenient. Now look at the second plot, from the legend at the top right we can easily interpret what the lines represent. Would you agree that a legend is integral to plot representing multiple data? If yes, let us go ahead and learn how to add a legend to different plots.\nSince we have looked at a line graph in the above example, we will learn how to add a legend to a line graph. After that, we will generalise the steps to different plots.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Legends</span>"
+    ]
+  },
+  {
+    "objectID": "legend.html#introduction",
+    "href": "legend.html#introduction",
+    "title": "9  Legends",
+    "section": "",
+    "text": "position the legend within the plot\nmodify the layout using ncol and horiz arguments\nadd title using the title set of arguments\nmodify the appearance and position of the legend box\nmodify the appearance of the text in the legend box",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Legends</span>"
+    ]
+  },
+  {
+    "objectID": "legend.html#data",
+    "href": "legend.html#data",
+    "title": "9  Legends",
+    "section": "9.2 Data",
+    "text": "9.2 Data\nLet us build a line graph that represents annual economic growth (GDP) data of the BRICS nations for the years 2010-14.\n\nThe values below are a frozen teaching vintage, also shipped as data/brics-gdp-2010-14.csv. They differ slightly from the World Bank’s current revised series, so treat them as illustrative, not citable statistics.\n\n\nyear &lt;- seq(2010, 2014, 1)\nindia &lt;- c(10.3, 6.6, 5.6, 6.6, 7.2)\nchina &lt;- c(10.6, 9.5, 7.8, 7.7, 7.3)\nrussia &lt;- c(4.5, 4.3, 3.5, 1.3, 0.7)\nbrazil &lt;- c(7.5, 3.9, 1.9, 3.0, 0.1)\ns_africa &lt;- c(3.2, 3.2, 2.2, 2.2, 1.5)\ngdp &lt;- data.frame(year, india, china, russia, brazil, s_africa, stringsAsFactors = FALSE)\ngdp\n\n  year india china russia brazil s_africa\n1 2010  10.3  10.6    4.5    7.5      3.2\n2 2011   6.6   9.5    4.3    3.9      3.2\n3 2012   5.6   7.8    3.5    1.9      2.2\n4 2013   6.6   7.7    1.3    3.0      2.2\n5 2014   7.2   7.3    0.7    0.1      1.5",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Legends</span>"
+    ]
+  },
+  {
+    "objectID": "legend.html#line-graph",
+    "href": "legend.html#line-graph",
+    "title": "9  Legends",
+    "section": "9.3 Line Graph",
+    "text": "9.3 Line Graph\nBelow is the line graph that represents the above GDP data set:\n\n\n\n\n\n\n\n\n\nWithout a legend, it will be very difficult to map the lines to the BRICS nations. We will add a legend to the above plot using the legend() function and do so one step at a time.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Legends</span>"
+    ]
+  },
+  {
+    "objectID": "legend.html#legend-location",
+    "href": "legend.html#legend-location",
+    "title": "9  Legends",
+    "section": "9.4 Legend Location",
+    "text": "9.4 Legend Location\nIn order to add a legend to the plot, the first thing we must specify is the location of the legend in the plot. There are 2 ways to do this:\n\nuse x and y axis coordinates\nuse keywords\n\nThe list of keywords include:\n\ntop\nbottom\nleft\nright\ncenter\nbottomright\nbottomleft\ntopright\ntopleft\n\nBut there is a glitch. If we do not specify what goes into the legend, the legend() function will return an error. Before we experiment with the location of the legend inside the plot, we need to learn about another argument used to specify the content of the legend. The argument is also named legend. It takes a vector as input. In the next example, we will plot the GDP data for India and China and add a basic legend.\n\n{plot(gdp$year, gdp$india, type = 'l',\n      ylim = c(-5, 15), xlab = 'Year',\n      ylab = 'Growth Rate', col = 'blue',\n      main = 'BRICS: Growth Rate')\nlines(gdp$year, gdp$china, col = 'red')\nlegend(x = 2013, y = 14, legend = c('india', 'china'))}\n\n\n\n\n\n\n\n\nYou can see that a legend has been added bases on the X and Y axis coordinates we specified in the legend() function. But the legend is incomplete and a user still cannot map the lines to the countries using the legend. We will learn how to add lines inside the legend shortly but before that let us use keywords to position the legend inside the plot.\n\n\n\n\n\n\n\n\n\nYou can either use the keywords or the axis coordinates to position the legend inside the plot. Use the coordinates method if you want greater control over the position of the legend. Next step is to add lines inside the legend so that a user can map the lines in the plots to the countries.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Legends</span>"
+    ]
+  },
+  {
+    "objectID": "legend.html#lines",
+    "href": "legend.html#lines",
+    "title": "9  Legends",
+    "section": "9.5 Lines",
+    "text": "9.5 Lines\nAdding a line in the legend is very simple. Use the lty argument to specify the line type and the col argument to add color to the line.\n\n{plot(gdp$year, gdp$india, type = 'l',\n      ylim = c(-5, 15), xlab = 'Year',\n      ylab = 'Growth Rate', col = 'blue',\n      main = 'BRICS: Growth Rate')\nlines(gdp$year, gdp$china, col = 'red')\nlegend(x = 2012, y = 14, legend = c('india', 'china'),\n       lty = 1, col = c('blue', 'red'))}\n\n\n\n\n\n\n\n\nNow we can map the lines to the respective countries using the legend. But our legend looks very simple right. Let us explore the options available to modify and enhance the appearance of the legend.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Legends</span>"
+    ]
+  },
+  {
+    "objectID": "legend.html#points",
+    "href": "legend.html#points",
+    "title": "9  Legends",
+    "section": "9.6 Points",
+    "text": "9.6 Points\nIf the plot has both lines and points, we can use the pch argument in the legend() function to specify the shape of the point.\n\n{plot(gdp$year, gdp$india, type = 'l',\n      ylim = c(-5, 15), xlab = 'Year',\n      ylab = 'Growth Rate', col = 'blue',\n      main = 'BRICS: Growth Rate')\npoints(gdp$year, gdp$india, pch = 2, col = 'blue')\nlines(gdp$year, gdp$china, col = 'red')\npoints(gdp$year, gdp$china, pch = 2, col = 'red')\nlegend(x = 2012, y = 14, legend = c('india', 'china'),\n       lty = 1, pch = 2, col = c('blue', 'red'))}",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Legends</span>"
+    ]
+  },
+  {
+    "objectID": "legend.html#text-placement",
+    "href": "legend.html#text-placement",
+    "title": "9  Legends",
+    "section": "9.7 Text Placement",
+    "text": "9.7 Text Placement\nThe contents of the legend can be positioned horizontally using the horiz argument. It takes logical values as inputs and the default is FALSE. Set it to TRUE to position the contents horizontally:\n\n{plot(gdp$year, gdp$india, type = 'l',\n      ylim = c(-5, 15), xlab = 'Year',\n      ylab = 'Growth Rate', col = 'blue',\n      main = 'BRICS: Growth Rate')\nlines(gdp$year, gdp$china, col = 'red')\nlegend(x = 2011, y = 14, legend = c('india', 'china'),\n       lty = 1, col = c('blue', 'red'),\n       horiz = TRUE)}\n\n\n\n\n\n\n\n\nAnother way to position the content inside the legend is to use columns. In the below example, we use the ncol argument to split the contents of the legend into two columns instead of the default one.\n\n\n\n\n\n\n\n\n\nThe below plots show the difference in appearance:",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Legends</span>"
+    ]
+  },
+  {
+    "objectID": "legend.html#title",
+    "href": "legend.html#title",
+    "title": "9  Legends",
+    "section": "9.8 Title",
+    "text": "9.8 Title\nLet us add a title to the legend using the title argument:\n\n{plot(gdp$year, gdp$india, type = 'l',\n      ylim = c(-5, 15), xlab = 'Year',\n      ylab = 'Growth Rate', col = 'blue',\n      main = 'BRICS: Growth Rate')\nlines(gdp$year, gdp$china, col = 'red')\nlegend(x = 2012, y = 14, legend = c('india', 'china'),\n       lty = 1, col = c('blue', 'red'),\n       title = 'Nations')}\n\n\n\n\n\n\n\n\n\n9.8.1 Title Color\nThe color of the title can be modified using the title.col argument:\n\n{plot(gdp$year, gdp$india, type = 'l',\n      ylim = c(-5, 15), xlab = 'Year',\n      ylab = 'Growth Rate', col = 'blue',\n      main = 'BRICS: Growth Rate')\nlines(gdp$year, gdp$china, col = 'red')\nlegend(x = 2012, y = 14, legend = c('india', 'china'),\n       lty = 1, col = c('blue', 'red'),\n       title = 'Nations', title.col = 'red')}\n\n\n\n\n\n\n\n\n\n\n9.8.2 Title Position\nThe title can be positioned within the legend box using the title.adj argument. It will take values between 0 and 1. The default is 0.5 and the title is positioned in the middle of the box. As the value moves away from 0.5, the position of the title moves to the left or right respectively.\n\n{plot(gdp$year, gdp$india, type = 'l',\n      ylim = c(-5, 15), xlab = 'Year',\n      ylab = 'Growth Rate', col = 'blue',\n      main = 'BRICS: Growth Rate')\nlines(gdp$year, gdp$china, col = 'red')\nlegend(x = 2012, y = 0, legend = c('india', 'china'),\n       lty = 1, col = c('blue', 'red'), horiz = TRUE,\n       title = 'Nations', title.adj = 0.1)}\n\n\n\n\n\n\n\n\nThe below plots show the relative position of the title within the legend box for different values between 0 and 1.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Legends</span>"
+    ]
+  },
+  {
+    "objectID": "legend.html#box-appearance",
+    "href": "legend.html#box-appearance",
+    "title": "9  Legends",
+    "section": "9.9 Box Appearance",
+    "text": "9.9 Box Appearance\nThere are a lot of options to modify the appearance of the legend box. The below table displays the arguments and their descriptions. Let us look at them one by one:\n\n\n\nLegend Box Options\n\n\noption\nargument\nvalues\n\n\n\n\nBox Type\nbty\no, n\n\n\nBackground Color\nbg\nblue, #0000ff\n\n\nBorder Line Type\nbox.lty\n1:5\n\n\nBorder Line Width\nbox.lwd\n0.5, 1, 1.5\n\n\nBorder Line Color\nbox.col\nblue, #0000ff\n\n\nHorizontal Justification\nxjust\n0:1\n\n\nVertical Justification\nyjust\n0:1\n\n\nText Color\ntext.col\nblue, #0000ff\n\n\nText Font\ntext.font\n1:5\n\n\n\n\n\n\n9.9.1 Box Type\nThe bty argument takes two values, o and n. If set to n, there will be no box around the legend.\n\n\n\n\n\n\n\n\n\n\n\n9.9.2 Background Color\nA background color can be added to the legend box using the bg argument. Below is an example:\n\nplot(gdp$year, gdp$india, type = 'l',\n      ylim = c(-5, 15), xlab = 'Year',\n      ylab = 'Growth Rate', col = 'blue',\n      main = 'BRICS: Growth Rate')\nlines(gdp$year, gdp$china, col = 'red')\nlegend(x = 2012, y = 0, legend = c('india', 'china'),\n       lty = 1, col = c('blue', 'red'), title = 'Nations',\n       bg = 'lightyellow')\n\n\n\n\n\n\n\n\n\n\n9.9.3 Border\nThe following arguments can be used to modify the border of the legend box:\n\nbox.lty: line type\nbox.lwd: line width\nbox.col: color\n\n\nplot(gdp$year, gdp$india, type = 'l',\n      ylim = c(-5, 15), xlab = 'Year',\n      ylab = 'Growth Rate', col = 'blue',\n      main = 'BRICS: Growth Rate')\nlines(gdp$year, gdp$china, col = 'red')\nlegend(x = 2012, y = 0, legend = c('india', 'china'),\n       lty = 1, col = c('blue', 'red'), title = 'Nations',\n       box.lty = 3, box.lwd = 1.5, box.col = 'green')",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Legends</span>"
+    ]
+  },
+  {
+    "objectID": "legend.html#justification",
+    "href": "legend.html#justification",
+    "title": "9  Legends",
+    "section": "9.10 Justification",
+    "text": "9.10 Justification\nThe xjust and yjust arguments can be used to position the legend relative to the X and Y axis respectively. Listed below is the value and the respective justification:\n\n0: left justified\n0.5: centered\n1: right justified\n\nLet us look at a few examples to understand how it works.\n\n9.10.1 Horizontal Justification\n\n\n\n\n\n\n\n\n\n\n\n9.10.2 Vertical Justification",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Legends</span>"
+    ]
+  },
+  {
+    "objectID": "legend.html#text-appearance",
+    "href": "legend.html#text-appearance",
+    "title": "9  Legends",
+    "section": "9.11 Text Appearance",
+    "text": "9.11 Text Appearance\nThe last topic we will explore is the appearance of the text inside the legend box. We will modify the color and font of text using the text.col and text.font arguments.\n\n{plot(gdp$year, gdp$india, type = 'l',\n      ylim = c(-5, 15), xlab = 'Year',\n      ylab = 'Growth Rate', col = 'blue',\n      main = 'BRICS: Growth Rate')\nlines(gdp$year, gdp$china, col = 'red')\nlegend(x = 2012, y = 0, legend = c('india', 'china'),\n       lty = 1, col = c('blue', 'red'), title = 'Nations',\n       text.col = 'green', text.font = 3)}",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Legends</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html",
+    "href": "textann.html",
+    "title": "10  Text Annotations",
+    "section": "",
+    "text": "10.1 Introduction\nIn this chapter, we will learn to add text annotations. There are occassions when you want to display additional information in a plot. This is usually achieved by adding text either inside the plot or on the margins. For example, you might want to label a line/bar or add formulas to better communicate what is shown in the plot. The idea is to use the available space within/outside the plot to provide additional information that can be useful to the end users. We will learn to add text inside as well as on the margins of the plot. This is accomplished using the following two functions:",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#introduction",
+    "href": "textann.html#introduction",
+    "title": "10  Text Annotations",
+    "section": "",
+    "text": "text() : add text inside the plot\nmtext() : add text on the margins of the plot",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#syntax",
+    "href": "textann.html#syntax",
+    "title": "10  Text Annotations",
+    "section": "10.2 Syntax",
+    "text": "10.2 Syntax\nLet us take a quick look at the syntax of both the functions:\n\ntext(x, y = NULL, labels = seq_along(x$x), adj = NULL,\n     pos = NULL, offset = 0.5, vfont = NULL,\n     cex = 1, col = NULL, font = NULL, ...)\n\nmtext(text, side = 3, line = 0, outer = FALSE, at = NA,\n      adj = NA, padj = NA, cex = NA, col = NA, font = NA, ...)",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#text-inside-the-plot",
+    "href": "textann.html#text-inside-the-plot",
+    "title": "10  Text Annotations",
+    "section": "10.3 Text Inside the Plot",
+    "text": "10.3 Text Inside the Plot\nTo add text inside a plot, the following arguments must be supplied to the text() function:\n\nlabels : the text to be displayed\nx : x axis coordinate\ny : y axis coordinate\n\nBelow is a simple example:\n\nplot(mtcars$disp, mtcars$mpg)\ntext(x = 340, y = 30, labels = 'Sample Text')\n\n\n\n\n\n\n\n\nThe text appears at the coordinates (340, 30). Ensure that the text is enclosed in single/double quotes and the coordinates provided are within the range of the X and Y axis variables.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#color",
+    "href": "textann.html#color",
+    "title": "10  Text Annotations",
+    "section": "10.4 Color",
+    "text": "10.4 Color\nThe color of the text can be modified using the col argument in the text() function.\n\nplot(mtcars$disp, mtcars$mpg)\ntext(x = 340, y = 30, labels = 'Sample Text', col = 'red')\n\n\n\n\n\n\n\n\nThe below plot depicts the appearance of the text for different values of the col argument:",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#font",
+    "href": "textann.html#font",
+    "title": "10  Text Annotations",
+    "section": "10.5 Font",
+    "text": "10.5 Font\nThe font of the text can be modified using the font argument in the text() function.\n\nplot(mtcars$disp, mtcars$mpg)\ntext(x = 340, y = 30, labels = 'Sample Text', col = 'red', font = 2)\n\n\n\n\n\n\n\n\nThe below plot depicts the appearance of the text for different values of the font argument:",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#font-family",
+    "href": "textann.html#font-family",
+    "title": "10  Text Annotations",
+    "section": "10.6 Font Family",
+    "text": "10.6 Font Family\nThe font family of the text can be modified using the family argument in the text() function.\n\nplot(mtcars$disp, mtcars$mpg)\ntext(x = 340, y = 30, labels = 'Sample Text', col = 'red', family = 'mono')\n\n\n\n\n\n\n\n\nThe below plot depicts the appearance of the text for different values of the family argument:",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#font-size",
+    "href": "textann.html#font-size",
+    "title": "10  Text Annotations",
+    "section": "10.7 Font Size",
+    "text": "10.7 Font Size\nThe font size of the text can be modified using the cex argument in the text() function.\n\nplot(mtcars$disp, mtcars$mpg)\ntext(x = 340, y = 30, labels = 'Sample Text', col = 'red', cex = 2)\n\n\n\n\n\n\n\n\nThe below plot depicts the appearance of the text for different values of the cex argument:",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#text-on-the-margins",
+    "href": "textann.html#text-on-the-margins",
+    "title": "10  Text Annotations",
+    "section": "10.8 Text on the Margins",
+    "text": "10.8 Text on the Margins\nThe mtext() function allows the user to place the text on the margins of the plot. It allows the user to modify the location of the text in multiple ways and we will explore them one by one. To beign with, let us add text to the plot using the mtext() function. The minimum input you need to provide is the text itself. Below is a simple example:\n\nplot(mtcars$disp, mtcars$mpg)\nmtext('Sample Text')\n\n\n\n\n\n\n\n\nAs you can see, the text is placed on the margin of the plot and not inside the plot. Next, we will specify the margin on which to place the text.",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#specify-margin",
+    "href": "textann.html#specify-margin",
+    "title": "10  Text Annotations",
+    "section": "10.9 Specify Margin",
+    "text": "10.9 Specify Margin\nUse the side argument to specify the margin on which you want to place the text. If takes values 1 to 4, each representing one side of the plot.\n\nplot(mtcars$disp, mtcars$mpg)\nmtext('Sample Text', side = 1)\n\n\n\n\n\n\n\n\nThe below plot displays the appearance of the text when differnt options for side argument are supplied:",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#line",
+    "href": "textann.html#line",
+    "title": "10  Text Annotations",
+    "section": "10.10 Line",
+    "text": "10.10 Line\nThe line argument places the text at a specified distance from the margin. The default value is 0. As the value increases, the text is placed farther from the margin and outside the plot. As the value decreases, the text is placed inside the plot and farther from the margin. Below is a example where the text is placed outside the plot as the value is greater than 1.\n\nplot(mtcars$disp, mtcars$mpg)\nmtext('Sample Text', line = 1)\n\n\n\n\n\n\n\n\nWhen the value is less than 0, the line argument places the text inside the plot.\n\nplot(mtcars$disp, mtcars$mpg)\nmtext('Sample Text', line = -1)\n\n\n\n\n\n\n\n\nThe below plot displays the appearance of the text when different values are supplied to the line argument:",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#alignment",
+    "href": "textann.html#alignment",
+    "title": "10  Text Annotations",
+    "section": "10.11 Alignment",
+    "text": "10.11 Alignment\nThe adj argument is used for horizontal alignment of the text. It takes values between 0 and 1. If set to 0, the text will be left aligned and at 1, it will be right aligned. Below is a example where the text is left aligned as adj is set to 0.\n\nplot(mtcars$disp, mtcars$mpg)\nmtext('Sample Text', adj = 0)\n\n\n\n\n\n\n\n\nWhen the value is set to 1, the text is right aligned.\n\nplot(mtcars$disp, mtcars$mpg)\nmtext('Sample Text', adj = 1)\n\n\n\n\n\n\n\n\nThe below plot displays the appearance of the text when different values are supplied to the adj argument:",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#position",
+    "href": "textann.html#position",
+    "title": "10  Text Annotations",
+    "section": "10.12 Position",
+    "text": "10.12 Position\nThe pos argument of the text() function places the text relative to the specified coordinates without needing adj. It takes values 1 to 4, each representing a position around the point:\n\n1: below\n2: to the left\n3: above\n4: to the right",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#offset",
+    "href": "textann.html#offset",
+    "title": "10  Text Annotations",
+    "section": "10.13 Offset",
+    "text": "10.13 Offset\nThe offset argument of the text() function controls how far the text is placed from the coordinates when pos is used. The distance is measured in character widths and the default value is 0.5.\n\nplot(mtcars$disp, mtcars$mpg)\ntext(x = 340, y = 30, labels = 'Sample Text', pos = 3, offset = 1.5)",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#perpendicular-adjustment",
+    "href": "textann.html#perpendicular-adjustment",
+    "title": "10  Text Annotations",
+    "section": "10.14 Perpendicular Adjustment",
+    "text": "10.14 Perpendicular Adjustment\nThe padj argument of the mtext() function fine-tunes the placement of the text in the direction perpendicular to adj. It takes values between 0 and 1. Compare the two plots below and observe the nudge:",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#outer-margin",
+    "href": "textann.html#outer-margin",
+    "title": "10  Text Annotations",
+    "section": "10.15 Outer Margin",
+    "text": "10.15 Outer Margin\nBy default, mtext() places text on the inner margin of the current plot. Set outer = TRUE to place the text on the outer margin of the whole figure region instead. This is useful with multi-panel layouts, but first reserve outer space with par(oma = ...):\n\ninit &lt;- par(no.readonly = TRUE)\npar(oma = c(0, 0, 3, 0))\nplot(mtcars$disp, mtcars$mpg)\nmtext('Outer Margin Text', outer = TRUE)\n\n\n\n\n\n\n\npar(init)",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "textann.html#exact-position",
+    "href": "textann.html#exact-position",
+    "title": "10  Text Annotations",
+    "section": "10.16 Exact Position",
+    "text": "10.16 Exact Position\nThe at argument of the mtext() function places the text at an exact position along the margin, expressed in the user coordinates of the corresponding axis. Below, the text is anchored at disp = 200 on the bottom margin instead of the default center:\n\nplot(mtcars$disp, mtcars$mpg)\nmtext('Sample Text', side = 1, at = 200)",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Text Annotations</span>"
+    ]
+  },
+  {
+    "objectID": "facet.html",
+    "href": "facet.html",
+    "title": "11  Faceting",
+    "section": "",
+    "text": "11.1 Introduction\nIn this chapter, we will learn how to combine multiple plots. Often, it is useful to have multiple plots in the same frame as it allows us to get a comprehensive view of a particular variable or compare among different variables. The Graphics package offers two methods to combine multiple plots. par() can be used to set graphical parameters regarding plot layout using the mfcol and mfrow arguments. layout() serves the same purpose but offers more flexibility by allowing us to modify the height and width of rows and columns.\npar() allows us to customize the graphical parameters(title, axis, font, color, size) for a particular session. For combining multiple plots, we can use the graphical parameters mfrow and mfcol. These two parameters create a matrix of plots filled by rows and columns respectively. Let us combine plots using both the above parameters.",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Faceting</span>"
+    ]
+  },
+  {
+    "objectID": "facet.html#introduction",
+    "href": "facet.html#introduction",
+    "title": "11  Faceting",
+    "section": "",
+    "text": "Option\nDescription\nArguments\n\n\n\n\nmfrow\nFill by rows\nNumber of rows and columns\n\n\nmfcol\nFill by columns\nNumber of rows and columns",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Faceting</span>"
+    ]
+  },
+  {
+    "objectID": "facet.html#row",
+    "href": "facet.html#row",
+    "title": "11  Faceting",
+    "section": "11.2 Row",
+    "text": "11.2 Row\nmfrow combines plots filled by rows i.e it takes two arguments, the number of rows and number of columns and then starts filling the plots by row. Below is the syntax for mfrow.\n\n# mfrow syntax\npar(mfrow = c(number of rows, number of columns))\n\nLet us begin by combining 4 plots in 2 rows and 2 columns:\n\n11.2.1 Case Study 1\nLet us begin by combining 4 plots in 2 rows and 2 columns. The plots will be filled by rows as we are using the mfrow function:\n\n# store the current parameter settings in init\ninit &lt;- par(no.readonly=TRUE)\n \n# specify that 4 graphs to be combined and filled by rows\npar(mfrow = c(2, 2))\n \n# specify the graphs to be combined\nplot(mtcars$mpg)\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\n\n\n\n\n\n\n\n \n# restore the setting stored in init\npar(init)\n\n\n\n11.2.2 Case Study 2\nCombine 2 plots in 1 row and 2 columns.\n\n# store the current parameter settings in init\ninit &lt;- par(no.readonly=TRUE)\n \n# specify that 2 graphs to be combined and filled by rows\npar(mfrow = c(1, 2))\n \n# specify the graphs to be combined\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\n\n\n\n\n\n\n\n \n# restore the setting stored in init\npar(init)\n\n\n\n11.2.3 Case Study 3\nCombine 2 plots in 2 rows and 1 column.\n\n# store the current parameter settings in init\ninit &lt;- par(no.readonly=TRUE)\n \n# specify that 2 graphs to be combined and filled by rows\npar(mfrow = c(2, 1))\n \n# specify the graphs to be combined\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\n\n\n\n\n\n\n\n \n# restore the setting stored in init\npar(init)\n\n\n\n11.2.4 Case Study 4\nCombine 3 plots in 1 row and 3 columns.\n\n# store the current parameter settings in init\ninit &lt;- par(no.readonly=TRUE)\n \n# specify that 3 graphs to be combined and filled by rows\npar(mfrow = c(1, 3))\n \n# specify the graphs to be combined\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\n\n\n\n\n\n\n\n \n# restore the setting stored in init\npar(init)\n\n\n\n11.2.5 Case Study 5\nCombine 3 plots in 3 rows and 1 column.\n\n# store the current parameter settings in init\ninit &lt;- par(no.readonly=TRUE)\n \n# specify that 3 graphs to be combined and filled by rows\npar(mfrow = c(3, 1))\n \n# specify the graphs to be combined\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\n\n\n\n\n\n\n\n \n# restore the setting stored in init\npar(init)",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Faceting</span>"
+    ]
+  },
+  {
+    "objectID": "facet.html#column",
+    "href": "facet.html#column",
+    "title": "11  Faceting",
+    "section": "11.3 Column",
+    "text": "11.3 Column\nmfcol combines plots filled by columns i.e it takes two arguments, the number of rows and number of columns and then starts filling the plots by columns. Below is the syntax for mfcol:\n\n# mfcol syntax\npar(mfcol = c(number of rows, number of columns))\n\nLet us begin by combining 4 plots in 2 rows and 2 columns:\n\n11.3.1 Case Study 6\nCombine 4 plots in 2 rows and 2 columns, filled by columns.\n\n# store the current parameter settings in init\ninit &lt;- par(no.readonly=TRUE)\n \n# specify that 4 graphs to be combined and filled by columns \npar(mfcol = c(2, 2))\n \n# specify the graphs to be combined\nplot(mtcars$mpg)\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\n\n\n\n\n\n\n\n \n# restore the setting stored in init\npar(init)",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Faceting</span>"
+    ]
+  },
+  {
+    "objectID": "facet.html#special-cases",
+    "href": "facet.html#special-cases",
+    "title": "11  Faceting",
+    "section": "11.4 Special Cases",
+    "text": "11.4 Special Cases\nWhat happens if we specify lesser or more number of graphs? In the next two examples, we will specify lesser or more number of graphs than we ask the par() function to combine. Let us see what happens in such instances:\nCase 1: Lesser number of graphs specified We will specify that 4 plots need to be combined in 2 rows and 2 columns but provide only 3 graphs.\nCase 2: Extra graph specified We will specify that 4 plots need to be combined in 2 rows and 2 columns but specify 6 graphs instead of 4.\n\n11.4.1 Case Study 7\n\n# store the current parameter settings in init\ninit &lt;- par(no.readonly=TRUE)\n \n# specify that 4 graphs to be combined and filled by rows\npar(mfrow = c(2, 2))\n \n# specify the graphs to be combined\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\n \n# restore the setting stored in init\npar(init)\n\n\n\n\n\n\n\n\n\n\n11.4.2 Case Study 8\n\n# store the current parameter settings in init\ninit &lt;- par(no.readonly=TRUE)\n \n# specify that 4 graphs to be combined and filled by rows\npar(mfrow = c(2, 2))\n \n# specify the graphs to be combined\nplot(mtcars$mpg)\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\n\n\n\n\n\n\n\nplot(mtcars$disp, mtcars$mpg)\nboxplot(mtcars$mpg)\n\n# restore the setting stored in init\npar(init)",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Faceting</span>"
+    ]
+  },
+  {
+    "objectID": "facet.html#layout",
+    "href": "facet.html#layout",
+    "title": "11  Faceting",
+    "section": "11.5 Layout",
+    "text": "11.5 Layout\nAt the core of the layout() function is a matrix. We communicate the structure in which the plots must be combined using a matrix. As such, the layout function is more flexible compared to the par() function.\n\n\n\nOption\nDescription\nValue\n\n\n\n\nmatrix\nmatrix specifying location of plots\nmatrix\n\n\nwidths\nwidth of columns\nvector\n\n\nheights\nheight of rows\nvector\n\n\n\nLet us begin by combining 4 plots in a 2 row/2 column structure. We do this by creating a layout using the matrix function.\n\n11.5.1 Case Study 1\nCombine 4 plots in 2 rows/2 columns filled by rows.\n\n# specify the layout\n# 4 plots to be combined in 2 row/ 2 columns and arranged by row\nlayout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE))\n \n# specify the 4 plots\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\nplot(mtcars$mpg)\n\n\n\n\n\n\n\nlayout(1)\n\n\n\n11.5.2 Case Study 2\nCombine 4 plots in 2 rows/2 columns filled by columns\nTo fill the plots by column, we specify byrow = FALSE in the matrix.\n\n# specify the layout\n# 4 plots to be combined in 2 row/ 2 columns and filled by columns\nlayout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = FALSE))\n \n# specify the 4 plots\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\nplot(mtcars$mpg)\n\n\n\n\n\n\n\nlayout(1)\n\n\n\n11.5.3 Case Study 3\nCombine 3 plots in 2 rows/2 columns filled by rows\nThe magic of the layout() function begins here. We want to combine 3 plots and the first plot should occupy both the columns in row 1 and the next 2 plots should be in row 2. If you look at the matrix below, 1 is specified twice and since the matrix is filled by row, it will occupy both the columns in the first row. Similarly the first plot will occupy the entire first row. It will be crystal clear when you see the plot.\n\n# specify the matrix\nmatrix(c(1, 1, 2, 3), nrow = 2, byrow = TRUE)\n##      [,1] [,2]\n## [1,]    1    1\n## [2,]    2    3\n\n# 3 plots to be combined in 2 row/ 2 columns and arranged by row\nlayout(matrix(c(1, 1, 2, 3), nrow = 2, byrow = TRUE))\n \n# specify the 3 plots\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\n\n\n\n\n\n\n\nlayout(1)\n\n\n\n11.5.4 Case Study 4\nCombine 3 plots in 2 rows/2 columns filled by rows\nThe plots must be filled by rows and the third plot must occupy both the columns of the second row while the other two plots will be placed in the first row. The matrix would look like this:\n\n# specify the matrix\nmatrix(c(1, 2, 3, 3), nrow = 2, byrow = TRUE)\n##      [,1] [,2]\n## [1,]    1    2\n## [2,]    3    3\n\n# 3 plots to be combined in 2 row/ 2 columns and arranged by row\nlayout(matrix(c(1, 2, 3, 3), nrow = 2, byrow = TRUE))\n \n# specify the 3 plots\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\nplot(mtcars$disp, mtcars$mpg)\n\n\n\n\n\n\n\nlayout(1)\n\n\n\n11.5.5 Case Study 5\nCombine 3 plots in 2 rows/2 columns filled by columns\nThe plots must be filled by columns and the first plot must occupy both the rows of the first column while the other two plots will be placed in the second column in two rows. The matrix would look like this:\n\n# specify the matrix\nmatrix(c(1, 1, 2, 3), nrow = 2, byrow = FALSE)\n##      [,1] [,2]\n## [1,]    1    2\n## [2,]    1    3\n\n# 3 plots to be combined in 2 row/ 2 columns and arranged by columns\nlayout(matrix(c(1, 1, 2, 3), nrow = 2, byrow = FALSE))\n \n# specify the 3 plots\nhist(mtcars$mpg)\nplot(mtcars$disp, mtcars$mpg)\nboxplot(mtcars$mpg)\n\n\n\n\n\n\n\nlayout(1)\n\n\n\n11.5.6 Case Study 6\nCombine 3 plots in 2 rows/2 columns filled by columns\nThe plots must be filled by columns and the first plot must occupy both the rows of the second column while the other two plots will be placed in the first column in two rows. The matrix would look like this:\n\n# specify the matrix\nmatrix(c(1, 2, 3, 3), nrow = 2, byrow = FALSE)\n##      [,1] [,2]\n## [1,]    1    3\n## [2,]    2    3\n\n# 3 plots to be combined in 2 row/ 2 columns and arranged by columns\nlayout(matrix(c(1, 2, 3, 3), nrow = 2, byrow = FALSE))\n \n# specify the 3 plots\nboxplot(mtcars$mpg)\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\n\n\n\n\n\n\n\nlayout(1)\n\nIn all the layouts created so far, we have kept the size of the rows and columns equal. What if you want to modify the width and height of the columns and rows? The widths and heights arguments in the layout() function address the above mentioned issue. Let us check them out one by one: The widths argument is used for specifying the width of the columns. Based on the number of columns in the layout, you can specify the width of each column. Let us look at some examples.\n\n\n11.5.7 Case Study 7\nWidth of the 2nd column is twice the width of the 1st column\n\n# specify the matrix\nmatrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE)\n##      [,1] [,2]\n## [1,]    1    2\n## [2,]    3    4\n\n# 4 plots to be combined in 2 row/ 2 columns and arranged by columns\nlayout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE), widths = c(1, 3))\n \n# specify the plots\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\nplot(mtcars$mpg)\n\n\n\n\n\n\n\nlayout(1)\n\n\n\n11.5.8 Case Study 8\nWidth of the 2nd column is twice that of the first and last column\n\n# specify the matrix\nmatrix(c(1, 2, 3, 4, 5, 6), nrow = 2, byrow = TRUE)\n##      [,1] [,2] [,3]\n## [1,]    1    2    3\n## [2,]    4    5    6\n\n# 6 plots to be combined in 2 row/ 3 columns and filled by rows\nlayout(matrix(c(1, 2, 3, 4, 5, 6), nrow = 2, byrow = TRUE), widths = c(1, 2, 1))\n \n# specify the plots\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\nplot(mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\n\n\n\n\n\n\n\nlayout(1)\n\nThe heights arguments is used to modify the height of the rows and based on the number of rows specified in the layout, we can specify the height of each row.\n\n\n11.5.9 Case Study 9\nHeight of the 2nd row is twice that of the first row\n\n# 4 plots to be combined in 2 row/ 2 columns and filled by rows\nlayout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE), heights= c(1, 2))\n \n# specify the 4 plots\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\nplot(mtcars$mpg)\n\n\n\n\n\n\n\nlayout(1)",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Faceting</span>"
+    ]
+  },
+  {
+    "objectID": "facet.html#putting-it-all-together",
+    "href": "facet.html#putting-it-all-together",
+    "title": "11  Faceting",
+    "section": "11.6 Putting it all together…",
+    "text": "11.6 Putting it all together…\nBefore we end this section, let us combine plots using both the widths and heights option\n\n# specify the matrix\nmatrix(c(1, 2, 3, 4, 5, 6), nrow = 3, byrow = TRUE)\n##      [,1] [,2]\n## [1,]    1    2\n## [2,]    3    4\n## [3,]    5    6\n\n# 6 plots to be combined in 3 row/ 2 columns and arranged by rows\nlayout(matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, byrow = TRUE), heights= c(1, 2, 1),\nwidths = c(2, 1))\n \n# specify the 6 plots\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\nplot(mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\n\n\n\n\n\n\n\nlayout(1)",
+    "crumbs": [
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Faceting</span>"
+    ]
+  },
+  {
+    "objectID": "about-the-author.html",
+    "href": "about-the-author.html",
+    "title": "About the Author",
+    "section": "",
+    "text": "Aravind Hebbali is the founder of Rsquared Academy. He earned his Masters in Economics from Madras School of Economics. As an active R user, he has authored several R packages such as\n\nolsrr\nrfm\ndescriptr\nblorr\nxplorerr\n\nIn 2015, he founded Rsquared Academy, a free and open source education initiative with focus on data science and analytics. Apart from self paced online courses, Rsquared Academy offers customized learning modules for corporates and universities.\nYou can find him on GitHub.",
+    "crumbs": [
+      "About the Author"
+    ]
+  }
+]
