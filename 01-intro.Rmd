@@ -104,7 +104,7 @@ plot(as.factor(mtcars$am), as.factor(mtcars$cyl))
 ### Continuous/Categorical variable
 
 ```{r plot5,fig.align='center',fig.height=5,fig.width=5}
-plot(mtcars$mpg, mtcars$cyl)
+plot(mtcars$mpg, as.factor(mtcars$cyl))
 ```
 
 ### Categorical/Continuous variable
