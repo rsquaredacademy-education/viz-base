@@ -26,13 +26,13 @@ Before we learn how to create histograms, let us see how normal and skewed distr
 
 ### Normal Distribution
 
-```{r hist1, fig.align='center', fig.height=5, fig.width=5, echo=FALSE}
+```{r hist1, fig.align='center', fig.height=5, fig.width=5}
 hist(rbeta(10000, 5, 5), ann = FALSE, col = 'blue')
 ```
 
 ### Skewed Distributions
 
-```{r hist2, fig.align='center', fig.width=10, fig.height=5, echo=FALSE}
+```{r hist2, fig.align='center', fig.width=10, fig.height=5}
 init <- par(no.readonly = TRUE)
 par(mfrow = c(1, 2))
 hist(rbeta(10000, 2, 5), ann = FALSE, col = 'blue')
@@ -43,7 +43,7 @@ hist(rbeta(10000, 5, 2), ann = FALSE, col = 'blue')
 
 Histograms are created using the `hist()` function in R. The minimum input required to create a bare bones histogram is a continuous variable. Below is an example:
 
-```{r hist3, fig.align='center', fig.height=5, fig.width=5, echo=FALSE}
+```{r hist3, fig.align='center', fig.height=5, fig.width=5}
 hist(mtcars$mpg)
 ```
 
@@ -76,13 +76,13 @@ h$equidist
 
 The `hist()` function creates equidistant intervals by default. We can specify the number of bins using the `breaks` argument.
 
-```{r hist5, fig.align='center', fig.height=5, fig.width=5, echo=FALSE}
+```{r hist5, fig.align='center', fig.height=5, fig.width=5}
 hist(mtcars$mpg, breaks = 10)
 ```
 
 The below plot displays histograms with different number of bins:
 
-```{r hist6, fig.align='center', fig.width=10, fig.height=10, echo=FALSE}
+```{r hist6, fig.align='center', fig.width=10, fig.height=10}
 init <- par(no.readonly = TRUE)
 par(mfrow = c(2, 2))
 values <- c(5, 10, 15, 20)
@@ -96,7 +96,7 @@ for (i in values) {
 
 If we want to create histograms with specific intervals, the `breaks` argument can be supplied with the intervals.
 
-```{r hist7, fig.align='center', fig.height=5, fig.width=5, echo=FALSE}
+```{r hist7, fig.align='center', fig.height=5, fig.width=5}
 hist(mtcars$mpg, breaks = c(10, 18, 24, 30, 35))
 ```
 
@@ -132,7 +132,7 @@ We will learn more about frequency density in a bit. Before we end this section,
 
 In the below plot, we examine how th algorithms work:
 
-```{r hist10, fig.align='center', fig.width=15, fig.height=5, echo=FALSE}
+```{r hist10, fig.align='center', fig.width=15, fig.height=5}
 init <- par(no.readonly = TRUE)
 par(mfrow = c(1, 3))
 values <- c("Sturges", "Scott", "FD")
@@ -146,7 +146,7 @@ for (i in values) {
 
 Let us come back to frequency density. If you want the Y axis of the histogram to represent frequency density instead of counts, set the `freq` argument to `FALSE`.
 
-```{r hist11, fig.align='center', fig.width=10, fig.height=5, echo=FALSE}
+```{r hist11, fig.align='center', fig.width=10, fig.height=5}
 init <- par(no.readonly = TRUE)
 par(mfrow = c(1, 2))
 values <- c(TRUE, FALSE)
@@ -168,19 +168,19 @@ To add colors to the bars of the histogram, use the `col` argument. If the numbe
 
 ### Single Color
 
-```{r hist13, fig.align='center', fig.height=5, fig.width=5, echo=FALSE}
+```{r hist13, fig.align='center', fig.height=5, fig.width=5}
 hist(mtcars$mpg, col = 'blue')
 ```
 
 ### Different Colors
 
-```{r hist14, fig.align='center', fig.height=5, fig.width=5, echo=FALSE}
+```{r hist14, fig.align='center', fig.height=5, fig.width=5}
 hist(mtcars$mpg, col = c('red', 'blue', 'green', 'yellow', 'brown'))
 ```
 
 ### Recycled Colors
 
-```{r hist15, fig.align='center', fig.height=5, fig.width=5, echo=FALSE}
+```{r hist15, fig.align='center', fig.height=5, fig.width=5}
 hist(mtcars$mpg, col = c('red', 'blue'))
 ```
 
@@ -188,13 +188,13 @@ hist(mtcars$mpg, col = c('red', 'blue'))
 
 Colors can be specified for the borders of the histogrambars using the `border` argument. 
 
-```{r hist20, fig.align='center', fig.height=5, fig.width=5, echo=FALSE}
+```{r hist20, fig.align='center', fig.height=5, fig.width=5}
 hist(mtcars$mpg, border = 'red')
 ```
 
 ### Different Colors
 
-```{r hist16, fig.align='center', fig.height=5, fig.width=5, echo=FALSE}
+```{r hist16, fig.align='center', fig.height=5, fig.width=5}
 hist(mtcars$mpg, border = c('red', 'blue', 'green', 'yellow', 'brown'))
 ```
 
@@ -206,7 +206,7 @@ In certain cases, we might want to add the frequency counts on the histogram bar
 
 Set `labels` to `TRUE`.
 
-```{r hist17, fig.align='center', fig.height=5, fig.width=5, echo=FALSE}
+```{r hist17, fig.align='center', fig.height=5, fig.width=5}
 hist(mtcars$mpg, labels = TRUE)
 ```
 
@@ -214,7 +214,7 @@ hist(mtcars$mpg, labels = TRUE)
 
 Specify the label values in a character vector.
 
-```{r hist18, fig.align='center', fig.height=5, fig.width=5, echo=FALSE}
+```{r hist18, fig.align='center', fig.height=5, fig.width=5}
 hist(mtcars$mpg, labels = c("6", "12", "8", "2", "4"))
 ```
 
