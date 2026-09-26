@@ -164,10 +164,10 @@ boxplot(mtcars$mpg ~ mtcars$cyl,
 
 If we want to test whether the medians of the different groups differ, we can use the `notch` argument and set it to `TRUE`. A notch is drawn in each side of the boxes and if the notches of the plots do not overlap, it is strong evidence that the medians differ.
 
-We will use a different data set for this example. Download the `hsb2` data from UCLA website and compare the distribution of reading score (`read`) for males and females (`female`).
+We will use a different data set for this example. We use the `hsb2` data (High School and Beyond survey, 200 observations; vendored as `data/hsb2.csv`, originally from the UCLA Institute for Digital Research and Education) and compare the distribution of reading score (`read`) for males and females (`female`).
 
 ```{r box16, fig.align='center', fig.width=5, fig.height=5}
-hsb <- read.table('https://stats.idre.ucla.edu/wp-content/uploads/2016/02/hsb2-2.csv', header=T, sep=",")
+hsb <- read.csv('data/hsb2.csv')
 boxplot(hsb$read ~ hsb$female, notch = TRUE, 
         col = c('red', 'blue'))
 ```

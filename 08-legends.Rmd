@@ -18,6 +18,8 @@ Since we have looked at a line graph in the above example, we will learn how to 
 
 Let us build a line graph that represents annual economic growth (GDP) data of the BRICS nations for the years 2010-14.
 
+> The values below are a frozen teaching vintage, also shipped as `data/brics-gdp-2010-14.csv`. They differ slightly from the World Bank's current revised series, so treat them as illustrative, not citable statistics.
+
 ```{r}
 year <- seq(2010, 2014, 1)
 india <- c(10.3, 6.6, 5.6, 6.6, 7.2)
