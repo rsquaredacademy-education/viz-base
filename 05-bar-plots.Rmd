@@ -233,16 +233,16 @@ barplot(cyl_gear, col = c('blue', 'red', 'green'))
 
 If you carefully observe the table and the plot:
 
-- the blue sections of the bars represent the number of automobiles with 3 gears and 4 cylinders 
-- the red sections represent the number of automobiles with 4 gears and 6 cylinders
-- the green sections represent the number of automobiles with 5 gears and 8 cylinders
+- the blue sections of the bars represent the number of automobiles with 4 cylinders (in each gear group)
+- the red sections represent the number of automobiles with 6 cylinders (in each gear group)
+- the green sections represent the number of automobiles with 8 cylinders (in each gear group)
 
 We need to convey the above information in some way and will do that using the `legend.text` argument. It takes logical values as inputs and the default values is `FALSE`. It adds a legend to the plot when it is set to `TRUE`. In the next example, we add a legend as well as other relevant information such as title and axis labels.
 
 
 ```{r bar23, fig.align='center', fig.height=5, fig.width=5}
 barplot(cyl_gear, col = c('blue', 'red', 'green'),
-        main = 'Gears vs Cylinders', legend.text = TRUE,
+        main = 'Gears vs Cylinders', legend.text = c('4 cyl', '6 cyl', '8 cyl'),
         xlab = 'Number of Gears', ylab = 'Frequency')
 ```
 
@@ -252,7 +252,7 @@ A grouped bar plot represents the same data as the stacked bar plot but instead 
 
 ```{r bar24, fig.align='center', fig.height=5, fig.width=5}
 barplot(cyl_gear, col = c('blue', 'red', 'green'),
-        beside = TRUE, legend.text = TRUE,
+        beside = TRUE, legend.text = c('4 cyl', '6 cyl', '8 cyl'),
         main = 'Gears vs Cylinders',
         xlab = 'Number of Gears', ylab = 'Frequency')
 ```
