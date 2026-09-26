@@ -6,6 +6,17 @@ project:
 filters:
   - webr
 
+quarto-required: ">=1.6.0"
+
+sitemap: true
+
+website:
+  site-url: https://viz-base.rsquaredacademy.com
+  description: "Learn to visualize data with base R: zero-dependency, publication-ready graphics."
+  open-graph: true
+  twitter-card: true
+  # google-analytics: "G-XXXXXXXXXX" # TODO: add GA4 ID when available (+ consent banner)
+
 book:
   title: "Data Visualization with R"
   subtitle: "Base Graphics"
@@ -38,6 +49,7 @@ format:
     code-tools: true
     code-copy: true
     code-overflow: wrap
+    include-in-header: includes/head.html
   pdf:
     pdf-engine: typst
     toc-depth: 3
