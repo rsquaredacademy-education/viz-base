@@ -27,12 +27,14 @@ Before we learn how to create histograms, let us see how normal and skewed distr
 ### Normal Distribution
 
 ```{r hist1, fig.align='center', fig.height=5, fig.width=5}
+set.seed(1)
 hist(rbeta(10000, 5, 5), ann = FALSE, col = 'blue')
 ```
 
 ### Skewed Distributions
 
 ```{r hist2, fig.align='center', fig.width=10, fig.height=5}
+set.seed(1)
 init <- par(no.readonly = TRUE)
 par(mfrow = c(1, 2))
 hist(rbeta(10000, 2, 5), ann = FALSE, col = 'blue')

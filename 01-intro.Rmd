@@ -16,7 +16,7 @@ This is the first post of the series **Data Visualization With R**. The objectiv
 
 In simple words, data visualization is the representation of data in graphical format. 
 
-![data-viz](data-viz.png)
+![Introduction to R](img/intro-r.png)
 
 ## Why visualize data?
 
