@@ -292,7 +292,14 @@ par(init)
 A background color can be added to the legend box using the `bg` argument. Below is an example:
 
 ```{r leg13, fig.align='center', fig.height=5, fig.width=5}
-{c}
+plot(gdp$year, gdp$india, type = 'l',
+      ylim = c(-5, 15), xlab = 'Year',
+      ylab = 'Growth Rate', col = 'blue',
+      main = 'BRICS: Growth Rate')
+lines(gdp$year, gdp$china, col = 'red')
+legend(x = 2012, y = 0, legend = c('india', 'china'),
+       lty = 1, col = c('blue', 'red'), title = 'Nations',
+       bg = 'lightyellow')
 ```
 
 ### Border
@@ -304,14 +311,14 @@ The following arguments can be used to modify the border of the legend box:
 - `box.col`: color
 
 ```{r leg14, fig.align='center', fig.height=5, fig.width=5}
-{plot(gdp$year, gdp$india, type = 'l',
+plot(gdp$year, gdp$india, type = 'l',
       ylim = c(-5, 15), xlab = 'Year',
       ylab = 'Growth Rate', col = 'blue',
       main = 'BRICS: Growth Rate')
 lines(gdp$year, gdp$china, col = 'red')
 legend(x = 2012, y = 0, legend = c('india', 'china'),
        lty = 1, col = c('blue', 'red'), title = 'Nations',
-       box.lty = 3, box.lwd = 1.5, box.col = 'green')}
+       box.lty = 3, box.lwd = 1.5, box.col = 'green')
 ```
 
 ## Justification
@@ -359,7 +366,7 @@ for (i in values) {
   legend(x = 2012, y = 0, legend = c('india', 'china'),
        lty = 1, col = c('blue', 'red'), yjust = i,
        title = 'Nations')
-  mtext(paste("xjust = ", i), side = 3, col = "blue")
+  mtext(paste("yjust = ", i), side = 3, col = "blue")
 }
 par(init)
 ```
