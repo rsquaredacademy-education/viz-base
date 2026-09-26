@@ -56,13 +56,13 @@ help(mtcars)
 
 ### mtcars 
 
-```{r mtcars}
+```{webr-r}
 head(mtcars)
 ```
 
 ### Variable Info
 
-```{r data2}
+```{webr-r}
 str(mtcars)
 ```
 
@@ -79,37 +79,37 @@ Now that we have some idea about the data set, let us explore the `plot()` funct
 
 ### One continuous variable
 
-```{r plot1,fig.align='center',fig.height=5,fig.width=5}
+```{webr-r}
 plot(mtcars$mpg)
 ```
 
 ### One categorical variable
 
-```{r plot2,fig.align='center',fig.height=5,fig.width=5}
+```{webr-r}
 plot(as.factor(mtcars$cyl))
 ```
 
 ### Two continuous variables
 
-```{r plot3,fig.align='center',fig.height=5,fig.width=5}
+```{webr-r}
 plot(mtcars$disp, mtcars$mpg)
 ```
 
 ### Two categorical variables
 
-```{r plot4,fig.align='center',fig.height=5,fig.width=5}
+```{webr-r}
 plot(as.factor(mtcars$am), as.factor(mtcars$cyl))
 ```
 
 ### Continuous/Categorical variable
 
-```{r plot5,fig.align='center',fig.height=5,fig.width=5}
+```{webr-r}
 plot(mtcars$mpg, as.factor(mtcars$cyl))
 ```
 
 ### Categorical/Continuous variable
 
-```{r plot6,fig.align='center',fig.height=5,fig.width=5}
+```{webr-r}
 plot(as.factor(mtcars$cyl), mtcars$mpg)
 ```
 

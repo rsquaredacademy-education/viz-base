@@ -2,6 +2,10 @@ project:
   type: book
   output-dir: docs
 
+# Interactive R cells (Ch 1-3 only) via WebAssembly; base R needs no downloads.
+filters:
+  - webr
+
 book:
   title: "Data Visualization with R"
   subtitle: "Base Graphics"
