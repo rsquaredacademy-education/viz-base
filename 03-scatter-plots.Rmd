@@ -48,16 +48,12 @@ for (i in values) {
 }
 ```
 
-We can specify the shape based on a third (categorical variable as well). In the below plot, the shape is based on the levels of the categorical variable `cyl` (number of cylinders) from the `mtcars` data set:
+We can specify the shape based on a third (categorical variable as well). In the below plot, the shape is based on the levels of the categorical variable `cyl` (number of cylinders) from the `mtcars` data set. Note that `nlevels(factor(mtcars$cyl))` returns a single value (`3`), so it would give every point the same shape — instead, map each observation to its own level with `as.numeric(factor(...))`:
 
 ```{r scatter-pch2, fig.align='center', fig.width=5, fig.height=5}
-# shape  based on number of levels of a third variable
-plot(mtcars$disp, mtcars$mpg, pch = nlevels(factor(mtcars$cyl)))
-```
-
-```{r scatter-pch3, fig.align='center', fig.width=5, fig.height=5}
 # shape based on a third categorical variable
-plot(mtcars$disp, mtcars$mpg, pch = unclass(mtcars$cyl))
+plot(mtcars$disp, mtcars$mpg, pch = as.numeric(factor(mtcars$cyl)))
+legend('topright', legend = c('4 cyl', '6 cyl', '8 cyl'), pch = 1:3)
 ```
 
 ## Size
