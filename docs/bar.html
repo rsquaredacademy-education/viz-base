@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Bar Plots | Data Visualization with R</title>
   <meta name="description" content="Learn to visualize data with base R." />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Bar Plots | Data Visualization with R" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Learn to visualize data with base R." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Aravind Hebbali" />
 
 
-<meta name="date" content="2020-06-20" />
+<meta name="date" content="2026-09-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="line.html"/>
 <link rel="next" href="box.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +49,9 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-57270671-37"></script>
 <script>
@@ -62,18 +64,19 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -93,13 +96,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -112,7 +115,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -124,6 +127,11 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -142,24 +150,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="https://github.com/rsquaredacademy-education/viz-base/">Data Visualization with R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#software-information"><i class="fa fa-check"></i>Software information</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
-<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#what-is-data-visualization"><i class="fa fa-check"></i><b>1.2</b> What is data visualization?</a></li>
 <li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#why-visualize-data"><i class="fa fa-check"></i><b>1.3</b> Why visualize data?</a></li>
-<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#r-graphics-system"><i class="fa fa-check"></i><b>1.4</b> R Graphics System</a><ul>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#r-graphics-system"><i class="fa fa-check"></i><b>1.4</b> R Graphics System</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="intro.html"><a href="intro.html#graphics"><i class="fa fa-check"></i><b>1.4.1</b> Graphics</a></li>
 <li class="chapter" data-level="1.4.2" data-path="intro.html"><a href="intro.html#ggplot2"><i class="fa fa-check"></i><b>1.4.2</b> ggplot2</a></li>
 <li class="chapter" data-level="1.4.3" data-path="intro.html"><a href="intro.html#lattice"><i class="fa fa-check"></i><b>1.4.3</b> Lattice</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#getting-help"><i class="fa fa-check"></i><b>1.5</b> Getting Help</a><ul>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#getting-help"><i class="fa fa-check"></i><b>1.5</b> Getting Help</a>
+<ul>
 <li class="chapter" data-level="1.5.1" data-path="intro.html"><a href="intro.html#mtcars"><i class="fa fa-check"></i><b>1.5.1</b> mtcars</a></li>
 <li class="chapter" data-level="1.5.2" data-path="intro.html"><a href="intro.html#variable-info"><i class="fa fa-check"></i><b>1.5.2</b> Variable Info</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#plot"><i class="fa fa-check"></i><b>1.6</b> plot()</a><ul>
+<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#plot"><i class="fa fa-check"></i><b>1.6</b> plot()</a>
+<ul>
 <li class="chapter" data-level="1.6.1" data-path="intro.html"><a href="intro.html#one-continuous-variable"><i class="fa fa-check"></i><b>1.6.1</b> One continuous variable</a></li>
 <li class="chapter" data-level="1.6.2" data-path="intro.html"><a href="intro.html#one-categorical-variable"><i class="fa fa-check"></i><b>1.6.2</b> One categorical variable</a></li>
 <li class="chapter" data-level="1.6.3" data-path="intro.html"><a href="intro.html#two-continuous-variables"><i class="fa fa-check"></i><b>1.6.3</b> Two continuous variables</a></li>
@@ -168,7 +181,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6.6" data-path="intro.html"><a href="intro.html#categoricalcontinuous-variable"><i class="fa fa-check"></i><b>1.6.6</b> Categorical/Continuous variable</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="titlelabels.html"><a href="titlelabels.html"><i class="fa fa-check"></i><b>2</b> Title &amp; Axis Labels</a><ul>
+<li class="chapter" data-level="2" data-path="titlelabels.html"><a href="titlelabels.html"><i class="fa fa-check"></i><b>2</b> Title &amp; Axis Labels</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="titlelabels.html"><a href="titlelabels.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
 <li class="chapter" data-level="2.2" data-path="titlelabels.html"><a href="titlelabels.html#syntax"><i class="fa fa-check"></i><b>2.2</b> Syntax</a></li>
 <li class="chapter" data-level="2.3" data-path="titlelabels.html"><a href="titlelabels.html#title"><i class="fa fa-check"></i><b>2.3</b> Title</a></li>
@@ -177,14 +191,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.6" data-path="titlelabels.html"><a href="titlelabels.html#title-1"><i class="fa fa-check"></i><b>2.6</b> title()</a></li>
 <li class="chapter" data-level="2.7" data-path="titlelabels.html"><a href="titlelabels.html#axis-range"><i class="fa fa-check"></i><b>2.7</b> Axis Range</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="scatter.html"><a href="scatter.html"><i class="fa fa-check"></i><b>3</b> Scatter Plots</a><ul>
+<li class="chapter" data-level="3" data-path="scatter.html"><a href="scatter.html"><i class="fa fa-check"></i><b>3</b> Scatter Plots</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="scatter.html"><a href="scatter.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2" data-path="scatter.html"><a href="scatter.html#basic-plot"><i class="fa fa-check"></i><b>3.2</b> Basic Plot</a></li>
 <li class="chapter" data-level="3.3" data-path="scatter.html"><a href="scatter.html#shape"><i class="fa fa-check"></i><b>3.3</b> Shape</a></li>
 <li class="chapter" data-level="3.4" data-path="scatter.html"><a href="scatter.html#size"><i class="fa fa-check"></i><b>3.4</b> Size</a></li>
 <li class="chapter" data-level="3.5" data-path="scatter.html"><a href="scatter.html#color"><i class="fa fa-check"></i><b>3.5</b> Color</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="line.html"><a href="line.html"><i class="fa fa-check"></i><b>4</b> Line Graphs</a><ul>
+<li class="chapter" data-level="4" data-path="line.html"><a href="line.html"><i class="fa fa-check"></i><b>4</b> Line Graphs</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="line.html"><a href="line.html#introduction-3"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="line.html"><a href="line.html#basic-plot-1"><i class="fa fa-check"></i><b>4.2</b> Basic Plot</a></li>
 <li class="chapter" data-level="4.3" data-path="line.html"><a href="line.html#color-1"><i class="fa fa-check"></i><b>4.3</b> Color</a></li>
@@ -194,19 +210,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7" data-path="line.html"><a href="line.html#additional-lines"><i class="fa fa-check"></i><b>4.7</b> Additional Lines</a></li>
 <li class="chapter" data-level="4.8" data-path="line.html"><a href="line.html#putting-it-all-together"><i class="fa fa-check"></i><b>4.8</b> Putting it all together…</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="bar.html"><a href="bar.html"><i class="fa fa-check"></i><b>5</b> Bar Plots</a><ul>
+<li class="chapter" data-level="5" data-path="bar.html"><a href="bar.html"><i class="fa fa-check"></i><b>5</b> Bar Plots</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="bar.html"><a href="bar.html#introduction-4"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
-<li class="chapter" data-level="5.2" data-path="bar.html"><a href="bar.html#bar-plot"><i class="fa fa-check"></i><b>5.2</b> Bar Plot</a><ul>
+<li class="chapter" data-level="5.2" data-path="bar.html"><a href="bar.html#bar-plot"><i class="fa fa-check"></i><b>5.2</b> Bar Plot</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="bar.html"><a href="bar.html#using-plot-function"><i class="fa fa-check"></i><b>5.2.1</b> Using plot function</a></li>
 <li class="chapter" data-level="5.2.2" data-path="bar.html"><a href="bar.html#using-barplot-function"><i class="fa fa-check"></i><b>5.2.2</b> Using barplot function</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="bar.html"><a href="bar.html#horizontal-or-vertical"><i class="fa fa-check"></i><b>5.3</b> Horizontal or Vertical</a></li>
-<li class="chapter" data-level="5.4" data-path="bar.html"><a href="bar.html#bar-width"><i class="fa fa-check"></i><b>5.4</b> Bar Width</a><ul>
+<li class="chapter" data-level="5.4" data-path="bar.html"><a href="bar.html#bar-width"><i class="fa fa-check"></i><b>5.4</b> Bar Width</a>
+<ul>
 <li class="chapter" data-level="5.4.1" data-path="bar.html"><a href="bar.html#equal-width"><i class="fa fa-check"></i><b>5.4.1</b> Equal Width</a></li>
 <li class="chapter" data-level="5.4.2" data-path="bar.html"><a href="bar.html#different-widths"><i class="fa fa-check"></i><b>5.4.2</b> Different Widths</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="bar.html"><a href="bar.html#labels"><i class="fa fa-check"></i><b>5.5</b> Labels</a></li>
-<li class="chapter" data-level="5.6" data-path="bar.html"><a href="bar.html#color-2"><i class="fa fa-check"></i><b>5.6</b> Color</a><ul>
+<li class="chapter" data-level="5.6" data-path="bar.html"><a href="bar.html#color-2"><i class="fa fa-check"></i><b>5.6</b> Color</a>
+<ul>
 <li class="chapter" data-level="5.6.1" data-path="bar.html"><a href="bar.html#same-color-for-all-bars"><i class="fa fa-check"></i><b>5.6.1</b> Same color for all bars</a></li>
 <li class="chapter" data-level="5.6.2" data-path="bar.html"><a href="bar.html#differnt-color-for-the-bars"><i class="fa fa-check"></i><b>5.6.2</b> Differnt color for the bars</a></li>
 <li class="chapter" data-level="5.6.3" data-path="bar.html"><a href="bar.html#recycling-colors"><i class="fa fa-check"></i><b>5.6.3</b> Recycling colors</a></li>
@@ -214,23 +234,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.6.5" data-path="bar.html"><a href="bar.html#differnt-color-for-the-bars-1"><i class="fa fa-check"></i><b>5.6.5</b> Differnt color for the bars</a></li>
 <li class="chapter" data-level="5.6.6" data-path="bar.html"><a href="bar.html#recycling-colors-1"><i class="fa fa-check"></i><b>5.6.6</b> Recycling colors</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="bar.html"><a href="bar.html#axes"><i class="fa fa-check"></i><b>5.7</b> Axes</a><ul>
+<li class="chapter" data-level="5.7" data-path="bar.html"><a href="bar.html#axes"><i class="fa fa-check"></i><b>5.7</b> Axes</a>
+<ul>
 <li class="chapter" data-level="5.7.1" data-path="bar.html"><a href="bar.html#remove-axes"><i class="fa fa-check"></i><b>5.7.1</b> Remove axes</a></li>
 </ul></li>
-<li class="chapter" data-level="5.8" data-path="bar.html"><a href="bar.html#putting-it-all-together-1"><i class="fa fa-check"></i><b>5.8</b> Putting it all together…</a><ul>
+<li class="chapter" data-level="5.8" data-path="bar.html"><a href="bar.html#putting-it-all-together-1"><i class="fa fa-check"></i><b>5.8</b> Putting it all together…</a>
+<ul>
 <li class="chapter" data-level="5.8.1" data-path="bar.html"><a href="bar.html#title-axis-labels"><i class="fa fa-check"></i><b>5.8.1</b> Title &amp; Axis Labels</a></li>
 </ul></li>
-<li class="chapter" data-level="5.9" data-path="bar.html"><a href="bar.html#bivariate-bar-plots"><i class="fa fa-check"></i><b>5.9</b> Bivariate Bar Plots</a><ul>
+<li class="chapter" data-level="5.9" data-path="bar.html"><a href="bar.html#bivariate-bar-plots"><i class="fa fa-check"></i><b>5.9</b> Bivariate Bar Plots</a>
+<ul>
 <li class="chapter" data-level="5.9.1" data-path="bar.html"><a href="bar.html#stacked-bar-plot"><i class="fa fa-check"></i><b>5.9.1</b> Stacked Bar Plot</a></li>
 <li class="chapter" data-level="5.9.2" data-path="bar.html"><a href="bar.html#grouped-bar-plot"><i class="fa fa-check"></i><b>5.9.2</b> Grouped Bar Plot</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="box.html"><a href="box.html"><i class="fa fa-check"></i><b>6</b> Box Plots</a><ul>
+<li class="chapter" data-level="6" data-path="box.html"><a href="box.html"><i class="fa fa-check"></i><b>6</b> Box Plots</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="box.html"><a href="box.html#introduction-5"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
-<li class="chapter" data-level="6.2" data-path="box.html"><a href="box.html#box-plot"><i class="fa fa-check"></i><b>6.2</b> Box Plot</a><ul>
+<li class="chapter" data-level="6.2" data-path="box.html"><a href="box.html#box-plot"><i class="fa fa-check"></i><b>6.2</b> Box Plot</a>
+<ul>
 <li class="chapter" data-level="6.2.1" data-path="box.html"><a href="box.html#structure"><i class="fa fa-check"></i><b>6.2.1</b> Structure</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="box.html"><a href="box.html#univariate-box-plot"><i class="fa fa-check"></i><b>6.3</b> Univariate Box Plot</a><ul>
+<li class="chapter" data-level="6.3" data-path="box.html"><a href="box.html#univariate-box-plot"><i class="fa fa-check"></i><b>6.3</b> Univariate Box Plot</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="box.html"><a href="box.html#basic-plot-2"><i class="fa fa-check"></i><b>6.3.1</b> Basic Plot</a></li>
 <li class="chapter" data-level="6.3.2" data-path="box.html"><a href="box.html#horizontal-box-plot"><i class="fa fa-check"></i><b>6.3.2</b> Horizontal Box Plot</a></li>
 <li class="chapter" data-level="6.3.3" data-path="box.html"><a href="box.html#color-3"><i class="fa fa-check"></i><b>6.3.3</b> Color</a></li>
@@ -239,39 +265,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.6" data-path="box.html"><a href="box.html#outline"><i class="fa fa-check"></i><b>6.3.6</b> Outline</a></li>
 <li class="chapter" data-level="6.3.7" data-path="box.html"><a href="box.html#varwidth"><i class="fa fa-check"></i><b>6.3.7</b> Varwidth</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="box.html"><a href="box.html#bivariatemultivariate-box-plot"><i class="fa fa-check"></i><b>6.4</b> Bivariate/Multivariate Box Plot</a><ul>
+<li class="chapter" data-level="6.4" data-path="box.html"><a href="box.html#bivariatemultivariate-box-plot"><i class="fa fa-check"></i><b>6.4</b> Bivariate/Multivariate Box Plot</a>
+<ul>
 <li class="chapter" data-level="6.4.1" data-path="box.html"><a href="box.html#color-4"><i class="fa fa-check"></i><b>6.4.1</b> Color</a></li>
 <li class="chapter" data-level="6.4.2" data-path="box.html"><a href="box.html#compare-medians"><i class="fa fa-check"></i><b>6.4.2</b> Compare Medians</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="box.html"><a href="box.html#putting-it-all-together-2"><i class="fa fa-check"></i><b>6.5</b> Putting it all together</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="hist.html"><a href="hist.html"><i class="fa fa-check"></i><b>7</b> Histograms</a><ul>
+<li class="chapter" data-level="7" data-path="hist.html"><a href="hist.html"><i class="fa fa-check"></i><b>7</b> Histograms</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="hist.html"><a href="hist.html#introduction-6"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
-<li class="chapter" data-level="7.2" data-path="hist.html"><a href="hist.html#distributions"><i class="fa fa-check"></i><b>7.2</b> Distributions</a><ul>
+<li class="chapter" data-level="7.2" data-path="hist.html"><a href="hist.html#distributions"><i class="fa fa-check"></i><b>7.2</b> Distributions</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="hist.html"><a href="hist.html#normal-distribution"><i class="fa fa-check"></i><b>7.2.1</b> Normal Distribution</a></li>
 <li class="chapter" data-level="7.2.2" data-path="hist.html"><a href="hist.html#skewed-distributions"><i class="fa fa-check"></i><b>7.2.2</b> Skewed Distributions</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="hist.html"><a href="hist.html#basics"><i class="fa fa-check"></i><b>7.3</b> Basics</a></li>
 <li class="chapter" data-level="7.4" data-path="hist.html"><a href="hist.html#bins"><i class="fa fa-check"></i><b>7.4</b> Bins</a></li>
-<li class="chapter" data-level="7.5" data-path="hist.html"><a href="hist.html#intervals"><i class="fa fa-check"></i><b>7.5</b> Intervals</a><ul>
+<li class="chapter" data-level="7.5" data-path="hist.html"><a href="hist.html#intervals"><i class="fa fa-check"></i><b>7.5</b> Intervals</a>
+<ul>
 <li class="chapter" data-level="7.5.1" data-path="hist.html"><a href="hist.html#frequency-density"><i class="fa fa-check"></i><b>7.5.1</b> Frequency Density</a></li>
 </ul></li>
 <li class="chapter" data-level="7.6" data-path="hist.html"><a href="hist.html#frequency-distribution-ii"><i class="fa fa-check"></i><b>7.6</b> Frequency Distribution II</a></li>
-<li class="chapter" data-level="7.7" data-path="hist.html"><a href="hist.html#color-5"><i class="fa fa-check"></i><b>7.7</b> Color</a><ul>
+<li class="chapter" data-level="7.7" data-path="hist.html"><a href="hist.html#color-5"><i class="fa fa-check"></i><b>7.7</b> Color</a>
+<ul>
 <li class="chapter" data-level="7.7.1" data-path="hist.html"><a href="hist.html#single-color-1"><i class="fa fa-check"></i><b>7.7.1</b> Single Color</a></li>
 <li class="chapter" data-level="7.7.2" data-path="hist.html"><a href="hist.html#different-colors-1"><i class="fa fa-check"></i><b>7.7.2</b> Different Colors</a></li>
 <li class="chapter" data-level="7.7.3" data-path="hist.html"><a href="hist.html#recycled-colors"><i class="fa fa-check"></i><b>7.7.3</b> Recycled Colors</a></li>
 </ul></li>
-<li class="chapter" data-level="7.8" data-path="hist.html"><a href="hist.html#border-color-1"><i class="fa fa-check"></i><b>7.8</b> Border Color</a><ul>
+<li class="chapter" data-level="7.8" data-path="hist.html"><a href="hist.html#border-color-1"><i class="fa fa-check"></i><b>7.8</b> Border Color</a>
+<ul>
 <li class="chapter" data-level="7.8.1" data-path="hist.html"><a href="hist.html#different-colors-2"><i class="fa fa-check"></i><b>7.8.1</b> Different Colors</a></li>
 </ul></li>
-<li class="chapter" data-level="7.9" data-path="hist.html"><a href="hist.html#labels-1"><i class="fa fa-check"></i><b>7.9</b> Labels</a><ul>
+<li class="chapter" data-level="7.9" data-path="hist.html"><a href="hist.html#labels-1"><i class="fa fa-check"></i><b>7.9</b> Labels</a>
+<ul>
 <li class="chapter" data-level="7.9.1" data-path="hist.html"><a href="hist.html#method-1"><i class="fa fa-check"></i><b>7.9.1</b> Method 1</a></li>
 <li class="chapter" data-level="7.9.2" data-path="hist.html"><a href="hist.html#method-2"><i class="fa fa-check"></i><b>7.9.2</b> Method 2</a></li>
 </ul></li>
 <li class="chapter" data-level="7.10" data-path="hist.html"><a href="hist.html#putting-it-all-together.."><i class="fa fa-check"></i><b>7.10</b> Putting it all together..</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="legend.html"><a href="legend.html"><i class="fa fa-check"></i><b>8</b> Legends</a><ul>
+<li class="chapter" data-level="8" data-path="legend.html"><a href="legend.html"><i class="fa fa-check"></i><b>8</b> Legends</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="legend.html"><a href="legend.html#introduction-7"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
 <li class="chapter" data-level="8.2" data-path="legend.html"><a href="legend.html#data"><i class="fa fa-check"></i><b>8.2</b> Data</a></li>
 <li class="chapter" data-level="8.3" data-path="legend.html"><a href="legend.html#line-graph"><i class="fa fa-check"></i><b>8.3</b> Line Graph</a></li>
@@ -279,22 +313,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5" data-path="legend.html"><a href="legend.html#lines"><i class="fa fa-check"></i><b>8.5</b> Lines</a></li>
 <li class="chapter" data-level="8.6" data-path="legend.html"><a href="legend.html#points"><i class="fa fa-check"></i><b>8.6</b> Points</a></li>
 <li class="chapter" data-level="8.7" data-path="legend.html"><a href="legend.html#text-placement"><i class="fa fa-check"></i><b>8.7</b> Text Placement</a></li>
-<li class="chapter" data-level="8.8" data-path="legend.html"><a href="legend.html#title-2"><i class="fa fa-check"></i><b>8.8</b> Title</a><ul>
+<li class="chapter" data-level="8.8" data-path="legend.html"><a href="legend.html#title-2"><i class="fa fa-check"></i><b>8.8</b> Title</a>
+<ul>
 <li class="chapter" data-level="8.8.1" data-path="legend.html"><a href="legend.html#title-color"><i class="fa fa-check"></i><b>8.8.1</b> Title Color</a></li>
 <li class="chapter" data-level="8.8.2" data-path="legend.html"><a href="legend.html#title-position"><i class="fa fa-check"></i><b>8.8.2</b> Title Position</a></li>
 </ul></li>
-<li class="chapter" data-level="8.9" data-path="legend.html"><a href="legend.html#box-appearance"><i class="fa fa-check"></i><b>8.9</b> Box Appearance</a><ul>
+<li class="chapter" data-level="8.9" data-path="legend.html"><a href="legend.html#box-appearance"><i class="fa fa-check"></i><b>8.9</b> Box Appearance</a>
+<ul>
 <li class="chapter" data-level="8.9.1" data-path="legend.html"><a href="legend.html#box-type"><i class="fa fa-check"></i><b>8.9.1</b> Box Type</a></li>
 <li class="chapter" data-level="8.9.2" data-path="legend.html"><a href="legend.html#background-color"><i class="fa fa-check"></i><b>8.9.2</b> Background Color</a></li>
 <li class="chapter" data-level="8.9.3" data-path="legend.html"><a href="legend.html#border"><i class="fa fa-check"></i><b>8.9.3</b> Border</a></li>
 </ul></li>
-<li class="chapter" data-level="8.10" data-path="legend.html"><a href="legend.html#justification"><i class="fa fa-check"></i><b>8.10</b> Justification</a><ul>
+<li class="chapter" data-level="8.10" data-path="legend.html"><a href="legend.html#justification"><i class="fa fa-check"></i><b>8.10</b> Justification</a>
+<ul>
 <li class="chapter" data-level="8.10.1" data-path="legend.html"><a href="legend.html#horizontal-justification"><i class="fa fa-check"></i><b>8.10.1</b> Horizontal Justification</a></li>
 <li class="chapter" data-level="8.10.2" data-path="legend.html"><a href="legend.html#vertical-justification"><i class="fa fa-check"></i><b>8.10.2</b> Vertical Justification</a></li>
 </ul></li>
 <li class="chapter" data-level="8.11" data-path="legend.html"><a href="legend.html#text-appearance"><i class="fa fa-check"></i><b>8.11</b> Text Appearance</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="textann.html"><a href="textann.html"><i class="fa fa-check"></i><b>9</b> Text Annotations</a><ul>
+<li class="chapter" data-level="9" data-path="textann.html"><a href="textann.html"><i class="fa fa-check"></i><b>9</b> Text Annotations</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="textann.html"><a href="textann.html#introduction-8"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
 <li class="chapter" data-level="9.2" data-path="textann.html"><a href="textann.html#syntax-1"><i class="fa fa-check"></i><b>9.2</b> Syntax</a></li>
 <li class="chapter" data-level="9.3" data-path="textann.html"><a href="textann.html#text-inside-the-plot"><i class="fa fa-check"></i><b>9.3</b> Text Inside the Plot</a></li>
@@ -306,24 +344,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.9" data-path="textann.html"><a href="textann.html#specify-margin"><i class="fa fa-check"></i><b>9.9</b> Specify Margin</a></li>
 <li class="chapter" data-level="9.10" data-path="textann.html"><a href="textann.html#line-1"><i class="fa fa-check"></i><b>9.10</b> Line</a></li>
 <li class="chapter" data-level="9.11" data-path="textann.html"><a href="textann.html#alignment"><i class="fa fa-check"></i><b>9.11</b> Alignment</a></li>
+<li class="chapter" data-level="9.12" data-path="textann.html"><a href="textann.html#position"><i class="fa fa-check"></i><b>9.12</b> Position</a></li>
+<li class="chapter" data-level="9.13" data-path="textann.html"><a href="textann.html#offset"><i class="fa fa-check"></i><b>9.13</b> Offset</a></li>
+<li class="chapter" data-level="9.14" data-path="textann.html"><a href="textann.html#perpendicular-adjustment"><i class="fa fa-check"></i><b>9.14</b> Perpendicular Adjustment</a></li>
+<li class="chapter" data-level="9.15" data-path="textann.html"><a href="textann.html#outer-margin"><i class="fa fa-check"></i><b>9.15</b> Outer Margin</a></li>
+<li class="chapter" data-level="9.16" data-path="textann.html"><a href="textann.html#exact-position"><i class="fa fa-check"></i><b>9.16</b> Exact Position</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="facet.html"><a href="facet.html"><i class="fa fa-check"></i><b>10</b> Faceting</a><ul>
+<li class="chapter" data-level="10" data-path="facet.html"><a href="facet.html"><i class="fa fa-check"></i><b>10</b> Faceting</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="facet.html"><a href="facet.html#introduction-9"><i class="fa fa-check"></i><b>10.1</b> Introduction</a></li>
-<li class="chapter" data-level="10.2" data-path="facet.html"><a href="facet.html#row"><i class="fa fa-check"></i><b>10.2</b> Row</a><ul>
+<li class="chapter" data-level="10.2" data-path="facet.html"><a href="facet.html#row"><i class="fa fa-check"></i><b>10.2</b> Row</a>
+<ul>
 <li class="chapter" data-level="10.2.1" data-path="facet.html"><a href="facet.html#case-study-1"><i class="fa fa-check"></i><b>10.2.1</b> Case Study 1</a></li>
 <li class="chapter" data-level="10.2.2" data-path="facet.html"><a href="facet.html#case-study-2"><i class="fa fa-check"></i><b>10.2.2</b> Case Study 2</a></li>
 <li class="chapter" data-level="10.2.3" data-path="facet.html"><a href="facet.html#case-study-3"><i class="fa fa-check"></i><b>10.2.3</b> Case Study 3</a></li>
 <li class="chapter" data-level="10.2.4" data-path="facet.html"><a href="facet.html#case-study-4"><i class="fa fa-check"></i><b>10.2.4</b> Case Study 4</a></li>
 <li class="chapter" data-level="10.2.5" data-path="facet.html"><a href="facet.html#case-study-5"><i class="fa fa-check"></i><b>10.2.5</b> Case Study 5</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="facet.html"><a href="facet.html#column"><i class="fa fa-check"></i><b>10.3</b> Column</a><ul>
+<li class="chapter" data-level="10.3" data-path="facet.html"><a href="facet.html#column"><i class="fa fa-check"></i><b>10.3</b> Column</a>
+<ul>
 <li class="chapter" data-level="10.3.1" data-path="facet.html"><a href="facet.html#case-study-6"><i class="fa fa-check"></i><b>10.3.1</b> Case Study 6</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="facet.html"><a href="facet.html#special-cases"><i class="fa fa-check"></i><b>10.4</b> Special Cases</a><ul>
+<li class="chapter" data-level="10.4" data-path="facet.html"><a href="facet.html#special-cases"><i class="fa fa-check"></i><b>10.4</b> Special Cases</a>
+<ul>
 <li class="chapter" data-level="10.4.1" data-path="facet.html"><a href="facet.html#case-study-7"><i class="fa fa-check"></i><b>10.4.1</b> Case Study 7</a></li>
 <li class="chapter" data-level="10.4.2" data-path="facet.html"><a href="facet.html#case-study-8"><i class="fa fa-check"></i><b>10.4.2</b> Case Study 8</a></li>
 </ul></li>
-<li class="chapter" data-level="10.5" data-path="facet.html"><a href="facet.html#layout"><i class="fa fa-check"></i><b>10.5</b> Layout</a><ul>
+<li class="chapter" data-level="10.5" data-path="facet.html"><a href="facet.html#layout"><i class="fa fa-check"></i><b>10.5</b> Layout</a>
+<ul>
 <li class="chapter" data-level="10.5.1" data-path="facet.html"><a href="facet.html#case-study-1-1"><i class="fa fa-check"></i><b>10.5.1</b> Case Study 1</a></li>
 <li class="chapter" data-level="10.5.2" data-path="facet.html"><a href="facet.html#case-study-2-1"><i class="fa fa-check"></i><b>10.5.2</b> Case Study 2</a></li>
 <li class="chapter" data-level="10.5.3" data-path="facet.html"><a href="facet.html#case-study-3-1"><i class="fa fa-check"></i><b>10.5.3</b> Case Study 3</a></li>
@@ -355,10 +403,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bar" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Bar Plots</h1>
-<div id="introduction-4" class="section level2">
-<h2><span class="header-section-number">5.1</span> Introduction</h2>
+<div id="bar" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Bar Plots<a href="bar.html#bar" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-4" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Introduction<a href="bar.html#introduction-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this chapter, we will visualize categorical data using univariate and bivariate bar plots. More
 specifically, we will learn to:</p>
 <ul>
@@ -383,190 +431,190 @@ specifically, we will learn to:</p>
 <li>modify legend</li>
 </ul>
 </div>
-<div id="bar-plot" class="section level2">
-<h2><span class="header-section-number">5.2</span> Bar Plot</h2>
+<div id="bar-plot" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Bar Plot<a href="bar.html#bar-plot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A bar plot represents data in rectangular bars. The length of the bars are proportional to the values they represent. Bar plots can be either horizontal or vertical. The X axis of the plot represents the levels or the categories and the Y axis represents the frequency/count of the variable.</p>
 <p>A univariate bar plot represents a single categorical variable. The categories in the variable are represented on the X axis and their frequencies on the Y axis. In the below example, the <code>cyl</code> variable from the <code>mtcars</code> data set is visualized using a bar plot. The categories or levels are <code>4</code>, <code>6</code> and <code>8</code> which represent the number of cylinders in the automobile and are represented on the X axis. The frequency for each type of cylinder is represented by the Y axis.</p>
 <p>In R, bar plots can be created using either the <code>plot()</code> or <code>barplot()</code> function. The input to both the functions are different. In case of the <code>plot()</code> function, we can specify the variable but it must be converted to a factor variable. In case of the <code>barplot()</code> function, the input must be the count or frequency of the variable. The <code>table()</code> function can be used to generate the counts/frequency for a variable. Let us use both the functions to create the bar plot:</p>
-<div id="using-plot-function" class="section level3">
-<h3><span class="header-section-number">5.2.1</span> Using plot function</h3>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="bar.html#cb44-1"></a><span class="kw">plot</span>(<span class="kw">as.factor</span>(mtcars<span class="op">$</span>cyl))</span></code></pre></div>
+<div id="using-plot-function" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Using plot function<a href="bar.html#using-plot-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="bar.html#cb43-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.factor</span>(mtcars<span class="sc">$</span>cyl))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar1-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
-<div id="using-barplot-function" class="section level3">
-<h3><span class="header-section-number">5.2.2</span> Using barplot function</h3>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="bar.html#cb45-1"></a><span class="kw">barplot</span>(<span class="kw">table</span>(mtcars<span class="op">$</span>cyl))</span></code></pre></div>
+<div id="using-barplot-function" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Using barplot function<a href="bar.html#using-barplot-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="bar.html#cb44-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(mtcars<span class="sc">$</span>cyl))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar2-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>If you observe carefully, the same plot is generated by both the functions. Before we explore the bar plots further, let us store the data in a new variable instead of using the <code>table()</code> function in every example:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="bar.html#cb46-1"></a>cyl_freq &lt;-<span class="st"> </span><span class="kw">table</span>(mtcars<span class="op">$</span>cyl)</span>
-<span id="cb46-2"><a href="bar.html#cb46-2"></a>cyl_freq</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="bar.html#cb45-1" tabindex="-1"></a>cyl_freq <span class="ot">&lt;-</span> <span class="fu">table</span>(mtcars<span class="sc">$</span>cyl)</span>
+<span id="cb45-2"><a href="bar.html#cb45-2" tabindex="-1"></a>cyl_freq</span></code></pre></div>
 <pre><code>## 
 ##  4  6  8 
 ## 11  7 14</code></pre>
 </div>
 </div>
-<div id="horizontal-or-vertical" class="section level2">
-<h2><span class="header-section-number">5.3</span> Horizontal or Vertical</h2>
+<div id="horizontal-or-vertical" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Horizontal or Vertical<a href="bar.html#horizontal-or-vertical" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Bar plots can be horizontal or veritcal (which is the default). Use the <code>horiz</code> argument in the <code>barplot()</code> function to build a horizontal bar plot. As you can see, the axis have been flipped. The Y axis represents the categories and the X axis represents their counts/frequencies.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="bar.html#cb48-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">horiz =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="bar.html#cb47-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">horiz =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar3-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
-<div id="bar-width" class="section level2">
-<h2><span class="header-section-number">5.4</span> Bar Width</h2>
+<div id="bar-width" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Bar Width<a href="bar.html#bar-width" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In the bar plot, the width of the bars and the space between them are same. A specific category of the variable can be highlighted by increasing/decreasing the width of the bar representing it. In our example, we will increase the width of the bar that represents automobiles with 8 cylinders. The <code>width</code> argument is used to specify the width of the bars.
 The width must be specified for all the bars in the plot. It must be a vector the length of which must be equal to the number of categories of the variable.</p>
-<div id="equal-width" class="section level3">
-<h3><span class="header-section-number">5.4.1</span> Equal Width</h3>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="bar.html#cb49-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">width =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div id="equal-width" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Equal Width<a href="bar.html#equal-width" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="bar.html#cb48-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">width =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar4-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
-<div id="different-widths" class="section level3">
-<h3><span class="header-section-number">5.4.2</span> Different Widths</h3>
+<div id="different-widths" class="section level3 hasAnchor" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Different Widths<a href="bar.html#different-widths" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In the below example, the width of the third bar is twice the width of the other two bars</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="bar.html#cb50-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">width =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="bar.html#cb49-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">width =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar5-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>In the below example, the width of the second bar is half the width of the other first bar and the third bar is twice the width of the first bar.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="bar.html#cb51-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">width =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>, <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="bar.html#cb50-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">width =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>, <span class="dv">2</span>))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar6-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The space between the bars can be specified in a similar manner but using the <code>space</code> argument in the <code>barplot()</code> function: In the below example, the space between the third bar and the second bar is twice the space between first and second bar.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="bar.html#cb52-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">space =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="bar.html#cb51-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">space =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar7-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="labels" class="section level2">
-<h2><span class="header-section-number">5.5</span> Labels</h2>
+<div id="labels" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Labels<a href="bar.html#labels" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>It is important to add appropriate labels to the bars in order to communicate properly. In our example, the bars represent automobiles with different number of cylinders. The labels likewise indicate the number of cylinders represented by the bars. In order to demonstrate how to add labels, we will change the labels from numbers to their corresponding words. The <code>names.arg</code> argument is used to add labels to the bars in a plot. Below is our example:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="bar.html#cb53-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">names.arg =</span> <span class="kw">c</span>(<span class="st">&#39;Four&#39;</span>, <span class="st">&#39;Six&#39;</span>, <span class="st">&#39;Eight&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="bar.html#cb52-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">names.arg =</span> <span class="fu">c</span>(<span class="st">&#39;Four&#39;</span>, <span class="st">&#39;Six&#39;</span>, <span class="st">&#39;Eight&#39;</span>))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar8-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p><strong>It is important to specify labels for all the bars in the plot else R will return an error.</strong></p>
 </div>
-<div id="color-2" class="section level2">
-<h2><span class="header-section-number">5.6</span> Color</h2>
+<div id="color-2" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> Color<a href="bar.html#color-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let us add some color to the plots. In a bar plot, we can specify different colors for the bars and their borders. Use the <code>col</code> argument to add color to the bars.</p>
-<div id="same-color-for-all-bars" class="section level3">
-<h3><span class="header-section-number">5.6.1</span> Same color for all bars</h3>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="bar.html#cb54-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">col =</span> <span class="st">&#39;blue&#39;</span>)</span></code></pre></div>
+<div id="same-color-for-all-bars" class="section level3 hasAnchor" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> Same color for all bars<a href="bar.html#same-color-for-all-bars" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="bar.html#cb53-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">col =</span> <span class="st">&#39;blue&#39;</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar9-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
-<div id="differnt-color-for-the-bars" class="section level3">
-<h3><span class="header-section-number">5.6.2</span> Differnt color for the bars</h3>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="bar.html#cb55-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>))</span></code></pre></div>
+<div id="differnt-color-for-the-bars" class="section level3 hasAnchor" number="5.6.2">
+<h3><span class="header-section-number">5.6.2</span> Differnt color for the bars<a href="bar.html#differnt-color-for-the-bars" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="bar.html#cb54-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar10-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>What happens if we do not specify color for all the bars? The colors you specify are recycled.</p>
 </div>
-<div id="recycling-colors" class="section level3">
-<h3><span class="header-section-number">5.6.3</span> Recycling colors</h3>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="bar.html#cb56-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>))</span></code></pre></div>
+<div id="recycling-colors" class="section level3 hasAnchor" number="5.6.3">
+<h3><span class="header-section-number">5.6.3</span> Recycling colors<a href="bar.html#recycling-colors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="bar.html#cb55-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar11-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The <code>border</code> argument specifies the color of the border of the bars. The rules that apply to <code>col</code> argument apply here also. Below are the examples:</p>
 </div>
-<div id="same-color-for-all-bars-1" class="section level3">
-<h3><span class="header-section-number">5.6.4</span> Same color for all bars</h3>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="bar.html#cb57-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">border =</span> <span class="st">&#39;blue&#39;</span>)</span></code></pre></div>
+<div id="same-color-for-all-bars-1" class="section level3 hasAnchor" number="5.6.4">
+<h3><span class="header-section-number">5.6.4</span> Same color for all bars<a href="bar.html#same-color-for-all-bars-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="bar.html#cb56-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">border =</span> <span class="st">&#39;blue&#39;</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar12-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
-<div id="differnt-color-for-the-bars-1" class="section level3">
-<h3><span class="header-section-number">5.6.5</span> Differnt color for the bars</h3>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="bar.html#cb58-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">border =</span> <span class="kw">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>))</span></code></pre></div>
+<div id="differnt-color-for-the-bars-1" class="section level3 hasAnchor" number="5.6.5">
+<h3><span class="header-section-number">5.6.5</span> Differnt color for the bars<a href="bar.html#differnt-color-for-the-bars-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="bar.html#cb57-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">border =</span> <span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar13-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>What happens if we do not specify color for all the bars? The colors you specify are recycled.</p>
 </div>
-<div id="recycling-colors-1" class="section level3">
-<h3><span class="header-section-number">5.6.6</span> Recycling colors</h3>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="bar.html#cb59-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">border =</span> <span class="kw">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>))</span></code></pre></div>
+<div id="recycling-colors-1" class="section level3 hasAnchor" number="5.6.6">
+<h3><span class="header-section-number">5.6.6</span> Recycling colors<a href="bar.html#recycling-colors-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="bar.html#cb58-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">border =</span> <span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar14-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="axes" class="section level2">
-<h2><span class="header-section-number">5.7</span> Axes</h2>
+<div id="axes" class="section level2 hasAnchor" number="5.7">
+<h2><span class="header-section-number">5.7</span> Axes<a href="bar.html#axes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this section, we will learn to</p>
 <ul>
 <li>remove axes from the plot</li>
 <li>specify the line type of the X axes</li>
 <li>offset the Y axes</li>
 </ul>
-<div id="remove-axes" class="section level3">
-<h3><span class="header-section-number">5.7.1</span> Remove axes</h3>
+<div id="remove-axes" class="section level3 hasAnchor" number="5.7.1">
+<h3><span class="header-section-number">5.7.1</span> Remove axes<a href="bar.html#remove-axes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>axes</code> argument can be used to retain/remove the axes from the plot. It takes logical values as input and the default is <code>TRUE</code>. Set it to <code>FALSE</code> to remove the axes from the plot:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="bar.html#cb60-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">axes =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="bar.html#cb59-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar15-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>If we decide to retain the axes, the line type of the X axes can be specified using the <code>axis.lty</code> argument. It does not modify the line type of the Y axes and it will not work if the <code>axes</code> argument is set to <code>FALSE</code>.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="bar.html#cb61-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">axis.lty =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="bar.html#cb60-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">axis.lty =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar16-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Though we cannot modify the line type of the Y axes, we can offset it using the <code>offset</code> argument. In the below example, we will offset the Y axes and you can observe that the minimum value of the Y axes is now 5 instead of 0.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="bar.html#cb62-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">offset =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="bar.html#cb61-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">offset =</span> <span class="dv">5</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar17-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>You can similarly modify the range of the Y axes using the <code>ylim</code> argument. Although in case of bar plots, modifying the range of the plot may not be very useful.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="bar.html#cb63-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">30</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="bar.html#cb62-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar18-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="putting-it-all-together-1" class="section level2">
-<h2><span class="header-section-number">5.8</span> Putting it all together…</h2>
+<div id="putting-it-all-together-1" class="section level2 hasAnchor" number="5.8">
+<h2><span class="header-section-number">5.8</span> Putting it all together…<a href="bar.html#putting-it-all-together-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let us quickly revise what we have learnt so far and build a bar plot for visualizing the <code>cyl</code> variable in the <code>mtcars</code> data set:</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="bar.html#cb64-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>),</span>
-<span id="cb64-2"><a href="bar.html#cb64-2"></a>        <span class="dt">horiz =</span> <span class="ot">TRUE</span>, <span class="dt">width =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
-<span id="cb64-3"><a href="bar.html#cb64-3"></a>        <span class="dt">names.arg =</span> <span class="kw">c</span>(<span class="st">&#39;Four&#39;</span>, <span class="st">&#39;Six&#39;</span>, <span class="st">&#39;Eight&#39;</span>),</span>
-<span id="cb64-4"><a href="bar.html#cb64-4"></a>        <span class="dt">axis.lty =</span> <span class="dv">2</span>, <span class="dt">offset =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="bar.html#cb63-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>),</span>
+<span id="cb63-2"><a href="bar.html#cb63-2" tabindex="-1"></a>        <span class="at">horiz =</span> <span class="cn">TRUE</span>, <span class="at">width =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb63-3"><a href="bar.html#cb63-3" tabindex="-1"></a>        <span class="at">names.arg =</span> <span class="fu">c</span>(<span class="st">&#39;Four&#39;</span>, <span class="st">&#39;Six&#39;</span>, <span class="st">&#39;Eight&#39;</span>),</span>
+<span id="cb63-4"><a href="bar.html#cb63-4" tabindex="-1"></a>        <span class="at">axis.lty =</span> <span class="dv">2</span>, <span class="at">offset =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar19-1.png" width="480" style="display: block; margin: auto;" /></p>
-<div id="title-axis-labels" class="section level3">
-<h3><span class="header-section-number">5.8.1</span> Title &amp; Axis Labels</h3>
+<div id="title-axis-labels" class="section level3 hasAnchor" number="5.8.1">
+<h3><span class="header-section-number">5.8.1</span> Title &amp; Axis Labels<a href="bar.html#title-axis-labels" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Well the plot looks good but for someone who does not know the underlying data, it will diffficult to understand what is being communicated. Let us add a title and labels for the axes.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="bar.html#cb65-1"></a><span class="kw">barplot</span>(cyl_freq, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>),</span>
-<span id="cb65-2"><a href="bar.html#cb65-2"></a>        <span class="dt">horiz =</span> <span class="ot">TRUE</span>, <span class="dt">width =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
-<span id="cb65-3"><a href="bar.html#cb65-3"></a>        <span class="dt">names.arg =</span> <span class="kw">c</span>(<span class="st">&#39;Four&#39;</span>, <span class="st">&#39;Six&#39;</span>, <span class="st">&#39;Eight&#39;</span>),</span>
-<span id="cb65-4"><a href="bar.html#cb65-4"></a>        <span class="dt">axis.lty =</span> <span class="dv">2</span>, <span class="dt">offset =</span> <span class="dv">2</span>)</span>
-<span id="cb65-5"><a href="bar.html#cb65-5"></a><span class="kw">title</span>(<span class="dt">main =</span> <span class="st">&#39;Distribution of Cylinders&#39;</span>,</span>
-<span id="cb65-6"><a href="bar.html#cb65-6"></a>      <span class="dt">xlab =</span> <span class="st">&#39;Frequency&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Number of Cylinders&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="bar.html#cb64-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>),</span>
+<span id="cb64-2"><a href="bar.html#cb64-2" tabindex="-1"></a>        <span class="at">horiz =</span> <span class="cn">TRUE</span>, <span class="at">width =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb64-3"><a href="bar.html#cb64-3" tabindex="-1"></a>        <span class="at">names.arg =</span> <span class="fu">c</span>(<span class="st">&#39;Four&#39;</span>, <span class="st">&#39;Six&#39;</span>, <span class="st">&#39;Eight&#39;</span>),</span>
+<span id="cb64-4"><a href="bar.html#cb64-4" tabindex="-1"></a>        <span class="at">axis.lty =</span> <span class="dv">2</span>, <span class="at">offset =</span> <span class="dv">2</span>)</span>
+<span id="cb64-5"><a href="bar.html#cb64-5" tabindex="-1"></a><span class="fu">title</span>(<span class="at">main =</span> <span class="st">&#39;Distribution of Cylinders&#39;</span>,</span>
+<span id="cb64-6"><a href="bar.html#cb64-6" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&#39;Frequency&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;Number of Cylinders&#39;</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar20-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="bivariate-bar-plots" class="section level2">
-<h2><span class="header-section-number">5.9</span> Bivariate Bar Plots</h2>
+<div id="bivariate-bar-plots" class="section level2 hasAnchor" number="5.9">
+<h2><span class="header-section-number">5.9</span> Bivariate Bar Plots<a href="bar.html#bivariate-bar-plots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A bivariate bar plot represents the cross table or two way table of categorical variables. They are of two types:</p>
 <ul>
 <li>Stacked Bar Plots</li>
 <li>Grouped Bar Plots</li>
 </ul>
 <p>Before we look at bivariate bar plots, let us create a two way table of <code>cyl</code> (number of cylinders) and <code>gear</code> (number of gears) using the <code>table()</code> function:</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="bar.html#cb66-1"></a><span class="kw">table</span>(mtcars<span class="op">$</span>gear)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="bar.html#cb65-1" tabindex="-1"></a><span class="fu">table</span>(mtcars<span class="sc">$</span>gear)</span></code></pre></div>
 <pre><code>## 
 ##  3  4  5 
 ## 15 12  5</code></pre>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="bar.html#cb68-1"></a>cyl_gear &lt;-<span class="st"> </span><span class="kw">table</span>(mtcars<span class="op">$</span>cyl, mtcars<span class="op">$</span>gear)</span>
-<span id="cb68-2"><a href="bar.html#cb68-2"></a>cyl_gear</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="bar.html#cb67-1" tabindex="-1"></a>cyl_gear <span class="ot">&lt;-</span> <span class="fu">table</span>(mtcars<span class="sc">$</span>cyl, mtcars<span class="sc">$</span>gear)</span>
+<span id="cb67-2"><a href="bar.html#cb67-2" tabindex="-1"></a>cyl_gear</span></code></pre></div>
 <pre><code>##    
 ##      3  4  5
 ##   4  1  8  2
 ##   6  2  4  1
 ##   8 12  0  2</code></pre>
 <p>The number of gears is represented by the columns in the table and the numbe rof cylinders is represented by the rows.</p>
-<div id="stacked-bar-plot" class="section level3">
-<h3><span class="header-section-number">5.9.1</span> Stacked Bar Plot</h3>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="bar.html#cb70-1"></a><span class="kw">barplot</span>(cyl_gear)</span></code></pre></div>
+<div id="stacked-bar-plot" class="section level3 hasAnchor" number="5.9.1">
+<h3><span class="header-section-number">5.9.1</span> Stacked Bar Plot<a href="bar.html#stacked-bar-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="bar.html#cb69-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_gear)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar21-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The bars in the plot represent the distribution of <code>cyl</code> for each level of category of the <code>gear</code> variable. The first bar represents the distribution of cylinders for automobiles with 3 gears. From the two way table we saw earlier, the columns are the bars. The rows are represented by different sections of the bar. Let us add some colors to the plot as the default colors of the plot are not very intuitive. It will also allow us to clearly examine the distribution of <code>cyl</code> for the different levels of <code>gear</code>.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="bar.html#cb71-1"></a><span class="kw">barplot</span>(cyl_gear, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="bar.html#cb70-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_gear, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>))</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar22-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>If you carefully observe the table and the plot:</p>
 <ul>
-<li>the blue sections of the bars represent the number of automobiles with 3 gears and 4 cylinders</li>
-<li>the red sections represent the number of automobiles with 4 gears and 6 cylinders</li>
-<li>the green sections represent the number of automobiles with 5 gears and 8 cylinders</li>
+<li>the blue sections of the bars represent the number of automobiles with 4 cylinders (in each gear group)</li>
+<li>the red sections represent the number of automobiles with 6 cylinders (in each gear group)</li>
+<li>the green sections represent the number of automobiles with 8 cylinders (in each gear group)</li>
 </ul>
 <p>We need to convey the above information in some way and will do that using the <code>legend.text</code> argument. It takes logical values as inputs and the default values is <code>FALSE</code>. It adds a legend to the plot when it is set to <code>TRUE</code>. In the next example, we add a legend as well as other relevant information such as title and axis labels.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="bar.html#cb72-1"></a><span class="kw">barplot</span>(cyl_gear, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>),</span>
-<span id="cb72-2"><a href="bar.html#cb72-2"></a>        <span class="dt">main =</span> <span class="st">&#39;Gears vs Cylinders&#39;</span>, <span class="dt">legend.text =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb72-3"><a href="bar.html#cb72-3"></a>        <span class="dt">xlab =</span> <span class="st">&#39;Number of Gears&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Frequency&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="bar.html#cb71-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_gear, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>),</span>
+<span id="cb71-2"><a href="bar.html#cb71-2" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&#39;Gears vs Cylinders&#39;</span>, <span class="at">legend.text =</span> <span class="fu">c</span>(<span class="st">&#39;4 cyl&#39;</span>, <span class="st">&#39;6 cyl&#39;</span>, <span class="st">&#39;8 cyl&#39;</span>),</span>
+<span id="cb71-3"><a href="bar.html#cb71-3" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&#39;Number of Gears&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;Frequency&#39;</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar23-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
-<div id="grouped-bar-plot" class="section level3">
-<h3><span class="header-section-number">5.9.2</span> Grouped Bar Plot</h3>
+<div id="grouped-bar-plot" class="section level3 hasAnchor" number="5.9.2">
+<h3><span class="header-section-number">5.9.2</span> Grouped Bar Plot<a href="bar.html#grouped-bar-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A grouped bar plot represents the same data as the stacked bar plot but instead of being stacked, the bars are now grouped and placed besides each other.</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="bar.html#cb73-1"></a><span class="kw">barplot</span>(cyl_gear, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>),</span>
-<span id="cb73-2"><a href="bar.html#cb73-2"></a>        <span class="dt">beside =</span> <span class="ot">TRUE</span>, <span class="dt">legend.text =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb73-3"><a href="bar.html#cb73-3"></a>        <span class="dt">main =</span> <span class="st">&#39;Gears vs Cylinders&#39;</span>,</span>
-<span id="cb73-4"><a href="bar.html#cb73-4"></a>        <span class="dt">xlab =</span> <span class="st">&#39;Number of Gears&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Frequency&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="bar.html#cb72-1" tabindex="-1"></a><span class="fu">barplot</span>(cyl_gear, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>),</span>
+<span id="cb72-2"><a href="bar.html#cb72-2" tabindex="-1"></a>        <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">legend.text =</span> <span class="fu">c</span>(<span class="st">&#39;4 cyl&#39;</span>, <span class="st">&#39;6 cyl&#39;</span>, <span class="st">&#39;8 cyl&#39;</span>),</span>
+<span id="cb72-3"><a href="bar.html#cb72-3" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&#39;Gears vs Cylinders&#39;</span>,</span>
+<span id="cb72-4"><a href="bar.html#cb72-4" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&#39;Number of Gears&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;Frequency&#39;</span>)</span></code></pre></div>
 <p><img src="data-visualization-with-base_files/figure-html/bar24-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The <code>beside</code> argument in <code>barplot()</code> function is set to <code>TRUE</code> to build grouped bar plots. It takes logical values as inputs and the default values is FALSE. As you can observe from the plot, the bars are placed besides each other instead of being stacked.</p>
 
@@ -583,7 +631,6 @@ The width must be specified for all the bars in the plot. It must be a vector th
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -594,38 +641,43 @@ The width must be specified for all the bars in the plot. It must be a vector th
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"toc": {
-"collapse": "section",
-"scroll_highlight": true
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "scroll_highlight": true
+  }
 });
 });
 </script>
