@@ -1,0 +1,45 @@
+name: Render book
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Install Typst (PDF engine)
+        run: quarto install tool typst --no-prompt
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install R packages
+        run: Rscript -e "install.packages(c('knitr', 'rmarkdown'))"
+
+      - name: Render book (HTML + PDF + EPUB)
+        run: quarto render
+
+      - name: Verify legacy slugs
+        run: |
+          for f in index intro titlelabels scatter line bar box hist legend textann facet about-the-author; do
+            test -f "docs/$f.html" || { echo "MISSING SLUG: docs/$f.html"; exit 1; }
+          done
+          test -f docs/sitemap.xml || { echo "MISSING: docs/sitemap.xml"; exit 1; }
+          ls docs/*.pdf docs/*.epub
+
+      - name: Commit rebuilt site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/ _freeze/
+          git diff --cached --quiet && echo "site unchanged" || { git commit -m "docs: rebuild site via CI"; git push; }
