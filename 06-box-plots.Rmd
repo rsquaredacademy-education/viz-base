@@ -80,6 +80,7 @@ for (i in values) {
   boxplot(mtcars$mpg, range = i)
   mtext(paste("range = ", i), side = 3, col = "blue")
 }
+par(init)
 ```
 
 ### Outline
@@ -100,6 +101,7 @@ for (i in values) {
   boxplot(mtcars$mpg, outline = i, range = 1)
   mtext(paste("outline = ", i), side = 3, col = "blue")
 }
+par(init)
 ```
 
 ### Varwidth
@@ -114,6 +116,7 @@ for (i in values) {
   boxplot(mtcars$mpg, varwidth = i, range = 1)
   mtext(paste("varwidth = ", i), side = 3, col = "blue")
 }
+par(init)
 ```
 
 ## Bivariate/Multivariate Box Plot

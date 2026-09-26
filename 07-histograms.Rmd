@@ -37,6 +37,7 @@ init <- par(no.readonly = TRUE)
 par(mfrow = c(1, 2))
 hist(rbeta(10000, 2, 5), ann = FALSE, col = 'blue')
 hist(rbeta(10000, 5, 2), ann = FALSE, col = 'blue')
+par(init)
 ```
 
 ## Basics
@@ -90,6 +91,7 @@ for (i in values) {
     hist(mtcars$mpg, breaks = i)
     mtext(paste("breaks = ", i), side = 3, col = "blue")
 }
+par(init)
 ```
 
 ## Intervals
@@ -140,6 +142,7 @@ for (i in values) {
     hist(mtcars$mpg, breaks = i)
     mtext(paste("algo = ", i), side = 3, col = "blue")
 }
+par(init)
 ```
 
 ## Frequency Distribution II
@@ -154,6 +157,7 @@ for (i in values) {
     hist(mtcars$mpg, freq = i)
     mtext(paste("freq = ", i), side = 3, col = "blue")
 }
+par(init)
 ```
 
 The same result can be achieved by using the `probability` argument as well. It takes only logical values as inputs and the default is `FALSE`. If set to `TRUE`, the Y axis will represent the frequency density instead of counts.

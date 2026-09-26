@@ -57,6 +57,7 @@ for (i in values) {
   text(x = 340, y = 30, labels = 'Sample Text', col = i)
   mtext(paste("col = ", i), side = 3, col = "blue")
 }
+par(init)
 ```
 
 ## Font
@@ -79,6 +80,7 @@ for (i in values) {
   text(x = 340, y = 30, labels = 'Sample Text', col = 'red', font = i)
   mtext(paste("font = ", i), side = 3, col = "blue")
 }
+par(init)
 ```
 
 ## Font Family
@@ -101,6 +103,7 @@ for (i in values) {
   text(x = 340, y = 30, labels = 'Sample Text', col = 'red', cex = 1.5, family = i)
   mtext(paste("family = ", i), side = 3, col = "blue")
 }
+par(init)
 ```
 
 ## Font Size
@@ -123,6 +126,7 @@ for (i in values) {
   text(x = 340, y = 30, labels = 'Sample Text', col = 'red', cex = i)
   mtext(paste("cex = ", i), side = 3, col = "blue")
 }
+par(init)
 ```
 
 ## Text on the Margins
@@ -156,6 +160,7 @@ for (i in values) {
   mtext('Sample Text', side = i)
   mtext(paste("side = ", i), side = 3, col = "blue", adj = 1)
 }
+par(init)
 ```
 
 ## Line
@@ -185,6 +190,7 @@ for (i in values) {
   mtext('Sample Text', line = i)
   mtext(paste("line = ", i), side = 3, col = "blue", adj = 1)
 }
+par(init)
 ```
 
 ## Alignment
@@ -214,4 +220,5 @@ for (i in values) {
   mtext('Sample Text', adj = i)
   mtext(paste("adj = ", i), side = 3, col = "blue", line = -2)
 }
+par(init)
 ```

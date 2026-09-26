@@ -46,6 +46,7 @@ for (i in values) {
     plot(mtcars$disp, mtcars$mpg, pch = i, cex = 1.5)
     mtext(paste("pch = ", i), side = 3, col = "blue")
 }
+par(init)
 ```
 
 We can specify the shape based on a third (categorical variable as well). In the below plot, the shape is based on the levels of the categorical variable `cyl` (number of cylinders) from the `mtcars` data set. Note that `nlevels(factor(mtcars$cyl))` returns a single value (`3`), so it would give every point the same shape — instead, map each observation to its own level with `as.numeric(factor(...))`:
@@ -76,6 +77,7 @@ for (i in values) {
     plot(mtcars$disp, mtcars$mpg, pch = 6, cex = i)
     mtext(paste("cex = ", i), side = 3, col = "blue")
 }
+par(init)
 ```
 
 ## Color

@@ -228,6 +228,7 @@ plot(mtcars$disp, mtcars$mpg)
 hist(mtcars$mpg)
 boxplot(mtcars$mpg)
 plot(mtcars$mpg)
+layout(1)
 ```
 
 ### Case Study 2
@@ -246,6 +247,7 @@ plot(mtcars$disp, mtcars$mpg)
 hist(mtcars$mpg)
 boxplot(mtcars$mpg)
 plot(mtcars$mpg)
+layout(1)
 ```
 
 ### Case Study 3
@@ -266,6 +268,7 @@ layout(matrix(c(1, 1, 2, 3), nrow = 2, byrow = TRUE))
 plot(mtcars$disp, mtcars$mpg)
 hist(mtcars$mpg)
 boxplot(mtcars$mpg)
+layout(1)
 ```
 
 ### Case Study 4
@@ -285,6 +288,7 @@ layout(matrix(c(1, 2, 3, 3), nrow = 2, byrow = TRUE))
 hist(mtcars$mpg)
 boxplot(mtcars$mpg)
 plot(mtcars$disp, mtcars$mpg)
+layout(1)
 ```
 
 ### Case Study 5
@@ -305,6 +309,7 @@ layout(matrix(c(1, 1, 2, 3), nrow = 2, byrow = FALSE))
 hist(mtcars$mpg)
 plot(mtcars$disp, mtcars$mpg)
 boxplot(mtcars$mpg)
+layout(1)
 ```
 
 ### Case Study 6
@@ -325,6 +330,7 @@ layout(matrix(c(1, 2, 3, 3), nrow = 2, byrow = FALSE))
 boxplot(mtcars$mpg)
 plot(mtcars$disp, mtcars$mpg)
 hist(mtcars$mpg)
+layout(1)
 ```
 
 In all the layouts created so far, we have kept the size of the rows and columns equal. What if you want to modify the width and height of the columns and rows? The widths and heights arguments in the layout() function address the above mentioned issue. Let us check them out one by one: The widths argument is used for specifying the width of the columns. Based on the number of columns in the layout, you can specify the width of each column. Let us look at some examples.
@@ -345,6 +351,7 @@ plot(mtcars$disp, mtcars$mpg)
 hist(mtcars$mpg)
 boxplot(mtcars$mpg)
 plot(mtcars$mpg)
+layout(1)
 ```
 
 ### Case Study 8
@@ -365,6 +372,7 @@ boxplot(mtcars$mpg)
 plot(mtcars$mpg)
 hist(mtcars$mpg)
 boxplot(mtcars$mpg)
+layout(1)
 ```
 
 The heights arguments is used to modify the height of the rows and based on the number of rows specified in the layout, we can specify the height of each row. 
@@ -382,6 +390,7 @@ plot(mtcars$disp, mtcars$mpg)
 hist(mtcars$mpg)
 boxplot(mtcars$mpg)
 plot(mtcars$mpg)
+layout(1)
 ```
 
 ## Putting it all together...
@@ -403,5 +412,6 @@ boxplot(mtcars$mpg)
 plot(mtcars$mpg)
 hist(mtcars$mpg)
 boxplot(mtcars$mpg)
+layout(1)
 ```
 

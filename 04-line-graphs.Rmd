@@ -84,6 +84,7 @@ for (i in values) {
     plot(data, type = "l", lty = i, col ="red")
     mtext(paste("lty = ", i), side = 3, col = "blue", line = 1)
 }
+par(init)
 ```
 
 Instead of specifying the numbers 1:6, you can use their description as well.
@@ -96,6 +97,7 @@ for (i in values) {
     plot(data, type = "l", lty = i, col ="red")
     mtext(paste("lty = ", i), side = 3, col = "blue", line = 1)
 }
+par(init)
 ```
 
 ## Line Width
@@ -116,6 +118,7 @@ for (i in values) {
     plot(data, type = "l", lwd = i, col ="red")
     mtext(paste("lwd = ", i), side = 3, col = "blue", line = 1)
 }
+par(init)
 ```
 
 ## Enhance Points
