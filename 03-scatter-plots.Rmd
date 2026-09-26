@@ -11,13 +11,13 @@ In this chapter, we will learn how to create scatter plots.
 
 ## Basic Plot
 
-Let us recreate the plot that we had created in the first post by using the `mtcars` data set. We will use the `disp` (displacement) and `mpg` (miles per gallon) variables. `disp` will be on the X axis and `mpg` will be on the Y axis.
+Let us recreate the plot that we had created in Chapter 1 by using the `mtcars` data set. We will use the `disp` (displacement) and `mpg` (miles per gallon) variables. `disp` will be on the X axis and `mpg` will be on the Y axis.
 
 ```{r scatter1, fig.align='center', fig.height=5, fig.width=5}
 plot(mtcars$disp, mtcars$mpg)
 ```
 
-We have created a very basic plot and any one looking at it for the first time will get confused with the axis labels `mtcars$disp` and `mtcars$mpg`. Let us put into practice what we learnt in the second post, and add a title to the plot, and make the axis labels more meaningful.
+We have created a very basic plot and any one looking at it for the first time will get confused with the axis labels `mtcars$disp` and `mtcars$mpg`. Let us put into practice what we learnt in Chapter 2, and add a title to the plot, and make the axis labels more meaningful.
 
 ```{r scatter2, fig.align='center', fig.height=5, fig.width=5}
 plot(mtcars$disp, mtcars$mpg,
