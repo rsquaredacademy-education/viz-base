@@ -222,3 +222,70 @@ for (i in values) {
 }
 par(init)
 ```
+
+## Position
+
+The `pos` argument of the `text()` function places the text relative to the specified coordinates without needing `adj`. It takes values 1 to 4, each representing a position around the point:
+
+- `1`: below
+- `2`: to the left
+- `3`: above
+- `4`: to the right
+
+```{r textpos, fig.align='center', fig.width=10, fig.height=10, echo=FALSE}
+init <- par(no.readonly = TRUE)
+par(mfrow = c(2, 2))
+values <- c(1, 2, 3, 4)
+for (i in values) {
+  plot(mtcars$disp, mtcars$mpg)
+  text(x = 340, y = 30, labels = 'Sample Text', pos = i)
+  mtext(paste("pos = ", i), side = 3, col = "blue")
+}
+par(init)
+```
+
+## Offset
+
+The `offset` argument of the `text()` function controls how far the text is placed from the coordinates when `pos` is used. The distance is measured in character widths and the default value is `0.5`.
+
+```{r textoffset, fig.align='center', fig.width=5, fig.height=5}
+plot(mtcars$disp, mtcars$mpg)
+text(x = 340, y = 30, labels = 'Sample Text', pos = 3, offset = 1.5)
+```
+
+## Perpendicular Adjustment
+
+The `padj` argument of the `mtext()` function fine-tunes the placement of the text in the direction perpendicular to `adj`. It takes values between 0 and 1. Compare the two plots below and observe the nudge:
+
+```{r mtextpadj, fig.align='center', fig.width=10, fig.height=5, echo=FALSE}
+init <- par(no.readonly = TRUE)
+par(mfrow = c(1, 2))
+values <- c(0, 1)
+for (i in values) {
+  plot(mtcars$disp, mtcars$mpg)
+  mtext('Sample Text', side = 3, padj = i)
+  mtext(paste("padj = ", i), side = 3, col = "blue", line = -2)
+}
+par(init)
+```
+
+## Outer Margin
+
+By default, `mtext()` places text on the inner margin of the current plot. Set `outer = TRUE` to place the text on the outer margin of the whole figure region instead. This is useful with multi-panel layouts, but first reserve outer space with `par(oma = ...)`:
+
+```{r mtextouter, fig.align='center', fig.width=5, fig.height=5}
+init <- par(no.readonly = TRUE)
+par(oma = c(0, 0, 3, 0))
+plot(mtcars$disp, mtcars$mpg)
+mtext('Outer Margin Text', outer = TRUE)
+par(init)
+```
+
+## Exact Position
+
+The `at` argument of the `mtext()` function places the text at an exact position along the margin, expressed in the user coordinates of the corresponding axis. Below, the text is anchored at `disp = 200` on the bottom margin instead of the default center:
+
+```{r mtextat, fig.align='center', fig.width=5, fig.height=5}
+plot(mtcars$disp, mtcars$mpg)
+mtext('Sample Text', side = 1, at = 200)
+```
