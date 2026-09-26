@@ -17,7 +17,7 @@ mfrow combines plots filled by rows i.e it takes two arguments, the number of ro
 
 ```{r facetsyntax, eval=FALSE}
 # mfrow syntax
-mfrow(number of rows, number of columns)
+par(mfrow = c(number of rows, number of columns))
 ```
 
 Let us begin by combining 4 plots in 2 rows and 2 columns:
@@ -123,18 +123,18 @@ par(init)
 
 ## Column
 
-mfcol combines plots filled by columns i.e it takes two arguments, the number of rows and number of columns and then starts filling the plots by columns. Below is the syntax for mfrow:
+mfcol combines plots filled by columns i.e it takes two arguments, the number of rows and number of columns and then starts filling the plots by columns. Below is the syntax for mfcol:
 
 ```{r facetsyntax2, eval=FALSE}
 # mfcol syntax
-mfcol(number of rows, number of columns)
+par(mfcol = c(number of rows, number of columns))
 ```
 
 Let us begin by combining 4 plots in 2 rows and 2 columns:
 
 ### Case Study 6
 
-Combine 3 plots in 3 rows and 1 column. 
+Combine 4 plots in 2 rows and 2 columns, filled by columns. 
 
 ```{r facet6, fig.align='center', fig.height=7, fig.width=7, collapse=TRUE}
 # store the current parameter settings in init
@@ -208,7 +208,7 @@ At the core of the layout() function is a matrix. We communicate the structure i
 
 |Option|Description|Value|
 |:-------|:--------|:-----|
-|matrix  |matrix specifying location of plants     |matrix|
+|matrix  |matrix specifying location of plots     |matrix|
 |widths  |width of columns  |vector|
 |heights  |height of rows  |vector|
 
