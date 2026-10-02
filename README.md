@@ -6,7 +6,7 @@
 
 📖 **Read the book:** https://viz-base.rsquaredacademy.com
 
-Free to read, built with [Quarto](https://quarto.org/). No packages to install — the book uses only the `graphics` package that ships with R, and the first three chapters run live in your browser via [WebR](https://docs.r-wasm.org/webr/latest/).
+Free to read, built with [Quarto](https://quarto.org/). No packages to install — the book uses only the `graphics` package that ships with R, and the first three chapters each close with a live playground that runs in your browser via [WebR](https://docs.r-wasm.org/webr/latest/).
 
 ## Syllabus
 

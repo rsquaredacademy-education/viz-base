@@ -54,19 +54,13 @@ help(mtcars)
 
 ### mtcars 
 
-> **Try it in your browser.** The code blocks in this chapter are live. Edit
-> one and press **Run** -- it executes entirely in your browser via
-> [WebR](https://docs.r-wasm.org/webr/latest/), so no R installation is
-> needed. The runtime downloads once, on this page only. The same blocks
-> appear as static code in the PDF and ePub editions.
-
-```{webr-r}
+```{r}
 head(mtcars)
 ```
 
 ### Variable Info
 
-```{webr-r}
+```{r}
 str(mtcars)
 ```
 
@@ -83,37 +77,58 @@ Now that we have some idea about the data set, let us explore the `plot()` funct
 
 ### One continuous variable
 
-```{webr-r}
+```{r}
 plot(mtcars$mpg)
 ```
 
 ### One categorical variable
 
-```{webr-r}
+```{r}
 plot(as.factor(mtcars$cyl))
 ```
 
 ### Two continuous variables
 
-```{webr-r}
+```{r}
 plot(mtcars$disp, mtcars$mpg)
 ```
 
 ### Two categorical variables
 
-```{webr-r}
+```{r}
 plot(as.factor(mtcars$am), as.factor(mtcars$cyl))
 ```
 
 ### Continuous/Categorical variable
 
-```{webr-r}
+```{r}
 plot(mtcars$mpg, as.factor(mtcars$cyl))
 ```
 
 ### Categorical/Continuous variable
 
-```{webr-r}
+```{r}
 plot(as.factor(mtcars$cyl), mtcars$mpg)
+```
+
+## Try it live {.unnumbered}
+
+> **Try it in your browser.** Edit the code below and press **Run** -- it
+> executes entirely in your browser via
+> [WebR](https://docs.r-wasm.org/webr/latest/), so no R installation is
+> needed. The runtime downloads once, on this page only. The printed plots
+> are produced in your browser and are not part of the PDF or ePub editions.
+
+```{webr-r}
+# walk the dispatch cases from this chapter
+par(mfrow = c(2, 3), mar = c(4, 4, 2, 1))
+plot(as.factor(mtcars$cyl))
+plot(as.factor(mtcars$am), as.factor(mtcars$cyl))
+plot(mtcars$disp, mtcars$mpg)
+plot(mtcars$mpg, as.factor(mtcars$cyl))
+plot(mtcars$mpg, mtcars$disp, main = 'displacement vs mpg',
+     xlab = 'Miles Per Gallon', ylab = 'Displacement')
+plot(as.factor(mtcars$cyl), mtcars$mpg)
+par(mfrow = c(1, 1))
 ```
 

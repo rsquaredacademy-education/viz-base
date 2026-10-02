@@ -74,7 +74,7 @@
     "href": "intro.html#getting-help",
     "title": "2  Introduction",
     "section": "2.5 Getting Help",
-    "text": "2.5 Getting Help\nUse the help() to learn more about plot() function and mtcars data set.\n\nhelp(plot)\nhelp(mtcars)\n\n\n2.5.1 mtcars\n\nTry it in your browser. The code blocks in this chapter are live. Edit one and press Run – it executes entirely in your browser via WebR, so no R installation is needed. The runtime downloads once, on this page only. The same blocks appear as static code in the PDF and ePub editions.\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n2.5.2 Variable Info\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "text": "2.5 Getting Help\nUse the help() to learn more about plot() function and mtcars data set.\n\nhelp(plot)\nhelp(mtcars)\n\n\n2.5.1 mtcars\n\nhead(mtcars)\n\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1\n\n\n\n\n2.5.2 Variable Info\n\nstr(mtcars)\n\n'data.frame':   32 obs. of  11 variables:\n $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...\n $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...\n $ disp: num  160 160 108 258 360 ...\n $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...\n $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...\n $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...\n $ qsec: num  16.5 17 18.6 19.4 17 ...\n $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...\n $ am  : num  1 1 1 0 0 0 0 0 0 0 ...\n $ gear: num  4 4 4 3 3 3 3 4 4 4 ...\n $ carb: num  4 4 1 1 2 1 4 2 2 4 ...",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
     ]
@@ -84,7 +84,17 @@
     "href": "intro.html#plot",
     "title": "2  Introduction",
     "section": "2.6 plot()",
-    "text": "2.6 plot()\nNow that we have some idea about the data set, let us explore the plot() function. We will use the following different data inputs and observe the kind of plots that are generated:\n\nCase 1: 1 continuous variable\nCase 2: 1 categorical variable\nCase 3: 2 continuous variables\nCase 4: 2 categorical variables\nCase 5: 1 continuous and 1 categorical variable\nCase 6: 1 categorical and 1 continuous variable\n\n\n2.6.1 One continuous variable\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n2.6.2 One categorical variable\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n2.6.3 Two continuous variables\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n2.6.4 Two categorical variables\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n2.6.5 Continuous/Categorical variable\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n2.6.6 Categorical/Continuous variable\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "text": "2.6 plot()\nNow that we have some idea about the data set, let us explore the plot() function. We will use the following different data inputs and observe the kind of plots that are generated:\n\nCase 1: 1 continuous variable\nCase 2: 1 categorical variable\nCase 3: 2 continuous variables\nCase 4: 2 categorical variables\nCase 5: 1 continuous and 1 categorical variable\nCase 6: 1 categorical and 1 continuous variable\n\n\n2.6.1 One continuous variable\n\nplot(mtcars$mpg)\n\n\n\n\n\n\n\n\n\n\n2.6.2 One categorical variable\n\nplot(as.factor(mtcars$cyl))\n\n\n\n\n\n\n\n\n\n\n2.6.3 Two continuous variables\n\nplot(mtcars$disp, mtcars$mpg)\n\n\n\n\n\n\n\n\n\n\n2.6.4 Two categorical variables\n\nplot(as.factor(mtcars$am), as.factor(mtcars$cyl))\n\n\n\n\n\n\n\n\n\n\n2.6.5 Continuous/Categorical variable\n\nplot(mtcars$mpg, as.factor(mtcars$cyl))\n\n\n\n\n\n\n\n\n\n\n2.6.6 Categorical/Continuous variable\n\nplot(as.factor(mtcars$cyl), mtcars$mpg)",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html#try-it-live",
+    "href": "intro.html#try-it-live",
+    "title": "2  Introduction",
+    "section": "Try it live",
+    "text": "Try it live\n\nTry it in your browser. Edit the code below and press Run – it executes entirely in your browser via WebR, so no R installation is needed. The runtime downloads once, on this page only. The printed plots are produced in your browser and are not part of the PDF or ePub editions.\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Introduction</span>"
     ]
@@ -124,7 +134,7 @@
     "href": "titlelabels.html#title",
     "title": "3  Title & Axis Labels",
     "section": "3.3 Title",
-    "text": "3.3 Title\nYou can add a title to the plot using the main argument in the plot() function. Ensure that the title is enclosed in single/double quotes as it is a string. Let us create a scatter plot of disp and mpg from mtcars data set, and add a title to it.\n\nTry it in your browser. The code blocks in this chapter are live. Edit one and press Run – it executes entirely in your browser via WebR, so no R installation is needed. The runtime downloads once, on this page only. The same blocks appear as static code in the PDF and ePub editions.\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "text": "3.3 Title\nYou can add a title to the plot using the main argument in the plot() function. Ensure that the title is enclosed in single/double quotes as it is a string. Let us create a scatter plot of disp and mpg from mtcars data set, and add a title to it.\n\nplot(mtcars$disp, mtcars$mpg, \n     main = 'Displacement vs Miles Per Gallon')",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Title & Axis Labels</span>"
     ]
@@ -134,7 +144,7 @@
     "href": "titlelabels.html#subtitle",
     "title": "3  Title & Axis Labels",
     "section": "3.4 Subtitle",
-    "text": "3.4 Subtitle\nYou can add a subtitle to the plot using the sub argument in the plot() function. The subtitle will appear below the X axis label. Ensure that the subtitle is enclosed in single/double quotes as it is a string. Let us add a subtitle to the plot we created in the previous example:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "text": "3.4 Subtitle\nYou can add a subtitle to the plot using the sub argument in the plot() function. The subtitle will appear below the X axis label. Ensure that the subtitle is enclosed in single/double quotes as it is a string. Let us add a subtitle to the plot we created in the previous example:\n\nplot(mtcars$disp, mtcars$mpg, \n     main = 'Displacement vs Miles Per Gallon',\n     sub = 'Mileage is inversely related to Displacement')",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Title & Axis Labels</span>"
     ]
@@ -144,7 +154,7 @@
     "href": "titlelabels.html#axis-labels",
     "title": "3  Title & Axis Labels",
     "section": "3.5 Axis Labels",
-    "text": "3.5 Axis Labels\nIn the plots created in the previous examples, the axis labels appear as mtcars$mpg and mtcars$disp. It is not the best way to name the axis and it will make more sense to use names that describe the data. Let us modify the axis labels using the xlab and ylab arguments in the plot() function:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "text": "3.5 Axis Labels\nIn the plots created in the previous examples, the axis labels appear as mtcars$mpg and mtcars$disp. It is not the best way to name the axis and it will make more sense to use names that describe the data. Let us modify the axis labels using the xlab and ylab arguments in the plot() function:\n\nplot(mtcars$disp, mtcars$mpg, \n     main = 'Displacement vs Miles Per Gallon',\n     sub = 'Mileage is inversely related to Displacement',\n     xlab = 'Displacement', ylab = 'Miles Per Gallon')",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Title & Axis Labels</span>"
     ]
@@ -154,7 +164,7 @@
     "href": "titlelabels.html#title-1",
     "title": "3  Title & Axis Labels",
     "section": "3.6 title()",
-    "text": "3.6 title()\nWe can add title, subtitle and axis labels using the title() function as well. Let us recreate the plots from the previous examples but this time we will use the title() instead of the plot() function. We will continue to use the plot() function to create the plot.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nDo you notice that the axis labels are overwritten? This happens because the plot() function adds the default labels and we add a new set of labels without modifying the existing ones. The solution is to instruct the plot() function not to add any labels to the X and Y axis. This can be achieved using the ann (annotate) argument in the plot() function and set it to FALSE. Let us try it:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nThe axis labels are legible and not overwritten. You can use either the plot() function or the title() function to add title, subtitle and axis labels but ensure that in case you use the title() function, set ann argument to FALSE in the plot() function.",
+    "text": "3.6 title()\nWe can add title, subtitle and axis labels using the title() function as well. Let us recreate the plots from the previous examples but this time we will use the title() instead of the plot() function. We will continue to use the plot() function to create the plot.\n\n# create scatter plot\nplot(mtcars$disp, mtcars$mpg) \n\n# add title, subtitle and axis labels\ntitle(main = 'Displacement vs Miles Per Gallon',\n      sub = 'Mileage is inversely related to Displacement',\n      xlab = 'Displacement', ylab = 'Miles Per Gallon')\n\n\n\n\n\n\n\n\nDo you notice that the axis labels are overwritten? This happens because the plot() function adds the default labels and we add a new set of labels without modifying the existing ones. The solution is to instruct the plot() function not to add any labels to the X and Y axis. This can be achieved using the ann (annotate) argument in the plot() function and set it to FALSE. Let us try it:\n\n# create scatter plot\nplot(mtcars$disp, mtcars$mpg, ann = FALSE) \n\n# add title, subtitle and axis labels\ntitle(main = 'Displacement vs Miles Per Gallon',\n      sub = 'Mileage is inversely related to Displacement',\n      xlab = 'Displacement', ylab = 'Miles Per Gallon')\n\n\n\n\n\n\n\n\nThe axis labels are legible and not overwritten. You can use either the plot() function or the title() function to add title, subtitle and axis labels but ensure that in case you use the title() function, set ann argument to FALSE in the plot() function.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Title & Axis Labels</span>"
     ]
@@ -164,7 +174,17 @@
     "href": "titlelabels.html#axis-range",
     "title": "3  Title & Axis Labels",
     "section": "3.7 Axis Range",
-    "text": "3.7 Axis Range\nIn certain cases, you would want to modify the range of the axis of the plots. By default, the plot() function will take into account the min and max values of the variable(s) and set the range for the axis. We can modify the range by using the xlim and ylim arguments in the plot() function. Both the xlim and ylim arguments take 2 values as inputes. The first value is the minimum value for the axis and the second value is the maximum value for the axis. The plot() function will return an error if we do not specify two values for both xlim and ylim arguments. Let us recreate the plot from the previous examples but change the range of both the X and Y axis:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nKeep in mind that the axis ranges cannot be modified using the title() function.",
+    "text": "3.7 Axis Range\nIn certain cases, you would want to modify the range of the axis of the plots. By default, the plot() function will take into account the min and max values of the variable(s) and set the range for the axis. We can modify the range by using the xlim and ylim arguments in the plot() function. Both the xlim and ylim arguments take 2 values as inputes. The first value is the minimum value for the axis and the second value is the maximum value for the axis. The plot() function will return an error if we do not specify two values for both xlim and ylim arguments. Let us recreate the plot from the previous examples but change the range of both the X and Y axis:\n\nplot(mtcars$disp, mtcars$mpg, \n     xlim = c(0, 600), ylim = c(0, 50))\n\n\n\n\n\n\n\n\nKeep in mind that the axis ranges cannot be modified using the title() function.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Title & Axis Labels</span>"
+    ]
+  },
+  {
+    "objectID": "titlelabels.html#try-it-live",
+    "href": "titlelabels.html#try-it-live",
+    "title": "3  Title & Axis Labels",
+    "section": "Try it live",
+    "text": "Try it live\n\nTry it in your browser. Edit the code below and press Run – it executes entirely in your browser via WebR, so no R installation is needed. The runtime downloads once, on this page only. The printed plots are produced in your browser and are not part of the PDF or ePub editions.\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Title & Axis Labels</span>"
     ]
@@ -194,7 +214,7 @@
     "href": "scatter.html#basic-plot",
     "title": "4  Scatter Plots",
     "section": "4.2 Basic Plot",
-    "text": "4.2 Basic Plot\nLet us recreate the plot that we had created in Chapter 1 by using the mtcars data set. We will use the disp (displacement) and mpg (miles per gallon) variables. disp will be on the X axis and mpg will be on the Y axis.\n\nTry it in your browser. The code blocks in this chapter are live. Edit one and press Run – it executes entirely in your browser via WebR, so no R installation is needed. The runtime downloads once, on this page only. The same blocks appear as static code in the PDF and ePub editions.\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nWe have created a very basic plot and any one looking at it for the first time will get confused with the axis labels mtcars$disp and mtcars$mpg. Let us put into practice what we learnt in Chapter 2, and add a title to the plot, and make the axis labels more meaningful.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nNow the plot clearly communicates that it represents the relationship between the displacement and mileage of cars. Now the color of the points in the plot is black by default. Some of us may agree that black is beautiful but not all of us will like it. As a first step in enhancing the way our plot looks, let us change the shape of the points.",
+    "text": "4.2 Basic Plot\nLet us recreate the plot that we had created in Chapter 1 by using the mtcars data set. We will use the disp (displacement) and mpg (miles per gallon) variables. disp will be on the X axis and mpg will be on the Y axis.\n\nplot(mtcars$disp, mtcars$mpg)\n\n\n\n\n\n\n\n\nWe have created a very basic plot and any one looking at it for the first time will get confused with the axis labels mtcars$disp and mtcars$mpg. Let us put into practice what we learnt in Chapter 2, and add a title to the plot, and make the axis labels more meaningful.\n\nplot(mtcars$disp, mtcars$mpg,\n     main = 'Displacement vs Miles Per Gallon',\n     xlab = 'Displacement', ylab = 'Miles Per Gallon')\n\n\n\n\n\n\n\n\nNow the plot clearly communicates that it represents the relationship between the displacement and mileage of cars. Now the color of the points in the plot is black by default. Some of us may agree that black is beautiful but not all of us will like it. As a first step in enhancing the way our plot looks, let us change the shape of the points.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Scatter Plots</span>"
     ]
@@ -204,7 +224,7 @@
     "href": "scatter.html#shape",
     "title": "4  Scatter Plots",
     "section": "4.3 Shape",
-    "text": "4.3 Shape\nThe shape of the point can be specified using the pch argument. It will take values between 0 and 25. Below is an example:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nLet us check out a few of the other shapes:\n\n\n\n\n\n\n\n\n\nWe can specify the shape based on a third (categorical variable as well). In the below plot, the shape is based on the levels of the categorical variable cyl (number of cylinders) from the mtcars data set. Note that nlevels(factor(mtcars$cyl)) returns a single value (3), so it would give every point the same shape — instead, map each observation to its own level with as.numeric(factor(...)):\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "text": "4.3 Shape\nThe shape of the point can be specified using the pch argument. It will take values between 0 and 25. Below is an example:\n\n# point shape\nplot(mtcars$disp, mtcars$mpg, pch = 6)\n\n\n\n\n\n\n\n\nLet us check out a few of the other shapes:\n\n\n\n\n\n\n\n\n\nWe can specify the shape based on a third (categorical variable as well). In the below plot, the shape is based on the levels of the categorical variable cyl (number of cylinders) from the mtcars data set. Note that nlevels(factor(mtcars$cyl)) returns a single value (3), so it would give every point the same shape — instead, map each observation to its own level with as.numeric(factor(...)):\n\n# shape based on a third categorical variable\nplot(mtcars$disp, mtcars$mpg, pch = as.numeric(factor(mtcars$cyl)))\nlegend('topright', legend = c('4 cyl', '6 cyl', '8 cyl'), pch = 1:3)",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Scatter Plots</span>"
     ]
@@ -214,7 +234,7 @@
     "href": "scatter.html#size",
     "title": "4  Scatter Plots",
     "section": "4.4 Size",
-    "text": "4.4 Size\nThe size of the points in the scatter plot can be specified using the cex argument in the plot() function. The default value for cex is 1.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nThe below plots show the size of the points for values relative to 1.",
+    "text": "4.4 Size\nThe size of the points in the scatter plot can be specified using the cex argument in the plot() function. The default value for cex is 1.\n\n# point size\nplot(mtcars$disp, mtcars$mpg, cex = 1.5)\n\n\n\n\n\n\n\n\nThe below plots show the size of the points for values relative to 1.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Scatter Plots</span>"
     ]
@@ -224,7 +244,17 @@
     "href": "scatter.html#color",
     "title": "4  Scatter Plots",
     "section": "4.5 Color",
-    "text": "4.5 Color\nWe can specify a border color for the points using the col argument and a background color using the bg argument. The background color can be specified only for points whose pch argument takes values between 21 and 25. Let us look at some examples to understand this distinction between border and background color.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nYou can observe that although we have specified a background color using the bg argument, we do not see the red background color as the value specified for the pch (shape) argument is not between 21 and 25. In the next example, we will use a value between 21 and 25 so that the pch argument is effective.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nThe color of the points can be specified using (levels) of a categorical variable as well. In the next example, we will use the cyl variable to specify the color of the points.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nSince cyl is a categorical variable with 3 levels, we can see that the points now have 3 different colors. The above method is useful when you want to segregate the points in a scatter plot based on a third variable.",
+    "text": "4.5 Color\nWe can specify a border color for the points using the col argument and a background color using the bg argument. The background color can be specified only for points whose pch argument takes values between 21 and 25. Let us look at some examples to understand this distinction between border and background color.\n\n# shape between 0 and 21\nplot(mtcars$disp, mtcars$mpg, pch = 5, col = 'blue', bg = 'red')\n\n\n\n\n\n\n\n\nYou can observe that although we have specified a background color using the bg argument, we do not see the red background color as the value specified for the pch (shape) argument is not between 21 and 25. In the next example, we will use a value between 21 and 25 so that the pch argument is effective.\n\n# shape between 22 and 25\nplot(mtcars$disp, mtcars$mpg, pch = 24, col = 'red', bg = 'blue')\n\n\n\n\n\n\n\n\nThe color of the points can be specified using (levels) of a categorical variable as well. In the next example, we will use the cyl variable to specify the color of the points.\n\n# color based on a third variable\nplot(mtcars$disp, mtcars$mpg, pch = 5, col = as.numeric(factor(mtcars$cyl)))\n\n\n\n\n\n\n\n\nSince cyl is a categorical variable with 3 levels, we can see that the points now have 3 different colors. The above method is useful when you want to segregate the points in a scatter plot based on a third variable.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Scatter Plots</span>"
+    ]
+  },
+  {
+    "objectID": "scatter.html#try-it-live",
+    "href": "scatter.html#try-it-live",
+    "title": "4  Scatter Plots",
+    "section": "Try it live",
+    "text": "Try it live\n\nTry it in your browser. Edit the code below and press Run – it executes entirely in your browser via WebR, so no R installation is needed. The runtime downloads once, on this page only. The printed plots are produced in your browser and are not part of the PDF or ePub editions.\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Scatter Plots</span>"
     ]
