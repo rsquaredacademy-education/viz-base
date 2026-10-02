@@ -15,6 +15,11 @@ website:
   description: "Learn to visualize data with base R: zero-dependency, publication-ready graphics."
   open-graph: true
   twitter-card: true
+  repo-url: https://github.com/rsquaredacademy-education/viz-base
+  navbar:
+    right:
+      - text: "GitHub"
+        href: https://github.com/rsquaredacademy-education/viz-base
   # google-analytics: "G-XXXXXXXXXX" # TODO: add GA4 ID when available (+ consent banner)
 
 book:
@@ -39,6 +44,7 @@ book:
 
 execute:
   freeze: auto
+  warning: false
 
 format:
   html:
@@ -52,9 +58,12 @@ format:
       light: flatly
       dark: darkly
     toc-depth: 3
+    search: true
     code-tools: true
     code-copy: true
     code-overflow: wrap
+    fig-align: center
+    fig-dpi: 192
     include-in-header: includes/head.html
   pdf:
     pdf-engine: typst
@@ -67,4 +76,10 @@ format:
     fig-dpi: 300
   epub:
     toc-depth: 2
+    epub-chapter-level: 1
+    cover-image: img/viz-base.png
     code-overflow: wrap
+
+language:
+  search:
+    placeholder: "Search arguments, e.g. pch vs cex"
