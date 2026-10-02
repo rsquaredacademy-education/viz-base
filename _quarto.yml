@@ -43,6 +43,10 @@ book:
   downloads: [pdf, epub]
 
 execute:
+  # Explicit: Quarto >= 1.10 falls back to the jupyter engine for a document
+  # with no knitr cells, and titlelabels.qmd is webr-only. Without this the
+  # HTML build dies on a missing python3 nbformat.
+  engine: knitr
   freeze: auto
   warning: false
 
