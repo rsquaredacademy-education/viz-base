@@ -54,6 +54,16 @@ help(mtcars)
 
 ### mtcars 
 
+:::{.callout-tip}
+## Try it in your browser
+
+The code blocks in this chapter are live. Edit one and press **Run** — it
+executes entirely in your browser via
+[WebR](https://docs.r-wasm.org/webr/latest/), so no R installation is needed.
+The runtime downloads once, on this page only. The same blocks appear as
+static code in the PDF and ePub editions.
+:::
+
 ```{webr-r}
 head(mtcars)
 ```

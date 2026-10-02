@@ -13,6 +13,16 @@ In this chapter, we will learn how to create scatter plots.
 
 Let us recreate the plot that we had created in Chapter 1 by using the `mtcars` data set. We will use the `disp` (displacement) and `mpg` (miles per gallon) variables. `disp` will be on the X axis and `mpg` will be on the Y axis.
 
+:::{.callout-tip}
+## Try it in your browser
+
+The code blocks in this chapter are live. Edit one and press **Run** — it
+executes entirely in your browser via
+[WebR](https://docs.r-wasm.org/webr/latest/), so no R installation is needed.
+The runtime downloads once, on this page only. The same blocks appear as
+static code in the PDF and ePub editions.
+:::
+
 ```{webr-r}
 plot(mtcars$disp, mtcars$mpg)
 ```
