@@ -70,6 +70,12 @@ format:
     papersize: us-letter
     toc-depth: 3
     code-overflow: wrap
+    # Explicit so the PDF resolves the same on the bare CI runner as it does
+    # locally. Typst ships no fonts and the runner's fontconfig cache can be
+    # stale, which fails the render with "font fallback list must not be
+    # empty". Both are provided by fonts-linuxlibertine / fonts-dejavu-core.
+    mainfont: "Linux Libertine"
+    monofont: "DejaVu Sans Mono"
     # PNG figures: Typst < 0.12 cannot embed PDF images, and this also
     # sidesteps external pdfcrop tooling entirely. 300 dpi stays print-crisp.
     fig-format: png
