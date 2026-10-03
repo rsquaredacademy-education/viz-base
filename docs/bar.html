@@ -104,15 +104,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<!-- SEO / social / scholarly metadata (hand-written: Quarto has no native Scholar support).
+<!-- Head metadata for every page.
+
+     Two distinct mechanisms are at work here:
+
+     1. The Open Graph / Twitter tags below are PLACEHOLDERS. Quarto rewrites
+        og:title, og:description, og:image and the twitter:* values per page
+        (see `open-graph` / `twitter-card` in _quarto.yml), so the literal
+        values here never reach the reader. Do not delete these tags -- with
+        them removed Quarto emits nothing. Verified: docs/scatter.html gets
+        "4 Scatter Plots", docs/line.html gets "5 Line Graphs".
+        og:site_name and og:type are ours; Quarto does not manage those.
+
+     2. The citation_* tags are hand-written because Quarto has no native
+        Highwire/Scholar support. This is the reason this file exists.
+
+     Deliberately NOT here: the canonical link and og:url. Quarto emits
+     neither for `type: book`, and hard-coding them made every one of the 12
+     pages claim the site root as its canonical URL -- which tells search
+     engines the whole book is a single page. An absent canonical is merely
+     neutral; a wrong one is destructive. sitemap.xml carries the real
+     per-page URLs. See roadmap: Phase 3 SEO pass.
+
      TODO(analytics): set google-analytics in _quarto.yml once the GA4 ID exists,
      and add a consent banner alongside it (no cookies are set until then). -->
-<link rel="canonical" href="https://viz-base.rsquaredacademy.com/">
 <meta property="og:site_name" content="Data Visualization with R">
 <meta property="og:type" content="book">
 <meta property="og:title" content="6&nbsp; Bar Plots – Data Visualization with R">
 <meta property="og:description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
-<meta property="og:url" content="https://viz-base.rsquaredacademy.com/">
 <meta property="og:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="6&nbsp; Bar Plots – Data Visualization with R">
@@ -360,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -373,7 +392,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -398,7 +417,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -414,7 +433,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -428,7 +447,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -439,7 +458,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -450,7 +469,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -465,7 +484,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -482,7 +501,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -495,7 +514,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -509,7 +528,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -523,7 +542,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -536,7 +555,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -550,7 +569,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar14-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar14-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -573,7 +592,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar15-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar15-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -584,7 +603,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar16-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar16-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -595,7 +614,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar17-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar17-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -606,7 +625,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -624,7 +643,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar19-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar19-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -642,7 +661,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar20-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar20-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -674,7 +693,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   8 12  0  2</code></pre>
 </div>
 </div>
-<p>The number of gears is represented by the columns in the table and the numbe rof cylinders is represented by the rows.</p>
+<p>The number of gears is represented by the columns in the table and the number of cylinders is represented by the rows.</p>
 <section id="stacked-bar-plot" class="level3" data-number="6.9.1">
 <h3 data-number="6.9.1" class="anchored" data-anchor-id="stacked-bar-plot"><span class="header-section-number">6.9.1</span> Stacked Bar Plot</h3>
 <div class="cell" data-layout-align="center">
@@ -682,7 +701,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar21-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar21-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -693,7 +712,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar22-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar22-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -704,7 +723,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>the red sections represent the number of automobiles with 6 cylinders (in each gear group)</li>
 <li>the green sections represent the number of automobiles with 8 cylinders (in each gear group)</li>
 </ul>
-<p>We need to convey the above information in some way and will do that using the <code>legend.text</code> argument. It takes logical values as inputs and the default values is <code>FALSE</code>. It adds a legend to the plot when it is set to <code>TRUE</code>. In the next example, we add a legend as well as other relevant information such as title and axis labels.</p>
+<p>We need to convey the above information in some way and will do that using the <code>legend.text</code> argument. It takes a character vector as input and the default value is <code>NULL</code>, in which case no legend text is added. In the next example, we add a legend as well as other relevant information such as title and axis labels.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(cyl_gear, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">'blue'</span>, <span class="st">'red'</span>, <span class="st">'green'</span>),</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">'Gears vs Cylinders'</span>, <span class="at">legend.text =</span> <span class="fu">c</span>(<span class="st">'4 cyl'</span>, <span class="st">'6 cyl'</span>, <span class="st">'8 cyl'</span>),</span>
@@ -712,7 +731,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar23-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar23-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -729,7 +748,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="bar_files/figure-html/bar24-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+<p><img src="bar_files/figure-html/bar24-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1586,7 +1605,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb31-219"><a href="#cb31-219" aria-hidden="true" tabindex="-1"></a>cyl_gear</span>
 <span id="cb31-220"><a href="#cb31-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb31-221"><a href="#cb31-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-222"><a href="#cb31-222" aria-hidden="true" tabindex="-1"></a>The number of gears is represented by the columns in the table and the numbe rof cylinders is represented by the rows. </span>
+<span id="cb31-222"><a href="#cb31-222" aria-hidden="true" tabindex="-1"></a>The number of gears is represented by the columns in the table and the number of cylinders is represented by the rows. </span>
 <span id="cb31-223"><a href="#cb31-223" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-224"><a href="#cb31-224" aria-hidden="true" tabindex="-1"></a><span class="fu">### Stacked Bar Plot</span></span>
 <span id="cb31-225"><a href="#cb31-225" aria-hidden="true" tabindex="-1"></a></span>
@@ -1606,7 +1625,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb31-239"><a href="#cb31-239" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>the red sections represent the number of automobiles with 6 cylinders (in each gear group)</span>
 <span id="cb31-240"><a href="#cb31-240" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>the green sections represent the number of automobiles with 8 cylinders (in each gear group)</span>
 <span id="cb31-241"><a href="#cb31-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-242"><a href="#cb31-242" aria-hidden="true" tabindex="-1"></a>We need to convey the above information in some way and will do that using the <span class="in">`legend.text`</span> argument. It takes logical values as inputs and the default values is <span class="in">`FALSE`</span>. It adds a legend to the plot when it is set to <span class="in">`TRUE`</span>. In the next example, we add a legend as well as other relevant information such as title and axis labels.</span>
+<span id="cb31-242"><a href="#cb31-242" aria-hidden="true" tabindex="-1"></a>We need to convey the above information in some way and will do that using the <span class="in">`legend.text`</span> argument. It takes a character vector as input and the default value is <span class="in">`NULL`</span>, in which case no legend text is added. In the next example, we add a legend as well as other relevant information such as title and axis labels.</span>
 <span id="cb31-243"><a href="#cb31-243" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-244"><a href="#cb31-244" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-245"><a href="#cb31-245" aria-hidden="true" tabindex="-1"></a><span class="in">```{r bar23, fig.align='center', fig.height=5, fig.width=5}</span></span>

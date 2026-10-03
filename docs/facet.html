@@ -104,15 +104,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<!-- SEO / social / scholarly metadata (hand-written: Quarto has no native Scholar support).
+<!-- Head metadata for every page.
+
+     Two distinct mechanisms are at work here:
+
+     1. The Open Graph / Twitter tags below are PLACEHOLDERS. Quarto rewrites
+        og:title, og:description, og:image and the twitter:* values per page
+        (see `open-graph` / `twitter-card` in _quarto.yml), so the literal
+        values here never reach the reader. Do not delete these tags -- with
+        them removed Quarto emits nothing. Verified: docs/scatter.html gets
+        "4 Scatter Plots", docs/line.html gets "5 Line Graphs".
+        og:site_name and og:type are ours; Quarto does not manage those.
+
+     2. The citation_* tags are hand-written because Quarto has no native
+        Highwire/Scholar support. This is the reason this file exists.
+
+     Deliberately NOT here: the canonical link and og:url. Quarto emits
+     neither for `type: book`, and hard-coding them made every one of the 12
+     pages claim the site root as its canonical URL -- which tells search
+     engines the whole book is a single page. An absent canonical is merely
+     neutral; a wrong one is destructive. sitemap.xml carries the real
+     per-page URLs. See roadmap: Phase 3 SEO pass.
+
      TODO(analytics): set google-analytics in _quarto.yml once the GA4 ID exists,
      and add a consent banner alongside it (no cookies are set until then). -->
-<link rel="canonical" href="https://viz-base.rsquaredacademy.com/">
 <meta property="og:site_name" content="Data Visualization with R">
 <meta property="og:type" content="book">
 <meta property="og:title" content="11&nbsp; Faceting – Data Visualization with R">
 <meta property="og:description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
-<meta property="og:url" content="https://viz-base.rsquaredacademy.com/">
 <meta property="og:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="11&nbsp; Faceting – Data Visualization with R">
@@ -266,32 +285,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">11.1</span> Introduction</a></li>
   <li><a href="#row" id="toc-row" class="nav-link" data-scroll-target="#row"><span class="header-section-number">11.2</span> Row</a>
   <ul class="collapse">
-  <li><a href="#case-study-1" id="toc-case-study-1" class="nav-link" data-scroll-target="#case-study-1"><span class="header-section-number">11.2.1</span> Case Study 1</a></li>
-  <li><a href="#case-study-2" id="toc-case-study-2" class="nav-link" data-scroll-target="#case-study-2"><span class="header-section-number">11.2.2</span> Case Study 2</a></li>
-  <li><a href="#case-study-3" id="toc-case-study-3" class="nav-link" data-scroll-target="#case-study-3"><span class="header-section-number">11.2.3</span> Case Study 3</a></li>
-  <li><a href="#case-study-4" id="toc-case-study-4" class="nav-link" data-scroll-target="#case-study-4"><span class="header-section-number">11.2.4</span> Case Study 4</a></li>
-  <li><a href="#case-study-5" id="toc-case-study-5" class="nav-link" data-scroll-target="#case-study-5"><span class="header-section-number">11.2.5</span> Case Study 5</a></li>
+  <li><a href="#cs-mfrow-1" id="toc-cs-mfrow-1" class="nav-link" data-scroll-target="#cs-mfrow-1"><span class="header-section-number">11.2.1</span> Case Study 1</a></li>
+  <li><a href="#cs-mfrow-2" id="toc-cs-mfrow-2" class="nav-link" data-scroll-target="#cs-mfrow-2"><span class="header-section-number">11.2.2</span> Case Study 2</a></li>
+  <li><a href="#cs-mfrow-3" id="toc-cs-mfrow-3" class="nav-link" data-scroll-target="#cs-mfrow-3"><span class="header-section-number">11.2.3</span> Case Study 3</a></li>
+  <li><a href="#cs-mfrow-4" id="toc-cs-mfrow-4" class="nav-link" data-scroll-target="#cs-mfrow-4"><span class="header-section-number">11.2.4</span> Case Study 4</a></li>
+  <li><a href="#cs-mfrow-5" id="toc-cs-mfrow-5" class="nav-link" data-scroll-target="#cs-mfrow-5"><span class="header-section-number">11.2.5</span> Case Study 5</a></li>
   </ul></li>
   <li><a href="#column" id="toc-column" class="nav-link" data-scroll-target="#column"><span class="header-section-number">11.3</span> Column</a>
   <ul class="collapse">
-  <li><a href="#case-study-6" id="toc-case-study-6" class="nav-link" data-scroll-target="#case-study-6"><span class="header-section-number">11.3.1</span> Case Study 6</a></li>
+  <li><a href="#cs-mfrow-6" id="toc-cs-mfrow-6" class="nav-link" data-scroll-target="#cs-mfrow-6"><span class="header-section-number">11.3.1</span> Case Study 6</a></li>
   </ul></li>
   <li><a href="#special-cases" id="toc-special-cases" class="nav-link" data-scroll-target="#special-cases"><span class="header-section-number">11.4</span> Special Cases</a>
   <ul class="collapse">
-  <li><a href="#case-study-7" id="toc-case-study-7" class="nav-link" data-scroll-target="#case-study-7"><span class="header-section-number">11.4.1</span> Case Study 7</a></li>
-  <li><a href="#case-study-8" id="toc-case-study-8" class="nav-link" data-scroll-target="#case-study-8"><span class="header-section-number">11.4.2</span> Case Study 8</a></li>
+  <li><a href="#cs-mfrow-7" id="toc-cs-mfrow-7" class="nav-link" data-scroll-target="#cs-mfrow-7"><span class="header-section-number">11.4.1</span> Case Study 7</a></li>
+  <li><a href="#cs-mfrow-8" id="toc-cs-mfrow-8" class="nav-link" data-scroll-target="#cs-mfrow-8"><span class="header-section-number">11.4.2</span> Case Study 8</a></li>
   </ul></li>
   <li><a href="#layout" id="toc-layout" class="nav-link" data-scroll-target="#layout"><span class="header-section-number">11.5</span> Layout</a>
   <ul class="collapse">
-  <li><a href="#case-study-1-1" id="toc-case-study-1-1" class="nav-link" data-scroll-target="#case-study-1-1"><span class="header-section-number">11.5.1</span> Case Study 1</a></li>
-  <li><a href="#case-study-2-1" id="toc-case-study-2-1" class="nav-link" data-scroll-target="#case-study-2-1"><span class="header-section-number">11.5.2</span> Case Study 2</a></li>
-  <li><a href="#case-study-3-1" id="toc-case-study-3-1" class="nav-link" data-scroll-target="#case-study-3-1"><span class="header-section-number">11.5.3</span> Case Study 3</a></li>
-  <li><a href="#case-study-4-1" id="toc-case-study-4-1" class="nav-link" data-scroll-target="#case-study-4-1"><span class="header-section-number">11.5.4</span> Case Study 4</a></li>
-  <li><a href="#case-study-5-1" id="toc-case-study-5-1" class="nav-link" data-scroll-target="#case-study-5-1"><span class="header-section-number">11.5.5</span> Case Study 5</a></li>
-  <li><a href="#case-study-6-1" id="toc-case-study-6-1" class="nav-link" data-scroll-target="#case-study-6-1"><span class="header-section-number">11.5.6</span> Case Study 6</a></li>
-  <li><a href="#case-study-7-1" id="toc-case-study-7-1" class="nav-link" data-scroll-target="#case-study-7-1"><span class="header-section-number">11.5.7</span> Case Study 7</a></li>
-  <li><a href="#case-study-8-1" id="toc-case-study-8-1" class="nav-link" data-scroll-target="#case-study-8-1"><span class="header-section-number">11.5.8</span> Case Study 8</a></li>
-  <li><a href="#case-study-9" id="toc-case-study-9" class="nav-link" data-scroll-target="#case-study-9"><span class="header-section-number">11.5.9</span> Case Study 9</a></li>
+  <li><a href="#cs-layout-1" id="toc-cs-layout-1" class="nav-link" data-scroll-target="#cs-layout-1"><span class="header-section-number">11.5.1</span> Case Study 1</a></li>
+  <li><a href="#cs-layout-2" id="toc-cs-layout-2" class="nav-link" data-scroll-target="#cs-layout-2"><span class="header-section-number">11.5.2</span> Case Study 2</a></li>
+  <li><a href="#cs-layout-3" id="toc-cs-layout-3" class="nav-link" data-scroll-target="#cs-layout-3"><span class="header-section-number">11.5.3</span> Case Study 3</a></li>
+  <li><a href="#cs-layout-4" id="toc-cs-layout-4" class="nav-link" data-scroll-target="#cs-layout-4"><span class="header-section-number">11.5.4</span> Case Study 4</a></li>
+  <li><a href="#cs-layout-5" id="toc-cs-layout-5" class="nav-link" data-scroll-target="#cs-layout-5"><span class="header-section-number">11.5.5</span> Case Study 5</a></li>
+  <li><a href="#cs-layout-6" id="toc-cs-layout-6" class="nav-link" data-scroll-target="#cs-layout-6"><span class="header-section-number">11.5.6</span> Case Study 6</a></li>
+  <li><a href="#cs-layout-7" id="toc-cs-layout-7" class="nav-link" data-scroll-target="#cs-layout-7"><span class="header-section-number">11.5.7</span> Case Study 7</a></li>
+  <li><a href="#cs-layout-8" id="toc-cs-layout-8" class="nav-link" data-scroll-target="#cs-layout-8"><span class="header-section-number">11.5.8</span> Case Study 8</a></li>
+  <li><a href="#cs-layout-9" id="toc-cs-layout-9" class="nav-link" data-scroll-target="#cs-layout-9"><span class="header-section-number">11.5.9</span> Case Study 9</a></li>
   </ul></li>
   <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together"><span class="header-section-number">11.6</span> Putting it all together…</a></li>
   </ul>
@@ -347,15 +366,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="row" class="level2" data-number="11.2">
 <h2 data-number="11.2" class="anchored" data-anchor-id="row"><span class="header-section-number">11.2</span> Row</h2>
-<p>mfrow combines plots filled by rows i.e it takes two arguments, the number of rows and number of columns and then starts filling the plots by row. Below is the syntax for mfrow.</p>
+<p>The <code>mfrow</code> parameter combines plots filled by rows i.e it takes two values, the number of rows and number of columns and then starts filling the plots by row. Below is the syntax for mfrow.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mfrow syntax</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(number of rows, number of columns))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let us begin by combining 4 plots in 2 rows and 2 columns:</p>
-<section id="case-study-1" class="level3" data-number="11.2.1">
-<h3 data-number="11.2.1" class="anchored" data-anchor-id="case-study-1"><span class="header-section-number">11.2.1</span> Case Study 1</h3>
-<p>Let us begin by combining 4 plots in 2 rows and 2 columns. The plots will be filled by rows as we are using the mfrow function:</p>
+<section id="cs-mfrow-1" class="level3" data-number="11.2.1">
+<h3 data-number="11.2.1" class="anchored" data-anchor-id="cs-mfrow-1"><span class="header-section-number">11.2.1</span> Case Study 1</h3>
+<p>Let us begin by combining 4 plots in 2 rows and 2 columns. The plots will be filled by rows as we are using the mfrow parameter:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># store the current parameter settings in init</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>init <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">no.readonly=</span><span class="cn">TRUE</span>)</span>
@@ -371,7 +390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
@@ -380,8 +399,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="case-study-2" class="level3" data-number="11.2.2">
-<h3 data-number="11.2.2" class="anchored" data-anchor-id="case-study-2"><span class="header-section-number">11.2.2</span> Case Study 2</h3>
+<section id="cs-mfrow-2" class="level3" data-number="11.2.2">
+<h3 data-number="11.2.2" class="anchored" data-anchor-id="cs-mfrow-2"><span class="header-section-number">11.2.2</span> Case Study 2</h3>
 <p>Combine 2 plots in 1 row and 2 columns.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># store the current parameter settings in init</span></span>
@@ -396,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
@@ -405,8 +424,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="case-study-3" class="level3" data-number="11.2.3">
-<h3 data-number="11.2.3" class="anchored" data-anchor-id="case-study-3"><span class="header-section-number">11.2.3</span> Case Study 3</h3>
+<section id="cs-mfrow-3" class="level3" data-number="11.2.3">
+<h3 data-number="11.2.3" class="anchored" data-anchor-id="cs-mfrow-3"><span class="header-section-number">11.2.3</span> Case Study 3</h3>
 <p>Combine 2 plots in 2 rows and 1 column.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># store the current parameter settings in init</span></span>
@@ -421,7 +440,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
@@ -430,8 +449,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="case-study-4" class="level3" data-number="11.2.4">
-<h3 data-number="11.2.4" class="anchored" data-anchor-id="case-study-4"><span class="header-section-number">11.2.4</span> Case Study 4</h3>
+<section id="cs-mfrow-4" class="level3" data-number="11.2.4">
+<h3 data-number="11.2.4" class="anchored" data-anchor-id="cs-mfrow-4"><span class="header-section-number">11.2.4</span> Case Study 4</h3>
 <p>Combine 3 plots in 1 row and 3 columns.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># store the current parameter settings in init</span></span>
@@ -447,7 +466,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
@@ -456,8 +475,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="case-study-5" class="level3" data-number="11.2.5">
-<h3 data-number="11.2.5" class="anchored" data-anchor-id="case-study-5"><span class="header-section-number">11.2.5</span> Case Study 5</h3>
+<section id="cs-mfrow-5" class="level3" data-number="11.2.5">
+<h3 data-number="11.2.5" class="anchored" data-anchor-id="cs-mfrow-5"><span class="header-section-number">11.2.5</span> Case Study 5</h3>
 <p>Combine 3 plots in 3 rows and 1 column.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># store the current parameter settings in init</span></span>
@@ -473,7 +492,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
@@ -491,8 +510,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfcol =</span> <span class="fu">c</span>(number of rows, number of columns))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let us begin by combining 4 plots in 2 rows and 2 columns:</p>
-<section id="case-study-6" class="level3" data-number="11.3.1">
-<h3 data-number="11.3.1" class="anchored" data-anchor-id="case-study-6"><span class="header-section-number">11.3.1</span> Case Study 6</h3>
+<section id="cs-mfrow-6" class="level3" data-number="11.3.1">
+<h3 data-number="11.3.1" class="anchored" data-anchor-id="cs-mfrow-6"><span class="header-section-number">11.3.1</span> Case Study 6</h3>
 <p>Combine 4 plots in 2 rows and 2 columns, filled by columns.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># store the current parameter settings in init</span></span>
@@ -509,7 +528,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
@@ -524,8 +543,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>What happens if we specify lesser or more number of graphs? In the next two examples, we will specify lesser or more number of graphs than we ask the par() function to combine. Let us see what happens in such instances:</p>
 <p>Case 1: Lesser number of graphs specified We will specify that 4 plots need to be combined in 2 rows and 2 columns but provide only 3 graphs.</p>
 <p>Case 2: Extra graph specified We will specify that 4 plots need to be combined in 2 rows and 2 columns but specify 6 graphs instead of 4.</p>
-<section id="case-study-7" class="level3" data-number="11.4.1">
-<h3 data-number="11.4.1" class="anchored" data-anchor-id="case-study-7"><span class="header-section-number">11.4.1</span> Case Study 7</h3>
+<section id="cs-mfrow-7" class="level3" data-number="11.4.1">
+<h3 data-number="11.4.1" class="anchored" data-anchor-id="cs-mfrow-7"><span class="header-section-number">11.4.1</span> Case Study 7</h3>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># store the current parameter settings in init</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>init <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">no.readonly=</span><span class="cn">TRUE</span>)</span>
@@ -543,14 +562,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="case-study-8" class="level3" data-number="11.4.2">
-<h3 data-number="11.4.2" class="anchored" data-anchor-id="case-study-8"><span class="header-section-number">11.4.2</span> Case Study 8</h3>
+<section id="cs-mfrow-8" class="level3" data-number="11.4.2">
+<h3 data-number="11.4.2" class="anchored" data-anchor-id="cs-mfrow-8"><span class="header-section-number">11.4.2</span> Case Study 8</h3>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># store the current parameter settings in init</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>init <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">no.readonly=</span><span class="cn">TRUE</span>)</span>
@@ -566,7 +585,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
@@ -578,7 +597,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet8-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet8-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
@@ -615,8 +634,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>Let us begin by combining 4 plots in a 2 row/2 column structure. We do this by creating a layout using the matrix function.</p>
-<section id="case-study-1-1" class="level3" data-number="11.5.1">
-<h3 data-number="11.5.1" class="anchored" data-anchor-id="case-study-1-1"><span class="header-section-number">11.5.1</span> Case Study 1</h3>
+<section id="cs-layout-1" class="level3" data-number="11.5.1">
+<h3 data-number="11.5.1" class="anchored" data-anchor-id="cs-layout-1"><span class="header-section-number">11.5.1</span> Case Study 1</h3>
 <p>Combine 4 plots in 2 rows/2 columns filled by rows.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify the layout</span></span>
@@ -631,15 +650,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="case-study-2-1" class="level3" data-number="11.5.2">
-<h3 data-number="11.5.2" class="anchored" data-anchor-id="case-study-2-1"><span class="header-section-number">11.5.2</span> Case Study 2</h3>
+<section id="cs-layout-2" class="level3" data-number="11.5.2">
+<h3 data-number="11.5.2" class="anchored" data-anchor-id="cs-layout-2"><span class="header-section-number">11.5.2</span> Case Study 2</h3>
 <p>Combine 4 plots in 2 rows/2 columns filled by columns</p>
 <p>To fill the plots by column, we specify byrow = FALSE in the matrix.</p>
 <div class="cell" data-layout-align="center">
@@ -655,15 +674,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="case-study-3-1" class="level3" data-number="11.5.3">
-<h3 data-number="11.5.3" class="anchored" data-anchor-id="case-study-3-1"><span class="header-section-number">11.5.3</span> Case Study 3</h3>
+<section id="cs-layout-3" class="level3" data-number="11.5.3">
+<h3 data-number="11.5.3" class="anchored" data-anchor-id="cs-layout-3"><span class="header-section-number">11.5.3</span> Case Study 3</h3>
 <p>Combine 3 plots in 2 rows/2 columns filled by rows</p>
 <p>The magic of the layout() function begins here. We want to combine 3 plots and the first plot should occupy both the columns in row 1 and the next 2 plots should be in row 2. If you look at the matrix below, 1 is specified twice and since the matrix is filled by row, it will occupy both the columns in the first row. Similarly the first plot will occupy the entire first row. It will be crystal clear when you see the plot.</p>
 <div class="cell" data-layout-align="center">
@@ -683,15 +702,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="case-study-4-1" class="level3" data-number="11.5.4">
-<h3 data-number="11.5.4" class="anchored" data-anchor-id="case-study-4-1"><span class="header-section-number">11.5.4</span> Case Study 4</h3>
+<section id="cs-layout-4" class="level3" data-number="11.5.4">
+<h3 data-number="11.5.4" class="anchored" data-anchor-id="cs-layout-4"><span class="header-section-number">11.5.4</span> Case Study 4</h3>
 <p>Combine 3 plots in 2 rows/2 columns filled by rows</p>
 <p>The plots must be filled by rows and the third plot must occupy both the columns of the second row while the other two plots will be placed in the first row. The matrix would look like this:</p>
 <div class="cell" data-layout-align="center">
@@ -711,15 +730,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="case-study-5-1" class="level3" data-number="11.5.5">
-<h3 data-number="11.5.5" class="anchored" data-anchor-id="case-study-5-1"><span class="header-section-number">11.5.5</span> Case Study 5</h3>
+<section id="cs-layout-5" class="level3" data-number="11.5.5">
+<h3 data-number="11.5.5" class="anchored" data-anchor-id="cs-layout-5"><span class="header-section-number">11.5.5</span> Case Study 5</h3>
 <p>Combine 3 plots in 2 rows/2 columns filled by columns</p>
 <p>The plots must be filled by columns and the first plot must occupy both the rows of the first column while the other two plots will be placed in the second column in two rows. The matrix would look like this:</p>
 <div class="cell" data-layout-align="center">
@@ -739,17 +758,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="case-study-6-1" class="level3" data-number="11.5.6">
-<h3 data-number="11.5.6" class="anchored" data-anchor-id="case-study-6-1"><span class="header-section-number">11.5.6</span> Case Study 6</h3>
+<section id="cs-layout-6" class="level3" data-number="11.5.6">
+<h3 data-number="11.5.6" class="anchored" data-anchor-id="cs-layout-6"><span class="header-section-number">11.5.6</span> Case Study 6</h3>
 <p>Combine 3 plots in 2 rows/2 columns filled by columns</p>
-<p>The plots must be filled by columns and the first plot must occupy both the rows of the second column while the other two plots will be placed in the first column in two rows. The matrix would look like this:</p>
+<p>The plots must be filled by columns and the third plot must occupy both the rows of the second column while the other two plots will be placed in the first column in two rows. The matrix would look like this:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify the matrix</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">FALSE</span>)</span>
@@ -767,7 +786,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet14-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet14-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
@@ -775,9 +794,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>In all the layouts created so far, we have kept the size of the rows and columns equal. What if you want to modify the width and height of the columns and rows? The widths and heights arguments in the layout() function address the above mentioned issue. Let us check them out one by one: The widths argument is used for specifying the width of the columns. Based on the number of columns in the layout, you can specify the width of each column. Let us look at some examples.</p>
 </section>
-<section id="case-study-7-1" class="level3" data-number="11.5.7">
-<h3 data-number="11.5.7" class="anchored" data-anchor-id="case-study-7-1"><span class="header-section-number">11.5.7</span> Case Study 7</h3>
-<p>Width of the 2nd column is twice the width of the 1st column</p>
+<section id="cs-layout-7" class="level3" data-number="11.5.7">
+<h3 data-number="11.5.7" class="anchored" data-anchor-id="cs-layout-7"><span class="header-section-number">11.5.7</span> Case Study 7</h3>
+<p>Width of the 2nd column is three times the width of the 1st column</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify the matrix</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
@@ -785,7 +804,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    2</span></span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    3    4</span></span>
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 4 plots to be combined in 2 row/ 2 columns and arranged by columns</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 4 plots to be combined in 2 row/ 2 columns and arranged by rows</span></span>
 <span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>), <span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
 <span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># specify the plots</span></span>
@@ -796,15 +815,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet15-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet15-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="case-study-8-1" class="level3" data-number="11.5.8">
-<h3 data-number="11.5.8" class="anchored" data-anchor-id="case-study-8-1"><span class="header-section-number">11.5.8</span> Case Study 8</h3>
+<section id="cs-layout-8" class="level3" data-number="11.5.8">
+<h3 data-number="11.5.8" class="anchored" data-anchor-id="cs-layout-8"><span class="header-section-number">11.5.8</span> Case Study 8</h3>
 <p>Width of the 2nd column is twice that of the first and last column</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify the matrix</span></span>
@@ -826,7 +845,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet16-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet16-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
@@ -834,8 +853,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The heights arguments is used to modify the height of the rows and based on the number of rows specified in the layout, we can specify the height of each row.</p>
 </section>
-<section id="case-study-9" class="level3" data-number="11.5.9">
-<h3 data-number="11.5.9" class="anchored" data-anchor-id="case-study-9"><span class="header-section-number">11.5.9</span> Case Study 9</h3>
+<section id="cs-layout-9" class="level3" data-number="11.5.9">
+<h3 data-number="11.5.9" class="anchored" data-anchor-id="cs-layout-9"><span class="header-section-number">11.5.9</span> Case Study 9</h3>
 <p>Height of the 2nd row is twice that of the first row</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4 plots to be combined in 2 row/ 2 columns and filled by rows</span></span>
@@ -849,7 +868,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet17-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet17-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
@@ -882,7 +901,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="facet_files/figure-html/facet18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="facet_files/figure-html/facet18-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
@@ -1534,7 +1553,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Row</span></span>
 <span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>mfrow combines plots filled by rows i.e it takes two arguments, the number of rows and number of columns and then starts filling the plots by row. Below is the syntax for mfrow.</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>The <span class="in">`mfrow`</span> parameter combines plots filled by rows i.e it takes two values, the number of rows and number of columns and then starts filling the plots by row. Below is the syntax for mfrow.</span>
 <span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="in">```{r facetsyntax, eval=FALSE}</span></span>
 <span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="in"># mfrow syntax</span></span>
@@ -1543,9 +1562,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>Let us begin by combining 4 plots in 2 rows and 2 columns:</span>
 <span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 1</span></span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 1 {#cs-mfrow-1}</span></span>
 <span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>Let us begin by combining 4 plots in 2 rows and 2 columns. The plots will be filled by rows as we are using the mfrow function:</span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>Let us begin by combining 4 plots in 2 rows and 2 columns. The plots will be filled by rows as we are using the mfrow parameter:</span>
 <span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a><span class="in">```{r facet1, fig.align='center', fig.height=7, fig.width=7, collapse=TRUE}</span></span>
 <span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a><span class="in"># store the current parameter settings in init</span></span>
@@ -1564,7 +1583,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-43"><a href="#cb38-43" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
 <span id="cb38-44"><a href="#cb38-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb38-45"><a href="#cb38-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-46"><a href="#cb38-46" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 2</span></span>
+<span id="cb38-46"><a href="#cb38-46" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 2 {#cs-mfrow-2}</span></span>
 <span id="cb38-47"><a href="#cb38-47" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-48"><a href="#cb38-48" aria-hidden="true" tabindex="-1"></a>Combine 2 plots in 1 row and 2 columns. </span>
 <span id="cb38-49"><a href="#cb38-49" aria-hidden="true" tabindex="-1"></a></span>
@@ -1583,7 +1602,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-62"><a href="#cb38-62" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
 <span id="cb38-63"><a href="#cb38-63" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb38-64"><a href="#cb38-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-65"><a href="#cb38-65" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 3</span></span>
+<span id="cb38-65"><a href="#cb38-65" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 3 {#cs-mfrow-3}</span></span>
 <span id="cb38-66"><a href="#cb38-66" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-67"><a href="#cb38-67" aria-hidden="true" tabindex="-1"></a>Combine 2 plots in 2 rows and 1 column. </span>
 <span id="cb38-68"><a href="#cb38-68" aria-hidden="true" tabindex="-1"></a></span>
@@ -1602,7 +1621,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-81"><a href="#cb38-81" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
 <span id="cb38-82"><a href="#cb38-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb38-83"><a href="#cb38-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-84"><a href="#cb38-84" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 4</span></span>
+<span id="cb38-84"><a href="#cb38-84" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 4 {#cs-mfrow-4}</span></span>
 <span id="cb38-85"><a href="#cb38-85" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-86"><a href="#cb38-86" aria-hidden="true" tabindex="-1"></a>Combine 3 plots in 1 row and 3 columns. </span>
 <span id="cb38-87"><a href="#cb38-87" aria-hidden="true" tabindex="-1"></a></span>
@@ -1622,7 +1641,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-101"><a href="#cb38-101" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
 <span id="cb38-102"><a href="#cb38-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb38-103"><a href="#cb38-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-104"><a href="#cb38-104" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 5</span></span>
+<span id="cb38-104"><a href="#cb38-104" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 5 {#cs-mfrow-5}</span></span>
 <span id="cb38-105"><a href="#cb38-105" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-106"><a href="#cb38-106" aria-hidden="true" tabindex="-1"></a>Combine 3 plots in 3 rows and 1 column. </span>
 <span id="cb38-107"><a href="#cb38-107" aria-hidden="true" tabindex="-1"></a></span>
@@ -1653,7 +1672,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-132"><a href="#cb38-132" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-133"><a href="#cb38-133" aria-hidden="true" tabindex="-1"></a>Let us begin by combining 4 plots in 2 rows and 2 columns:</span>
 <span id="cb38-134"><a href="#cb38-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-135"><a href="#cb38-135" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 6</span></span>
+<span id="cb38-135"><a href="#cb38-135" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 6 {#cs-mfrow-6}</span></span>
 <span id="cb38-136"><a href="#cb38-136" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-137"><a href="#cb38-137" aria-hidden="true" tabindex="-1"></a>Combine 4 plots in 2 rows and 2 columns, filled by columns. </span>
 <span id="cb38-138"><a href="#cb38-138" aria-hidden="true" tabindex="-1"></a></span>
@@ -1684,7 +1703,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-163"><a href="#cb38-163" aria-hidden="true" tabindex="-1"></a>Case 2: Extra graph specified</span>
 <span id="cb38-164"><a href="#cb38-164" aria-hidden="true" tabindex="-1"></a>We will specify that 4 plots need to be combined in 2 rows and 2 columns but specify 6 graphs instead of 4.</span>
 <span id="cb38-165"><a href="#cb38-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-166"><a href="#cb38-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 7</span></span>
+<span id="cb38-166"><a href="#cb38-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 7 {#cs-mfrow-7}</span></span>
 <span id="cb38-167"><a href="#cb38-167" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-168"><a href="#cb38-168" aria-hidden="true" tabindex="-1"></a><span class="in">```{r facet7, fig.align='center', fig.height=7, fig.width=7, collapse=TRUE}</span></span>
 <span id="cb38-169"><a href="#cb38-169" aria-hidden="true" tabindex="-1"></a><span class="in"># store the current parameter settings in init</span></span>
@@ -1702,7 +1721,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-181"><a href="#cb38-181" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
 <span id="cb38-182"><a href="#cb38-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb38-183"><a href="#cb38-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-184"><a href="#cb38-184" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 8</span></span>
+<span id="cb38-184"><a href="#cb38-184" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 8 {#cs-mfrow-8}</span></span>
 <span id="cb38-185"><a href="#cb38-185" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-186"><a href="#cb38-186" aria-hidden="true" tabindex="-1"></a><span class="in">```{r facet8, fig.align='center', fig.height=7, fig.width=7, collapse=TRUE}</span></span>
 <span id="cb38-187"><a href="#cb38-187" aria-hidden="true" tabindex="-1"></a><span class="in"># store the current parameter settings in init</span></span>
@@ -1735,7 +1754,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-214"><a href="#cb38-214" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-215"><a href="#cb38-215" aria-hidden="true" tabindex="-1"></a>Let us begin by combining 4 plots in a 2 row/2 column structure. We do this by creating a layout using the matrix function.</span>
 <span id="cb38-216"><a href="#cb38-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-217"><a href="#cb38-217" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 1</span></span>
+<span id="cb38-217"><a href="#cb38-217" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 1 {#cs-layout-1}</span></span>
 <span id="cb38-218"><a href="#cb38-218" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-219"><a href="#cb38-219" aria-hidden="true" tabindex="-1"></a>Combine 4 plots in 2 rows/2 columns filled by rows.</span>
 <span id="cb38-220"><a href="#cb38-220" aria-hidden="true" tabindex="-1"></a></span>
@@ -1752,7 +1771,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-231"><a href="#cb38-231" aria-hidden="true" tabindex="-1"></a><span class="in">layout(1)</span></span>
 <span id="cb38-232"><a href="#cb38-232" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb38-233"><a href="#cb38-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-234"><a href="#cb38-234" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 2</span></span>
+<span id="cb38-234"><a href="#cb38-234" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 2 {#cs-layout-2}</span></span>
 <span id="cb38-235"><a href="#cb38-235" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-236"><a href="#cb38-236" aria-hidden="true" tabindex="-1"></a>Combine 4 plots in 2 rows/2 columns filled by columns</span>
 <span id="cb38-237"><a href="#cb38-237" aria-hidden="true" tabindex="-1"></a></span>
@@ -1771,7 +1790,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-250"><a href="#cb38-250" aria-hidden="true" tabindex="-1"></a><span class="in">layout(1)</span></span>
 <span id="cb38-251"><a href="#cb38-251" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb38-252"><a href="#cb38-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-253"><a href="#cb38-253" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 3</span></span>
+<span id="cb38-253"><a href="#cb38-253" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 3 {#cs-layout-3}</span></span>
 <span id="cb38-254"><a href="#cb38-254" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-255"><a href="#cb38-255" aria-hidden="true" tabindex="-1"></a>Combine 3 plots in 2 rows/2 columns filled by rows</span>
 <span id="cb38-256"><a href="#cb38-256" aria-hidden="true" tabindex="-1"></a></span>
@@ -1792,7 +1811,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-271"><a href="#cb38-271" aria-hidden="true" tabindex="-1"></a><span class="in">layout(1)</span></span>
 <span id="cb38-272"><a href="#cb38-272" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb38-273"><a href="#cb38-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-274"><a href="#cb38-274" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 4</span></span>
+<span id="cb38-274"><a href="#cb38-274" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 4 {#cs-layout-4}</span></span>
 <span id="cb38-275"><a href="#cb38-275" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-276"><a href="#cb38-276" aria-hidden="true" tabindex="-1"></a>Combine 3 plots in 2 rows/2 columns filled by rows</span>
 <span id="cb38-277"><a href="#cb38-277" aria-hidden="true" tabindex="-1"></a></span>
@@ -1812,7 +1831,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-291"><a href="#cb38-291" aria-hidden="true" tabindex="-1"></a><span class="in">layout(1)</span></span>
 <span id="cb38-292"><a href="#cb38-292" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb38-293"><a href="#cb38-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-294"><a href="#cb38-294" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 5</span></span>
+<span id="cb38-294"><a href="#cb38-294" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 5 {#cs-layout-5}</span></span>
 <span id="cb38-295"><a href="#cb38-295" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-296"><a href="#cb38-296" aria-hidden="true" tabindex="-1"></a>Combine 3 plots in 2 rows/2 columns filled by columns</span>
 <span id="cb38-297"><a href="#cb38-297" aria-hidden="true" tabindex="-1"></a></span>
@@ -1833,11 +1852,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-312"><a href="#cb38-312" aria-hidden="true" tabindex="-1"></a><span class="in">layout(1)</span></span>
 <span id="cb38-313"><a href="#cb38-313" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb38-314"><a href="#cb38-314" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-315"><a href="#cb38-315" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 6</span></span>
+<span id="cb38-315"><a href="#cb38-315" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 6 {#cs-layout-6}</span></span>
 <span id="cb38-316"><a href="#cb38-316" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-317"><a href="#cb38-317" aria-hidden="true" tabindex="-1"></a>Combine 3 plots in 2 rows/2 columns filled by columns</span>
 <span id="cb38-318"><a href="#cb38-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-319"><a href="#cb38-319" aria-hidden="true" tabindex="-1"></a>The plots must be filled by columns and the first plot must occupy both the rows of the second column while the other two plots will be placed in the first column in two rows. The matrix would look like this:</span>
+<span id="cb38-319"><a href="#cb38-319" aria-hidden="true" tabindex="-1"></a>The plots must be filled by columns and the third plot must occupy both the rows of the second column while the other two plots will be placed in the first column in two rows. The matrix would look like this:</span>
 <span id="cb38-320"><a href="#cb38-320" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-321"><a href="#cb38-321" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-322"><a href="#cb38-322" aria-hidden="true" tabindex="-1"></a><span class="in">```{r facet14, fig.align='center', fig.height=7, fig.width=7, collapse=TRUE}</span></span>
@@ -1856,15 +1875,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-335"><a href="#cb38-335" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-336"><a href="#cb38-336" aria-hidden="true" tabindex="-1"></a>In all the layouts created so far, we have kept the size of the rows and columns equal. What if you want to modify the width and height of the columns and rows? The widths and heights arguments in the layout() function address the above mentioned issue. Let us check them out one by one: The widths argument is used for specifying the width of the columns. Based on the number of columns in the layout, you can specify the width of each column. Let us look at some examples.</span>
 <span id="cb38-337"><a href="#cb38-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-338"><a href="#cb38-338" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 7</span></span>
+<span id="cb38-338"><a href="#cb38-338" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 7 {#cs-layout-7}</span></span>
 <span id="cb38-339"><a href="#cb38-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-340"><a href="#cb38-340" aria-hidden="true" tabindex="-1"></a>Width of the 2nd column is twice the width of the 1st column</span>
+<span id="cb38-340"><a href="#cb38-340" aria-hidden="true" tabindex="-1"></a>Width of the 2nd column is three times the width of the 1st column</span>
 <span id="cb38-341"><a href="#cb38-341" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-342"><a href="#cb38-342" aria-hidden="true" tabindex="-1"></a><span class="in">```{r facet15, fig.align='center', fig.height=7, fig.width=7, collapse=TRUE}</span></span>
 <span id="cb38-343"><a href="#cb38-343" aria-hidden="true" tabindex="-1"></a><span class="in"># specify the matrix</span></span>
 <span id="cb38-344"><a href="#cb38-344" aria-hidden="true" tabindex="-1"></a><span class="in">matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE)</span></span>
 <span id="cb38-345"><a href="#cb38-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-346"><a href="#cb38-346" aria-hidden="true" tabindex="-1"></a><span class="in"># 4 plots to be combined in 2 row/ 2 columns and arranged by columns</span></span>
+<span id="cb38-346"><a href="#cb38-346" aria-hidden="true" tabindex="-1"></a><span class="in"># 4 plots to be combined in 2 row/ 2 columns and arranged by rows</span></span>
 <span id="cb38-347"><a href="#cb38-347" aria-hidden="true" tabindex="-1"></a><span class="in">layout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE), widths = c(1, 3))</span></span>
 <span id="cb38-348"><a href="#cb38-348" aria-hidden="true" tabindex="-1"></a><span class="in"> </span></span>
 <span id="cb38-349"><a href="#cb38-349" aria-hidden="true" tabindex="-1"></a><span class="in"># specify the plots</span></span>
@@ -1875,7 +1894,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-354"><a href="#cb38-354" aria-hidden="true" tabindex="-1"></a><span class="in">layout(1)</span></span>
 <span id="cb38-355"><a href="#cb38-355" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb38-356"><a href="#cb38-356" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-357"><a href="#cb38-357" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 8</span></span>
+<span id="cb38-357"><a href="#cb38-357" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 8 {#cs-layout-8}</span></span>
 <span id="cb38-358"><a href="#cb38-358" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-359"><a href="#cb38-359" aria-hidden="true" tabindex="-1"></a>Width of the 2nd column is twice that of the first and last column</span>
 <span id="cb38-360"><a href="#cb38-360" aria-hidden="true" tabindex="-1"></a></span>
@@ -1898,7 +1917,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb38-377"><a href="#cb38-377" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-378"><a href="#cb38-378" aria-hidden="true" tabindex="-1"></a>The heights arguments is used to modify the height of the rows and based on the number of rows specified in the layout, we can specify the height of each row. </span>
 <span id="cb38-379"><a href="#cb38-379" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-380"><a href="#cb38-380" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 9</span></span>
+<span id="cb38-380"><a href="#cb38-380" aria-hidden="true" tabindex="-1"></a><span class="fu">### Case Study 9 {#cs-layout-9}</span></span>
 <span id="cb38-381"><a href="#cb38-381" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-382"><a href="#cb38-382" aria-hidden="true" tabindex="-1"></a>Height of the 2nd row is twice that of the first row</span>
 <span id="cb38-383"><a href="#cb38-383" aria-hidden="true" tabindex="-1"></a></span>

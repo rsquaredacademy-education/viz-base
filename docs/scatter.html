@@ -104,15 +104,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<!-- SEO / social / scholarly metadata (hand-written: Quarto has no native Scholar support).
+<!-- Head metadata for every page.
+
+     Two distinct mechanisms are at work here:
+
+     1. The Open Graph / Twitter tags below are PLACEHOLDERS. Quarto rewrites
+        og:title, og:description, og:image and the twitter:* values per page
+        (see `open-graph` / `twitter-card` in _quarto.yml), so the literal
+        values here never reach the reader. Do not delete these tags -- with
+        them removed Quarto emits nothing. Verified: docs/scatter.html gets
+        "4 Scatter Plots", docs/line.html gets "5 Line Graphs".
+        og:site_name and og:type are ours; Quarto does not manage those.
+
+     2. The citation_* tags are hand-written because Quarto has no native
+        Highwire/Scholar support. This is the reason this file exists.
+
+     Deliberately NOT here: the canonical link and og:url. Quarto emits
+     neither for `type: book`, and hard-coding them made every one of the 12
+     pages claim the site root as its canonical URL -- which tells search
+     engines the whole book is a single page. An absent canonical is merely
+     neutral; a wrong one is destructive. sitemap.xml carries the real
+     per-page URLs. See roadmap: Phase 3 SEO pass.
+
      TODO(analytics): set google-analytics in _quarto.yml once the GA4 ID exists,
      and add a consent banner alongside it (no cookies are set until then). -->
-<link rel="canonical" href="https://viz-base.rsquaredacademy.com/">
 <meta property="og:site_name" content="Data Visualization with R">
 <meta property="og:type" content="book">
 <meta property="og:title" content="4&nbsp; Scatter Plots – Data Visualization with R">
 <meta property="og:description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
-<meta property="og:url" content="https://viz-base.rsquaredacademy.com/">
 <meta property="og:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="4&nbsp; Scatter Plots – Data Visualization with R">
@@ -2142,7 +2161,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </section>
 <section id="basic-plot" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="basic-plot"><span class="header-section-number">4.2</span> Basic Plot</h2>
-<p>Let us recreate the plot that we had created in Chapter 1 by using the <code>mtcars</code> data set. We will use the <code>disp</code> (displacement) and <code>mpg</code> (miles per gallon) variables. <code>disp</code> will be on the X axis and <code>mpg</code> will be on the Y axis.</p>
+<p>Let us recreate the plot that we had created in Chapter 2 by using the <code>mtcars</code> data set. We will use the <code>disp</code> (displacement) and <code>mpg</code> (miles per gallon) variables. <code>disp</code> will be on the X axis and <code>mpg</code> will be on the Y axis.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -2153,7 +2172,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </div>
 </div>
 </div>
-<p>We have created a very basic plot and any one looking at it for the first time will get confused with the axis labels <code>mtcars$disp</code> and <code>mtcars$mpg</code>. Let us put into practice what we learnt in Chapter 2, and add a title to the plot, and make the axis labels more meaningful.</p>
+<p>We have created a very basic plot and any one looking at it for the first time will get confused with the axis labels <code>mtcars$disp</code> and <code>mtcars$mpg</code>. Let us put into practice what we learnt in Chapter 3, and add a title to the plot, and make the axis labels more meaningful.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg,</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">'Displacement vs Miles Per Gallon'</span>,</span>
@@ -2922,13 +2941,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basic Plot</span></span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>Let us recreate the plot that we had created in Chapter 1 by using the <span class="in">`mtcars`</span> data set. We will use the <span class="in">`disp`</span> (displacement) and <span class="in">`mpg`</span> (miles per gallon) variables. <span class="in">`disp`</span> will be on the X axis and <span class="in">`mpg`</span> will be on the Y axis.</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>Let us recreate the plot that we had created in Chapter 2 by using the <span class="in">`mtcars`</span> data set. We will use the <span class="in">`disp`</span> (displacement) and <span class="in">`mpg`</span> (miles per gallon) variables. <span class="in">`disp`</span> will be on the X axis and <span class="in">`mpg`</span> will be on the Y axis.</span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span>
 <span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>We have created a very basic plot and any one looking at it for the first time will get confused with the axis labels <span class="in">`mtcars$disp`</span> and <span class="in">`mtcars$mpg`</span>. Let us put into practice what we learnt in Chapter 2, and add a title to the plot, and make the axis labels more meaningful.</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>We have created a very basic plot and any one looking at it for the first time will get confused with the axis labels <span class="in">`mtcars$disp`</span> and <span class="in">`mtcars$mpg`</span>. Let us put into practice what we learnt in Chapter 3, and add a title to the plot, and make the axis labels more meaningful.</span>
 <span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg,</span>
