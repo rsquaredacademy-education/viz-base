@@ -22,7 +22,7 @@ par(mfrow = c(number of rows, number of columns))
 
 Let us begin by combining 4 plots in 2 rows and 2 columns:
 
-### Case Study 1
+### Case Study 1 {#cs-mfrow-1}
 
 Let us begin by combining 4 plots in 2 rows and 2 columns. The plots will be filled by rows as we are using the mfrow parameter:
 
@@ -43,7 +43,7 @@ boxplot(mtcars$mpg)
 par(init)
 ```
 
-### Case Study 2
+### Case Study 2 {#cs-mfrow-2}
 
 Combine 2 plots in 1 row and 2 columns. 
 
@@ -62,7 +62,7 @@ boxplot(mtcars$mpg)
 par(init)
 ```
 
-### Case Study 3
+### Case Study 3 {#cs-mfrow-3}
 
 Combine 2 plots in 2 rows and 1 column. 
 
@@ -81,7 +81,7 @@ boxplot(mtcars$mpg)
 par(init)
 ```
 
-### Case Study 4
+### Case Study 4 {#cs-mfrow-4}
 
 Combine 3 plots in 1 row and 3 columns. 
 
@@ -101,7 +101,7 @@ boxplot(mtcars$mpg)
 par(init)
 ```
 
-### Case Study 5
+### Case Study 5 {#cs-mfrow-5}
 
 Combine 3 plots in 3 rows and 1 column. 
 
@@ -132,7 +132,7 @@ par(mfcol = c(number of rows, number of columns))
 
 Let us begin by combining 4 plots in 2 rows and 2 columns:
 
-### Case Study 6
+### Case Study 6 {#cs-mfrow-6}
 
 Combine 4 plots in 2 rows and 2 columns, filled by columns. 
 
@@ -163,7 +163,7 @@ We will specify that 4 plots need to be combined in 2 rows and 2 columns but pro
 Case 2: Extra graph specified
 We will specify that 4 plots need to be combined in 2 rows and 2 columns but specify 6 graphs instead of 4.
 
-### Case Study 7
+### Case Study 7 {#cs-mfrow-7}
 
 ```{r facet7, fig.align='center', fig.height=7, fig.width=7, collapse=TRUE}
 # store the current parameter settings in init
@@ -181,7 +181,7 @@ boxplot(mtcars$mpg)
 par(init)
 ```
 
-### Case Study 8
+### Case Study 8 {#cs-mfrow-8}
 
 ```{r facet8, fig.align='center', fig.height=7, fig.width=7, collapse=TRUE}
 # store the current parameter settings in init
@@ -214,7 +214,7 @@ At the core of the layout() function is a matrix. We communicate the structure i
 
 Let us begin by combining 4 plots in a 2 row/2 column structure. We do this by creating a layout using the matrix function.
 
-### Case Study 1
+### Case Study 1 {#cs-layout-1}
 
 Combine 4 plots in 2 rows/2 columns filled by rows.
 
@@ -231,7 +231,7 @@ plot(mtcars$mpg)
 layout(1)
 ```
 
-### Case Study 2
+### Case Study 2 {#cs-layout-2}
 
 Combine 4 plots in 2 rows/2 columns filled by columns
 
@@ -250,7 +250,7 @@ plot(mtcars$mpg)
 layout(1)
 ```
 
-### Case Study 3
+### Case Study 3 {#cs-layout-3}
 
 Combine 3 plots in 2 rows/2 columns filled by rows
 
@@ -271,7 +271,7 @@ boxplot(mtcars$mpg)
 layout(1)
 ```
 
-### Case Study 4
+### Case Study 4 {#cs-layout-4}
 
 Combine 3 plots in 2 rows/2 columns filled by rows
 
@@ -291,7 +291,7 @@ plot(mtcars$disp, mtcars$mpg)
 layout(1)
 ```
 
-### Case Study 5
+### Case Study 5 {#cs-layout-5}
 
 Combine 3 plots in 2 rows/2 columns filled by columns
 
@@ -312,7 +312,7 @@ boxplot(mtcars$mpg)
 layout(1)
 ```
 
-### Case Study 6
+### Case Study 6 {#cs-layout-6}
 
 Combine 3 plots in 2 rows/2 columns filled by columns
 
@@ -335,7 +335,7 @@ layout(1)
 
 In all the layouts created so far, we have kept the size of the rows and columns equal. What if you want to modify the width and height of the columns and rows? The widths and heights arguments in the layout() function address the above mentioned issue. Let us check them out one by one: The widths argument is used for specifying the width of the columns. Based on the number of columns in the layout, you can specify the width of each column. Let us look at some examples.
 
-### Case Study 7
+### Case Study 7 {#cs-layout-7}
 
 Width of the 2nd column is three times the width of the 1st column
 
@@ -354,7 +354,7 @@ plot(mtcars$mpg)
 layout(1)
 ```
 
-### Case Study 8
+### Case Study 8 {#cs-layout-8}
 
 Width of the 2nd column is twice that of the first and last column
 
@@ -377,7 +377,7 @@ layout(1)
 
 The heights arguments is used to modify the height of the rows and based on the number of rows specified in the layout, we can specify the height of each row. 
 
-### Case Study 9
+### Case Study 9 {#cs-layout-9}
 
 Height of the 2nd row is twice that of the first row
 
