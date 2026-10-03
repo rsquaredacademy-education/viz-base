@@ -121,6 +121,7 @@ plot(as.factor(mtcars$cyl), mtcars$mpg)
 
 ```{webr-r}
 # walk the dispatch cases from this chapter
+init <- par(no.readonly = TRUE)
 par(mfrow = c(2, 3), mar = c(4, 4, 2, 1))
 plot(as.factor(mtcars$cyl))
 plot(as.factor(mtcars$am), as.factor(mtcars$cyl))
@@ -129,6 +130,6 @@ plot(mtcars$mpg, as.factor(mtcars$cyl))
 plot(mtcars$mpg, mtcars$disp, main = 'displacement vs mpg',
      xlab = 'Miles Per Gallon', ylab = 'Displacement')
 plot(as.factor(mtcars$cyl), mtcars$mpg)
-par(mfrow = c(1, 1))
+par(init)
 ```
 
