@@ -217,7 +217,7 @@ cyl_gear <- table(mtcars$cyl, mtcars$gear)
 cyl_gear
 ```
 
-The number of gears is represented by the columns in the table and the numbe rof cylinders is represented by the rows. 
+The number of gears is represented by the columns in the table and the number of cylinders is represented by the rows. 
 
 ### Stacked Bar Plot
 
@@ -237,7 +237,7 @@ If you carefully observe the table and the plot:
 - the red sections represent the number of automobiles with 6 cylinders (in each gear group)
 - the green sections represent the number of automobiles with 8 cylinders (in each gear group)
 
-We need to convey the above information in some way and will do that using the `legend.text` argument. It takes logical values as inputs and the default values is `FALSE`. It adds a legend to the plot when it is set to `TRUE`. In the next example, we add a legend as well as other relevant information such as title and axis labels.
+We need to convey the above information in some way and will do that using the `legend.text` argument. It takes a character vector as input and the default value is `NULL`, in which case no legend text is added. In the next example, we add a legend as well as other relevant information such as title and axis labels.
 
 
 ```{r bar23, fig.align='center', fig.height=5, fig.width=5}
