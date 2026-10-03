@@ -42,6 +42,29 @@ Rscript scripts/webr-smoke.R       # static check of every live {webr-r} cell
 
 CI renders HTML, Typst PDF, and ePub, verifies the legacy slugs, and deploys `docs/` via GitHub Pages. `master` is the production branch.
 
+### Authoring constraints
+
+Verified against Quarto 1.6.40 + Typst 0.11.0. All three formats build in CI and PDF/ePub are
+required steps, so anything below breaks the build rather than degrading quietly.
+
+- **Callouts are unavailable.** `:::{.callout-tip}` fails the PDF with
+  `error: unknown variable: callout` — Quarto's book-merge path drops Typst's
+  `definitions.typ`. Use a blockquote signpost instead (house style, see `legend.qmd`).
+- **`<details>` works** in HTML, ePub and PDF, including nested executable R chunks, so
+  collapsed exercise solutions are safe to use.
+- **Cross-references split by type.** `@fig-`/`@tbl-` resolve in all three formats. Any
+  `@sec-` heading reference — same chapter or cross-chapter — resolves in HTML and ePub but
+  fails the PDF with `error: cannot reference heading without numbering`. Chapter pointers
+  in prose are therefore written as literal numbers (`Chapter 2`); keep them correct by hand
+  when the chapter list changes.
+- **Never hardcode Open Graph or canonical tags.** `includes/head.html` holds
+  `og:title`/`twitter:*` as *placeholders* that Quarto rewrites per page; delete them and
+  Quarto emits nothing. Quarto emits no `canonical` or `og:url` for `type: book` — see the
+  comment in that file for why they are absent on purpose.
+- **Clear `.quarto/` when a cross-reference misbehaves.** A stale cache silently emits
+  same-page anchors and unresolved text instead of erroring.
+
+
 ## License
 
 Content CC BY-NC-SA 4.0.
