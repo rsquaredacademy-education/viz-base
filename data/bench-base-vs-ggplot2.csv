@@ -1,0 +1,7 @@
+"n","approach","median_ms","peak_mem_mb","n_iter"
+10000,"base",10.9,19.7,15
+10000,"ggplot2_construct",13.4,19.9,15
+10000,"ggplot2_render",871.9,36.8,15
+1e+05,"base",87.4,30.7,14
+1e+05,"ggplot2_construct",13.2,24.9,15
+1e+05,"ggplot2_render",1244.9,77.3,15
