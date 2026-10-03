@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this chapter, we will learn to add text annotations. There are occassions when you want to display additional information in a plot. This is usually achieved by adding text either inside the plot or on the margins. For example, you might want to label a line/bar or add formulas to better communicate what is shown in the plot. The idea is to use the available space within/outside the plot to provide additional information that can be useful to the end users. We will learn to add text inside as well as on the margins of the plot. This is accomplished using the following two functions:
+In this chapter, we will learn to add text annotations. There are occasions when you want to display additional information in a plot. This is usually achieved by adding text either inside the plot or on the margins. For example, you might want to label a line/bar or add formulas to better communicate what is shown in the plot. The idea is to use the available space within/outside the plot to provide additional information that can be useful to the end users. We will learn to add text inside as well as on the margins of the plot. This is accomplished using the following two functions:
 
 - `text()` : add text inside the plot
 - `mtext()` : add text on the margins of the plot
@@ -131,7 +131,7 @@ par(init)
 
 ## Text on the Margins
 
-The `mtext()` function allows the user to place the text on the margins of the plot. It allows the user to modify the location of the text in multiple ways and we will explore them one by one. To beign with, let us add text to the plot using the `mtext()` function. The minimum input you need to provide is the text itself. Below is a simple example:
+The `mtext()` function allows the user to place the text on the margins of the plot. It allows the user to modify the location of the text in multiple ways and we will explore them one by one. To begin with, let us add text to the plot using the `mtext()` function. The minimum input you need to provide is the text itself. Below is a simple example:
 
 ```{r mtext1, fig.align='center', fig.width=5, fig.height=5}
 plot(mtcars$disp, mtcars$mpg)
@@ -165,7 +165,7 @@ par(init)
 
 ## Line
 
-The `line` argument places the text at a specified distance from the margin. The default value is `0`. As the value increases, the text is placed farther from the margin and outside the plot. As the value decreases, the text is placed inside the plot and farther from the margin. Below is a example where the text is placed outside the plot as the value is greater than 1.
+The `line` argument places the text at a specified distance from the margin. The default value is `0`. As the value increases, the text is placed farther from the margin and outside the plot. As the value decreases, the text is placed inside the plot and farther from the margin. Below is an example where the text is placed outside the plot as the value is greater than 1.
 
 ```{r mtext4, fig.align='center', fig.width=5, fig.height=5}
 plot(mtcars$disp, mtcars$mpg)
@@ -195,7 +195,7 @@ par(init)
 
 ## Alignment
 
-The `adj` argument is used for horizontal alignment of the text. It takes values between 0 and 1. If set to `0`, the text will be left aligned and at `1`, it will be right aligned. Below is a example where the text is left aligned as `adj` is set to `0`.
+The `adj` argument is used for horizontal alignment of the text. It takes values between 0 and 1. If set to `0`, the text will be left aligned and at `1`, it will be right aligned. Below is an example where the text is left aligned as `adj` is set to `0`.
 
 ```{r mtext7, fig.align='center', fig.width=5, fig.height=5}
 plot(mtcars$disp, mtcars$mpg)

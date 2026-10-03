@@ -14,7 +14,7 @@ In this chapter, we will learn to
 
 ## Box Plot
 
-The box plot is a standardized way of displaying the distribution of data based on the five number summary: minimum, first quartile, median, third quartile, and maximum. Box plots are useful for detecting outliers and for comparing distributions. It shows the shape, central tendancy and variability of the data.
+The box plot is a standardized way of displaying the distribution of data based on the five number summary: minimum, first quartile, median, third quartile, and maximum. Box plots are useful for detecting outliers and for comparing distributions. It shows the shape, central tendency and variability of the data.
 
 ### Structure
 
@@ -141,7 +141,7 @@ mpg_8 <- mpg_split$`8`
 boxplot(mpg_4, mpg_6, mpg_8)
 ```
 
-The same plot can be created in two ways. If you are comparing the distribution of a continuous variable for the different levels of a categorical variable, use the formula. If you are comparing distribution of independent variables, specify all the variablels in the `boxplot()` function.
+The same plot can be created in two ways. If you are comparing the distribution of a continuous variable for the different levels of a categorical variable, use the formula. If you are comparing distribution of independent variables, specify all the variables in the `boxplot()` function.
 
 ### Color
 
