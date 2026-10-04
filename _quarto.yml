@@ -43,6 +43,8 @@ book:
     - export-devices.qmd
     - about-the-author.qmd
   downloads: [pdf, epub]
+  appendices:
+    - rosetta.qmd
 
 execute:
   freeze: auto
