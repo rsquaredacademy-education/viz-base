@@ -29,6 +29,7 @@ book:
   date: last-modified
   chapters:
     - index.qmd
+    - why-base.qmd
     - intro.qmd
     - titlelabels.qmd
     - scatter.qmd
