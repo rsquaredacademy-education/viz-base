@@ -103,10 +103,25 @@ jobs:
           cp /tmp/stage-pdf/*.pdf docs/
           cp /tmp/stage-epub/*.epub docs/
           cp /tmp/base-par-cheatsheet.pdf docs/
-          cp robots.txt sitemap.xml google02e424888b5e2def.html 404.html docs/ 2>/dev/null || true
+          cp robots.txt sitemap.xml google02e424888b5e2def.html privacy.html 404.html docs/ 2>/dev/null || true
           rm -rf docs/docs
           test -f docs/sitemap.xml || { echo "sitemap.xml missing after assemble"; exit 1; }
           ls docs/*.pdf docs/*.epub
+
+      # Analytics has to stay opt-in, and that is easy to break silently: adding
+      # `website.google-analytics` to _quarto.yml would load Google for everyone.
+      # So assert the negative -- a *static* gtag script tag in any page means
+      # Google is contacted before anyone clicks accept, which is the exact
+      # failure the hand-rolled gate in includes/analytics.html exists to prevent.
+      - name: Verify analytics stays consent-gated
+        run: |
+          test -f docs/privacy.html || { echo "privacy.html MISSING from docs/"; exit 1; }
+          if grep -rqE '<script[^>]+src="https://www\.googletagmanager\.com' docs/*.html; then
+            echo "UNCONDITIONAL ANALYTICS: gtag script tag present without consent"; exit 1;
+          fi
+          grep -q 'qz-consent' docs/index.html || { echo "consent banner missing"; exit 1; }
+          grep -q 'G-P98W8WC0XC' docs/index.html || { echo "measurement ID missing"; exit 1; }
+          echo "analytics OK: consent-gated, no static gtag tag"
 
       - name: Link check (advisory)
         uses: lycheeverse/lychee-action@v2

@@ -3,6 +3,7 @@ project:
   output-dir: docs
   resources:
     - "google02e424888b5e2def.html"
+    - "privacy.html"
     - "robots.txt"
     - "sitemap.xml"
 
@@ -20,7 +21,19 @@ website:
     right:
       - text: "GitHub"
         href: https://github.com/rsquaredacademy-education/viz-base
-  # google-analytics: "G-XXXXXXXXXX" # TODO: add GA4 ID when available (+ consent banner)
+  # Analytics: measurement ID is G-P98W8WC0XC, wired up in
+  # includes/analytics.html rather than here. Two reasons, both verified:
+  #
+  #   * `website.google-analytics` is silently ignored for `type: book`. The same
+  #     config emits a gtag tag in a minimal `type: website` project and emits
+  #     nothing here, with no warning.
+  #   * `website.cookie-consent` does not exist in Quarto 1.6.40. The CI
+  #     toolchain is pinned to that version because newer Quarto breaks the Typst
+  #     PDF, so the native consent gate is unavailable.
+  #
+  # Quarto's own analytics injects unconditionally, which leaves a visitor no way
+  # to refuse. includes/analytics.html creates the Google script element only
+  # inside the accept branch, so nothing reaches Google before consent.
 
 book:
   title: "Data Visualization with R"
@@ -69,7 +82,9 @@ format:
     code-overflow: wrap
     fig-align: center
     fig-dpi: 192
-    include-in-header: includes/head.html
+    include-in-header:
+      - includes/head.html
+      - includes/analytics.html
   pdf:
     pdf-engine: typst
     papersize: us-letter

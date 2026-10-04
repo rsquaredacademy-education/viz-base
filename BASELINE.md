@@ -49,9 +49,7 @@ is the planning document.
 
 ## Still outstanding
 
-- **GA4 measurement ID.** No ID exists, so `_quarto.yml` carries a commented-out
-  `google-analytics` stub and no cookies are set. A consent banner has to land at the
-  same time, not after. Needs the ID from the site owner.
+- ~~GA4 measurement ID~~ — resolved 2026-10-04, see below.
 - **No citable DOI yet.** `.zenodo.json` is filled in and `citation.bib` exists, but
   minting requires a Zenodo account action. See `HOW-TO-CITE.md`. Until it exists the
   citation deliberately has no `doi` field rather than a placeholder that would resolve
@@ -63,3 +61,33 @@ is the planning document.
 - **Lighthouse and build time are still unmeasured.** No figure recorded for either.
 - **No end-of-chapter exercises outside Chapter 12.** The roadmap blocker list also called
   for a `solutions/` directory; Chapter 12's solutions are inline and collapsed.
+- **Search Console and outreach** need browser access, not code.
+
+## Analytics (added 2026-10-04)
+
+GA4 measurement ID `G-P98W8WC0XC`, wired up in `includes/analytics.html` rather than
+`_quarto.yml`. Both halves of Quarto's native mechanism turned out to be unusable here,
+and both were confirmed by experiment rather than by reading docs:
+
+- `website.google-analytics` is **silently ignored for `type: book`**. The same config
+  emits a gtag tag in a minimal `type: website` project and emits nothing in this book,
+  with no warning or error.
+- `website.cookie-consent` **does not exist in Quarto 1.6.40**, the version CI pins
+  because newer Quarto breaks the Typst PDF.
+
+Quarto's own analytics injects unconditionally, so a reader could not refuse — a banner
+would have been theatre. Instead the Google script element is created only inside the
+accept branch: before consent, nothing is requested from Google, no cookie is written and
+no measurement ID is transmitted. The choice is stored in `localStorage` and is reversible
+from an "Analytics preferences" button on every page (the 1.6.40 book template has no
+`<footer>` to inject into, so it is anchored bottom-left).
+
+`privacy.html` is a hand-written static page, added to `project.resources` and copied by
+CI. It is not a chapter: it is legal text, not book content, and a chapter would give it a
+chapter number.
+
+CI asserts the negative rather than the positive — a *static* gtag script tag in any
+output page fails the build, because that is the exact regression that would silently
+reintroduce unconditional tracking. It also asserts `privacy.html` made it into `docs/`.
+
+Verified: no analytics reference of any kind in the PDF or the ePub.

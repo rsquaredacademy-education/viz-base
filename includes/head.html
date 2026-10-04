@@ -27,8 +27,11 @@
      neutral; a wrong one is destructive. sitemap.xml carries the real
      per-page URLs. See roadmap: Phase 3 SEO pass.
 
-     TODO(analytics): set google-analytics in _quarto.yml once the GA4 ID exists,
-     and add a consent banner alongside it (no cookies are set until then). -->
+     Analytics is NOT here either -- it lives in includes/analytics.html, which
+     is a separate file because it is consent-gated JavaScript rather than
+     metadata. Keep it that way: Quarto's own `website.google-analytics` injects
+     the tag unconditionally and is silently ignored for `type: book`, so the
+     gate has to be ours. -->
 <meta property="og:site_name" content="Data Visualization with R">
 <meta property="og:type" content="book">
 <meta name="description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
