@@ -112,7 +112,10 @@ subsetting and looping. ggplot2 has one, and it is the reason people switch.
 Colour is where the difference bites hardest, and it is worth showing what the
 base version actually costs:
 
-```{r group-base, fig.align='center', fig.width=6.5, fig.height=4.5}
+```{r, fig.align='center', fig.width=6.5, fig.height=4.5}
+#| label: fig-group-base
+#| fig-cap: "Mapping a factor to colour in base R: recycle the palette, then build the legend by hand"
+#| fig-alt: "A scatterplot of engine displacement against miles per gallon with 32 points in three colours, keyed in a frameless legend at the top right. Four-cylinder cars are black circles clustered at the top left with the highest miles per gallon; six-cylinder cars are crimson circles in the middle; eight-cylinder cars are green circles at the right and bottom. The legend text reads 4, 6 and 8."
 # The base R idiom. Correct, and nobody writes it twice.
 g <- factor(mtcars$cyl)
 # as.numeric(g) gives the factor CODES 1..k, not the labels. Hand them to

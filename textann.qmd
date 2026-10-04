@@ -236,7 +236,10 @@ The `pos` argument of the `text()` function places the text relative to the spec
 - `3`: above
 - `4`: to the right
 
-```{r textpos, fig.align='center', fig.width=10, fig.height=10, echo=FALSE}
+```{r, fig.align='center', fig.width=10, fig.height=10, echo=FALSE}
+#| label: fig-text-pos
+#| fig-cap: "The pos argument placing text relative to a point"
+#| fig-alt: "A grid of scatterplots of displacement against miles per gallon. In each panel the same single labelled point is annotated, but the label is placed in a different compass position relative to it, stepping through south-west, west, north-west, north and further around."
 init <- par(no.readonly = TRUE)
 par(mfrow = c(2, 2))
 values <- c(1, 2, 3, 4)
@@ -252,7 +255,10 @@ par(init)
 
 The `offset` argument of the `text()` function controls how far the text is placed from the coordinates when `pos` is used. The distance is measured in character widths and the default value is `0.5`.
 
-```{r textoffset, fig.align='center', fig.width=5, fig.height=5}
+```{r, fig.align='center', fig.width=5, fig.height=5}
+#| label: fig-text-offset
+#| fig-cap: "The offset argument pushing a label away from its point"
+#| fig-alt: "A scatterplot of displacement against miles per gallon with one point labelled, where the label is displaced a fixed distance from the point rather than sitting on top of it."
 plot(mtcars$disp, mtcars$mpg)
 text(x = 340, y = 30, labels = 'Sample Text', pos = 3, offset = 1.5)
 ```
@@ -289,7 +295,10 @@ par(init)
 
 The `at` argument of the `mtext()` function places the text at an exact position along the margin, expressed in the user coordinates of the corresponding axis. Below, the text is anchored at `disp = 200` on the bottom margin instead of the default center:
 
-```{r mtextat, fig.align='center', fig.width=5, fig.height=5}
+```{r, fig.align='center', fig.width=5, fig.height=5}
+#| label: fig-mtext-at
+#| fig-cap: "The at argument placing margin text at specific coordinates"
+#| fig-alt: "A scatterplot of displacement against miles per gallon with text added to the margin at explicitly chosen positions along the axes, rather than at the default margin locations."
 plot(mtcars$disp, mtcars$mpg)
 mtext('Sample Text', side = 1, at = 200)
 ```

@@ -196,7 +196,10 @@ barplot(cyl_freq, col = c('blue', 'red', 'green'),
 
 Well the plot looks good but for someone who does not know the underlying data, it will diffficult to understand what is being communicated. Let us add a title and labels for the axes.
 
-```{r bar20, fig.align='center', fig.height=5, fig.width=5}
+```{r, fig.align='center', fig.height=5, fig.width=5}
+#| label: fig-bar-final
+#| fig-cap: "A complete bar chart with labels, axis limits and a colour palette"
+#| fig-alt: "A vertical bar chart of counts by transmission type, with the vertical axis labelled Count, the horizontal axis labelled Transmission, a title reading Cars by Transmission, and the bars shaded in a light-to-dark blue sequence."
 barplot(cyl_freq, col = c('blue', 'red', 'green'),
         horiz = TRUE, width = c(1, 1, 2),
         names.arg = c('Four', 'Six', 'Eight'),
@@ -225,13 +228,19 @@ The number of gears is represented by the columns in the table and the number of
 
 ### Stacked Bar Plot
 
-```{r bar21, fig.align='center', fig.height=5, fig.width=5}
+```{r, fig.align='center', fig.height=5, fig.width=5}
+#| label: fig-bar-bivariate
+#| fig-cap: "A two-way table of counts by gear and cylinder"
+#| fig-alt: "A grouped bar chart of car counts split by number of gears and number of cylinders, with six bars grouped in pairs and the axes labelled Gears and Count."
 barplot(cyl_gear)
 ```
 
 The bars in the plot represent the distribution of `cyl` for each level of category of the `gear` variable. The first bar represents the distribution of cylinders for automobiles with 3 gears. From the two way table we saw earlier, the columns are the bars. The rows are represented by different sections of the bar. Let us add some colors to the plot as the default colors of the plot are not very intuitive. It will also allow us to clearly examine the distribution of `cyl` for the different levels of `gear`.
 
-```{r bar22, fig.align='center', fig.height=5, fig.width=5}
+```{r, fig.align='center', fig.height=5, fig.width=5}
+#| label: fig-bar-stacked
+#| fig-cap: "Stacked bars: each bar is one gear group, segmented by cylinder count"
+#| fig-alt: "A chart of three stacked bars, one for each gear count of 3, 4 and 5. Each bar is divided into three coloured segments running the full height of the bar. The segments are coloured by cylinder count: blue for 4 cylinders, red for 6 and green for 8, and the legend at the top names each colour with its cylinder count."
 barplot(cyl_gear, col = c('blue', 'red', 'green'))
 ```
 
@@ -244,7 +253,10 @@ If you carefully observe the table and the plot:
 We need to convey the above information in some way and will do that using the `legend.text` argument. It takes a character vector as input and the default value is `NULL`, in which case no legend text is added. In the next example, we add a legend as well as other relevant information such as title and axis labels.
 
 
-```{r bar23, fig.align='center', fig.height=5, fig.width=5}
+```{r, fig.align='center', fig.height=5, fig.width=5}
+#| label: fig-bar-beside
+#| fig-cap: "The same counts drawn beside each other rather than stacked"
+#| fig-alt: "The same three gear groups as the stacked chart, but drawn as clusters of separate bars standing side by side, so each cylinder count can be compared directly across the three gear groups."
 barplot(cyl_gear, col = c('blue', 'red', 'green'),
         main = 'Gears vs Cylinders', legend.text = c('4 cyl', '6 cyl', '8 cyl'),
         xlab = 'Number of Gears', ylab = 'Frequency')

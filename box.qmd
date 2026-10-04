@@ -112,7 +112,10 @@ par(init)
 
 If the `varwidth` argument is set to `TRUE`, the boxes are drawn with widths proportional to the square-roots of the number of observations in the groups.
 
-```{r box10, fig.align='center', fig.width=10, fig.height=5, echo=FALSE}
+```{r, fig.align='center', fig.width=10, fig.height=5, echo=FALSE}
+#| label: fig-box-summary
+#| fig-cap: "The five-number summary drawn on the same scale as the box plot"
+#| fig-alt: "A horizontal strip showing a box plot of a grouped variable alongside text marking the minimum, lower hinge, median, upper hinge and maximum, positioned so each statistic lines up with the corresponding feature of the box."
 init <- par(no.readonly = TRUE)
 par(mfrow = c(1, 2))
 values <- c(TRUE, FALSE)

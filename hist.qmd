@@ -83,13 +83,19 @@ h$equidist
 
 The `hist()` function creates equidistant intervals by default. We can specify the number of bins using the `breaks` argument.
 
-```{r hist5, fig.align='center', fig.height=5, fig.width=5}
+```{r, fig.align='center', fig.height=5, fig.width=5}
+#| label: fig-hist-breaks
+#| fig-cap: "The same data with an explicit number of breaks"
+#| fig-alt: "A histogram of a skewed variable. Specifying breaks changes the interval width and therefore the bar heights and count, without changing the data. The narrower intervals produce taller, thinner bars."
 hist(mtcars$mpg, breaks = 10)
 ```
 
 The below plot displays histograms with different number of bins:
 
-```{r hist6, fig.align='center', fig.width=10, fig.height=10}
+```{r, fig.align='center', fig.width=10, fig.height=10}
+#| label: fig-hist-break-gallery
+#| fig-cap: "A gallery of histograms of the same data at different interval widths"
+#| fig-alt: "A grid of histograms of the same right-skewed data. Each panel uses a different setting for the interval breaks, from very few wide bars through to many narrow ones, showing how bar height and apparent shape change purely because of the interval choice."
 init <- par(no.readonly = TRUE)
 par(mfrow = c(2, 2))
 values <- c(5, 10, 15, 20)
@@ -178,7 +184,10 @@ To add colors to the bars of the histogram, use the `col` argument. If the numbe
 
 ### Single Color
 
-```{r hist13, fig.align='center', fig.height=5, fig.width=5}
+```{r, fig.align='center', fig.height=5, fig.width=5}
+#| label: fig-hist-freq
+#| fig-cap: "Frequency labels drawn on top of the histogram bars"
+#| fig-alt: "A histogram of a symmetric variable with the count for each interval printed above its bar, so each bar is labelled with the number of observations it contains."
 hist(mtcars$mpg, col = 'blue')
 ```
 
@@ -204,7 +213,10 @@ hist(mtcars$mpg, border = 'red')
 
 ### Different Colors
 
-```{r hist16, fig.align='center', fig.height=5, fig.width=5}
+```{r, fig.align='center', fig.height=5, fig.width=5}
+#| label: fig-hist-beta
+#| fig-cap: "A right-skewed sample drawn with rbeta()"
+#| fig-alt: "A histogram of a strongly right-skewed sample. Most observations pile up in the first few intervals near zero and a long thin tail stretches to the right, so the mean sits well above the median."
 hist(mtcars$mpg, border = c('red', 'blue', 'green', 'yellow', 'brown'))
 ```
 

@@ -42,7 +42,10 @@ plot(mtcars$disp, mtcars$mpg, pch = 6)
 
 Let us check out a few of the other shapes:
 
-```{r scatter-pch, echo=FALSE, fig.align='center', fig.width=10, fig.height=10}
+```{r, echo=FALSE, fig.align='center', fig.width=10, fig.height=10}
+#| label: fig-scatter-pch
+#| fig-cap: "The pch argument across the plotting symbols"
+#| fig-alt: "A grid of 25 scatterplots of displacement against miles per gallon, all drawing identical points. Each panel shows one plotting symbol in turn, from the open circle of pch 1 through the filled circle, triangle, square and cross, numbered by pch value in a blue label at the top."
 init <- par(no.readonly = TRUE)
 par(mfrow = c(2, 2))
 values <- c(4, 10, 16, 22)
@@ -56,6 +59,9 @@ par(init)
 We can specify the shape based on a third (categorical variable as well). In the below plot, the shape is based on the levels of the categorical variable `cyl` (number of cylinders) from the `mtcars` data set. Note that `nlevels(factor(mtcars$cyl))` returns a single value (`3`), so it would give every point the same shape — instead, map each observation to its own level with `as.numeric(factor(...))`:
 
 ```{r}
+#| label: fig-scatter-factor
+#| fig-cap: "Mapping a third variable to point shape using as.numeric(factor())"
+#| fig-alt: "A scatterplot of displacement against miles per gallon in which the points take three different open-circle-to-triangle shapes according to the number of cylinders. A legend at the top right labels the three groups 4 cyl, 6 cyl and 8 cyl. The four-cylinder points cluster at the top left, the eight-cylinder points at the right and bottom."
 # shape based on a third categorical variable
 plot(mtcars$disp, mtcars$mpg, pch = as.numeric(factor(mtcars$cyl)))
 legend('topright', legend = c('4 cyl', '6 cyl', '8 cyl'), pch = 1:3)
@@ -72,7 +78,10 @@ plot(mtcars$disp, mtcars$mpg, cex = 1.5)
 
 The below plots show the size of the points for values relative to 1.
 
-```{r scatter-cex, echo=FALSE, fig.align='center', fig.width=10, fig.height=10}
+```{r, echo=FALSE, fig.align='center', fig.width=10, fig.height=10}
+#| label: fig-scatter-cex
+#| fig-cap: "The cex argument across a range of point sizes"
+#| fig-alt: "A grid of nine scatterplots of displacement against miles per gallon drawing identical points, each panel showing the same symbol at a progressively larger size, from a tiny cross in the first panel to a large filled circle in the last."
 # different point sizes
 init <- par(no.readonly = TRUE)
 par(mfrow = c(2, 2))
@@ -103,6 +112,9 @@ plot(mtcars$disp, mtcars$mpg, pch = 24, col = 'red', bg = 'blue')
 The color of the points can be specified using (levels) of a categorical variable as well. In the next example, we will use the `cyl` variable to specify the color of the points.
 
 ```{r}
+#| label: fig-scatter-two-vars
+#| fig-cap: "Two variables mapped at once: shape to cylinders, colour to transmission"
+#| fig-alt: "A scatterplot of displacement against miles per gallon combining both mappings. Point shape encodes the cylinder count and point colour encodes transmission, with a legend at the top right showing the three cylinder shapes."
 # color based on a third variable
 plot(mtcars$disp, mtcars$mpg, pch = 5, col = as.numeric(factor(mtcars$cyl)))
 ```

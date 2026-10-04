@@ -30,7 +30,10 @@ Let us begin by combining 4 plots in 2 rows and 2 columns:
 
 Let us begin by combining 4 plots in 2 rows and 2 columns. The plots will be filled by rows as we are using the mfrow parameter:
 
-```{r facet1, fig.align='center', fig.height=7, fig.width=7, collapse=TRUE}
+```{r, fig.align='center', fig.height=7, fig.width=7, collapse=TRUE}
+#| label: fig-facet-mfrow
+#| fig-cap: "A 2 by 2 panel grid drawn with par(mfrow)"
+#| fig-alt: "Four scatterplots of displacement against miles per gallon arranged in a two-by-two grid, each occupying one panel of a single figure and each showing the same four-cylinder cars with a different point symbol."
 # store the current parameter settings in init
 init <- par(no.readonly=TRUE)
  
@@ -70,7 +73,10 @@ par(init)
 
 Combine 2 plots in 2 rows and 1 column. 
 
-```{r facet3, fig.align='center', fig.height=7, fig.width=7, collapse=TRUE}
+```{r, fig.align='center', fig.height=7, fig.width=7, collapse=TRUE}
+#| label: fig-facet-mfcol
+#| fig-cap: "The same grid drawn with par(mfcol), filling by column"
+#| fig-alt: "Four scatterplots in a two-by-two grid, but the panels are filled down each column first rather than across each row, so the reading order of the symbols differs from the previous figure."
 # store the current parameter settings in init
 init <- par(no.readonly=TRUE)
  
@@ -241,7 +247,10 @@ Combine 4 plots in 2 rows/2 columns filled by columns
 
 To fill the plots by column, we specify byrow = FALSE in the matrix.
 
-```{r facet10, fig.align='center', fig.height=7, fig.width=7,}
+```{r, fig.align='center', fig.height=7, fig.width=7,}
+#| label: fig-facet-layout
+#| fig-cap: "Ragged panels drawn with layout() and custom widths and heights"
+#| fig-alt: "Four plots arranged in one figure with deliberately unequal panel sizes, produced by layout() rather than by mfrow. One panel is wider than the others and the rows are of differing heights, which mfrow cannot express."
 # specify the layout
 # 4 plots to be combined in 2 row/ 2 columns and filled by columns
 layout(matrix(c(1, 2, 3, 4), nrow = 2, byrow = FALSE))
