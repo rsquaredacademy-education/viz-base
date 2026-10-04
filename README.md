@@ -6,31 +6,43 @@
 
 📖 **Read the book:** https://viz-base.rsquaredacademy.com
 
-Free to read, built with [Quarto](https://quarto.org/). No packages to install — the book uses only the `graphics` package that ships with R, and the first three chapters each close with a live playground that runs in your browser via [WebR](https://docs.r-wasm.org/webr/latest/).
+Free to read, built with [Quarto](https://quarto.org/). No packages to install — the book uses only the `graphics` package that ships with R, and Chapters 2–4 each close with a live playground that runs in your browser via [WebR](https://docs.r-wasm.org/webr/latest/).
 
 ## Syllabus
 
 | # | Chapter | You will learn |
 |:--|:--------|:---------------|
-| 1 | Introduction | The R graphics system (`graphics`/`ggplot2`/`lattice`), `?plot`, `mtcars`, and the six `plot()` dispatch cases |
-| 2 | Titles and Labels | `main`, `sub`, `xlab`, `ylab`, `xlim`, `ylim`, and `title()` |
-| 3 | Scatter Plots | `pch` shapes, `cex` size, `col`/`bg` color, and mapping a third variable to shape or color |
-| 4 | Line Graphs | `type`, `lty`, `lwd`, enhancing points, and layering with `lines()` |
-| 5 | Bar Plots | `table()`, width and spacing, labels, color, axes, and stacked vs. `beside` bivariate bars |
-| 6 | Box Plots | Five-number summary, grouped boxplots, and `notch` for comparing medians |
-| 7 | Histograms | `breaks`, interval choice, frequency tables, color, borders, and labels |
-| 8 | Legends | Location, line/point/text styling, title, box appearance, justification, and text |
-| 9 | Text Annotations | `text()`, `mtext()`, `pos`, `offset`, `padj`, `outer`, and `at` |
-| 10 | Combining Plots | `par(mfrow)`/`par(mfcol)`, edge cases, and `layout()` with custom widths and heights |
+| 1 | Why Base R Graphics | Measured case for base graphics in 2026: draw speed, session startup, CRAN dependency counts, container sizes, and a decision tree for when to switch to ggplot2 |
+| 2 | Introduction | The R graphics system (`graphics`/`ggplot2`/`lattice`), `?plot`, `mtcars`, and the six `plot()` dispatch cases |
+| 3 | Titles and Labels | `main`, `sub`, `xlab`, `ylab`, `xlim`, `ylim`, and `title()` |
+| 4 | Scatter Plots | `pch` shapes, `cex` size, `col`/`bg` color, and mapping a third variable to shape or color |
+| 5 | Line Graphs | `type`, `lty`, `lwd`, enhancing points, layering with `lines()`, plus `segments()` error bars, `arrows()` callouts and `polygon()` confidence bands |
+| 6 | Bar Plots | `table()`, width and spacing, labels, color, axes, and stacked vs. `beside` bivariate bars |
+| 7 | Box Plots | Five-number summary, grouped boxplots, and `notch` for comparing medians |
+| 8 | Histograms | `breaks`, interval choice, frequency tables, color, borders, and labels |
+| 9 | Legends | Location, line/point/text styling, title, box appearance, justification, and text |
+| 10 | Text Annotations | `text()`, `mtext()`, `pos`, `offset`, `padj`, `outer`, and `at` |
+| 11 | Combining Plots | `par(mfrow)`/`par(mfcol)`, edge cases, and `layout()` with custom widths and heights |
+| 12 | Production Export & Devices | `png()`/`pdf()`/`svg()`, `dev.off()`, batch report loops, the `par()` master set, custom `axis()`, and colourblind-safe palettes |
+| A | Appendix: Base ↔ ggplot2 | A Rosetta Stone mapping every base construct to its ggplot2 equivalent, with guidance on when to stop translating |
 
-Each chapter varies one argument at a time from a bare `plot()` call, then combines everything in a "Putting it all together" section. Downloadable as PDF and ePub from the book's landing page.
+Each chapter varies one argument at a time from a bare `plot()` call, then combines everything in a "Putting it all together" section. Chapter 12 closes with three exercises and collapsed solutions, and the whole book's `par()` and device reference is distilled into a [one-page cheatsheet](docs/base-par-cheatsheet.pdf). Downloadable as PDF and ePub from the book's landing page.
 
-## Data
+## Data and evidence
 
-Two small teaching datasets are vendored in [`data/`](data/) so the book builds offline:
+Small teaching datasets are vendored in [`data/`](data/) so the book builds offline:
 
 - `hsb2.csv` — High School and Beyond survey, 200 observations (originally UCLA Institute for Digital Research and Education)
 - `brics-gdp-2010-14.csv` — frozen GDP vintage for the legend chapter, illustrative rather than citable
+
+Chapter 1's claims are measured rather than asserted, and every number is regenerable:
+
+- `bench-base-vs-ggplot2.csv` — draw time and peak memory, 10k/100k points, base vs. ggplot2 (`scripts/bench.R`)
+- `startup-latency.csv` — wall clock to start a plotting session, by engine (`scripts/startup.R`)
+- `cran-deps.csv` — declared non-base CRAN dependencies per package (`scripts/cran-deps.R`)
+- `docker-sizes.csv` — published container image sizes for R vs. R + tidyverse (`scripts/docker-sizes.R`)
+
+None of these run at knit time — the book never requires `ggplot2` or `bench` to build. Each script prints its own caveats and stamps the date and versions it ran under.
 
 ## Develop
 
@@ -38,9 +50,10 @@ Two small teaching datasets are vendored in [`data/`](data/) so the book builds 
 quarto preview                     # live HTML preview
 quarto render                      # full book (HTML + Typst PDF + ePub into docs/)
 Rscript scripts/webr-smoke.R       # static check of every live {webr-r} cell
+typst compile cheatsheet/base-par-cheatsheet.typ docs/base-par-cheatsheet.pdf
 ```
 
-CI renders HTML, Typst PDF, and ePub, verifies the legacy slugs, and deploys `docs/` via GitHub Pages. `master` is the production branch.
+CI renders HTML, Typst PDF, and ePub, builds the cheatsheet, verifies every slug, and deploys `docs/` via GitHub Pages. `master` is the production branch.
 
 ### Authoring constraints
 
@@ -63,6 +76,16 @@ required steps, so anything below breaks the build rather than degrading quietly
   comment in that file for why they are absent on purpose.
 - **Clear `.quarto/` when a cross-reference misbehaves.** A stale cache silently emits
   same-page anchors and unresolved text instead of erroring.
+- **Figure cross-references need a cell label, not a chunk name.** `@fig-x` resolves only
+  when the chunk carries both, as Quarto cell options:
+  ` ```{r chunkname}` / `#| label: fig-x` / `#| fig-cap: "..."` `. A bare `fig.cap=` in the
+  chunk header produces the caption but leaves `@fig-x` unresolved, with only a warning.
+- **`format(1e5, big.mark = ',')` returns `"1e+05"`.** Add `scientific = FALSE` or large
+  tick and point counts render as exponents in figure titles.
+- **The cheatsheet is not a Quarto chapter.** `cheatsheet/base-par-cheatsheet.typ` is Typst,
+  built separately, and CI asserts it is still exactly one page. Its R snippets live in
+  ```` ```r ```` raw blocks because `#` starts a comment in R but escapes into code mode in
+  Typst markup — a bare `# comment` in a `.typ` file is a parse error.
 
 
 ## License
