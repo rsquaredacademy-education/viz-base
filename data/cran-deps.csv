@@ -1,0 +1,13 @@
+"package","role","version","n_nonbase","nonbase_deps","imports_ggplot2","depends","imports","linkingto","retrieved_on","r_version"
+"graphics","base R (baseline)","4.5.2",0,"",FALSE,"","","","2026-10-04",4.5.2
+"plotrix","base-graphics add-on","3.8-14",0,"",FALSE,"R","graphics grDevices stats utils","","2026-10-04",4.5.2
+"TeachingDemos","base-graphics add-on","2.13",0,"",FALSE,"","","","2026-10-04",4.5.2
+"faraway","base-graphics add-on","1.0.9",1,"lme4",FALSE,"R","lme4 methods nlme","","2026-10-04",4.5.2
+"gplots","base-graphics add-on","3.3.0",2,"caTools gtools",FALSE,"R","caTools gtools KernSmooth methods stats","","2026-10-04",4.5.2
+"psych","base-graphics add-on","2.6.9",2,"GPArotation mnormt",FALSE,"","GPArotation graphics grDevices lattice methods mnormt nlme parallel stats","","2026-10-04",4.5.2
+"effects","base + grid","4.2-5",6,"carData colorspace estimability insight lme4 survey",FALSE,"carData datasets R","colorspace estimability graphics grDevices grid insight lattice lme4 nnet stats survey utils","","2026-10-04",4.5.2
+"Hmisc","mixed","5.3-0",12,"base64enc colorspace data.table Formula ggplot2 gridExtra gtable htmlTable htmltools knitr rmarkdown viridisLite",TRUE,"R","base64enc cluster colorspace data.table foreign Formula ggplot2 grid gridExtra gtable htmlTable htmltools knitr methods nnet rmarkdown rpart viridisLite","","2026-10-04",4.5.2
+"olsrr","author package","0.7.0",6,"car ggplot2 goftest gridExtra nortest xplorerr",TRUE,"R","car ggplot2 goftest graphics gridExtra nortest stats utils xplorerr","","2026-10-04",4.5.2
+"rfm","author package","0.4.0",10,"dplyr gganimate ggplot2 magrittr plotly RColorBrewer rlang scales treemapify xplorerr",TRUE,"R","dplyr gganimate ggplot2 magrittr plotly RColorBrewer rlang scales stats treemapify utils xplorerr","","2026-10-04",4.5.2
+"blorr","author package","0.3.1",5,"car data.table ggplot2 gridExtra Rcpp",TRUE,"R","car data.table ggplot2 gridExtra Rcpp stats utils","Rcpp","2026-10-04",4.5.2
+"descriptr","author package","0.6.0",6,"dplyr ggplot2 magrittr rlang scales tidyr",TRUE,"R","dplyr ggplot2 magrittr rlang scales stats tidyr utils","","2026-10-04",4.5.2
