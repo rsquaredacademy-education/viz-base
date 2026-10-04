@@ -18,14 +18,48 @@ Phase 0.11 (QA render) and task 0.0 were closed without leaving artifacts, so th
 below are back-filled from the git history. Flagged here rather than in the roadmap, which
 is the planning document.
 
-- **`docs/references.html` is gone.** Present at tag `bookdown-legacy` (`git ls-tree
-  bookdown-legacy docs/`), absent after the Quarto migration because no chapter emits a
-  references section. This is a live URL deletion, not just a missing page — either restore
-  a references chapter or leave a redirect at that path. It is deliberately absent from
-  `sitemap.xml` (13 entries = 12 chapters + root), so it was a silent drop.
-- **`img/intro-r.png` is an orphan** (309 KB, tracked). The `data-viz.png` reference removed
-  in Phase 0.9 was meant to be repointed here, but `intro.qmd` ended up with no image
-  reference at all. Either place the figure or drop the asset.
+- **`docs/references.html` is back.** Present at tag `bookdown-legacy` (`git ls-tree
+  bookdown-legacy docs/`), absent after the Quarto migration because no chapter emitted a
+  references section. This was a live URL deletion, not just a missing page. Resolved on
+  2026-10-04 by adding `references.qmd`, which restores the slug and carries the sources
+  for every claim in Chapter 1 plus dataset provenance. CI now asserts the slug
+  explicitly, because a silent drop is how it disappeared the first time.
+- **`img/intro-r.png` stays.** (309 KB, tracked.) The `data-viz.png` reference removed
+  in Phase 0.9 was meant to be repointed here, leaving the asset unreferenced. Checked
+  against the sibling books on 2026-10-04: `data-wrangling`, `viz-ggplot2` and `rdbsql`
+  all carry the same five-image cross-promotion set (`intro-r`, `rdbsql`, `viz-base`,
+  `viz-ggplot2`, `wrangle-r`) and none of them references `intro-r.png` either. Carrying
+  it unused is the house pattern, so deleting it here would have made viz-base the only
+  sibling missing the asset. No action.
 - **Unlogged content bugs found during the Phase 0/1 residue sweep** (all fixed): the
   roadmap's DoD clauses for tasks 0.5, 0.7, 0.9 and 0.10 were not fully met even though
   `daily-logs.md` recorded Phase 0 as complete.
+- **The preface was silently consuming Chapter 1.** `index.qmd` carried both YAML
+  `title:` and `# Preface {.unnumbered}`. Quarto renders the YAML title as a numbered
+  chapter, so every page shipped one number too high — the site read "2 Introduction"
+  through "11 Faceting", contradicting both `README.md` and the roadmap's own numbering
+  plan. `numbering: false` does *not* fix this; it applies only to the markdown H1. Fixed
+  2026-10-04 by dropping `title`/`subtitle`/`author` from `index.qmd`, which is what all
+  four sibling books do — those values already live in `_quarto.yml: book:`.
+- **No page had a `<meta name="description">` at all**, and every page shared one
+  site-wide `og:description`. Fixed 2026-10-04: each chapter now carries `description:`
+  front matter, and `includes/head.html` holds the placeholder Quarto rewrites it from.
+  Per-chapter descriptions were the precondition for the figure alt-text work, since
+  captions and descriptions turned out to be the same task.
+
+## Still outstanding
+
+- **GA4 measurement ID.** No ID exists, so `_quarto.yml` carries a commented-out
+  `google-analytics` stub and no cookies are set. A consent banner has to land at the
+  same time, not after. Needs the ID from the site owner.
+- **No citable DOI yet.** `.zenodo.json` is filled in and `citation.bib` exists, but
+  minting requires a Zenodo account action. See `HOW-TO-CITE.md`. Until it exists the
+  citation deliberately has no `doi` field rather than a placeholder that would resolve
+  to nothing.
+- **Figure captions and alt-text are partial.** 49 of 191 figures — the argument-carrying
+  ones plus everything in the three Phase 2 chapters — have both. The remainder are
+  gallery figures (a 3x2 grid of `lty` values, a 3x3 grid of `pch` values) whose content
+  is fully described by the surrounding prose.
+- **Lighthouse and build time are still unmeasured.** No figure recorded for either.
+- **No end-of-chapter exercises outside Chapter 12.** The roadmap blocker list also called
+  for a `solutions/` directory; Chapter 12's solutions are inline and collapsed.
