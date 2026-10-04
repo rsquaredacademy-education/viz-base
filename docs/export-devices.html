@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>12&nbsp; Production Export &amp; Graphical Devices – Data Visualization with R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./about-the-author.html" rel="next">
+<link href="./facet.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3846d7266b04868d3ce6ba15eaa41f0f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-9193e7c8f6e0ad4307b1caa0c157c415.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Head metadata for every page.
+
+     Two distinct mechanisms are at work here:
+
+     1. The Open Graph / Twitter tags below are PLACEHOLDERS. Quarto rewrites
+        og:title, og:description, og:image and the twitter:* values per page
+        (see `open-graph` / `twitter-card` in _quarto.yml), so the literal
+        values here never reach the reader. Do not delete these tags -- with
+        them removed Quarto emits nothing. Verified: docs/scatter.html gets
+        "4 Scatter Plots", docs/line.html gets "5 Line Graphs".
+        og:site_name and og:type are ours; Quarto does not manage those.
+
+     2. The citation_* tags are hand-written because Quarto has no native
+        Highwire/Scholar support. This is the reason this file exists.
+
+     Deliberately NOT here: the canonical link and og:url. Quarto emits
+     neither for `type: book`, and hard-coding them made every one of the 12
+     pages claim the site root as its canonical URL -- which tells search
+     engines the whole book is a single page. An absent canonical is merely
+     neutral; a wrong one is destructive. sitemap.xml carries the real
+     per-page URLs. See roadmap: Phase 3 SEO pass.
+
+     TODO(analytics): set google-analytics in _quarto.yml once the GA4 ID exists,
+     and add a consent banner alongside it (no cookies are set until then). -->
+<meta property="og:site_name" content="Data Visualization with R">
+<meta property="og:type" content="book">
+<meta property="og:title" content="12&nbsp; Production Export &amp; Graphical Devices – Data Visualization with R">
+<meta property="og:description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
+<meta property="og:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="12&nbsp; Production Export &amp; Graphical Devices – Data Visualization with R">
+<meta name="twitter:description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
+<meta name="twitter:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
+<meta name="citation_title" content="Data Visualization with R — Base Graphics">
+<meta name="citation_author" content="Aravind Hebbali">
+<meta name="citation_language" content="en">
+<meta name="citation_book_title" content="Data Visualization with R">
+<meta name="citation_pdf_url" content="https://viz-base.rsquaredacademy.com/Data-Visualization-with-R.pdf">
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./export-devices.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Production Export &amp; Graphical Devices</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Visualization with R</a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Data-Visualization-with-R.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Data-Visualization-with-R.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./why-base.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Why Base R Graphics in 2026?</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./titlelabels.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Title &amp; Axis Labels</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scatter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Scatter Plots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./line.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Line Graphs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Bar Plots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./box.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Box Plots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hist.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Histograms</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./legend.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Legends</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./textann.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Text Annotations</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./facet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Faceting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./export-devices.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Production Export &amp; Graphical Devices</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./about-the-author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Author</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./rosetta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Base R ↔︎ ggplot2: A Rosetta Stone</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">12.1</span> Introduction</a></li>
+  <li><a href="#screenshots-are-not-export" id="toc-screenshots-are-not-export" class="nav-link" data-scroll-target="#screenshots-are-not-export"><span class="header-section-number">12.2</span> Screenshots Are Not Export</a></li>
+  <li><a href="#what-a-graphical-device-is" id="toc-what-a-graphical-device-is" class="nav-link" data-scroll-target="#what-a-graphical-device-is"><span class="header-section-number">12.3</span> What a Graphical Device Is</a></li>
+  <li><a href="#raster-png" id="toc-raster-png" class="nav-link" data-scroll-target="#raster-png"><span class="header-section-number">12.4</span> Raster: png()</a></li>
+  <li><a href="#vector-pdf" id="toc-vector-pdf" class="nav-link" data-scroll-target="#vector-pdf"><span class="header-section-number">12.5</span> Vector: pdf()</a></li>
+  <li><a href="#vector-svg" id="toc-vector-svg" class="nav-link" data-scroll-target="#vector-svg"><span class="header-section-number">12.6</span> Vector: svg()</a>
+  <ul class="collapse">
+  <li><a href="#comparing-the-three" id="toc-comparing-the-three" class="nav-link" data-scroll-target="#comparing-the-three"><span class="header-section-number">12.6.1</span> Comparing the three</a></li>
+  </ul></li>
+  <li><a href="#batch-reports" id="toc-batch-reports" class="nav-link" data-scroll-target="#batch-reports"><span class="header-section-number">12.7</span> Batch Reports</a></li>
+  <li><a href="#controlling-the-page-with-par" id="toc-controlling-the-page-with-par" class="nav-link" data-scroll-target="#controlling-the-page-with-par"><span class="header-section-number">12.8</span> Controlling the Page with par()</a>
+  <ul class="collapse">
+  <li><a href="#mar-and-oma" id="toc-mar-and-oma" class="nav-link" data-scroll-target="#mar-and-oma"><span class="header-section-number">12.8.1</span> mar and oma</a></li>
+  <li><a href="#mgp" id="toc-mgp" class="nav-link" data-scroll-target="#mgp"><span class="header-section-number">12.8.2</span> mgp</a></li>
+  <li><a href="#las" id="toc-las" class="nav-link" data-scroll-target="#las"><span class="header-section-number">12.8.3</span> las</a></li>
+  <li><a href="#bty-xaxs-tck" id="toc-bty-xaxs-tck" class="nav-link" data-scroll-target="#bty-xaxs-tck"><span class="header-section-number">12.8.4</span> bty, xaxs, tck</a></li>
+  </ul></li>
+  <li><a href="#custom-axes" id="toc-custom-axes" class="nav-link" data-scroll-target="#custom-axes"><span class="header-section-number">12.9</span> Custom Axes</a></li>
+  <li><a href="#colourblind-safe-palettes" id="toc-colourblind-safe-palettes" class="nav-link" data-scroll-target="#colourblind-safe-palettes"><span class="header-section-number">12.10</span> Colourblind-Safe Palettes</a>
+  <ul class="collapse">
+  <li><a href="#checking-for-greyscale" id="toc-checking-for-greyscale" class="nav-link" data-scroll-target="#checking-for-greyscale"><span class="header-section-number">12.10.1</span> Checking for Greyscale</a></li>
+  </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">12.11</span> Exercises</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">12.11.1</span> Exercise 1</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">12.11.2</span> Exercise 2</a></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="header-section-number">12.11.3</span> Exercise 3</a></li>
+  </ul></li>
+  <li><a href="#the-full-set" id="toc-the-full-set" class="nav-link" data-scroll-target="#the-full-set"><span class="header-section-number">12.12</span> The Full Set</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="export-devices" class="quarto-section-identifier"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Production Export &amp; Graphical Devices</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">12.1</span> Introduction</h2>
+<p>Everything so far has drawn to a screen. That is fine while you are exploring, and it is worthless the moment someone asks for a figure at a specific size, in a specific format, reproducibly, on a machine that is not yours.</p>
+<p>In this chapter, we will learn to</p>
+<ul>
+<li>write plots to files instead of windows, with <code>png()</code>, <code>pdf()</code> and <code>svg()</code></li>
+<li>understand what a graphical device actually is, and why <code>dev.off()</code> is not optional</li>
+<li>generate a batch of figures from a loop, which is the real payoff</li>
+<li>control page layout precisely with <code>par()</code></li>
+<li>replace the automatic axis with your own using <code>axis()</code></li>
+<li>choose colourblind-safe palettes using only what ships with R</li>
+</ul>
+<p>This is the chapter where plots stop being sketches and start being output.</p>
+</section>
+<section id="screenshots-are-not-export" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="screenshots-are-not-export"><span class="header-section-number">12.2</span> Screenshots Are Not Export</h2>
+<p>The obvious way to get a plot out of R is to take a picture of the screen. It works right up until it does not: the window is the wrong size, the resolution depends on your display’s zoom, the text is sized for pixels and goes blurry in print, and the result cannot be regenerated because it depends on what was on screen when you pressed the button.</p>
+<p>A real export asks three questions up front — how big, what format, what resolution — and answers them the same way every time.</p>
+</section>
+<section id="what-a-graphical-device-is" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="what-a-graphical-device-is"><span class="header-section-number">12.3</span> What a Graphical Device Is</h2>
+<p>In R, nothing is drawn “to R”. Marks go to a <strong>graphical device</strong>, which is an object that knows where the bytes end up. R starts with a default device (a window on desktop R, or <code>Rplots.pdf</code> in a script) and <code>png()</code> and friends just open another one. That is why the same code produces a window interactively and a file under <code>Rscript</code>, with no change to the plotting calls.</p>
+<p>Three functions let you see what is going on:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.cur</span>()   <span class="co"># number of the active device</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>png 
+  2 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.list</span>()  <span class="co"># every open device</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>png 
+  2 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()   <span class="co"># close the most recently opened one</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>null device 
+          1 </code></pre>
+</div>
+</div>
+<p>Devices are a <strong>stack</strong>. Opening a new one makes it active; closing it hands control back to the one underneath. That stack is why forgetting <code>dev.off()</code> leaves you with a device you cannot write to — and why a script that never calls it dumps its plots into a file called <code>Rplots.pdf</code> you did not ask for.</p>
+<blockquote class="blockquote">
+<p>A useful habit: in any script or function that opens a device, pair it with <code>on.exit()</code>. That way the device closes even if the code errors halfway through, which is exactly when a stray device causes the most confusion. <code>dev.off()</code> returns the name and number of the device it closed, so you can also save the handle when you want to reopen it later.</p>
+</blockquote>
+</section>
+<section id="raster-png" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="raster-png"><span class="header-section-number">12.4</span> Raster: png()</h2>
+<p><code>png()</code> writes a bitmap. The important arguments are <code>width</code>, <code>height</code>, <code>units</code> and <code>res</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">'chart.png'</span>, <span class="at">width =</span> <span class="dv">800</span>, <span class="at">height =</span> <span class="dv">600</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The trap here is <code>units</code>. <strong>It defaults to <code>"px"</code>, not inches.</strong> So the call above produces an 800 <em>pixel</em> wide image, and <code>res</code> is ignored — resolution only applies when <code>units</code> is a physical unit.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 6 inches wide at 300 dpi -&gt; 1800 pixels, and res is honoured</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">'chart-print.png'</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">units =</span> <span class="st">'in'</span>, <span class="at">res =</span> <span class="dv">300</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Rule of thumb: if the figure is going into a document, use <code>units = 'in'</code> and <code>res = 300</code>. That is print-crisp. If it is going on a screen, <code>units = 'px'</code> at a size you already know is right is fine and simpler.</p>
+<p><code>pointsize</code> sets the default text size in points, which matters because the default is tuned for a 12-point-ish screen context. On a small, high-resolution export, raise it or the labels vanish.</p>
+</section>
+<section id="vector-pdf" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="vector-pdf"><span class="header-section-number">12.5</span> Vector: pdf()</h2>
+<p><code>pdf()</code> writes PostScript-based vector output. The marks are stored as instructions rather than pixels, so the file stays sharp at any zoom and prints at any size. This is the right default for publication.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">'chart.pdf'</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Unlike <code>png()</code>, <code>width</code> and <code>height</code> here are <strong>inches</strong> by default, so the same numbers produce a very different file. Vector output also means the file size stops tracking the resolution, because there is no resolution.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># onefile = FALSE puts each page in its own file, which is what you want when</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># a batch job might fail on page 40 of 200</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="st">'pages/page.pdf'</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">onefile =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="vector-svg" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="vector-svg"><span class="header-section-number">12.6</span> Vector: svg()</h2>
+<p><code>svg()</code> writes Scalable Vector Graphics, the format web pages and illustration tools read. It requires a cairo-enabled build of R, which is the default on current R but not guaranteed everywhere — particularly not on every headless Linux server.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">capabilities</span>(<span class="st">'cairo'</span>)   <span class="co"># must be TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">svg</span>(<span class="st">'chart.svg'</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The honest way to use <code>svg()</code> in a script that has to run anywhere is to ask first:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">isTRUE</span>(<span class="fu">capabilities</span>(<span class="st">'cairo'</span>))) {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">svg</span>(<span class="st">'chart.svg'</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">'cairo unavailable; wrote PDF instead'</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pdf</span>(<span class="st">'chart.pdf'</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="comparing-the-three" class="level3" data-number="12.6.1">
+<h3 data-number="12.6.1" class="anchored" data-anchor-id="comparing-the-three"><span class="header-section-number">12.6.1</span> Comparing the three</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write all three from the same code, then compare the results.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>outdir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">'devices'</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(outdir, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="fu">file.path</span>(outdir, <span class="st">'a.png'</span>), <span class="at">width =</span> <span class="dv">1800</span>, <span class="at">height =</span> <span class="dv">1200</span>, <span class="at">res =</span> <span class="dv">300</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">'#0072B2'</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="fu">file.path</span>(outdir, <span class="st">'a.pdf'</span>), <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">'#0072B2'</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="fu">svg</span>(<span class="fu">file.path</span>(outdir, <span class="st">'a.svg'</span>), <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">'#0072B2'</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="fu">file.info</span>(<span class="fu">list.files</span>(outdir, <span class="at">full.names =</span> <span class="cn">TRUE</span>))[<span class="st">'size'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<blockquote class="blockquote">
+<p>Those file sizes are worth noticing. The PNG is measured in megabytes and the two vector files in kilobytes, for the same 6-by-4-inch figure. Vector output is not marginally better than raster for print; it is a different order of magnitude, and it is why “save as PDF” is the standing advice for anything leaving your screen.</p>
+</blockquote>
+</section>
+</section>
+<section id="batch-reports" class="level2" data-number="12.7">
+<h2 data-number="12.7" class="anchored" data-anchor-id="batch-reports"><span class="header-section-number">12.7</span> Batch Reports</h2>
+<p>The reason to care about devices at all is the batch case. If you are producing a figure per customer, per region, per model, you want a loop, not a hundred copies of the same code — and the loop has exactly one requirement: <strong>the device must be opened and closed inside the loop body.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>outdir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">'batch'</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(outdir, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>groups <span class="ot">&lt;-</span> <span class="fu">unique</span>(mtcars<span class="sc">$</span>cyl)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (g <span class="cf">in</span> groups) {</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">png</span>(<span class="fu">file.path</span>(outdir, <span class="fu">paste0</span>(<span class="st">'cyl-'</span>, g, <span class="st">'.png'</span>)),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">width =</span> <span class="dv">1200</span>, <span class="at">height =</span> <span class="dv">800</span>, <span class="at">res =</span> <span class="dv">150</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxplot</span>(mtcars<span class="sc">$</span>mpg[mtcars<span class="sc">$</span>cyl <span class="sc">==</span> g], <span class="at">main =</span> <span class="fu">paste</span>(g, <span class="st">'cylinders'</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">ylab =</span> <span class="st">'Miles per gallon'</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()   <span class="co"># inside the loop. Always.</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Put the <code>dev.off()</code> outside the loop and you will open 3 devices, write 3 plots to whichever was active when each <code>png()</code> call was made — which is only the first — and leave two open at the end. The symptom is usually a folder of zero-byte files, or a folder containing one file that is wrong.</p>
+<p>Two details separate a script that works from one that is trustworthy. First, <code>dir.create()</code> before the loop, not inside it. Second, print what you wrote:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (g <span class="cf">in</span> groups) {</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="fu">file.path</span>(outdir, <span class="fu">paste0</span>(<span class="st">'cyl-'</span>, g, <span class="st">'.png'</span>))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">png</span>(f, <span class="at">width =</span> <span class="dv">1200</span>, <span class="at">height =</span> <span class="dv">800</span>, <span class="at">res =</span> <span class="dv">150</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxplot</span>(mtcars<span class="sc">$</span>mpg[mtcars<span class="sc">$</span>cyl <span class="sc">==</span> g], <span class="at">main =</span> <span class="fu">paste</span>(g, <span class="st">'cylinders'</span>))</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">basename</span>(f), <span class="fu">file.info</span>(f)<span class="sc">$</span>size, <span class="st">'bytes</span><span class="sc">\n</span><span class="st">'</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A size of 0 in that log means the device was never closed. This is the cheapest possible check and it catches the most common batch bug there is.</p>
+</section>
+<section id="controlling-the-page-with-par" class="level2" data-number="12.8">
+<h2 data-number="12.8" class="anchored" data-anchor-id="controlling-the-page-with-par"><span class="header-section-number">12.8</span> Controlling the Page with par()</h2>
+<p><code>par()</code> sets the parameters of the current device. The full set is large; these are the ones you will actually reach for.</p>
+<section id="mar-and-oma" class="level3" data-number="12.8.1">
+<h3 data-number="12.8.1" class="anchored" data-anchor-id="mar-and-oma"><span class="header-section-number">12.8.1</span> mar and oma</h3>
+<p><code>mar</code> sets the four margins in <strong>lines of text</strong>, in the order bottom, left, top, right. <code>oma</code> sets the same four <em>outside</em> the whole figure, and only matters when several panels are drawn together.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">main =</span> <span class="st">'Tight margins clip the title'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/par-mar-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">main =</span> <span class="st">'Same plot, mar = c(2, 2, 1, 1)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/par-mar-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Because the units are lines of text, margins scale with <code>cex</code> and <code>pointsize</code>. A margin tuned on screen will be wrong in a high-resolution export unless you also raise <code>pointsize</code>. This is the single most common reason an exported figure looks cramped while the on-screen version looks fine.</p>
+</section>
+<section id="mgp" class="level3" data-number="12.8.2">
+<h3 data-number="12.8.2" class="anchored" data-anchor-id="mgp"><span class="header-section-number">12.8.2</span> mgp</h3>
+<p><code>mgp</code> is three numbers: how many lines in from the edge the axis line sits, how many for the tick labels, and how many for the axis title. The default is <code>c(3, 1, 0)</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mgp =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">main =</span> <span class="st">'mgp = c(3, 1, 0)  (default)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/par-mgp-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mgp =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="fl">0.7</span>, <span class="dv">0</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">main =</span> <span class="st">'mgp = c(2, 0.7, 0)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/par-mgp-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="las" class="level3" data-number="12.8.3">
+<h3 data-number="12.8.3" class="anchored" data-anchor-id="las"><span class="header-section-number">12.8.3</span> las</h3>
+<p><code>las</code> controls the orientation of tick labels: 0 (default) always parallel to their axis, 1 always horizontal, 2 always perpendicular, 3 always vertical. <code>las = 1</code> is worth setting on any chart with numeric ticks — it stops labels from being drawn slanted on the y axis.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>init <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">no.readonly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">main =</span> <span class="st">'las = 1: labels always horizontal'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/par-las-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">las =</span> <span class="dv">0</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">main =</span> <span class="st">'las = 0: labels parallel to axis'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/par-las-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="bty-xaxs-tck" class="level3" data-number="12.8.4">
+<h3 data-number="12.8.4" class="anchored" data-anchor-id="bty-xaxs-tck"><span class="header-section-number">12.8.4</span> bty, xaxs, tck</h3>
+<p><code>bty</code> chooses the box drawn around the plot: <code>'o'</code> (default, all four sides), <code>'l'</code> (axes only — usually what you want), <code>'7'</code>, <code>'u'</code>, <code>'.'</code>, <code>'['</code>.</p>
+<p><code>xaxs</code> and <code>yaxs</code> default to <code>'r'</code>, which extends the axis range by 4% at each end so points do not sit on the frame. Set them to <code>'i'</code> for the exact data range.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">main =</span> <span class="st">"bty = 'o' (default)"</span>, <span class="at">bty =</span> <span class="st">'o'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/par-bty-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">bty =</span> <span class="st">'l'</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">main =</span> <span class="st">"bty = 'l'"</span>, <span class="at">bty =</span> <span class="st">'l'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/par-bty-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>tck</code> is tick length as a fraction of the axis interval. Positive draws ticks inside, negative outside, and 0 removes them.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">main =</span> <span class="st">'tck = 0.02 (default)'</span>,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">tck =</span> <span class="fl">0.02</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/par-tck-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">tck =</span> <span class="sc">-</span><span class="fl">0.02</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">main =</span> <span class="st">'tck = -0.02 (outside)'</span>, <span class="at">tck =</span> <span class="sc">-</span><span class="fl">0.02</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/par-tck-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<blockquote class="blockquote">
+<p><code>par()</code> is device state, so it persists until changed. Capture and restore it rather than hand-writing the old values back — <code>op &lt;- par(mar = c(2, 2, 1, 1))</code> returns the previous values invisibly, and <code>par(op)</code> puts them back exactly. In a function, wrap that in <code>on.exit(par(op))</code> so an error cannot leave the device mangled for whatever runs next.</p>
+</blockquote>
+</section>
+</section>
+<section id="custom-axes" class="level2" data-number="12.9">
+<h2 data-number="12.9" class="anchored" data-anchor-id="custom-axes"><span class="header-section-number">12.9</span> Custom Axes</h2>
+<p>The automatic axis picks ticks at “nice” numbers. Sometimes you need ticks where your data actually is — at quarters, at round dates, at the values that matter.</p>
+<p><code>axis()</code> draws an axis manually. Its arguments are the side (<code>1</code> bottom, <code>2</code> left, <code>3</code> top, <code>4</code> right), the positions, and the labels.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">13</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d, <span class="at">type =</span> <span class="st">'b'</span>, <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">xaxt =</span> <span class="st">'n'</span>, <span class="at">xlab =</span> <span class="st">'Position'</span>,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">'Value'</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq_along</span>(d), <span class="at">labels =</span> LETTERS[<span class="fu">seq_along</span>(d)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/axis-basic-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1248"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>xaxt = 'n'</code> removes the automatic axis first. Without it you draw two axes over each other, which is a common and confusing bug.</p>
+<p>To blank the labels but keep the ticks, ask for them explicitly:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">13</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d, <span class="at">type =</span> <span class="st">'b'</span>, <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">xlab =</span> <span class="st">'Position'</span>, <span class="at">ylab =</span> <span class="st">'Value'</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq_along</span>(d), <span class="at">labels =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/axis-nolab-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1248"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>axis(4)</code> adds a second axis on the right — the standard way to show a different unit on the same plot.</p>
+<p>Dates work because axis positions are numeric and the labels are text:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>sales <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">145</span>, <span class="dv">138</span>, <span class="dv">160</span>, <span class="dv">155</span>, <span class="dv">171</span>, <span class="dv">180</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>when <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">'2026-01-01'</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span> <span class="sc">*</span> <span class="dv">30</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(when, sales, <span class="at">type =</span> <span class="st">'b'</span>, <span class="at">col =</span> <span class="st">'#0072B2'</span>, <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">'n'</span>, <span class="at">xlab =</span> <span class="st">''</span>, <span class="at">ylab =</span> <span class="st">'Sales'</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">as.numeric</span>(when),</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="fu">format</span>(when, <span class="st">'%b %d'</span>), <span class="at">las =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/axis-dates-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>las = 1</code> there is doing real work: with six month-start dates the default would slant them into each other.</p>
+</section>
+<section id="colourblind-safe-palettes" class="level2" data-number="12.10">
+<h2 data-number="12.10" class="anchored" data-anchor-id="colourblind-safe-palettes"><span class="header-section-number">12.10</span> Colourblind-Safe Palettes</h2>
+<p>Colour is where accessibility quietly fails, and the fix used to require a package. It no longer does — R 4.1 and later ship palettes designed to be distinguishable under the common forms of colour vision deficiency.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">palette.pals</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>That lists every built-in palette by name. The one to reach for is <code>"Okabe-Ito"</code>, a colourblind-safe qualitative palette:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">palette.colors</span>(<span class="at">palette =</span> <span class="st">'Okabe-Ito'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Two things to notice. The values come back as hex strings <strong>printed by R</strong>, and you should use them exactly as printed. Hand-typing a hex code from memory or from a blog post is how palettes get subtly wrong. Second, the first colour is black, so index with <code>[-1]</code> or keep it deliberately — a plot whose first series is black tends to look like an axis.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">palette.colors</span>(<span class="at">palette =</span> <span class="st">'Okabe-Ito'</span>)[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">type =</span> <span class="st">'n'</span>,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">'Displacement'</span>, <span class="at">ylab =</span> <span class="st">'Miles per gallon'</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> pal[<span class="dv">1</span>])</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'topleft'</span>, <span class="at">legend =</span> <span class="st">'4 cyl'</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> pal[<span class="dv">1</span>], <span class="at">bty =</span> <span class="st">'n'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/okabe-demo-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Colours are <strong>recycled</strong> if you ask for more than the palette holds, and recycling is not a good idea — the fifth and first series would be identical. <code>palette.colors()</code> also accepts <code>alpha</code>, which is the easy way to get a translucent fill without hand-converting colours:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">palette.colors</span>(<span class="at">palette =</span> <span class="st">'Okabe-Ito'</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="checking-for-greyscale" class="level3" data-number="12.10.1">
+<h3 data-number="12.10.1" class="anchored" data-anchor-id="checking-for-greyscale"><span class="header-section-number">12.10.1</span> Checking for Greyscale</h3>
+<p>The other accessibility test is printing. A figure that relies on colour alone often collapses when photocopied, and the check costs three lines — because luminance is a fixed weighted sum of the RGB channels.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">palette.colors</span>(<span class="at">palette =</span> <span class="st">'Okabe-Ito'</span>)[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>rgb <span class="ot">&lt;-</span> <span class="fu">t</span>(grDevices<span class="sc">::</span><span class="fu">col2rgb</span>(pal)) <span class="sc">/</span> <span class="dv">255</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Rec. 601 luma weights. Perceptual lightness is not the same as the mean of</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the three channels, which is why the naive average looks wrong.</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>luma <span class="ot">&lt;-</span> rgb <span class="sc">%*%</span> <span class="fu">c</span>(<span class="fl">0.299</span>, <span class="fl">0.587</span>, <span class="fl">0.114</span>)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>grey <span class="ot">&lt;-</span> grDevices<span class="sc">::</span><span class="fu">rgb</span>(luma, luma, luma)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>init <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">no.readonly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">4.5</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">type =</span> <span class="st">'n'</span>,</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">'Displacement'</span>, <span class="at">ylab =</span> <span class="st">'mpg'</span>, <span class="at">main =</span> <span class="st">'Colour'</span>)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> pal[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">type =</span> <span class="st">'n'</span>,</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">'Displacement'</span>, <span class="at">ylab =</span> <span class="st">'mpg'</span>, <span class="at">main =</span> <span class="st">'Same palette, greyscale'</span>)</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> grey[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/greyscale-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If a greyscale version of your figure has three series that are hard to tell apart, colour was doing work it should not have been asked to do alone. Add a second channel — <code>pch</code>, <code>lty</code>, or direct labels.</p>
+</section>
+</section>
+<section id="exercises" class="level2" data-number="12.11">
+<h2 data-number="12.11" class="anchored" data-anchor-id="exercises"><span class="header-section-number">12.11</span> Exercises</h2>
+<p>Work through these before moving on. The solutions are collapsed so you can try first; expand them when you are stuck or when you want to compare approaches.</p>
+<section id="exercise-1" class="level3" data-number="12.11.1">
+<h3 data-number="12.11.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">12.11.1</span> Exercise 1</h3>
+<p>Export the <code>mtcars</code> scatterplot as a 6-by-4-inch PNG at 300 dpi, with margins tight enough that the axis labels are not clipped. Print the resulting file size to confirm it is non-zero.</p>
+<details>
+<summary>
+Solution
+</summary>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>outdir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">'ex1'</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(outdir, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">file.path</span>(outdir, <span class="st">'mtcars.png'</span>)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(f, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>, <span class="at">units =</span> <span class="st">'in'</span>, <span class="at">res =</span> <span class="dv">300</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co"># mar is in lines of text, so it has to be set inside the device whose</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co"># pointsize it should be interpreted against.</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">2.5</span>, <span class="dv">1</span>))</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">'#0072B2'</span>,</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">'Displacement'</span>, <span class="at">ylab =</span> <span class="st">'Miles per gallon'</span>)</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>png 
+  2 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">basename</span>(f), <span class="fu">file.info</span>(f)<span class="sc">$</span>size, <span class="st">'bytes</span><span class="sc">\n</span><span class="st">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>mtcars.png 17892 bytes</code></pre>
+</div>
+</div>
+<p>The size print is not decoration. A <code>dev.off()</code> left out of this script produces a zero-byte file and no error at all.</p>
+</details>
+</section>
+<section id="exercise-2" class="level3" data-number="12.11.2">
+<h3 data-number="12.11.2" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">12.11.2</span> Exercise 2</h3>
+<p>Draw the <code>mpg</code> against <code>disp</code> scatterplot with a y axis whose ticks sit only at the integers from 10 to 40, and no automatic y axis at all.</p>
+<details>
+<summary>
+Solution
+</summary>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">'#0072B2'</span>,</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">yaxt =</span> <span class="st">'n'</span>, <span class="at">xlab =</span> <span class="st">'Displacement'</span>, <span class="at">ylab =</span> <span class="st">'Miles per gallon'</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">40</span>, <span class="at">by =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="export-devices_files/figure-html/ex2-1.png" class="img-fluid figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>yaxt = 'n'</code> is the y-axis equivalent of <code>xaxt = 'n'</code>. Omit it and the automatic axis is drawn first and then drawn over, which reads as slightly bold, doubled tick labels.</p>
+</details>
+</section>
+<section id="exercise-3" class="level3" data-number="12.11.3">
+<h3 data-number="12.11.3" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">12.11.3</span> Exercise 3</h3>
+<p>Write a three-page PDF, one plot per page, using a loop over the three cylinder groups in <code>mtcars</code>, and confirm the file exists afterwards.</p>
+<details>
+<summary>
+Solution
+</summary>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>outdir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">'ex3'</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(outdir, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">file.path</span>(outdir, <span class="st">'by-cyl.pdf'</span>)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(f, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">4</span>)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (g <span class="cf">in</span> <span class="fu">sort</span>(<span class="fu">unique</span>(mtcars<span class="sc">$</span>cyl))) {</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(mtcars<span class="sc">$</span>disp[mtcars<span class="sc">$</span>cyl <span class="sc">==</span> g],</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>       mtcars<span class="sc">$</span>mpg[mtcars<span class="sc">$</span>cyl <span class="sc">==</span> g],</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">'#0072B2'</span>, <span class="at">xlim =</span> <span class="fu">range</span>(mtcars<span class="sc">$</span>disp),</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">paste</span>(g, <span class="st">'cylinders'</span>), <span class="at">xlab =</span> <span class="st">'Displacement'</span>,</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">'Miles per gallon'</span>)</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot.new</span>()   <span class="co"># advances to the next page</span></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)</span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>png 
+  2 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.exists</span>(f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>Note what <code>pdf()</code> does <em>not</em> do: it does not start a new page per plot. In base graphics every plot overwrites the last, so <code>plot.new()</code> is how you advance the page — and it is the PDF analogue of opening a new device inside the loop, for the same reason.</p>
+</details>
+</section>
+</section>
+<section id="the-full-set" class="level2" data-number="12.12">
+<h2 data-number="12.12" class="anchored" data-anchor-id="the-full-set"><span class="header-section-number">12.12</span> The Full Set</h2>
+<p>Everything in this chapter is summarised on the <a href="base-par-cheatsheet.pdf">one-page <code>par()</code> and devices cheatsheet</a>. It is a static artifact rather than a chapter, so it is worth keeping open next to whatever you are building.</p>
+<p>That closes the book. Chapter 1 made the case for staying in base graphics; this chapter made the plots production-ready. The middle chapters taught the arguments one at a time, and that is the pattern to keep — change one thing, look at what happened.</p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./facet.html" class="pagination-link" aria-label="Faceting">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Faceting</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./about-the-author.html" class="pagination-link" aria-label="About the Author">
+        <span class="nav-page-text">About the Author</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb49" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Production Export &amp; Graphical Devices {#export-devices}</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>Everything so far has drawn to a screen. That is fine while you are exploring,</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>and it is worthless the moment someone asks for a figure at a specific size, in</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>a specific format, reproducibly, on a machine that is not yours.</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>In this chapter, we will learn to</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>write plots to files instead of windows, with <span class="in">`png()`</span>, <span class="in">`pdf()`</span> and <span class="in">`svg()`</span></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>understand what a graphical device actually is, and why <span class="in">`dev.off()`</span> is not optional</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>generate a batch of figures from a loop, which is the real payoff</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>control page layout precisely with <span class="in">`par()`</span></span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>replace the automatic axis with your own using <span class="in">`axis()`</span></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>choose colourblind-safe palettes using only what ships with R</span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>This is the chapter where plots stop being sketches and start being output.</span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Screenshots Are Not Export</span></span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a>The obvious way to get a plot out of R is to take a picture of the screen. It</span>
+<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a>works right up until it does not: the window is the wrong size, the resolution</span>
+<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a>depends on your display's zoom, the text is sized for pixels and goes blurry in</span>
+<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a>print, and the result cannot be regenerated because it depends on what was on</span>
+<span id="cb49-26"><a href="#cb49-26" aria-hidden="true" tabindex="-1"></a>screen when you pressed the button.</span>
+<span id="cb49-27"><a href="#cb49-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-28"><a href="#cb49-28" aria-hidden="true" tabindex="-1"></a>A real export asks three questions up front — how big, what format, what</span>
+<span id="cb49-29"><a href="#cb49-29" aria-hidden="true" tabindex="-1"></a>resolution — and answers them the same way every time.</span>
+<span id="cb49-30"><a href="#cb49-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-31"><a href="#cb49-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## What a Graphical Device Is</span></span>
+<span id="cb49-32"><a href="#cb49-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-33"><a href="#cb49-33" aria-hidden="true" tabindex="-1"></a>In R, nothing is drawn "to R". Marks go to a **graphical device**, which is an</span>
+<span id="cb49-34"><a href="#cb49-34" aria-hidden="true" tabindex="-1"></a>object that knows where the bytes end up. R starts with a default device (a</span>
+<span id="cb49-35"><a href="#cb49-35" aria-hidden="true" tabindex="-1"></a>window on desktop R, or <span class="in">`Rplots.pdf`</span> in a script) and <span class="in">`png()`</span> and friends just</span>
+<span id="cb49-36"><a href="#cb49-36" aria-hidden="true" tabindex="-1"></a>open another one. That is why the same code produces a window interactively and</span>
+<span id="cb49-37"><a href="#cb49-37" aria-hidden="true" tabindex="-1"></a>a file under <span class="in">`Rscript`</span>, with no change to the plotting calls.</span>
+<span id="cb49-38"><a href="#cb49-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-39"><a href="#cb49-39" aria-hidden="true" tabindex="-1"></a>Three functions let you see what is going on:</span>
+<span id="cb49-40"><a href="#cb49-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-41"><a href="#cb49-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r devices}</span></span>
+<span id="cb49-42"><a href="#cb49-42" aria-hidden="true" tabindex="-1"></a><span class="in">dev.cur()   # number of the active device</span></span>
+<span id="cb49-43"><a href="#cb49-43" aria-hidden="true" tabindex="-1"></a><span class="in">dev.list()  # every open device</span></span>
+<span id="cb49-44"><a href="#cb49-44" aria-hidden="true" tabindex="-1"></a><span class="in">dev.off()   # close the most recently opened one</span></span>
+<span id="cb49-45"><a href="#cb49-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-46"><a href="#cb49-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-47"><a href="#cb49-47" aria-hidden="true" tabindex="-1"></a>Devices are a **stack**. Opening a new one makes it active; closing it hands</span>
+<span id="cb49-48"><a href="#cb49-48" aria-hidden="true" tabindex="-1"></a>control back to the one underneath. That stack is why forgetting <span class="in">`dev.off()`</span></span>
+<span id="cb49-49"><a href="#cb49-49" aria-hidden="true" tabindex="-1"></a>leaves you with a device you cannot write to — and why a script that never calls</span>
+<span id="cb49-50"><a href="#cb49-50" aria-hidden="true" tabindex="-1"></a>it dumps its plots into a file called <span class="in">`Rplots.pdf`</span> you did not ask for.</span>
+<span id="cb49-51"><a href="#cb49-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-52"><a href="#cb49-52" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; A useful habit: in any script or function that opens a device, pair it with</span></span>
+<span id="cb49-53"><a href="#cb49-53" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`on.exit()`</span><span class="at">. That way the device closes even if the code errors halfway</span></span>
+<span id="cb49-54"><a href="#cb49-54" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; through, which is exactly when a stray device causes the most confusion.</span></span>
+<span id="cb49-55"><a href="#cb49-55" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`dev.off()`</span><span class="at"> returns the name and number of the device it closed, so you can</span></span>
+<span id="cb49-56"><a href="#cb49-56" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; also save the handle when you want to reopen it later.</span></span>
+<span id="cb49-57"><a href="#cb49-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-58"><a href="#cb49-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## Raster: png()</span></span>
+<span id="cb49-59"><a href="#cb49-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-60"><a href="#cb49-60" aria-hidden="true" tabindex="-1"></a><span class="in">`png()`</span> writes a bitmap. The important arguments are <span class="in">`width`</span>, <span class="in">`height`</span>, <span class="in">`units`</span></span>
+<span id="cb49-61"><a href="#cb49-61" aria-hidden="true" tabindex="-1"></a>and <span class="in">`res`</span>.</span>
+<span id="cb49-62"><a href="#cb49-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-63"><a href="#cb49-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r png-basic, eval=FALSE}</span></span>
+<span id="cb49-64"><a href="#cb49-64" aria-hidden="true" tabindex="-1"></a><span class="in">png('chart.png', width = 800, height = 600)</span></span>
+<span id="cb49-65"><a href="#cb49-65" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg)</span></span>
+<span id="cb49-66"><a href="#cb49-66" aria-hidden="true" tabindex="-1"></a><span class="in">dev.off()</span></span>
+<span id="cb49-67"><a href="#cb49-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-68"><a href="#cb49-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-69"><a href="#cb49-69" aria-hidden="true" tabindex="-1"></a>The trap here is <span class="in">`units`</span>. **It defaults to `"px"`, not inches.** So the call</span>
+<span id="cb49-70"><a href="#cb49-70" aria-hidden="true" tabindex="-1"></a>above produces an 800 *pixel* wide image, and <span class="in">`res`</span> is ignored — resolution only</span>
+<span id="cb49-71"><a href="#cb49-71" aria-hidden="true" tabindex="-1"></a>applies when <span class="in">`units`</span> is a physical unit.</span>
+<span id="cb49-72"><a href="#cb49-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-73"><a href="#cb49-73" aria-hidden="true" tabindex="-1"></a><span class="in">```{r png-units, eval=FALSE}</span></span>
+<span id="cb49-74"><a href="#cb49-74" aria-hidden="true" tabindex="-1"></a><span class="in"># 6 inches wide at 300 dpi -&gt; 1800 pixels, and res is honoured</span></span>
+<span id="cb49-75"><a href="#cb49-75" aria-hidden="true" tabindex="-1"></a><span class="in">png('chart-print.png', width = 6, height = 4, units = 'in', res = 300)</span></span>
+<span id="cb49-76"><a href="#cb49-76" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg)</span></span>
+<span id="cb49-77"><a href="#cb49-77" aria-hidden="true" tabindex="-1"></a><span class="in">dev.off()</span></span>
+<span id="cb49-78"><a href="#cb49-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-79"><a href="#cb49-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-80"><a href="#cb49-80" aria-hidden="true" tabindex="-1"></a>Rule of thumb: if the figure is going into a document, use <span class="in">`units = 'in'`</span> and</span>
+<span id="cb49-81"><a href="#cb49-81" aria-hidden="true" tabindex="-1"></a><span class="in">`res = 300`</span>. That is print-crisp. If it is going on a screen, <span class="in">`units = 'px'`</span></span>
+<span id="cb49-82"><a href="#cb49-82" aria-hidden="true" tabindex="-1"></a>at a size you already know is right is fine and simpler.</span>
+<span id="cb49-83"><a href="#cb49-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-84"><a href="#cb49-84" aria-hidden="true" tabindex="-1"></a><span class="in">`pointsize`</span> sets the default text size in points, which matters because the</span>
+<span id="cb49-85"><a href="#cb49-85" aria-hidden="true" tabindex="-1"></a>default is tuned for a 12-point-ish screen context. On a small, high-resolution</span>
+<span id="cb49-86"><a href="#cb49-86" aria-hidden="true" tabindex="-1"></a>export, raise it or the labels vanish.</span>
+<span id="cb49-87"><a href="#cb49-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-88"><a href="#cb49-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## Vector: pdf()</span></span>
+<span id="cb49-89"><a href="#cb49-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-90"><a href="#cb49-90" aria-hidden="true" tabindex="-1"></a><span class="in">`pdf()`</span> writes PostScript-based vector output. The marks are stored as</span>
+<span id="cb49-91"><a href="#cb49-91" aria-hidden="true" tabindex="-1"></a>instructions rather than pixels, so the file stays sharp at any zoom and prints</span>
+<span id="cb49-92"><a href="#cb49-92" aria-hidden="true" tabindex="-1"></a>at any size. This is the right default for publication.</span>
+<span id="cb49-93"><a href="#cb49-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-94"><a href="#cb49-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{r pdf-basic, eval=FALSE}</span></span>
+<span id="cb49-95"><a href="#cb49-95" aria-hidden="true" tabindex="-1"></a><span class="in">pdf('chart.pdf', width = 6, height = 4)</span></span>
+<span id="cb49-96"><a href="#cb49-96" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg)</span></span>
+<span id="cb49-97"><a href="#cb49-97" aria-hidden="true" tabindex="-1"></a><span class="in">dev.off()</span></span>
+<span id="cb49-98"><a href="#cb49-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-99"><a href="#cb49-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-100"><a href="#cb49-100" aria-hidden="true" tabindex="-1"></a>Unlike <span class="in">`png()`</span>, <span class="in">`width`</span> and <span class="in">`height`</span> here are **inches** by default, so the same</span>
+<span id="cb49-101"><a href="#cb49-101" aria-hidden="true" tabindex="-1"></a>numbers produce a very different file. Vector output also means the file size</span>
+<span id="cb49-102"><a href="#cb49-102" aria-hidden="true" tabindex="-1"></a>stops tracking the resolution, because there is no resolution.</span>
+<span id="cb49-103"><a href="#cb49-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-104"><a href="#cb49-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{r pdf-onefile, eval=FALSE}</span></span>
+<span id="cb49-105"><a href="#cb49-105" aria-hidden="true" tabindex="-1"></a><span class="in"># onefile = FALSE puts each page in its own file, which is what you want when</span></span>
+<span id="cb49-106"><a href="#cb49-106" aria-hidden="true" tabindex="-1"></a><span class="in"># a batch job might fail on page 40 of 200</span></span>
+<span id="cb49-107"><a href="#cb49-107" aria-hidden="true" tabindex="-1"></a><span class="in">pdf('pages/page.pdf', width = 6, height = 4, onefile = FALSE)</span></span>
+<span id="cb49-108"><a href="#cb49-108" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg)</span></span>
+<span id="cb49-109"><a href="#cb49-109" aria-hidden="true" tabindex="-1"></a><span class="in">dev.off()</span></span>
+<span id="cb49-110"><a href="#cb49-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-111"><a href="#cb49-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-112"><a href="#cb49-112" aria-hidden="true" tabindex="-1"></a><span class="fu">## Vector: svg()</span></span>
+<span id="cb49-113"><a href="#cb49-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-114"><a href="#cb49-114" aria-hidden="true" tabindex="-1"></a><span class="in">`svg()`</span> writes Scalable Vector Graphics, the format web pages and illustration</span>
+<span id="cb49-115"><a href="#cb49-115" aria-hidden="true" tabindex="-1"></a>tools read. It requires a cairo-enabled build of R, which is the default on</span>
+<span id="cb49-116"><a href="#cb49-116" aria-hidden="true" tabindex="-1"></a>current R but not guaranteed everywhere — particularly not on every headless</span>
+<span id="cb49-117"><a href="#cb49-117" aria-hidden="true" tabindex="-1"></a>Linux server.</span>
+<span id="cb49-118"><a href="#cb49-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-119"><a href="#cb49-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r svg-capability, eval=FALSE}</span></span>
+<span id="cb49-120"><a href="#cb49-120" aria-hidden="true" tabindex="-1"></a><span class="in">capabilities('cairo')   # must be TRUE</span></span>
+<span id="cb49-121"><a href="#cb49-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-122"><a href="#cb49-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-123"><a href="#cb49-123" aria-hidden="true" tabindex="-1"></a><span class="in">```{r svg-basic, eval=FALSE}</span></span>
+<span id="cb49-124"><a href="#cb49-124" aria-hidden="true" tabindex="-1"></a><span class="in">svg('chart.svg', width = 6, height = 4)</span></span>
+<span id="cb49-125"><a href="#cb49-125" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg)</span></span>
+<span id="cb49-126"><a href="#cb49-126" aria-hidden="true" tabindex="-1"></a><span class="in">dev.off()</span></span>
+<span id="cb49-127"><a href="#cb49-127" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-128"><a href="#cb49-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-129"><a href="#cb49-129" aria-hidden="true" tabindex="-1"></a>The honest way to use <span class="in">`svg()`</span> in a script that has to run anywhere is to ask</span>
+<span id="cb49-130"><a href="#cb49-130" aria-hidden="true" tabindex="-1"></a>first:</span>
+<span id="cb49-131"><a href="#cb49-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-132"><a href="#cb49-132" aria-hidden="true" tabindex="-1"></a><span class="in">```{r svg-guard, eval=FALSE}</span></span>
+<span id="cb49-133"><a href="#cb49-133" aria-hidden="true" tabindex="-1"></a><span class="in">if (isTRUE(capabilities('cairo'))) {</span></span>
+<span id="cb49-134"><a href="#cb49-134" aria-hidden="true" tabindex="-1"></a><span class="in">  svg('chart.svg', width = 6, height = 4)</span></span>
+<span id="cb49-135"><a href="#cb49-135" aria-hidden="true" tabindex="-1"></a><span class="in">  plot(mtcars$disp, mtcars$mpg)</span></span>
+<span id="cb49-136"><a href="#cb49-136" aria-hidden="true" tabindex="-1"></a><span class="in">  dev.off()</span></span>
+<span id="cb49-137"><a href="#cb49-137" aria-hidden="true" tabindex="-1"></a><span class="in">} else {</span></span>
+<span id="cb49-138"><a href="#cb49-138" aria-hidden="true" tabindex="-1"></a><span class="in">  message('cairo unavailable; wrote PDF instead')</span></span>
+<span id="cb49-139"><a href="#cb49-139" aria-hidden="true" tabindex="-1"></a><span class="in">  pdf('chart.pdf', width = 6, height = 4)</span></span>
+<span id="cb49-140"><a href="#cb49-140" aria-hidden="true" tabindex="-1"></a><span class="in">  plot(mtcars$disp, mtcars$mpg)</span></span>
+<span id="cb49-141"><a href="#cb49-141" aria-hidden="true" tabindex="-1"></a><span class="in">  dev.off()</span></span>
+<span id="cb49-142"><a href="#cb49-142" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb49-143"><a href="#cb49-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-144"><a href="#cb49-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-145"><a href="#cb49-145" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparing the three</span></span>
+<span id="cb49-146"><a href="#cb49-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-147"><a href="#cb49-147" aria-hidden="true" tabindex="-1"></a><span class="in">```{r export-compare, eval=FALSE}</span></span>
+<span id="cb49-148"><a href="#cb49-148" aria-hidden="true" tabindex="-1"></a><span class="in"># Write all three from the same code, then compare the results.</span></span>
+<span id="cb49-149"><a href="#cb49-149" aria-hidden="true" tabindex="-1"></a><span class="in">outdir &lt;- file.path(tempdir(), 'devices')</span></span>
+<span id="cb49-150"><a href="#cb49-150" aria-hidden="true" tabindex="-1"></a><span class="in">dir.create(outdir, showWarnings = FALSE)</span></span>
+<span id="cb49-151"><a href="#cb49-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-152"><a href="#cb49-152" aria-hidden="true" tabindex="-1"></a><span class="in">png(file.path(outdir, 'a.png'), width = 1800, height = 1200, res = 300)</span></span>
+<span id="cb49-153"><a href="#cb49-153" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, pch = 19, col = '#0072B2')</span></span>
+<span id="cb49-154"><a href="#cb49-154" aria-hidden="true" tabindex="-1"></a><span class="in">dev.off()</span></span>
+<span id="cb49-155"><a href="#cb49-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-156"><a href="#cb49-156" aria-hidden="true" tabindex="-1"></a><span class="in">pdf(file.path(outdir, 'a.pdf'), width = 6, height = 4)</span></span>
+<span id="cb49-157"><a href="#cb49-157" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, pch = 19, col = '#0072B2')</span></span>
+<span id="cb49-158"><a href="#cb49-158" aria-hidden="true" tabindex="-1"></a><span class="in">dev.off()</span></span>
+<span id="cb49-159"><a href="#cb49-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-160"><a href="#cb49-160" aria-hidden="true" tabindex="-1"></a><span class="in">svg(file.path(outdir, 'a.svg'), width = 6, height = 4)</span></span>
+<span id="cb49-161"><a href="#cb49-161" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, pch = 19, col = '#0072B2')</span></span>
+<span id="cb49-162"><a href="#cb49-162" aria-hidden="true" tabindex="-1"></a><span class="in">dev.off()</span></span>
+<span id="cb49-163"><a href="#cb49-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-164"><a href="#cb49-164" aria-hidden="true" tabindex="-1"></a><span class="in">file.info(list.files(outdir, full.names = TRUE))['size']</span></span>
+<span id="cb49-165"><a href="#cb49-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-166"><a href="#cb49-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-167"><a href="#cb49-167" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Those file sizes are worth noticing. The PNG is measured in megabytes and the</span></span>
+<span id="cb49-168"><a href="#cb49-168" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; two vector files in kilobytes, for the same 6-by-4-inch figure. Vector output</span></span>
+<span id="cb49-169"><a href="#cb49-169" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; is not marginally better than raster for print; it is a different order of</span></span>
+<span id="cb49-170"><a href="#cb49-170" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; magnitude, and it is why "save as PDF" is the standing advice for anything</span></span>
+<span id="cb49-171"><a href="#cb49-171" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; leaving your screen.</span></span>
+<span id="cb49-172"><a href="#cb49-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-173"><a href="#cb49-173" aria-hidden="true" tabindex="-1"></a><span class="fu">## Batch Reports</span></span>
+<span id="cb49-174"><a href="#cb49-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-175"><a href="#cb49-175" aria-hidden="true" tabindex="-1"></a>The reason to care about devices at all is the batch case. If you are producing</span>
+<span id="cb49-176"><a href="#cb49-176" aria-hidden="true" tabindex="-1"></a>a figure per customer, per region, per model, you want a loop, not a hundred</span>
+<span id="cb49-177"><a href="#cb49-177" aria-hidden="true" tabindex="-1"></a>copies of the same code — and the loop has exactly one requirement: **the device</span>
+<span id="cb49-178"><a href="#cb49-178" aria-hidden="true" tabindex="-1"></a>must be opened and closed inside the loop body.**</span>
+<span id="cb49-179"><a href="#cb49-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-180"><a href="#cb49-180" aria-hidden="true" tabindex="-1"></a><span class="in">```{r batch, eval=FALSE}</span></span>
+<span id="cb49-181"><a href="#cb49-181" aria-hidden="true" tabindex="-1"></a><span class="in">outdir &lt;- file.path(tempdir(), 'batch')</span></span>
+<span id="cb49-182"><a href="#cb49-182" aria-hidden="true" tabindex="-1"></a><span class="in">dir.create(outdir, showWarnings = FALSE)</span></span>
+<span id="cb49-183"><a href="#cb49-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-184"><a href="#cb49-184" aria-hidden="true" tabindex="-1"></a><span class="in">groups &lt;- unique(mtcars$cyl)</span></span>
+<span id="cb49-185"><a href="#cb49-185" aria-hidden="true" tabindex="-1"></a><span class="in">for (g in groups) {</span></span>
+<span id="cb49-186"><a href="#cb49-186" aria-hidden="true" tabindex="-1"></a><span class="in">  png(file.path(outdir, paste0('cyl-', g, '.png')),</span></span>
+<span id="cb49-187"><a href="#cb49-187" aria-hidden="true" tabindex="-1"></a><span class="in">      width = 1200, height = 800, res = 150)</span></span>
+<span id="cb49-188"><a href="#cb49-188" aria-hidden="true" tabindex="-1"></a><span class="in">  boxplot(mtcars$mpg[mtcars$cyl == g], main = paste(g, 'cylinders'),</span></span>
+<span id="cb49-189"><a href="#cb49-189" aria-hidden="true" tabindex="-1"></a><span class="in">          ylab = 'Miles per gallon')</span></span>
+<span id="cb49-190"><a href="#cb49-190" aria-hidden="true" tabindex="-1"></a><span class="in">  dev.off()   # inside the loop. Always.</span></span>
+<span id="cb49-191"><a href="#cb49-191" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb49-192"><a href="#cb49-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-193"><a href="#cb49-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-194"><a href="#cb49-194" aria-hidden="true" tabindex="-1"></a>Put the <span class="in">`dev.off()`</span> outside the loop and you will open 3 devices, write 3 plots</span>
+<span id="cb49-195"><a href="#cb49-195" aria-hidden="true" tabindex="-1"></a>to whichever was active when each <span class="in">`png()`</span> call was made — which is only the</span>
+<span id="cb49-196"><a href="#cb49-196" aria-hidden="true" tabindex="-1"></a>first — and leave two open at the end. The symptom is usually a folder of</span>
+<span id="cb49-197"><a href="#cb49-197" aria-hidden="true" tabindex="-1"></a>zero-byte files, or a folder containing one file that is wrong.</span>
+<span id="cb49-198"><a href="#cb49-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-199"><a href="#cb49-199" aria-hidden="true" tabindex="-1"></a>Two details separate a script that works from one that is trustworthy. First,</span>
+<span id="cb49-200"><a href="#cb49-200" aria-hidden="true" tabindex="-1"></a><span class="in">`dir.create()`</span> before the loop, not inside it. Second, print what you wrote:</span>
+<span id="cb49-201"><a href="#cb49-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-202"><a href="#cb49-202" aria-hidden="true" tabindex="-1"></a><span class="in">```{r batch-log, eval=FALSE}</span></span>
+<span id="cb49-203"><a href="#cb49-203" aria-hidden="true" tabindex="-1"></a><span class="in">for (g in groups) {</span></span>
+<span id="cb49-204"><a href="#cb49-204" aria-hidden="true" tabindex="-1"></a><span class="in">  f &lt;- file.path(outdir, paste0('cyl-', g, '.png'))</span></span>
+<span id="cb49-205"><a href="#cb49-205" aria-hidden="true" tabindex="-1"></a><span class="in">  png(f, width = 1200, height = 800, res = 150)</span></span>
+<span id="cb49-206"><a href="#cb49-206" aria-hidden="true" tabindex="-1"></a><span class="in">  boxplot(mtcars$mpg[mtcars$cyl == g], main = paste(g, 'cylinders'))</span></span>
+<span id="cb49-207"><a href="#cb49-207" aria-hidden="true" tabindex="-1"></a><span class="in">  dev.off()</span></span>
+<span id="cb49-208"><a href="#cb49-208" aria-hidden="true" tabindex="-1"></a><span class="in">  cat(basename(f), file.info(f)$size, 'bytes\n')</span></span>
+<span id="cb49-209"><a href="#cb49-209" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb49-210"><a href="#cb49-210" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-211"><a href="#cb49-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-212"><a href="#cb49-212" aria-hidden="true" tabindex="-1"></a>A size of 0 in that log means the device was never closed. This is the cheapest</span>
+<span id="cb49-213"><a href="#cb49-213" aria-hidden="true" tabindex="-1"></a>possible check and it catches the most common batch bug there is.</span>
+<span id="cb49-214"><a href="#cb49-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-215"><a href="#cb49-215" aria-hidden="true" tabindex="-1"></a><span class="fu">## Controlling the Page with par()</span></span>
+<span id="cb49-216"><a href="#cb49-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-217"><a href="#cb49-217" aria-hidden="true" tabindex="-1"></a><span class="in">`par()`</span> sets the parameters of the current device. The full set is large; these</span>
+<span id="cb49-218"><a href="#cb49-218" aria-hidden="true" tabindex="-1"></a>are the ones you will actually reach for.</span>
+<span id="cb49-219"><a href="#cb49-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-220"><a href="#cb49-220" aria-hidden="true" tabindex="-1"></a><span class="fu">### mar and oma</span></span>
+<span id="cb49-221"><a href="#cb49-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-222"><a href="#cb49-222" aria-hidden="true" tabindex="-1"></a><span class="in">`mar`</span> sets the four margins in **lines of text**, in the order bottom, left,</span>
+<span id="cb49-223"><a href="#cb49-223" aria-hidden="true" tabindex="-1"></a>top, right. <span class="in">`oma`</span> sets the same four *outside* the whole figure, and only matters</span>
+<span id="cb49-224"><a href="#cb49-224" aria-hidden="true" tabindex="-1"></a>when several panels are drawn together.</span>
+<span id="cb49-225"><a href="#cb49-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-226"><a href="#cb49-226" aria-hidden="true" tabindex="-1"></a><span class="in">```{r par-mar, fig.align='center', fig.width=7, fig.height=5}</span></span>
+<span id="cb49-227"><a href="#cb49-227" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, main = 'Tight margins clip the title')</span></span>
+<span id="cb49-228"><a href="#cb49-228" aria-hidden="true" tabindex="-1"></a><span class="in">par(mar = c(2, 2, 1, 1))</span></span>
+<span id="cb49-229"><a href="#cb49-229" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, main = 'Same plot, mar = c(2, 2, 1, 1)')</span></span>
+<span id="cb49-230"><a href="#cb49-230" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-231"><a href="#cb49-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-232"><a href="#cb49-232" aria-hidden="true" tabindex="-1"></a>Because the units are lines of text, margins scale with <span class="in">`cex`</span> and</span>
+<span id="cb49-233"><a href="#cb49-233" aria-hidden="true" tabindex="-1"></a><span class="in">`pointsize`</span>. A margin tuned on screen will be wrong in a high-resolution export</span>
+<span id="cb49-234"><a href="#cb49-234" aria-hidden="true" tabindex="-1"></a>unless you also raise <span class="in">`pointsize`</span>. This is the single most common reason an</span>
+<span id="cb49-235"><a href="#cb49-235" aria-hidden="true" tabindex="-1"></a>exported figure looks cramped while the on-screen version looks fine.</span>
+<span id="cb49-236"><a href="#cb49-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-237"><a href="#cb49-237" aria-hidden="true" tabindex="-1"></a><span class="fu">### mgp</span></span>
+<span id="cb49-238"><a href="#cb49-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-239"><a href="#cb49-239" aria-hidden="true" tabindex="-1"></a><span class="in">`mgp`</span> is three numbers: how many lines in from the edge the axis line sits, how</span>
+<span id="cb49-240"><a href="#cb49-240" aria-hidden="true" tabindex="-1"></a>many for the tick labels, and how many for the axis title. The default is</span>
+<span id="cb49-241"><a href="#cb49-241" aria-hidden="true" tabindex="-1"></a><span class="in">`c(3, 1, 0)`</span>.</span>
+<span id="cb49-242"><a href="#cb49-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-243"><a href="#cb49-243" aria-hidden="true" tabindex="-1"></a><span class="in">```{r par-mgp, fig.align='center', fig.width=7, fig.height=5}</span></span>
+<span id="cb49-244"><a href="#cb49-244" aria-hidden="true" tabindex="-1"></a><span class="in">par(mgp = c(3, 1, 0))</span></span>
+<span id="cb49-245"><a href="#cb49-245" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, main = 'mgp = c(3, 1, 0)  (default)')</span></span>
+<span id="cb49-246"><a href="#cb49-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-247"><a href="#cb49-247" aria-hidden="true" tabindex="-1"></a><span class="in">op &lt;- par(mgp = c(2, 0.7, 0))</span></span>
+<span id="cb49-248"><a href="#cb49-248" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, main = 'mgp = c(2, 0.7, 0)')</span></span>
+<span id="cb49-249"><a href="#cb49-249" aria-hidden="true" tabindex="-1"></a><span class="in">par(op)</span></span>
+<span id="cb49-250"><a href="#cb49-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-251"><a href="#cb49-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-252"><a href="#cb49-252" aria-hidden="true" tabindex="-1"></a><span class="fu">### las</span></span>
+<span id="cb49-253"><a href="#cb49-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-254"><a href="#cb49-254" aria-hidden="true" tabindex="-1"></a><span class="in">`las`</span> controls the orientation of tick labels: 0 (default) always parallel to</span>
+<span id="cb49-255"><a href="#cb49-255" aria-hidden="true" tabindex="-1"></a>their axis, 1 always horizontal, 2 always perpendicular, 3 always vertical.</span>
+<span id="cb49-256"><a href="#cb49-256" aria-hidden="true" tabindex="-1"></a><span class="in">`las = 1`</span> is worth setting on any chart with numeric ticks — it stops labels</span>
+<span id="cb49-257"><a href="#cb49-257" aria-hidden="true" tabindex="-1"></a>from being drawn slanted on the y axis.</span>
+<span id="cb49-258"><a href="#cb49-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-259"><a href="#cb49-259" aria-hidden="true" tabindex="-1"></a><span class="in">```{r par-las, fig.align='center', fig.width=7, fig.height=5}</span></span>
+<span id="cb49-260"><a href="#cb49-260" aria-hidden="true" tabindex="-1"></a><span class="in">init &lt;- par(no.readonly = TRUE)</span></span>
+<span id="cb49-261"><a href="#cb49-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-262"><a href="#cb49-262" aria-hidden="true" tabindex="-1"></a><span class="in">par(las = 1)</span></span>
+<span id="cb49-263"><a href="#cb49-263" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, main = 'las = 1: labels always horizontal')</span></span>
+<span id="cb49-264"><a href="#cb49-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-265"><a href="#cb49-265" aria-hidden="true" tabindex="-1"></a><span class="in">par(las = 0)</span></span>
+<span id="cb49-266"><a href="#cb49-266" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, main = 'las = 0: labels parallel to axis')</span></span>
+<span id="cb49-267"><a href="#cb49-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-268"><a href="#cb49-268" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
+<span id="cb49-269"><a href="#cb49-269" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-270"><a href="#cb49-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-271"><a href="#cb49-271" aria-hidden="true" tabindex="-1"></a><span class="fu">### bty, xaxs, tck</span></span>
+<span id="cb49-272"><a href="#cb49-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-273"><a href="#cb49-273" aria-hidden="true" tabindex="-1"></a><span class="in">`bty`</span> chooses the box drawn around the plot: <span class="in">`'o'`</span> (default, all four sides),</span>
+<span id="cb49-274"><a href="#cb49-274" aria-hidden="true" tabindex="-1"></a><span class="in">`'l'`</span> (axes only — usually what you want), <span class="in">`'7'`</span>, <span class="in">`'u'`</span>, <span class="in">`'.'`</span>, <span class="in">`'['`</span>.</span>
+<span id="cb49-275"><a href="#cb49-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-276"><a href="#cb49-276" aria-hidden="true" tabindex="-1"></a><span class="in">`xaxs`</span> and <span class="in">`yaxs`</span> default to <span class="in">`'r'`</span>, which extends the axis range by 4% at each</span>
+<span id="cb49-277"><a href="#cb49-277" aria-hidden="true" tabindex="-1"></a>end so points do not sit on the frame. Set them to <span class="in">`'i'`</span> for the exact data</span>
+<span id="cb49-278"><a href="#cb49-278" aria-hidden="true" tabindex="-1"></a>range.</span>
+<span id="cb49-279"><a href="#cb49-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-280"><a href="#cb49-280" aria-hidden="true" tabindex="-1"></a><span class="in">```{r par-bty, fig.align='center', fig.width=7, fig.height=5}</span></span>
+<span id="cb49-281"><a href="#cb49-281" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, main = "bty = 'o' (default)", bty = 'o')</span></span>
+<span id="cb49-282"><a href="#cb49-282" aria-hidden="true" tabindex="-1"></a><span class="in">op &lt;- par(bty = 'l')</span></span>
+<span id="cb49-283"><a href="#cb49-283" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, main = "bty = 'l'", bty = 'l')</span></span>
+<span id="cb49-284"><a href="#cb49-284" aria-hidden="true" tabindex="-1"></a><span class="in">par(op)</span></span>
+<span id="cb49-285"><a href="#cb49-285" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-286"><a href="#cb49-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-287"><a href="#cb49-287" aria-hidden="true" tabindex="-1"></a><span class="in">`tck`</span> is tick length as a fraction of the axis interval. Positive draws ticks</span>
+<span id="cb49-288"><a href="#cb49-288" aria-hidden="true" tabindex="-1"></a>inside, negative outside, and 0 removes them.</span>
+<span id="cb49-289"><a href="#cb49-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-290"><a href="#cb49-290" aria-hidden="true" tabindex="-1"></a><span class="in">```{r par-tck, fig.align='center', fig.width=7, fig.height=5}</span></span>
+<span id="cb49-291"><a href="#cb49-291" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, main = 'tck = 0.02 (default)',</span></span>
+<span id="cb49-292"><a href="#cb49-292" aria-hidden="true" tabindex="-1"></a><span class="in">     tck = 0.02)</span></span>
+<span id="cb49-293"><a href="#cb49-293" aria-hidden="true" tabindex="-1"></a><span class="in">op &lt;- par(tck = -0.02)</span></span>
+<span id="cb49-294"><a href="#cb49-294" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, main = 'tck = -0.02 (outside)', tck = -0.02)</span></span>
+<span id="cb49-295"><a href="#cb49-295" aria-hidden="true" tabindex="-1"></a><span class="in">par(op)</span></span>
+<span id="cb49-296"><a href="#cb49-296" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-297"><a href="#cb49-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-298"><a href="#cb49-298" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`par()`</span><span class="at"> is device state, so it persists until changed. Capture and restore it</span></span>
+<span id="cb49-299"><a href="#cb49-299" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; rather than hand-writing the old values back — </span><span class="in">`op &lt;- par(mar = c(2, 2, 1, 1))`</span></span>
+<span id="cb49-300"><a href="#cb49-300" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; returns the previous values invisibly, and </span><span class="in">`par(op)`</span><span class="at"> puts them back exactly.</span></span>
+<span id="cb49-301"><a href="#cb49-301" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; In a function, wrap that in </span><span class="in">`on.exit(par(op))`</span><span class="at"> so an error cannot leave the</span></span>
+<span id="cb49-302"><a href="#cb49-302" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; device mangled for whatever runs next.</span></span>
+<span id="cb49-303"><a href="#cb49-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-304"><a href="#cb49-304" aria-hidden="true" tabindex="-1"></a><span class="fu">## Custom Axes</span></span>
+<span id="cb49-305"><a href="#cb49-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-306"><a href="#cb49-306" aria-hidden="true" tabindex="-1"></a>The automatic axis picks ticks at "nice" numbers. Sometimes you need ticks</span>
+<span id="cb49-307"><a href="#cb49-307" aria-hidden="true" tabindex="-1"></a>where your data actually is — at quarters, at round dates, at the values that</span>
+<span id="cb49-308"><a href="#cb49-308" aria-hidden="true" tabindex="-1"></a>matter.</span>
+<span id="cb49-309"><a href="#cb49-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-310"><a href="#cb49-310" aria-hidden="true" tabindex="-1"></a><span class="in">`axis()`</span> draws an axis manually. Its arguments are the side (<span class="in">`1`</span> bottom, <span class="in">`2`</span></span>
+<span id="cb49-311"><a href="#cb49-311" aria-hidden="true" tabindex="-1"></a>left, <span class="in">`3`</span> top, <span class="in">`4`</span> right), the positions, and the labels.</span>
+<span id="cb49-312"><a href="#cb49-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-313"><a href="#cb49-313" aria-hidden="true" tabindex="-1"></a><span class="in">```{r axis-basic, fig.align='center', fig.width=6.5, fig.height=5}</span></span>
+<span id="cb49-314"><a href="#cb49-314" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- c(1, 2, 3, 5, 8, 13)</span></span>
+<span id="cb49-315"><a href="#cb49-315" aria-hidden="true" tabindex="-1"></a><span class="in">plot(d, type = 'b', col = 'blue', xaxt = 'n', xlab = 'Position',</span></span>
+<span id="cb49-316"><a href="#cb49-316" aria-hidden="true" tabindex="-1"></a><span class="in">     ylab = 'Value')</span></span>
+<span id="cb49-317"><a href="#cb49-317" aria-hidden="true" tabindex="-1"></a><span class="in">axis(1, at = seq_along(d), labels = LETTERS[seq_along(d)])</span></span>
+<span id="cb49-318"><a href="#cb49-318" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-319"><a href="#cb49-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-320"><a href="#cb49-320" aria-hidden="true" tabindex="-1"></a><span class="in">`xaxt = 'n'`</span> removes the automatic axis first. Without it you draw two axes over</span>
+<span id="cb49-321"><a href="#cb49-321" aria-hidden="true" tabindex="-1"></a>each other, which is a common and confusing bug.</span>
+<span id="cb49-322"><a href="#cb49-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-323"><a href="#cb49-323" aria-hidden="true" tabindex="-1"></a>To blank the labels but keep the ticks, ask for them explicitly:</span>
+<span id="cb49-324"><a href="#cb49-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-325"><a href="#cb49-325" aria-hidden="true" tabindex="-1"></a><span class="in">```{r axis-nolab, fig.align='center', fig.width=6.5, fig.height=5}</span></span>
+<span id="cb49-326"><a href="#cb49-326" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- c(1, 2, 3, 5, 8, 13)</span></span>
+<span id="cb49-327"><a href="#cb49-327" aria-hidden="true" tabindex="-1"></a><span class="in">plot(d, type = 'b', col = 'blue', xlab = 'Position', ylab = 'Value')</span></span>
+<span id="cb49-328"><a href="#cb49-328" aria-hidden="true" tabindex="-1"></a><span class="in">axis(1, at = seq_along(d), labels = FALSE)</span></span>
+<span id="cb49-329"><a href="#cb49-329" aria-hidden="true" tabindex="-1"></a><span class="in">axis(4)</span></span>
+<span id="cb49-330"><a href="#cb49-330" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-331"><a href="#cb49-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-332"><a href="#cb49-332" aria-hidden="true" tabindex="-1"></a><span class="in">`axis(4)`</span> adds a second axis on the right — the standard way to show a</span>
+<span id="cb49-333"><a href="#cb49-333" aria-hidden="true" tabindex="-1"></a>different unit on the same plot.</span>
+<span id="cb49-334"><a href="#cb49-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-335"><a href="#cb49-335" aria-hidden="true" tabindex="-1"></a>Dates work because axis positions are numeric and the labels are text:</span>
+<span id="cb49-336"><a href="#cb49-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-337"><a href="#cb49-337" aria-hidden="true" tabindex="-1"></a><span class="in">```{r axis-dates, fig.align='center', fig.width=7, fig.height=5}</span></span>
+<span id="cb49-338"><a href="#cb49-338" aria-hidden="true" tabindex="-1"></a><span class="in">sales &lt;- c(120, 145, 138, 160, 155, 171, 180)</span></span>
+<span id="cb49-339"><a href="#cb49-339" aria-hidden="true" tabindex="-1"></a><span class="in">when &lt;- as.Date('2026-01-01') + 0:6 * 30</span></span>
+<span id="cb49-340"><a href="#cb49-340" aria-hidden="true" tabindex="-1"></a><span class="in">plot(when, sales, type = 'b', col = '#0072B2', pch = 19,</span></span>
+<span id="cb49-341"><a href="#cb49-341" aria-hidden="true" tabindex="-1"></a><span class="in">     xaxt = 'n', xlab = '', ylab = 'Sales')</span></span>
+<span id="cb49-342"><a href="#cb49-342" aria-hidden="true" tabindex="-1"></a><span class="in">axis(1, at = as.numeric(when),</span></span>
+<span id="cb49-343"><a href="#cb49-343" aria-hidden="true" tabindex="-1"></a><span class="in">     labels = format(when, '%b %d'), las = 1)</span></span>
+<span id="cb49-344"><a href="#cb49-344" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-345"><a href="#cb49-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-346"><a href="#cb49-346" aria-hidden="true" tabindex="-1"></a><span class="in">`las = 1`</span> there is doing real work: with six month-start dates the default would</span>
+<span id="cb49-347"><a href="#cb49-347" aria-hidden="true" tabindex="-1"></a>slant them into each other.</span>
+<span id="cb49-348"><a href="#cb49-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-349"><a href="#cb49-349" aria-hidden="true" tabindex="-1"></a><span class="fu">## Colourblind-Safe Palettes</span></span>
+<span id="cb49-350"><a href="#cb49-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-351"><a href="#cb49-351" aria-hidden="true" tabindex="-1"></a>Colour is where accessibility quietly fails, and the fix used to require a</span>
+<span id="cb49-352"><a href="#cb49-352" aria-hidden="true" tabindex="-1"></a>package. It no longer does — R 4.1 and later ship palettes designed to be</span>
+<span id="cb49-353"><a href="#cb49-353" aria-hidden="true" tabindex="-1"></a>distinguishable under the common forms of colour vision deficiency.</span>
+<span id="cb49-354"><a href="#cb49-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-355"><a href="#cb49-355" aria-hidden="true" tabindex="-1"></a><span class="in">```{r pals, eval=FALSE}</span></span>
+<span id="cb49-356"><a href="#cb49-356" aria-hidden="true" tabindex="-1"></a><span class="in">palette.pals()</span></span>
+<span id="cb49-357"><a href="#cb49-357" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-358"><a href="#cb49-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-359"><a href="#cb49-359" aria-hidden="true" tabindex="-1"></a>That lists every built-in palette by name. The one to reach for is</span>
+<span id="cb49-360"><a href="#cb49-360" aria-hidden="true" tabindex="-1"></a><span class="in">`"Okabe-Ito"`</span>, a colourblind-safe qualitative palette:</span>
+<span id="cb49-361"><a href="#cb49-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-362"><a href="#cb49-362" aria-hidden="true" tabindex="-1"></a><span class="in">```{r okabe, eval=FALSE}</span></span>
+<span id="cb49-363"><a href="#cb49-363" aria-hidden="true" tabindex="-1"></a><span class="in">palette.colors(palette = 'Okabe-Ito')</span></span>
+<span id="cb49-364"><a href="#cb49-364" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-365"><a href="#cb49-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-366"><a href="#cb49-366" aria-hidden="true" tabindex="-1"></a>Two things to notice. The values come back as hex strings **printed by R**, and</span>
+<span id="cb49-367"><a href="#cb49-367" aria-hidden="true" tabindex="-1"></a>you should use them exactly as printed. Hand-typing a hex code from memory or</span>
+<span id="cb49-368"><a href="#cb49-368" aria-hidden="true" tabindex="-1"></a>from a blog post is how palettes get subtly wrong. Second, the first colour is</span>
+<span id="cb49-369"><a href="#cb49-369" aria-hidden="true" tabindex="-1"></a>black, so index with <span class="in">`[-1]`</span> or keep it deliberately — a plot whose first series</span>
+<span id="cb49-370"><a href="#cb49-370" aria-hidden="true" tabindex="-1"></a>is black tends to look like an axis.</span>
+<span id="cb49-371"><a href="#cb49-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-372"><a href="#cb49-372" aria-hidden="true" tabindex="-1"></a><span class="in">```{r okabe-demo, fig.align='center', fig.width=7, fig.height=5}</span></span>
+<span id="cb49-373"><a href="#cb49-373" aria-hidden="true" tabindex="-1"></a><span class="in">pal &lt;- palette.colors(palette = 'Okabe-Ito')[-1]</span></span>
+<span id="cb49-374"><a href="#cb49-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-375"><a href="#cb49-375" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, type = 'n',</span></span>
+<span id="cb49-376"><a href="#cb49-376" aria-hidden="true" tabindex="-1"></a><span class="in">     xlab = 'Displacement', ylab = 'Miles per gallon')</span></span>
+<span id="cb49-377"><a href="#cb49-377" aria-hidden="true" tabindex="-1"></a><span class="in">points(mtcars$disp, mtcars$mpg, pch = 19, col = pal[1])</span></span>
+<span id="cb49-378"><a href="#cb49-378" aria-hidden="true" tabindex="-1"></a><span class="in">legend('topleft', legend = '4 cyl', pch = 19, col = pal[1], bty = 'n')</span></span>
+<span id="cb49-379"><a href="#cb49-379" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-380"><a href="#cb49-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-381"><a href="#cb49-381" aria-hidden="true" tabindex="-1"></a>Colours are **recycled** if you ask for more than the palette holds, and</span>
+<span id="cb49-382"><a href="#cb49-382" aria-hidden="true" tabindex="-1"></a>recycling is not a good idea — the fifth and first series would be identical.</span>
+<span id="cb49-383"><a href="#cb49-383" aria-hidden="true" tabindex="-1"></a><span class="in">`palette.colors()`</span> also accepts <span class="in">`alpha`</span>, which is the easy way to get a</span>
+<span id="cb49-384"><a href="#cb49-384" aria-hidden="true" tabindex="-1"></a>translucent fill without hand-converting colours:</span>
+<span id="cb49-385"><a href="#cb49-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-386"><a href="#cb49-386" aria-hidden="true" tabindex="-1"></a><span class="in">```{r okabe-alpha, eval=FALSE}</span></span>
+<span id="cb49-387"><a href="#cb49-387" aria-hidden="true" tabindex="-1"></a><span class="in">palette.colors(palette = 'Okabe-Ito', alpha = 0.5)</span></span>
+<span id="cb49-388"><a href="#cb49-388" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-389"><a href="#cb49-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-390"><a href="#cb49-390" aria-hidden="true" tabindex="-1"></a><span class="fu">### Checking for Greyscale</span></span>
+<span id="cb49-391"><a href="#cb49-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-392"><a href="#cb49-392" aria-hidden="true" tabindex="-1"></a>The other accessibility test is printing. A figure that relies on colour alone</span>
+<span id="cb49-393"><a href="#cb49-393" aria-hidden="true" tabindex="-1"></a>often collapses when photocopied, and the check costs three lines — because</span>
+<span id="cb49-394"><a href="#cb49-394" aria-hidden="true" tabindex="-1"></a>luminance is a fixed weighted sum of the RGB channels.</span>
+<span id="cb49-395"><a href="#cb49-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-396"><a href="#cb49-396" aria-hidden="true" tabindex="-1"></a><span class="in">```{r greyscale, fig.align='center', fig.width=7, fig.height=5}</span></span>
+<span id="cb49-397"><a href="#cb49-397" aria-hidden="true" tabindex="-1"></a><span class="in">pal &lt;- palette.colors(palette = 'Okabe-Ito')[-1]</span></span>
+<span id="cb49-398"><a href="#cb49-398" aria-hidden="true" tabindex="-1"></a><span class="in">rgb &lt;- t(grDevices::col2rgb(pal)) / 255</span></span>
+<span id="cb49-399"><a href="#cb49-399" aria-hidden="true" tabindex="-1"></a><span class="in"># Rec. 601 luma weights. Perceptual lightness is not the same as the mean of</span></span>
+<span id="cb49-400"><a href="#cb49-400" aria-hidden="true" tabindex="-1"></a><span class="in"># the three channels, which is why the naive average looks wrong.</span></span>
+<span id="cb49-401"><a href="#cb49-401" aria-hidden="true" tabindex="-1"></a><span class="in">luma &lt;- rgb %*% c(0.299, 0.587, 0.114)</span></span>
+<span id="cb49-402"><a href="#cb49-402" aria-hidden="true" tabindex="-1"></a><span class="in">grey &lt;- grDevices::rgb(luma, luma, luma)</span></span>
+<span id="cb49-403"><a href="#cb49-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-404"><a href="#cb49-404" aria-hidden="true" tabindex="-1"></a><span class="in">init &lt;- par(no.readonly = TRUE)</span></span>
+<span id="cb49-405"><a href="#cb49-405" aria-hidden="true" tabindex="-1"></a><span class="in">par(mfrow = c(1, 2), mar = c(4.5, 4, 3, 1))</span></span>
+<span id="cb49-406"><a href="#cb49-406" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, type = 'n',</span></span>
+<span id="cb49-407"><a href="#cb49-407" aria-hidden="true" tabindex="-1"></a><span class="in">     xlab = 'Displacement', ylab = 'mpg', main = 'Colour')</span></span>
+<span id="cb49-408"><a href="#cb49-408" aria-hidden="true" tabindex="-1"></a><span class="in">points(mtcars$disp, mtcars$mpg, pch = 19, col = pal[1:3])</span></span>
+<span id="cb49-409"><a href="#cb49-409" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, type = 'n',</span></span>
+<span id="cb49-410"><a href="#cb49-410" aria-hidden="true" tabindex="-1"></a><span class="in">     xlab = 'Displacement', ylab = 'mpg', main = 'Same palette, greyscale')</span></span>
+<span id="cb49-411"><a href="#cb49-411" aria-hidden="true" tabindex="-1"></a><span class="in">points(mtcars$disp, mtcars$mpg, pch = 19, col = grey[1:3])</span></span>
+<span id="cb49-412"><a href="#cb49-412" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
+<span id="cb49-413"><a href="#cb49-413" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-414"><a href="#cb49-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-415"><a href="#cb49-415" aria-hidden="true" tabindex="-1"></a>If a greyscale version of your figure has three series that are hard to tell</span>
+<span id="cb49-416"><a href="#cb49-416" aria-hidden="true" tabindex="-1"></a>apart, colour was doing work it should not have been asked to do alone. Add a</span>
+<span id="cb49-417"><a href="#cb49-417" aria-hidden="true" tabindex="-1"></a>second channel — <span class="in">`pch`</span>, <span class="in">`lty`</span>, or direct labels.</span>
+<span id="cb49-418"><a href="#cb49-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-419"><a href="#cb49-419" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercises</span></span>
+<span id="cb49-420"><a href="#cb49-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-421"><a href="#cb49-421" aria-hidden="true" tabindex="-1"></a>Work through these before moving on. The solutions are collapsed so you can try</span>
+<span id="cb49-422"><a href="#cb49-422" aria-hidden="true" tabindex="-1"></a>first; expand them when you are stuck or when you want to compare approaches.</span>
+<span id="cb49-423"><a href="#cb49-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-424"><a href="#cb49-424" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 1</span></span>
+<span id="cb49-425"><a href="#cb49-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-426"><a href="#cb49-426" aria-hidden="true" tabindex="-1"></a>Export the <span class="in">`mtcars`</span> scatterplot as a 6-by-4-inch PNG at 300 dpi, with margins</span>
+<span id="cb49-427"><a href="#cb49-427" aria-hidden="true" tabindex="-1"></a>tight enough that the axis labels are not clipped. Print the resulting file size</span>
+<span id="cb49-428"><a href="#cb49-428" aria-hidden="true" tabindex="-1"></a>to confirm it is non-zero.</span>
+<span id="cb49-429"><a href="#cb49-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-430"><a href="#cb49-430" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb49-431"><a href="#cb49-431" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solution&lt;/summary&gt;</span>
+<span id="cb49-432"><a href="#cb49-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-433"><a href="#cb49-433" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex1}</span></span>
+<span id="cb49-434"><a href="#cb49-434" aria-hidden="true" tabindex="-1"></a><span class="in">outdir &lt;- file.path(tempdir(), 'ex1')</span></span>
+<span id="cb49-435"><a href="#cb49-435" aria-hidden="true" tabindex="-1"></a><span class="in">dir.create(outdir, showWarnings = FALSE)</span></span>
+<span id="cb49-436"><a href="#cb49-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-437"><a href="#cb49-437" aria-hidden="true" tabindex="-1"></a><span class="in">f &lt;- file.path(outdir, 'mtcars.png')</span></span>
+<span id="cb49-438"><a href="#cb49-438" aria-hidden="true" tabindex="-1"></a><span class="in">png(f, width = 6, height = 4, units = 'in', res = 300)</span></span>
+<span id="cb49-439"><a href="#cb49-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-440"><a href="#cb49-440" aria-hidden="true" tabindex="-1"></a><span class="in"># mar is in lines of text, so it has to be set inside the device whose</span></span>
+<span id="cb49-441"><a href="#cb49-441" aria-hidden="true" tabindex="-1"></a><span class="in"># pointsize it should be interpreted against.</span></span>
+<span id="cb49-442"><a href="#cb49-442" aria-hidden="true" tabindex="-1"></a><span class="in">op &lt;- par(mar = c(4, 4, 2.5, 1))</span></span>
+<span id="cb49-443"><a href="#cb49-443" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, pch = 19, col = '#0072B2',</span></span>
+<span id="cb49-444"><a href="#cb49-444" aria-hidden="true" tabindex="-1"></a><span class="in">     xlab = 'Displacement', ylab = 'Miles per gallon')</span></span>
+<span id="cb49-445"><a href="#cb49-445" aria-hidden="true" tabindex="-1"></a><span class="in">par(op)</span></span>
+<span id="cb49-446"><a href="#cb49-446" aria-hidden="true" tabindex="-1"></a><span class="in">dev.off()</span></span>
+<span id="cb49-447"><a href="#cb49-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-448"><a href="#cb49-448" aria-hidden="true" tabindex="-1"></a><span class="in">cat(basename(f), file.info(f)$size, 'bytes\n')</span></span>
+<span id="cb49-449"><a href="#cb49-449" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-450"><a href="#cb49-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-451"><a href="#cb49-451" aria-hidden="true" tabindex="-1"></a>The size print is not decoration. A <span class="in">`dev.off()`</span> left out of this script</span>
+<span id="cb49-452"><a href="#cb49-452" aria-hidden="true" tabindex="-1"></a>produces a zero-byte file and no error at all.</span>
+<span id="cb49-453"><a href="#cb49-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-454"><a href="#cb49-454" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb49-455"><a href="#cb49-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-456"><a href="#cb49-456" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 2</span></span>
+<span id="cb49-457"><a href="#cb49-457" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-458"><a href="#cb49-458" aria-hidden="true" tabindex="-1"></a>Draw the <span class="in">`mpg`</span> against <span class="in">`disp`</span> scatterplot with a y axis whose ticks sit only at</span>
+<span id="cb49-459"><a href="#cb49-459" aria-hidden="true" tabindex="-1"></a>the integers from 10 to 40, and no automatic y axis at all.</span>
+<span id="cb49-460"><a href="#cb49-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-461"><a href="#cb49-461" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb49-462"><a href="#cb49-462" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solution&lt;/summary&gt;</span>
+<span id="cb49-463"><a href="#cb49-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-464"><a href="#cb49-464" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex2}</span></span>
+<span id="cb49-465"><a href="#cb49-465" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, pch = 19, col = '#0072B2',</span></span>
+<span id="cb49-466"><a href="#cb49-466" aria-hidden="true" tabindex="-1"></a><span class="in">     yaxt = 'n', xlab = 'Displacement', ylab = 'Miles per gallon')</span></span>
+<span id="cb49-467"><a href="#cb49-467" aria-hidden="true" tabindex="-1"></a><span class="in">axis(2, at = seq(10, 40, by = 10))</span></span>
+<span id="cb49-468"><a href="#cb49-468" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-469"><a href="#cb49-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-470"><a href="#cb49-470" aria-hidden="true" tabindex="-1"></a><span class="in">`yaxt = 'n'`</span> is the y-axis equivalent of <span class="in">`xaxt = 'n'`</span>. Omit it and the</span>
+<span id="cb49-471"><a href="#cb49-471" aria-hidden="true" tabindex="-1"></a>automatic axis is drawn first and then drawn over, which reads as slightly</span>
+<span id="cb49-472"><a href="#cb49-472" aria-hidden="true" tabindex="-1"></a>bold, doubled tick labels.</span>
+<span id="cb49-473"><a href="#cb49-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-474"><a href="#cb49-474" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb49-475"><a href="#cb49-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-476"><a href="#cb49-476" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exercise 3</span></span>
+<span id="cb49-477"><a href="#cb49-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-478"><a href="#cb49-478" aria-hidden="true" tabindex="-1"></a>Write a three-page PDF, one plot per page, using a loop over the three cylinder</span>
+<span id="cb49-479"><a href="#cb49-479" aria-hidden="true" tabindex="-1"></a>groups in <span class="in">`mtcars`</span>, and confirm the file exists afterwards.</span>
+<span id="cb49-480"><a href="#cb49-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-481"><a href="#cb49-481" aria-hidden="true" tabindex="-1"></a>&lt;details&gt;</span>
+<span id="cb49-482"><a href="#cb49-482" aria-hidden="true" tabindex="-1"></a>&lt;summary&gt;Solution&lt;/summary&gt;</span>
+<span id="cb49-483"><a href="#cb49-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-484"><a href="#cb49-484" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ex3}</span></span>
+<span id="cb49-485"><a href="#cb49-485" aria-hidden="true" tabindex="-1"></a><span class="in">outdir &lt;- file.path(tempdir(), 'ex3')</span></span>
+<span id="cb49-486"><a href="#cb49-486" aria-hidden="true" tabindex="-1"></a><span class="in">dir.create(outdir, showWarnings = FALSE)</span></span>
+<span id="cb49-487"><a href="#cb49-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-488"><a href="#cb49-488" aria-hidden="true" tabindex="-1"></a><span class="in">f &lt;- file.path(outdir, 'by-cyl.pdf')</span></span>
+<span id="cb49-489"><a href="#cb49-489" aria-hidden="true" tabindex="-1"></a><span class="in">pdf(f, width = 6, height = 4)</span></span>
+<span id="cb49-490"><a href="#cb49-490" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-491"><a href="#cb49-491" aria-hidden="true" tabindex="-1"></a><span class="in">op &lt;- par(mar = c(4, 4, 3, 1))</span></span>
+<span id="cb49-492"><a href="#cb49-492" aria-hidden="true" tabindex="-1"></a><span class="in">for (g in sort(unique(mtcars$cyl))) {</span></span>
+<span id="cb49-493"><a href="#cb49-493" aria-hidden="true" tabindex="-1"></a><span class="in">  plot(mtcars$disp[mtcars$cyl == g],</span></span>
+<span id="cb49-494"><a href="#cb49-494" aria-hidden="true" tabindex="-1"></a><span class="in">       mtcars$mpg[mtcars$cyl == g],</span></span>
+<span id="cb49-495"><a href="#cb49-495" aria-hidden="true" tabindex="-1"></a><span class="in">       pch = 19, col = '#0072B2', xlim = range(mtcars$disp),</span></span>
+<span id="cb49-496"><a href="#cb49-496" aria-hidden="true" tabindex="-1"></a><span class="in">       main = paste(g, 'cylinders'), xlab = 'Displacement',</span></span>
+<span id="cb49-497"><a href="#cb49-497" aria-hidden="true" tabindex="-1"></a><span class="in">       ylab = 'Miles per gallon')</span></span>
+<span id="cb49-498"><a href="#cb49-498" aria-hidden="true" tabindex="-1"></a><span class="in">  plot.new()   # advances to the next page</span></span>
+<span id="cb49-499"><a href="#cb49-499" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb49-500"><a href="#cb49-500" aria-hidden="true" tabindex="-1"></a><span class="in">par(op)</span></span>
+<span id="cb49-501"><a href="#cb49-501" aria-hidden="true" tabindex="-1"></a><span class="in">dev.off()</span></span>
+<span id="cb49-502"><a href="#cb49-502" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-503"><a href="#cb49-503" aria-hidden="true" tabindex="-1"></a><span class="in">file.exists(f)</span></span>
+<span id="cb49-504"><a href="#cb49-504" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb49-505"><a href="#cb49-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-506"><a href="#cb49-506" aria-hidden="true" tabindex="-1"></a>Note what <span class="in">`pdf()`</span> does *not* do: it does not start a new page per plot. In base</span>
+<span id="cb49-507"><a href="#cb49-507" aria-hidden="true" tabindex="-1"></a>graphics every plot overwrites the last, so <span class="in">`plot.new()`</span> is how you advance the</span>
+<span id="cb49-508"><a href="#cb49-508" aria-hidden="true" tabindex="-1"></a>page — and it is the PDF analogue of opening a new device inside the loop, for</span>
+<span id="cb49-509"><a href="#cb49-509" aria-hidden="true" tabindex="-1"></a>the same reason.</span>
+<span id="cb49-510"><a href="#cb49-510" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-511"><a href="#cb49-511" aria-hidden="true" tabindex="-1"></a>&lt;/details&gt;</span>
+<span id="cb49-512"><a href="#cb49-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-513"><a href="#cb49-513" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Full Set</span></span>
+<span id="cb49-514"><a href="#cb49-514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-515"><a href="#cb49-515" aria-hidden="true" tabindex="-1"></a>Everything in this chapter is summarised on the</span>
+<span id="cb49-516"><a href="#cb49-516" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">one-page `par()` and devices cheatsheet</span><span class="co">](base-par-cheatsheet.pdf)</span>. It is a</span>
+<span id="cb49-517"><a href="#cb49-517" aria-hidden="true" tabindex="-1"></a>static artifact rather than a chapter, so it is worth keeping open next to</span>
+<span id="cb49-518"><a href="#cb49-518" aria-hidden="true" tabindex="-1"></a>whatever you are building.</span>
+<span id="cb49-519"><a href="#cb49-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-520"><a href="#cb49-520" aria-hidden="true" tabindex="-1"></a>That closes the book. Chapter 1 made the case for staying in base graphics;</span>
+<span id="cb49-521"><a href="#cb49-521" aria-hidden="true" tabindex="-1"></a>this chapter made the plots production-ready. The middle chapters taught the</span>
+<span id="cb49-522"><a href="#cb49-522" aria-hidden="true" tabindex="-1"></a>arguments one at a time, and that is the pattern to keep — change one thing,</span>
+<span id="cb49-523"><a href="#cb49-523" aria-hidden="true" tabindex="-1"></a>look at what happened.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

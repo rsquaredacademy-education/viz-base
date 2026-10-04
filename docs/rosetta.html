@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Appendix A — Base R ↔ ggplot2: A Rosetta Stone – Data Visualization with R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./about-the-author.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3846d7266b04868d3ce6ba15eaa41f0f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-9193e7c8f6e0ad4307b1caa0c157c415.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Head metadata for every page.
+
+     Two distinct mechanisms are at work here:
+
+     1. The Open Graph / Twitter tags below are PLACEHOLDERS. Quarto rewrites
+        og:title, og:description, og:image and the twitter:* values per page
+        (see `open-graph` / `twitter-card` in _quarto.yml), so the literal
+        values here never reach the reader. Do not delete these tags -- with
+        them removed Quarto emits nothing. Verified: docs/scatter.html gets
+        "4 Scatter Plots", docs/line.html gets "5 Line Graphs".
+        og:site_name and og:type are ours; Quarto does not manage those.
+
+     2. The citation_* tags are hand-written because Quarto has no native
+        Highwire/Scholar support. This is the reason this file exists.
+
+     Deliberately NOT here: the canonical link and og:url. Quarto emits
+     neither for `type: book`, and hard-coding them made every one of the 12
+     pages claim the site root as its canonical URL -- which tells search
+     engines the whole book is a single page. An absent canonical is merely
+     neutral; a wrong one is destructive. sitemap.xml carries the real
+     per-page URLs. See roadmap: Phase 3 SEO pass.
+
+     TODO(analytics): set google-analytics in _quarto.yml once the GA4 ID exists,
+     and add a consent banner alongside it (no cookies are set until then). -->
+<meta property="og:site_name" content="Data Visualization with R">
+<meta property="og:type" content="book">
+<meta property="og:title" content="Appendix A — Base R ↔︎ ggplot2: A Rosetta Stone – Data Visualization with R">
+<meta property="og:description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
+<meta property="og:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Appendix A — Base R ↔︎ ggplot2: A Rosetta Stone – Data Visualization with R">
+<meta name="twitter:description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
+<meta name="twitter:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
+<meta name="citation_title" content="Data Visualization with R — Base Graphics">
+<meta name="citation_author" content="Aravind Hebbali">
+<meta name="citation_language" content="en">
+<meta name="citation_book_title" content="Data Visualization with R">
+<meta name="citation_pdf_url" content="https://viz-base.rsquaredacademy.com/Data-Visualization-with-R.pdf">
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rosetta.html">Appendices</a></li><li class="breadcrumb-item"><a href="./rosetta.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Base R ↔︎ ggplot2: A Rosetta Stone</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Visualization with R</a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Data-Visualization-with-R.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Data-Visualization-with-R.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./why-base.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Why Base R Graphics in 2026?</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./titlelabels.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Title &amp; Axis Labels</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scatter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Scatter Plots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./line.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Line Graphs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Bar Plots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./box.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Box Plots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hist.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Histograms</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./legend.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Legends</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./textann.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Text Annotations</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./facet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Faceting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./export-devices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Production Export &amp; Graphical Devices</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./about-the-author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Author</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./rosetta.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Base R ↔︎ ggplot2: A Rosetta Stone</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">A.1</span> Introduction</a></li>
+  <li><a href="#the-one-sentence-version" id="toc-the-one-sentence-version" class="nav-link" data-scroll-target="#the-one-sentence-version"><span class="header-section-number">A.2</span> The one-sentence version</a></li>
+  <li><a href="#marks-and-coordinates" id="toc-marks-and-coordinates" class="nav-link" data-scroll-target="#marks-and-coordinates"><span class="header-section-number">A.3</span> Marks and coordinates</a>
+  <ul class="collapse">
+  <li><a href="#the-scale-trap" id="toc-the-scale-trap" class="nav-link" data-scroll-target="#the-scale-trap"><span class="header-section-number">A.3.1</span> The scale trap</a></li>
+  </ul></li>
+  <li><a href="#titles-labels-and-ranges" id="toc-titles-labels-and-ranges" class="nav-link" data-scroll-target="#titles-labels-and-ranges"><span class="header-section-number">A.4</span> Titles, labels and ranges</a>
+  <ul class="collapse">
+  <li><a href="#xlim-is-not-coord_cartesianxlim" id="toc-xlim-is-not-coord_cartesianxlim" class="nav-link" data-scroll-target="#xlim-is-not-coord_cartesianxlim"><span class="header-section-number">A.4.1</span> <code>xlim</code> is not <code>coord_cartesian(xlim =)</code></a></li>
+  </ul></li>
+  <li><a href="#grouping-and-the-language-difference" id="toc-grouping-and-the-language-difference" class="nav-link" data-scroll-target="#grouping-and-the-language-difference"><span class="header-section-number">A.5</span> Grouping and the language difference</a></li>
+  <li><a href="#high-level-functions" id="toc-high-level-functions" class="nav-link" data-scroll-target="#high-level-functions"><span class="header-section-number">A.6</span> High-level functions</a></li>
+  <li><a href="#devices-layout-and-everything-else" id="toc-devices-layout-and-everything-else" class="nav-link" data-scroll-target="#devices-layout-and-everything-else"><span class="header-section-number">A.7</span> Devices, layout and everything else</a></li>
+  <li><a href="#when-to-switch" id="toc-when-to-switch" class="nav-link" data-scroll-target="#when-to-switch"><span class="header-section-number">A.8</span> When to switch</a></li>
+  <li><a href="#what-does-not-translate" id="toc-what-does-not-translate" class="nav-link" data-scroll-target="#what-does-not-translate"><span class="header-section-number">A.9</span> What does not translate</a></li>
+  <li><a href="#where-to-go-next" id="toc-where-to-go-next" class="nav-link" data-scroll-target="#where-to-go-next"><span class="header-section-number">A.10</span> Where to go next</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rosetta.html">Appendices</a></li><li class="breadcrumb-item"><a href="./rosetta.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Base R ↔︎ ggplot2: A Rosetta Stone</span></a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="rosetta" class="quarto-section-identifier">Appendix A — Base R ↔︎ ggplot2: A Rosetta Stone</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2" data-number="A.1">
+<h2 data-number="A.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">A.1</span> Introduction</h2>
+<p>Appendix A is a lookup table, not a chapter. You do not read it; you keep it open next to whichever system you are working in and use it to move a plot across.</p>
+<p>Every row maps one base R construct to its nearest ggplot2 equivalent, and the last column is the part that matters: <strong>when to stop translating and switch.</strong></p>
+<p>Two things this appendix is not. It is not a ggplot2 tutorial — there are better ones, and the ggplot2 documentation is excellent. And it is not an argument for either system. Chapter 1 made that argument; this is the translation layer.</p>
+<blockquote class="blockquote">
+<p><strong>This book does not use ggplot2.</strong> No example here is evaluated, and no figure on this page requires it. The ggplot2 side appears as code you can read and run yourself, but the book is built without the dependency and stays that way. Only the base R column is rendered.</p>
+</blockquote>
+</section>
+<section id="the-one-sentence-version" class="level2" data-number="A.2">
+<h2 data-number="A.2" class="anchored" data-anchor-id="the-one-sentence-version"><span class="header-section-number">A.2</span> The one-sentence version</h2>
+<p>ggplot2 is a <strong>declarative</strong> system: you describe what the data means and let the package decide how to draw it. Base graphics is a <strong>direct</strong> system: you issue drawing commands and the marks appear.</p>
+<p>Everything below is a consequence of that difference. Declarative systems infer grouping, transform scales and build facets for you. Direct systems do none of it until you write it.</p>
+</section>
+<section id="marks-and-coordinates" class="level2" data-number="A.3">
+<h2 data-number="A.3" class="anchored" data-anchor-id="marks-and-coordinates"><span class="header-section-number">A.3</span> Marks and coordinates</h2>
+<p>The most-used arguments translate almost one to one, because they describe marks rather than structure.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 27%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Base R</th>
+<th style="text-align: left;">ggplot2</th>
+<th style="text-align: left;">When to switch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>pch = 19</code></td>
+<td style="text-align: left;"><code>shape = 19</code></td>
+<td style="text-align: left;">Never. Same idea.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>cex = 1.4</code></td>
+<td style="text-align: left;"><code>size = 3</code></td>
+<td style="text-align: left;">Never — but note <code>size</code> is not a linear multiple of <code>cex</code>; it is in millimetres, so you must retune.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>col = 'red'</code></td>
+<td style="text-align: left;"><code>colour = 'red'</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>bg = 'yellow'</code></td>
+<td style="text-align: left;"><code>fill = 'yellow'</code></td>
+<td style="text-align: left;">Never. <code>bg</code> only applies to shapes 21–25, which are already filled.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>lwd = 2</code></td>
+<td style="text-align: left;"><code>linewidth = 1</code></td>
+<td style="text-align: left;">Never — same non-linearity as <code>cex</code>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>lty = 2</code></td>
+<td style="text-align: left;"><code>linetype = 'dashed'</code></td>
+<td style="text-align: left;">Never, though ggplot2 also accepts the numeric codes.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>type = 'p'</code></td>
+<td style="text-align: left;"><code>geom_point()</code></td>
+<td style="text-align: left;">Switch when you start mapping a variable to mark properties.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>type = 'l'</code></td>
+<td style="text-align: left;"><code>geom_line()</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>type = 'b'</code>, <code>'o'</code></td>
+<td style="text-align: left;"><code>geom_line()</code> + <code>geom_point()</code></td>
+<td style="text-align: left;">Never — two layers, which is the ggplot2 idiom.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>type = 'h'</code></td>
+<td style="text-align: left;"><code>geom_histogram()</code></td>
+<td style="text-align: left;">Switch. ggplot2 bins separately from the plot.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>type = 'n'</code></td>
+<td style="text-align: left;"><code>ggplot()</code> + a layer only</td>
+<td style="text-align: left;">Never, but <code>type = 'n'</code> is <em>how</em> you set up axes for manual layering.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>plot(x, y)</code></td>
+<td style="text-align: left;"><code>ggplot(df, aes(x, y)) + geom_point()</code></td>
+<td style="text-align: left;">Switch as soon as the plot has a third variable.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>points(x, y)</code></td>
+<td style="text-align: left;"><code>+ geom_point(data = ...)</code></td>
+<td style="text-align: left;">Stay in base for overlays onto an existing plot.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>lines(x, y)</code></td>
+<td style="text-align: left;"><code>+ geom_line(data = ...)</code></td>
+<td style="text-align: left;">Stay in base for overlays.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>text(x, y, labels)</code></td>
+<td style="text-align: left;"><code>geom_text(aes(label = ...))</code></td>
+<td style="text-align: left;">Switch when labels are data-driven rather than hand-placed.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>mtext(s, side)</code></td>
+<td style="text-align: left;"><code>labs(title=, caption=)</code></td>
+<td style="text-align: left;">Never for titles; <code>side</code> has no ggplot2 equivalent.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>title(main, sub)</code></td>
+<td style="text-align: left;"><code>labs(title, subtitle)</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>abline(a, b)</code></td>
+<td style="text-align: left;"><code>geom_abline(intercept=, slope=)</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>segments()</code>, <code>arrows()</code></td>
+<td style="text-align: left;"><code>geom_segment()</code>, <code>geom_arrow()</code></td>
+<td style="text-align: left;">Never. <code>geom_segment</code> is the easy one to miss.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>polygon()</code></td>
+<td style="text-align: left;"><code>geom_polygon()</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+</tbody>
+</table>
+<section id="the-scale-trap" class="level3" data-number="A.3.1">
+<h3 data-number="A.3.1" class="anchored" data-anchor-id="the-scale-trap"><span class="header-section-number">A.3.1</span> The scale trap</h3>
+<p><code>cex = 2</code> is not <code>size = 2</code>. <code>cex</code> is a multiplier on the device’s default text size; ggplot2’s <code>size</code> is an absolute diameter in millimetres. If you carry a plot across and change nothing else, the marks will be the wrong size, and the usual response — nudging the number until it looks right — makes the code meaningless to the next reader.</p>
+</section>
+</section>
+<section id="titles-labels-and-ranges" class="level2" data-number="A.4">
+<h2 data-number="A.4" class="anchored" data-anchor-id="titles-labels-and-ranges"><span class="header-section-number">A.4</span> Titles, labels and ranges</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 27%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Base R</th>
+<th style="text-align: left;">ggplot2</th>
+<th style="text-align: left;">When to switch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>main = 'x'</code></td>
+<td style="text-align: left;"><code>labs(title = 'x')</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>sub = 'x'</code></td>
+<td style="text-align: left;"><code>labs(subtitle = 'x')</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>xlab</code>, <code>ylab</code></td>
+<td style="text-align: left;"><code>labs(x = , y = )</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>xlim</code>, <code>ylim</code></td>
+<td style="text-align: left;"><code>coord_cartesian(xlim=, ylim=)</code></td>
+<td style="text-align: left;"><strong>Always.</strong> See below.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>log = 'x'</code></td>
+<td style="text-align: left;"><code>scale_x_log10()</code></td>
+<td style="text-align: left;">Switch. <code>plot(log = '')</code> rescales in place with no warning; <code>scale_*</code> transforms the data and labels the axis for you.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>asp = 1</code></td>
+<td style="text-align: left;"><code>coord_fixed()</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+</tbody>
+</table>
+<section id="xlim-is-not-coord_cartesianxlim" class="level3" data-number="A.4.1">
+<h3 data-number="A.4.1" class="anchored" data-anchor-id="xlim-is-not-coord_cartesianxlim"><span class="header-section-number">A.4.1</span> <code>xlim</code> is not <code>coord_cartesian(xlim =)</code></h3>
+<p>This is the single most damaging translation error, so it is worth being precise.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>))   <span class="co"># DROPS points outside the range</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(disp, mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>))               <span class="co"># zooms, keeps every point</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The base version <strong>removes</strong> observations outside the limits before drawing. The ggplot2 version <strong>zooms</strong> and keeps them, ready to be revealed if the limits move. The base idiom is faster and the ggplot2 one is almost always what you meant. If you are unsure which you have, count your points either way.</p>
+</section>
+</section>
+<section id="grouping-and-the-language-difference" class="level2" data-number="A.5">
+<h2 data-number="A.5" class="anchored" data-anchor-id="grouping-and-the-language-difference"><span class="header-section-number">A.5</span> Grouping and the language difference</h2>
+<p>Base graphics has no concept of a grouping variable. You make groups by subsetting and looping. ggplot2 has one, and it is the reason people switch.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 27%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Base R</th>
+<th style="text-align: left;">ggplot2</th>
+<th style="text-align: left;">When to switch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>col = as.numeric(factor(g))</code></td>
+<td style="text-align: left;"><code>aes(colour = g)</code></td>
+<td style="text-align: left;">Switch. ggplot2 recycles a palette; base gives you <code>1..k</code> integers that look like nonsense colours.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>pch = as.numeric(factor(g))</code></td>
+<td style="text-align: left;"><code>aes(shape = g)</code></td>
+<td style="text-align: left;">Switch.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>legend('topright', legend, pch, col)</code></td>
+<td style="text-align: left;">automatic, via mapped aesthetics</td>
+<td style="text-align: left;">Switch. This is the big one — base legends are written by hand.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>text(..., labels = g)</code> on points</td>
+<td style="text-align: left;"><code>geom_text(aes(label = g))</code></td>
+<td style="text-align: left;">Stay in base for a handful of direct labels.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>for (g in g) { plot(d[g,]); }</code></td>
+<td style="text-align: left;"><code>facet_wrap(~ g)</code></td>
+<td style="text-align: left;">Switch once there are more than about three panels.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>par(mfrow = c(2, 2))</code> + <code>plot()</code></td>
+<td style="text-align: left;"><code>facet_wrap(~ g, nrow = 2)</code></td>
+<td style="text-align: left;">Switch, but see the caveat below.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>layout(matrix(...))</code></td>
+<td style="text-align: left;"><code>facet_grid()</code> / <code>patchwork</code></td>
+<td style="text-align: left;">Switch. Ragged panels are the one thing base <code>layout()</code> does that ggplot2 does not do well without a second package.</td>
+</tr>
+</tbody>
+</table>
+<p>Colour is where the difference bites hardest, and it is worth showing what the base version actually costs:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The base R idiom. Correct, and nobody writes it twice.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">factor</span>(mtcars<span class="sc">$</span>cyl)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># as.numeric(g) gives the factor CODES 1..k, not the labels. Hand them to</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># palette() to get colours, because R will happily accept the raw integers</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># and draw palette entries 1, 2, 3 as if you had meant them.</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">palette</span>()[<span class="fu">as.numeric</span>(g)]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">col =</span> cols, <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">'Displacement'</span>, <span class="at">ylab =</span> <span class="st">'Miles per gallon'</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'topright'</span>, <span class="at">legend =</span> <span class="fu">levels</span>(g), <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">palette</span>()[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="at">bty =</span> <span class="st">'n'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="rosetta_files/figure-html/group-base-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1248"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Three things had to happen by hand that ggplot2 would have done for you: recycle a palette across the groups, label the groups from the factor levels, and build a legend whose colours match the plot. Worse, the code above is one careless edit away from silently wrong — change <code>as.numeric(g)</code> to <code>as.numeric(levels(g))</code> and the legend no longer matches the points, with no warning from R.</p>
+<p>The same plot in ggplot2 is one <code>aes(colour = cyl)</code> mapping and a free legend, but it needs ggplot2. That trade is Chapter 1’s argument in miniature.</p>
+</section>
+<section id="high-level-functions" class="level2" data-number="A.6">
+<h2 data-number="A.6" class="anchored" data-anchor-id="high-level-functions"><span class="header-section-number">A.6</span> High-level functions</h2>
+<p>These are the ones that do the most work per line in base R, and most have no ggplot2 counterpart because ggplot2 builds them from layers.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 27%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Base R</th>
+<th style="text-align: left;">ggplot2</th>
+<th style="text-align: left;">When to switch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>barplot(table(g))</code></td>
+<td style="text-align: left;"><code>geom_bar()</code> on counts</td>
+<td style="text-align: left;">Stay in base for a quick categorical count — <code>table()</code> is one call.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>barplot(h, beside = TRUE)</code></td>
+<td style="text-align: left;"><code>geom_bar(position = 'dodge')</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>barplot(m, beside = FALSE)</code></td>
+<td style="text-align: left;"><code>geom_bar(position = 'stack')</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>barplot(..., horiz = TRUE)</code></td>
+<td style="text-align: left;"><code>coord_flip()</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>boxplot(y ~ g)</code></td>
+<td style="text-align: left;"><code>geom_boxplot(aes(x = g, y = y))</code></td>
+<td style="text-align: left;">Stay in base; <code>boxplot()</code> with a formula is excellent.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>boxplot(..., notch = TRUE)</code></td>
+<td style="text-align: left;"><code>geom_boxplot(notch = TRUE)</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>hist(x, breaks = 20)</code></td>
+<td style="text-align: left;"><code>geom_histogram(bins = 20)</code></td>
+<td style="text-align: left;"><strong>Careful.</strong> <code>breaks</code> and <code>bins</code> are not the same parameter.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>pairs(df)</code></td>
+<td style="text-align: left;"><code>pairs()</code> in <code>GGally</code>, or <code>geom_bin2d</code></td>
+<td style="text-align: left;">Stay in base — <code>pairs()</code> has no base-R equivalent in ggplot2 at all.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>dotchart(table(g))</code></td>
+<td style="text-align: left;"><code>geom_dotplot()</code></td>
+<td style="text-align: left;">Stay in base; no ggplot2 function does this cleanly.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>stripchart(y ~ g)</code></td>
+<td style="text-align: left;"><code>geom_jitter()</code> or <code>geom_dotplot()</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>mosaicplot(table(a, b))</code></td>
+<td style="text-align: left;"><code>geom_mosaic()</code> (a <strong>different package</strong>)</td>
+<td style="text-align: left;">Stay in base. The ggplot2 version is not in ggplot2.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>rug(x)</code></td>
+<td style="text-align: left;"><code>geom_rug()</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>curve(f, from, to)</code></td>
+<td style="text-align: left;"><code>geom_function()</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>matplot(m)</code></td>
+<td style="text-align: left;">no equivalent</td>
+<td style="text-align: left;">Stay in base.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>image(m)</code></td>
+<td style="text-align: left;"><code>geom_raster()</code></td>
+<td style="text-align: left;">Stay in base unless you need a ggplot2 theme.</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><code>hist(x, breaks = 20)</code> sets 20 <em>breakpoints</em>, which R expands into some number of <em>bins</em> — and not always 20. <code>geom_histogram(bins = 20)</code> sets 20 bins exactly. A histogram that changes height when you move it between systems is this, not a bug.</p>
+</blockquote>
+</section>
+<section id="devices-layout-and-everything-else" class="level2" data-number="A.7">
+<h2 data-number="A.7" class="anchored" data-anchor-id="devices-layout-and-everything-else"><span class="header-section-number">A.7</span> Devices, layout and everything else</h2>
+<p>This is where the systems have nothing in common, so the honest answer is that these do not translate.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 27%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Base R</th>
+<th style="text-align: left;">ggplot2</th>
+<th style="text-align: left;">When to switch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>png('a.png', res = 300)</code></td>
+<td style="text-align: left;"><code>ggsave('a.png', dpi = 300)</code></td>
+<td style="text-align: left;">Either. <code>ggsave()</code> also needs a device for non-standard formats.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>pdf('a.pdf')</code></td>
+<td style="text-align: left;"><code>ggsave('a.pdf')</code></td>
+<td style="text-align: left;">Either.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>svg('a.svg')</code></td>
+<td style="text-align: left;"><code>svglite::svglite()</code></td>
+<td style="text-align: left;">Stay in base — this needs another package in ggplot2.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>dev.off()</code></td>
+<td style="text-align: left;">automatic</td>
+<td style="text-align: left;">ggplot2. One fewer thing to forget.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>par(mar=, oma=, mgp=)</code></td>
+<td style="text-align: left;"><code>theme(plot.margin, ...)</code></td>
+<td style="text-align: left;">Stay in base. <code>theme()</code> has ~80 elements and this book has 11.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>par(las = 1)</code></td>
+<td style="text-align: left;"><code>theme(axis.text.x = element_text(angle = 0))</code></td>
+<td style="text-align: left;">Stay in base; far less typing.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>par(bty = 'l')</code></td>
+<td style="text-align: left;"><code>theme(panel.border = element_blank(), panel.grid = element_blank())</code></td>
+<td style="text-align: left;">Stay in base.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>palette.colors('Okabe-Ito')</code></td>
+<td style="text-align: left;"><code>scale_color_OkabeIto()</code> (a <strong>different package</strong>)</td>
+<td style="text-align: left;">Either. Base gives it to you with no dependency.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>xlab</code>, <code>main</code>, legend styling</td>
+<td style="text-align: left;"><code>theme()</code>, <code>guides()</code></td>
+<td style="text-align: left;">Stay in base for a single figure.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>expression(beta[1] * x)</code></td>
+<td style="text-align: left;"><code>parse()</code>, or <code>labs()</code> with <code>parse = TRUE</code></td>
+<td style="text-align: left;">Never.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>suppressWarnings()</code></td>
+<td style="text-align: left;"><code>suppressWarnings()</code></td>
+<td style="text-align: left;">Same.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="when-to-switch" class="level2" data-number="A.8">
+<h2 data-number="A.8" class="anchored" data-anchor-id="when-to-switch"><span class="header-section-number">A.8</span> When to switch</h2>
+<p>The rule from Chapter 1, restated as a checklist. Switch when <strong>most</strong> of these are true:</p>
+<ul>
+<li>the plot has a variable mapped to colour, shape, size or linetype</li>
+<li>it needs facets, and there are more than about three panels</li>
+<li>you are on your third or fourth iteration and still changing the chart</li>
+<li>someone else will maintain it and needs to read it without learning base R</li>
+<li>it is going into a report where the theme must match a house style</li>
+</ul>
+<p>Stay in base when:</p>
+<ul>
+<li>the plot is written once and drawn many times</li>
+<li>it has to run somewhere you do not control — a CRAN check, a locked-down server, a minimal container</li>
+<li>it must be reproducible with <code>install.packages()</code> not appearing anywhere</li>
+<li>you want to place one specific mark at one specific coordinate</li>
+<li>the plot <em>is</em> the thing you are building, and the analysis is incidental</li>
+</ul>
+<p>Mixed codebases are normal and fine. Plenty of working reports draw 95% of their figures in base graphics and reach for ggplot2 once, for the one chart where faceting carries the argument. The mistake is picking one system by default and never reconsidering — not mixing them.</p>
+</section>
+<section id="what-does-not-translate" class="level2" data-number="A.9">
+<h2 data-number="A.9" class="anchored" data-anchor-id="what-does-not-translate"><span class="header-section-number">A.9</span> What does not translate</h2>
+<p>For completeness, so you do not waste time looking:</p>
+<ul>
+<li><strong><code>par()</code></strong> is entirely base R. There is no ggplot2 equivalent, because everything it does is a global device setting that ggplot2 replaces with <code>theme()</code> applied per plot. If your base R code is heavy on <code>par()</code>, that is a signal it wants <code>theme()</code>, not a sign that <code>par()</code> has a translation.</li>
+<li><strong>The graphics device stack</strong> is base R. ggplot2 removes it from your vocabulary entirely, which is genuinely one of its advantages.</li>
+<li><strong><code>layout()</code></strong> ragged panels have no first-class ggplot2 equivalent.</li>
+<li><strong><code>type = 'n'</code></strong> layering has no ggplot2 equivalent, and does not need one — it is the direct-mode idiom that ggplot2’s layers replace.</li>
+</ul>
+</section>
+<section id="where-to-go-next" class="level2" data-number="A.10">
+<h2 data-number="A.10" class="anchored" data-anchor-id="where-to-go-next"><span class="header-section-number">A.10</span> Where to go next</h2>
+<ul>
+<li>The <strong>R Graphics Cookbook</strong> by Winston Chang (<code>r-graphics.org</code>) is recipe-first and covers both systems side by side. It is the right book when you know what you want to draw and need the code.</li>
+<li>The <strong>ggplot2 book</strong> by Wickham and Grolemund is the right book when you want to understand the system rather than copy from it.</li>
+<li><strong><code>?graphics</code></strong>, <code>?par</code>, and <code>?palette</code> in your own R installation remain the most accurate and most current reference for base graphics, and they ship with the software.</li>
+</ul>
+<hr>
+<p><em>Data Visualization with R — Base Graphics</em> · <a href="https://viz-base.rsquaredacademy.com">viz-base.rsquaredacademy.com</a> · <a href="base-par-cheatsheet.pdf">base-par-cheatsheet.pdf</a> · CC BY-NC-SA 4.0</p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./about-the-author.html" class="pagination-link" aria-label="About the Author">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">About the Author</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Base R ↔ ggplot2: A Rosetta Stone {#rosetta}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Appendix A is a lookup table, not a chapter. You do not read it; you keep it</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>open next to whichever system you are working in and use it to move a plot</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>across.</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Every row maps one base R construct to its nearest ggplot2 equivalent, and the</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>last column is the part that matters: **when to stop translating and switch.**</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>Two things this appendix is not. It is not a ggplot2 tutorial — there are better</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>ones, and the ggplot2 documentation is excellent. And it is not an argument for</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>either system. Chapter 1 made that argument; this is the translation layer.</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **This book does not use ggplot2.** No example here is evaluated, and no</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; figure on this page requires it. The ggplot2 side appears as code you can read</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; and run yourself, but the book is built without the dependency and stays that</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; way. Only the base R column is rendered.</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## The one-sentence version</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>ggplot2 is a **declarative** system: you describe what the data means and let</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>the package decide how to draw it. Base graphics is a **direct** system: you</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>issue drawing commands and the marks appear.</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>Everything below is a consequence of that difference. Declarative systems infer</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>grouping, transform scales and build facets for you. Direct systems do none of</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>it until you write it.</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Marks and coordinates</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>The most-used arguments translate almost one to one, because they describe</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>marks rather than structure.</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>| Base R | ggplot2 | When to switch |</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>|:-------|:--------|:---------------|</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>| <span class="in">`pch = 19`</span> | <span class="in">`shape = 19`</span> | Never. Same idea. |</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>| <span class="in">`cex = 1.4`</span> | <span class="in">`size = 3`</span> | Never — but note <span class="in">`size`</span> is not a linear multiple of <span class="in">`cex`</span>; it is in millimetres, so you must retune. |</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>| <span class="in">`col = 'red'`</span> | <span class="in">`colour = 'red'`</span> | Never. |</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>| <span class="in">`bg = 'yellow'`</span> | <span class="in">`fill = 'yellow'`</span> | Never. <span class="in">`bg`</span> only applies to shapes 21–25, which are already filled. |</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>| <span class="in">`lwd = 2`</span> | <span class="in">`linewidth = 1`</span> | Never — same non-linearity as <span class="in">`cex`</span>. |</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>| <span class="in">`lty = 2`</span> | <span class="in">`linetype = 'dashed'`</span> | Never, though ggplot2 also accepts the numeric codes. |</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>| <span class="in">`type = 'p'`</span> | <span class="in">`geom_point()`</span> | Switch when you start mapping a variable to mark properties. |</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>| <span class="in">`type = 'l'`</span> | <span class="in">`geom_line()`</span> | Never. |</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>| <span class="in">`type = 'b'`</span>, <span class="in">`'o'`</span> | <span class="in">`geom_line()`</span> + <span class="in">`geom_point()`</span> | Never — two layers, which is the ggplot2 idiom. |</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>| <span class="in">`type = 'h'`</span> | <span class="in">`geom_histogram()`</span> | Switch. ggplot2 bins separately from the plot. |</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>| <span class="in">`type = 'n'`</span> | <span class="in">`ggplot()`</span> + a layer only | Never, but <span class="in">`type = 'n'`</span> is *how* you set up axes for manual layering. |</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>| <span class="in">`plot(x, y)`</span> | <span class="in">`ggplot(df, aes(x, y)) + geom_point()`</span> | Switch as soon as the plot has a third variable. |</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>| <span class="in">`points(x, y)`</span> | <span class="in">`+ geom_point(data = ...)`</span> | Stay in base for overlays onto an existing plot. |</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>| <span class="in">`lines(x, y)`</span> | <span class="in">`+ geom_line(data = ...)`</span> | Stay in base for overlays. |</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>| <span class="in">`text(x, y, labels)`</span> | <span class="in">`geom_text(aes(label = ...))`</span> | Switch when labels are data-driven rather than hand-placed. |</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>| <span class="in">`mtext(s, side)`</span> | <span class="in">`labs(title=, caption=)`</span> | Never for titles; <span class="in">`side`</span> has no ggplot2 equivalent. |</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>| <span class="in">`title(main, sub)`</span> | <span class="in">`labs(title, subtitle)`</span> | Never. |</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>| <span class="in">`abline(a, b)`</span> | <span class="in">`geom_abline(intercept=, slope=)`</span> | Never. |</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>| <span class="in">`segments()`</span>, <span class="in">`arrows()`</span> | <span class="in">`geom_segment()`</span>, <span class="in">`geom_arrow()`</span> | Never. <span class="in">`geom_segment`</span> is the easy one to miss. |</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>| <span class="in">`polygon()`</span> | <span class="in">`geom_polygon()`</span> | Never. |</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="fu">### The scale trap</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="in">`cex = 2`</span> is not <span class="in">`size = 2`</span>. <span class="in">`cex`</span> is a multiplier on the device's default text</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>size; ggplot2's <span class="in">`size`</span> is an absolute diameter in millimetres. If you carry a</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>plot across and change nothing else, the marks will be the wrong size, and the</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>usual response — nudging the number until it looks right — makes the code</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>meaningless to the next reader.</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="fu">## Titles, labels and ranges</span></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>| Base R | ggplot2 | When to switch |</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>|:-------|:--------|:---------------|</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>| <span class="in">`main = 'x'`</span> | <span class="in">`labs(title = 'x')`</span> | Never. |</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>| <span class="in">`sub = 'x'`</span> | <span class="in">`labs(subtitle = 'x')`</span> | Never. |</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>| <span class="in">`xlab`</span>, <span class="in">`ylab`</span> | <span class="in">`labs(x = , y = )`</span> | Never. |</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>| <span class="in">`xlim`</span>, <span class="in">`ylim`</span> | <span class="in">`coord_cartesian(xlim=, ylim=)`</span> | **Always.** See below. |</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>| <span class="in">`log = 'x'`</span> | <span class="in">`scale_x_log10()`</span> | Switch. <span class="in">`plot(log = '')`</span> rescales in place with no warning; <span class="in">`scale_*`</span> transforms the data and labels the axis for you. |</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>| <span class="in">`asp = 1`</span> | <span class="in">`coord_fixed()`</span> | Never. |</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="fu">### `xlim` is not `coord_cartesian(xlim =)`</span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>This is the single most damaging translation error, so it is worth being precise.</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r xlim, eval=FALSE}</span></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, xlim = c(100, 200))   # DROPS points outside the range</span></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="in">ggplot(mtcars, aes(disp, mpg)) + geom_point() +</span></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="in">  coord_cartesian(xlim = c(100, 200))               # zooms, keeps every point</span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>The base version **removes** observations outside the limits before drawing.</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>The ggplot2 version **zooms** and keeps them, ready to be revealed if the limits</span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>move. The base idiom is faster and the ggplot2 one is almost always what you</span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>meant. If you are unsure which you have, count your points either way.</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Grouping and the language difference</span></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>Base graphics has no concept of a grouping variable. You make groups by</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>subsetting and looping. ggplot2 has one, and it is the reason people switch.</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>| Base R | ggplot2 | When to switch |</span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>|:-------|:--------|:---------------|</span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>| <span class="in">`col = as.numeric(factor(g))`</span> | <span class="in">`aes(colour = g)`</span> | Switch. ggplot2 recycles a palette; base gives you <span class="in">`1..k`</span> integers that look like nonsense colours. |</span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>| <span class="in">`pch = as.numeric(factor(g))`</span> | <span class="in">`aes(shape = g)`</span> | Switch. |</span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>| <span class="in">`legend('topright', legend, pch, col)`</span> | automatic, via mapped aesthetics | Switch. This is the big one — base legends are written by hand. |</span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>| <span class="in">`text(..., labels = g)`</span> on points | <span class="in">`geom_text(aes(label = g))`</span> | Stay in base for a handful of direct labels. |</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>| <span class="in">`for (g in g) { plot(d[g,]); }`</span> | <span class="in">`facet_wrap(~ g)`</span> | Switch once there are more than about three panels. |</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>| <span class="in">`par(mfrow = c(2, 2))`</span> + <span class="in">`plot()`</span> | <span class="in">`facet_wrap(~ g, nrow = 2)`</span> | Switch, but see the caveat below. |</span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>| <span class="in">`layout(matrix(...))`</span> | <span class="in">`facet_grid()`</span> / <span class="in">`patchwork`</span> | Switch. Ragged panels are the one thing base <span class="in">`layout()`</span> does that ggplot2 does not do well without a second package. |</span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>Colour is where the difference bites hardest, and it is worth showing what the</span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>base version actually costs:</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r group-base, fig.align='center', fig.width=6.5, fig.height=4.5}</span></span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="in"># The base R idiom. Correct, and nobody writes it twice.</span></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="in">g &lt;- factor(mtcars$cyl)</span></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="in"># as.numeric(g) gives the factor CODES 1..k, not the labels. Hand them to</span></span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="in"># palette() to get colours, because R will happily accept the raw integers</span></span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a><span class="in"># and draw palette entries 1, 2, 3 as if you had meant them.</span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="in">cols &lt;- palette()[as.numeric(g)]</span></span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, col = cols, pch = 19,</span></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a><span class="in">     xlab = 'Displacement', ylab = 'Miles per gallon')</span></span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="in">legend('topright', legend = levels(g), pch = 19,</span></span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a><span class="in">       col = palette()[1:3], bty = 'n')</span></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>Three things had to happen by hand that ggplot2 would have done for you: recycle</span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>a palette across the groups, label the groups from the factor levels, and build</span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>a legend whose colours match the plot. Worse, the code above is one careless edit</span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>away from silently wrong — change <span class="in">`as.numeric(g)`</span> to <span class="in">`as.numeric(levels(g))`</span></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>and the legend no longer matches the points, with no warning from R.</span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>The same plot in ggplot2 is one <span class="in">`aes(colour = cyl)`</span> mapping and a free legend,</span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>but it needs ggplot2. That trade is Chapter 1's argument in miniature.</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="fu">## High-level functions</span></span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>These are the ones that do the most work per line in base R, and most have no</span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>ggplot2 counterpart because ggplot2 builds them from layers.</span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>| Base R | ggplot2 | When to switch |</span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>|:-------|:--------|:---------------|</span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>| <span class="in">`barplot(table(g))`</span> | <span class="in">`geom_bar()`</span> on counts | Stay in base for a quick categorical count — <span class="in">`table()`</span> is one call. |</span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a>| <span class="in">`barplot(h, beside = TRUE)`</span> | <span class="in">`geom_bar(position = 'dodge')`</span> | Never. |</span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a>| <span class="in">`barplot(m, beside = FALSE)`</span> | <span class="in">`geom_bar(position = 'stack')`</span> | Never. |</span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>| <span class="in">`barplot(..., horiz = TRUE)`</span> | <span class="in">`coord_flip()`</span> | Never. |</span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a>| <span class="in">`boxplot(y ~ g)`</span> | <span class="in">`geom_boxplot(aes(x = g, y = y))`</span> | Stay in base; <span class="in">`boxplot()`</span> with a formula is excellent. |</span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>| <span class="in">`boxplot(..., notch = TRUE)`</span> | <span class="in">`geom_boxplot(notch = TRUE)`</span> | Never. |</span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>| <span class="in">`hist(x, breaks = 20)`</span> | <span class="in">`geom_histogram(bins = 20)`</span> | **Careful.** <span class="in">`breaks`</span> and <span class="in">`bins`</span> are not the same parameter. |</span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a>| <span class="in">`pairs(df)`</span> | <span class="in">`pairs()`</span> in <span class="in">`GGally`</span>, or <span class="in">`geom_bin2d`</span> | Stay in base — <span class="in">`pairs()`</span> has no base-R equivalent in ggplot2 at all. |</span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>| <span class="in">`dotchart(table(g))`</span> | <span class="in">`geom_dotplot()`</span> | Stay in base; no ggplot2 function does this cleanly. |</span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>| <span class="in">`stripchart(y ~ g)`</span> | <span class="in">`geom_jitter()`</span> or <span class="in">`geom_dotplot()`</span> | Never. |</span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>| <span class="in">`mosaicplot(table(a, b))`</span> | <span class="in">`geom_mosaic()`</span> (a **different package**) | Stay in base. The ggplot2 version is not in ggplot2. |</span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a>| <span class="in">`rug(x)`</span> | <span class="in">`geom_rug()`</span> | Never. |</span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>| <span class="in">`curve(f, from, to)`</span> | <span class="in">`geom_function()`</span> | Never. |</span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>| <span class="in">`matplot(m)`</span> | no equivalent | Stay in base. |</span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>| <span class="in">`image(m)`</span> | <span class="in">`geom_raster()`</span> | Stay in base unless you need a ggplot2 theme. |</span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`hist(x, breaks = 20)`</span><span class="at"> sets 20 *breakpoints*, which R expands into some number</span></span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; of *bins* — and not always 20. </span><span class="in">`geom_histogram(bins = 20)`</span><span class="at"> sets 20 bins</span></span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; exactly. A histogram that changes height when you move it between systems is</span></span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; this, not a bug.</span></span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a><span class="fu">## Devices, layout and everything else</span></span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a>This is where the systems have nothing in common, so the honest answer is that</span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a>these do not translate.</span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a>| Base R | ggplot2 | When to switch |</span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a>|:-------|:--------|:---------------|</span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a>| <span class="in">`png('a.png', res = 300)`</span> | <span class="in">`ggsave('a.png', dpi = 300)`</span> | Either. <span class="in">`ggsave()`</span> also needs a device for non-standard formats. |</span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a>| <span class="in">`pdf('a.pdf')`</span> | <span class="in">`ggsave('a.pdf')`</span> | Either. |</span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a>| <span class="in">`svg('a.svg')`</span> | <span class="in">`svglite::svglite()`</span> | Stay in base — this needs another package in ggplot2. |</span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a>| <span class="in">`dev.off()`</span> | automatic | ggplot2. One fewer thing to forget. |</span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a>| <span class="in">`par(mar=, oma=, mgp=)`</span> | <span class="in">`theme(plot.margin, ...)`</span> | Stay in base. <span class="in">`theme()`</span> has ~80 elements and this book has 11. |</span>
+<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a>| <span class="in">`par(las = 1)`</span> | <span class="in">`theme(axis.text.x = element_text(angle = 0))`</span> | Stay in base; far less typing. |</span>
+<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a>| <span class="in">`par(bty = 'l')`</span> | <span class="in">`theme(panel.border = element_blank(), panel.grid = element_blank())`</span> | Stay in base. |</span>
+<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a>| <span class="in">`palette.colors('Okabe-Ito')`</span> | <span class="in">`scale_color_OkabeIto()`</span> (a **different package**) | Either. Base gives it to you with no dependency. |</span>
+<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a>| <span class="in">`xlab`</span>, <span class="in">`main`</span>, legend styling | <span class="in">`theme()`</span>, <span class="in">`guides()`</span> | Stay in base for a single figure. |</span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a>| <span class="in">`expression(beta[1] * x)`</span> | <span class="in">`parse()`</span>, or <span class="in">`labs()`</span> with <span class="in">`parse = TRUE`</span> | Never. |</span>
+<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a>| <span class="in">`suppressWarnings()`</span> | <span class="in">`suppressWarnings()`</span> | Same. |</span>
+<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a><span class="fu">## When to switch</span></span>
+<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a>The rule from Chapter 1, restated as a checklist. Switch when **most** of these</span>
+<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a>are true:</span>
+<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>the plot has a variable mapped to colour, shape, size or linetype</span>
+<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>it needs facets, and there are more than about three panels</span>
+<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>you are on your third or fourth iteration and still changing the chart</span>
+<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>someone else will maintain it and needs to read it without learning base R</span>
+<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>it is going into a report where the theme must match a house style</span>
+<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a>Stay in base when:</span>
+<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>the plot is written once and drawn many times</span>
+<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>it has to run somewhere you do not control — a CRAN check, a locked-down</span>
+<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a>  server, a minimal container</span>
+<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>it must be reproducible with <span class="in">`install.packages()`</span> not appearing anywhere</span>
+<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>you want to place one specific mark at one specific coordinate</span>
+<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>the plot *is* the thing you are building, and the analysis is incidental</span>
+<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a>Mixed codebases are normal and fine. Plenty of working reports draw 95% of</span>
+<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a>their figures in base graphics and reach for ggplot2 once, for the one chart</span>
+<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a>where faceting carries the argument. The mistake is picking one system by</span>
+<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a>default and never reconsidering — not mixing them.</span>
+<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a><span class="fu">## What does not translate</span></span>
+<span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a>For completeness, so you do not waste time looking:</span>
+<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`par()`** is entirely base R. There is no ggplot2 equivalent, because</span>
+<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a>  everything it does is a global device setting that ggplot2 replaces with</span>
+<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a>  <span class="in">`theme()`</span> applied per plot. If your base R code is heavy on <span class="in">`par()`</span>, that is a</span>
+<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a>  signal it wants <span class="in">`theme()`</span>, not a sign that <span class="in">`par()`</span> has a translation.</span>
+<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The graphics device stack** is base R. ggplot2 removes it from your</span>
+<span id="cb3-215"><a href="#cb3-215" aria-hidden="true" tabindex="-1"></a>  vocabulary entirely, which is genuinely one of its advantages.</span>
+<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`layout()`** ragged panels have no first-class ggplot2 equivalent.</span>
+<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`type = 'n'`** layering has no ggplot2 equivalent, and does not need one —</span>
+<span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a>  it is the direct-mode idiom that ggplot2's layers replace.</span>
+<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a><span class="fu">## Where to go next</span></span>
+<span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **R Graphics Cookbook** by Winston Chang (<span class="in">`r-graphics.org`</span>) is</span>
+<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a>  recipe-first and covers both systems side by side. It is the right book when</span>
+<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a>  you know what you want to draw and need the code.</span>
+<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **ggplot2 book** by Wickham and Grolemund is the right book when you want</span>
+<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a>  to understand the system rather than copy from it.</span>
+<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`?graphics`**, <span class="in">`?par`</span>, and <span class="in">`?palette`</span> in your own R installation remain the</span>
+<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a>  most accurate and most current reference for base graphics, and they ship with</span>
+<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a>  the software.</span>
+<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a>*Data Visualization with R — Base Graphics* · <span class="co">[</span><span class="ot">viz-base.rsquaredacademy.com</span><span class="co">](https://viz-base.rsquaredacademy.com)</span> ·</span>
+<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">base-par-cheatsheet.pdf</span><span class="co">](base-par-cheatsheet.pdf)</span> · CC BY-NC-SA 4.0</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; Why Base R Graphics in 2026? – Data Visualization with R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./intro.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3846d7266b04868d3ce6ba15eaa41f0f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-9193e7c8f6e0ad4307b1caa0c157c415.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Head metadata for every page.
+
+     Two distinct mechanisms are at work here:
+
+     1. The Open Graph / Twitter tags below are PLACEHOLDERS. Quarto rewrites
+        og:title, og:description, og:image and the twitter:* values per page
+        (see `open-graph` / `twitter-card` in _quarto.yml), so the literal
+        values here never reach the reader. Do not delete these tags -- with
+        them removed Quarto emits nothing. Verified: docs/scatter.html gets
+        "4 Scatter Plots", docs/line.html gets "5 Line Graphs".
+        og:site_name and og:type are ours; Quarto does not manage those.
+
+     2. The citation_* tags are hand-written because Quarto has no native
+        Highwire/Scholar support. This is the reason this file exists.
+
+     Deliberately NOT here: the canonical link and og:url. Quarto emits
+     neither for `type: book`, and hard-coding them made every one of the 12
+     pages claim the site root as its canonical URL -- which tells search
+     engines the whole book is a single page. An absent canonical is merely
+     neutral; a wrong one is destructive. sitemap.xml carries the real
+     per-page URLs. See roadmap: Phase 3 SEO pass.
+
+     TODO(analytics): set google-analytics in _quarto.yml once the GA4 ID exists,
+     and add a consent banner alongside it (no cookies are set until then). -->
+<meta property="og:site_name" content="Data Visualization with R">
+<meta property="og:type" content="book">
+<meta property="og:title" content="1&nbsp; Why Base R Graphics in 2026? – Data Visualization with R">
+<meta property="og:description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
+<meta property="og:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="1&nbsp; Why Base R Graphics in 2026? – Data Visualization with R">
+<meta name="twitter:description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
+<meta name="twitter:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
+<meta name="citation_title" content="Data Visualization with R — Base Graphics">
+<meta name="citation_author" content="Aravind Hebbali">
+<meta name="citation_language" content="en">
+<meta name="citation_book_title" content="Data Visualization with R">
+<meta name="citation_pdf_url" content="https://viz-base.rsquaredacademy.com/Data-Visualization-with-R.pdf">
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./why-base.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Why Base R Graphics in 2026?</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Visualization with R</a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Data-Visualization-with-R.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Data-Visualization-with-R.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./why-base.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Why Base R Graphics in 2026?</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./titlelabels.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Title &amp; Axis Labels</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scatter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Scatter Plots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./line.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Line Graphs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Bar Plots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./box.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Box Plots</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hist.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Histograms</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./legend.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Legends</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./textann.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Text Annotations</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./facet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Faceting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./export-devices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Production Export &amp; Graphical Devices</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./about-the-author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Author</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./rosetta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Base R ↔︎ ggplot2: A Rosetta Stone</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1.1</span> Introduction</a></li>
+  <li><a href="#what-base-graphics-means" id="toc-what-base-graphics-means" class="nav-link" data-scroll-target="#what-base-graphics-means"><span class="header-section-number">1.2</span> What “base graphics” means</a>
+  <ul class="collapse">
+  <li><a href="#why-the-naming-matters" id="toc-why-the-naming-matters" class="nav-link" data-scroll-target="#why-the-naming-matters"><span class="header-section-number">1.2.1</span> Why the naming matters</a></li>
+  </ul></li>
+  <li><a href="#speed" id="toc-speed" class="nav-link" data-scroll-target="#speed"><span class="header-section-number">1.3</span> Speed</a></li>
+  <li><a href="#the-cost-of-a-session" id="toc-the-cost-of-a-session" class="nav-link" data-scroll-target="#the-cost-of-a-session"><span class="header-section-number">1.4</span> The cost of a session</a></li>
+  <li><a href="#the-dependency-count" id="toc-the-dependency-count" class="nav-link" data-scroll-target="#the-dependency-count"><span class="header-section-number">1.5</span> The dependency count</a></li>
+  <li><a href="#what-it-weighs-in-a-container" id="toc-what-it-weighs-in-a-container" class="nav-link" data-scroll-target="#what-it-weighs-in-a-container"><span class="header-section-number">1.6</span> What it weighs in a container</a></li>
+  <li><a href="#what-base-graphics-costs" id="toc-what-base-graphics-costs" class="nav-link" data-scroll-target="#what-base-graphics-costs"><span class="header-section-number">1.7</span> What base graphics costs</a></li>
+  <li><a href="#a-decision-tree" id="toc-a-decision-tree" class="nav-link" data-scroll-target="#a-decision-tree"><span class="header-section-number">1.8</span> A decision tree</a></li>
+  <li><a href="#when-you-have-read-this-chapter" id="toc-when-you-have-read-this-chapter" class="nav-link" data-scroll-target="#when-you-have-read-this-chapter"><span class="header-section-number">1.9</span> When you have read this chapter</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="why-base" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Why Base R Graphics in 2026?</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1.1</span> Introduction</h2>
+<p>Base graphics have a reputation problem. The usual first question about them is some version of <em>isn’t this the old way?</em>, and the usual answer is a shrug. This chapter argues the opposite: in 2026, base graphics are the correct first tool for a specific and fairly large set of jobs, and this book is that tool’s documentation.</p>
+<p>In this chapter, we will</p>
+<ul>
+<li>establish what base graphics actually is, and what ships with R</li>
+<li>measure how fast they draw, and how that measurement is usually faked</li>
+<li>measure what a plotting session costs to start</li>
+<li>count the dependencies that <code>ggplot2</code> adds and base graphics does not</li>
+<li>walk a decision tree for choosing between the two</li>
+</ul>
+<p>We will do this with numbers rather than adjectives. Every figure in this chapter is produced by a script in <code>scripts/</code>, stored as a CSV in <code>data/</code>, and committed. Nothing here runs when the book is built, which is deliberate: a book that argues for zero dependencies cannot quietly require two of them to prove the point. If a number in this chapter is ever wrong, you can re-run the script that produced it and find out which of us was wrong.</p>
+</section>
+<section id="what-base-graphics-means" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="what-base-graphics-means"><span class="header-section-number">1.2</span> What “base graphics” means</h2>
+<p>Base graphics is the set of plotting functions that ship inside R itself, in the <code>graphics</code> package. There is nothing to install.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>?graphics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The package has been part of R since before R 1.0 and its core has barely changed, which is either its greatest strength or its most damning indictment depending on who is talking. The reason it survives is that it does one thing very well: it takes coordinates and draws them. Everything else in this book is an elaboration on that idea.</p>
+<p>The key practical fact is this one:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="why-base_files/figure-html/base-ready-1.png" class="img-fluid figure-img" width="1344"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>No <code>library()</code> call. <code>graphics</code> is one of the packages R attaches at startup, alongside <code>stats</code>, <code>grDevices</code>, <code>utils</code> and <code>methods</code>. It is not merely available, it is already loaded, which is a stronger guarantee than “cheap to install”. We will quantify that in a moment.</p>
+<p>The three systems you are likely to meet in R are:</p>
+<ul>
+<li><strong>base graphics</strong> (<code>graphics</code>) — in R, always present, coordinates in, marks out</li>
+<li><strong><code>ggplot2</code></strong> — a large, opinionated package built on the grammar of graphics, with a large dependency tree</li>
+<li><strong><code>lattice</code></strong> — a Trellis-style system for multivariate data, part of R’s recommended packages</li>
+</ul>
+<p>This book is about the first one. Chapter 2 surveys all three.</p>
+<section id="why-the-naming-matters" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="why-the-naming-matters"><span class="header-section-number">1.2.1</span> Why the naming matters</h3>
+<p>Base graphics is frequently described as “low-level”. That is accurate and slightly misleading in equal measure. The <em>drawing</em> primitives are low-level: <code>plot()</code>, <code>points()</code>, <code>lines()</code>, <code>text()</code>, <code>polygon()</code>, <code>arrows()</code> and <code>rect()</code> put marks at coordinates you choose. But the high-level functions you actually call most often — <code>barplot()</code>, <code>boxplot()</code>, <code>hist()</code>, <code>pairs()</code>, <code>plot()</code> as a scatterplot, <code>dotchart()</code>, <code>stripchart()</code>, <code>mosaicplot()</code>, <code>image()</code> — are convenience wrappers that pick sensible defaults and let you override any of them.</p>
+<p>So base graphics is low-level in the sense that <strong>you stay in control</strong>. Nothing is computed behind your back, no scale is transformed without being named, no grouping is inferred. That control is the actual product here, and it is what the rest of the book teaches you to spend.</p>
+</section>
+</section>
+<section id="speed" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="speed"><span class="header-section-number">1.3</span> Speed</h2>
+<p>The claim to test is that base graphics are fast, and the interesting part is that the claim is usually tested wrong.</p>
+<p>We drew 10,000 and 100,000 points three ways, timing a real render each time:</p>
+<ul>
+<li><strong><code>base</code></strong> — <code>plot(x, y)</code></li>
+<li><strong><code>ggplot2_construct</code></strong> — <code>ggplot(df, aes(x, y))</code>, with no <code>print()</code></li>
+<li><strong><code>ggplot2_render</code></strong> — the same, plus <code>print()</code> so it actually draws</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>bench <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'data/bench-base-vs-ggplot2.csv'</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>bench</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      n          approach median_ms peak_mem_mb n_iter
+1 1e+04              base      10.9        19.7     15
+2 1e+04 ggplot2_construct      13.4        19.9     15
+3 1e+04    ggplot2_render     871.9        36.8     15
+4 1e+05              base      87.4        30.7     14
+5 1e+05 ggplot2_construct      13.2        24.9     15
+6 1e+05    ggplot2_render    1244.9        77.3     15</code></pre>
+</div>
+</div>
+<p>Three approaches, two sizes, median of 15 runs. Now the part that matters:</p>
+<blockquote class="blockquote">
+<p>The middle row measures almost nothing. <code>ggplot()</code> <em>builds an object</em>. It does not draw. Until something calls <code>print()</code> on it, no marks are laid down and no pixels or vector output are produced. So <code>ggplot2_construct</code> is timing R’s object system, not its graphics engine. If you have ever read that “ggplot2 is faster than base R”, that is very likely the number you read.</p>
+</blockquote>
+<p>Both sides here genuinely draw. Base renders to <code>pdf(NULL)</code>, a device that accepts and discards output, so the plotting work happens with no window and no file.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>init <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">no.readonly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sizes <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">unique</span>(bench<span class="sc">$</span>n))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>approaches <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'base'</span>, <span class="st">'ggplot2_construct'</span>, <span class="st">'ggplot2_render'</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">base =</span> <span class="st">'#0072B2'</span>, <span class="at">ggplot2_construct =</span> <span class="st">'#999999'</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">ggplot2_render =</span> <span class="st">'#D55E00'</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>labs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">base =</span> <span class="st">'base plot()'</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">ggplot2_construct =</span> <span class="st">'ggplot2</span><span class="sc">\n</span><span class="st">construct only'</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">ggplot2_render =</span> <span class="st">'ggplot2</span><span class="sc">\n</span><span class="st">print()'</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 1e+05 formats as "1e+05" unless scientific is switched off, which is not a</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># caption anyone wants on a figure.</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>fmt_n <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">format</span>(x, <span class="at">big.mark =</span> <span class="st">','</span>, <span class="at">scientific =</span> <span class="cn">FALSE</span>, <span class="at">trim =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>draw_panel <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  v <span class="ot">&lt;-</span> bench<span class="sc">$</span>median_ms[<span class="fu">match</span>(approaches, bench<span class="sc">$</span>approach[bench<span class="sc">$</span>n <span class="sc">==</span> n])]</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># barplot stacks bottom-up, so rev() puts base first and reads top-down in the</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># same order as the prose does. Titles are kept short because a long one</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># overflows the panel once the left margin has to clear two-line labels.</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">barplot</span>(<span class="fu">rev</span>(v), <span class="at">horiz =</span> <span class="cn">TRUE</span>, <span class="at">log =</span> <span class="st">'x'</span>, <span class="at">names.arg =</span> <span class="fu">rev</span>(labs), <span class="at">las =</span> <span class="dv">1</span>,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">cex.names =</span> <span class="fl">0.8</span>, <span class="at">col =</span> <span class="fu">rev</span>(cols[approaches]), <span class="at">border =</span> <span class="cn">NA</span>, <span class="at">space =</span> <span class="fl">0.4</span>,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3000</span>), <span class="at">main =</span> <span class="fu">sprintf</span>(<span class="st">'%s points'</span>, <span class="fu">fmt_n</span>(n)),</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlab =</span> <span class="st">'median time to draw, milliseconds (log scale)'</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Left margin has to clear two-line category labels plus the axis; the default</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co"># silently clipped them.</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">4.5</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="fu">draw_panel</span>(sizes[<span class="dv">1</span>])</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="fu">draw_panel</span>(sizes[<span class="dv">2</span>])</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-bench" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bench-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="why-base_files/figure-html/fig-bench-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1728">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bench-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.1: Median time to draw, by engine and problem size
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-bench" class="quarto-xref">Figure&nbsp;<span>1.1</span></a> shows the result. At 10,000 points, constructing the ggplot2 object is about as fast as drawing the whole thing in base graphics — and drawing it is roughly <strong>80 times slower than drawing it in base</strong>. At 100,000 points the gap is worse, and base graphics has not become slower so much as ggplot2 has failed to scale the way the underlying drawing work does.</p>
+<p>Memory tells a similar story:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>init <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">no.readonly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">max</span>(bench<span class="sc">$</span>n)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> bench<span class="sc">$</span>peak_mem_mb[<span class="fu">match</span>(approaches, bench<span class="sc">$</span>approach[bench<span class="sc">$</span>n <span class="sc">==</span> n])]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">rev</span>(v), <span class="at">horiz =</span> <span class="cn">TRUE</span>, <span class="at">names.arg =</span> <span class="fu">rev</span>(labs), <span class="at">las =</span> <span class="dv">1</span>, <span class="at">cex.names =</span> <span class="fl">0.8</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">rev</span>(cols[approaches]), <span class="at">border =</span> <span class="cn">NA</span>, <span class="at">space =</span> <span class="fl">0.4</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="fu">sprintf</span>(<span class="st">'Peak memory to draw (%s points)'</span>, <span class="fu">fmt_n</span>(n)),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">'MB'</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-bench-mem" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bench-mem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="why-base_files/figure-html/fig-bench-mem-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1248">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bench-mem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.2: Peak memory to draw 100,000 points, by engine
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Base peaks at 31 MB where ggplot2 peaks at 77 MB. Note the middle bar again: the object-only path uses <em>less</em> memory than base, which is a direct consequence of not drawing anything.</p>
+<blockquote class="blockquote">
+<p>These are absolute timings from one machine — Windows, R 4.5.2, <code>x86_64-w64-mingw32</code>, ggplot2 4.0.1 — and the script is committed at <code>scripts/bench.R</code>, so the numbers are reproducible rather than remembered. Treat them as an order of magnitude. What travels across machines is the <em>shape</em> of the result: one engine does the drawing work immediately, and the other builds a description of a plot that something else has to be asked to render. That extra step is the cost, and it is not a constant — it grows with what you ask for.</p>
+</blockquote>
+<p>That last clause is the real argument. Base graphics is a direct-mode engine: your call draws. ggplot2 is deferred: your call records intent, and rendering is a separate step performed later, on a plot that may have grown additional layers in the meantime. Deferred is the right design for iteration and exploration. It is the wrong design when the answer is a fixed number in a fixed report.</p>
+</section>
+<section id="the-cost-of-a-session" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="the-cost-of-a-session"><span class="header-section-number">1.4</span> The cost of a session</h2>
+<p>Speed per plot only matters if you pay to start plotting at all. Here is what it costs to bring a session up, measured as wall clock around a whole <code>Rscript</code> process.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>startup <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'data/startup-latency.csv'</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>startup[, <span class="fu">c</span>(<span class="st">'approach'</span>, <span class="st">'wall_ms'</span>, <span class="st">'spread_ms'</span>, <span class="st">'overhead_ms'</span>, <span class="st">'load_ms'</span>, <span class="st">'namespaces'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  approach wall_ms spread_ms overhead_ms load_ms namespaces
+1  vanilla    1210       350           0       0          8
+2 graphics    1220       450          10       0          8
+3  ggplot2    7170      3340        5960    5910         29</code></pre>
+</div>
+</div>
+<p>Three rows, and they are not close.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>init <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">no.readonly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">4.5</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  startup<span class="sc">$</span>wall_ms,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">horiz =</span> <span class="cn">TRUE</span>, <span class="at">names.arg =</span> startup<span class="sc">$</span>approach, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">cex.names =</span> <span class="fl">0.9</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">c</span>(<span class="st">'#999999'</span>, <span class="st">'#0072B2'</span>, <span class="st">'#D55E00'</span>), <span class="at">border =</span> <span class="cn">NA</span>, <span class="at">space =</span> <span class="fl">0.4</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(startup<span class="sc">$</span>wall_ms) <span class="sc">*</span> <span class="fl">1.15</span>),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">'Wall clock to start a plotting session (ms)'</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">'milliseconds, median of 15 runs'</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-startup" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-startup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="why-base_files/figure-html/fig-startup-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1344">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-startup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.3: Wall clock to start a plotting session, by engine
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><code>library(graphics)</code> costs nothing measurable, and the reason is visible in the last column: the namespace count does not move from 8 to 8. <code>graphics</code> is already attached at startup, so the call is a no-op. That is not “cheap” in the way a cached download is cheap — it is <em>free</em>, structurally.</p>
+<p><code>library(ggplot2)</code> takes about six seconds on this machine and pulls the loaded namespace count from 8 to 29. Twenty-one packages.</p>
+<blockquote class="blockquote">
+<p>The <code>overhead_ms</code> column for <code>graphics</code> is near zero and can land slightly negative; <code>spread_ms</code> is the run-to-run range, and it is larger than the difference. The honest reading is “below the noise floor”, not “measurably fast”. Again, one machine — but the namespace column is not machine-specific, and that is the number to remember.</p>
+</blockquote>
+</section>
+<section id="the-dependency-count" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="the-dependency-count"><span class="header-section-number">1.5</span> The dependency count</h2>
+<p>The strongest form of the zero-dependency claim is not an adjective but a count. Base graphics needs zero packages that are not already in R. Packages that build on it inherit that property, because there is nothing to pull in.</p>
+<p>We read this from CRAN’s own metadata, counting each package’s declared <code>Depends</code>, <code>Imports</code> and <code>LinkingTo</code> entries and discarding everything that ships with R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>deps <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'data/cran-deps.csv'</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>deps[, <span class="fu">c</span>(<span class="st">'package'</span>, <span class="st">'role'</span>, <span class="st">'version'</span>, <span class="st">'n_nonbase'</span>, <span class="st">'imports_ggplot2'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         package                 role version n_nonbase imports_ggplot2
+1       graphics    base R (baseline)   4.5.2         0           FALSE
+2        plotrix base-graphics add-on  3.8-14         0           FALSE
+3  TeachingDemos base-graphics add-on    2.13         0           FALSE
+4        faraway base-graphics add-on   1.0.9         1           FALSE
+5         gplots base-graphics add-on   3.3.0         2           FALSE
+6          psych base-graphics add-on   2.6.9         2           FALSE
+7        effects          base + grid   4.2-5         6           FALSE
+8          Hmisc                mixed   5.3-0        12            TRUE
+9          olsrr       author package   0.7.0         6            TRUE
+10           rfm       author package   0.4.0        10            TRUE
+11         blorr       author package   0.3.1         5            TRUE
+12     descriptr       author package   0.6.0         6            TRUE</code></pre>
+</div>
+</div>
+<p>Sort that by dependency count and a pattern appears (<a href="#fig-cran" class="quarto-xref">Figure&nbsp;<span>1.4</span></a>):</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>init <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">no.readonly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> deps[<span class="fu">order</span>(deps<span class="sc">$</span>n_nonbase, deps<span class="sc">$</span>package), ]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>lab <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">'%-16s %2d'</span>, d<span class="sc">$</span>package, d<span class="sc">$</span>n_nonbase)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Axis runs to the observed maximum. An earlier version capped it at 12 and</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># warned about capping, which is a confusing thing to say when the cap happens</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># to equal the largest bar and nothing is actually cut.</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">5.5</span>, <span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>bp <span class="ot">&lt;-</span> <span class="fu">barplot</span>(</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  d<span class="sc">$</span>n_nonbase, <span class="at">horiz =</span> <span class="cn">TRUE</span>, <span class="at">names.arg =</span> <span class="cn">FALSE</span>, <span class="at">border =</span> <span class="cn">NA</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">space =</span> <span class="fl">0.35</span>, <span class="at">col =</span> <span class="fu">ifelse</span>(d<span class="sc">$</span>imports_ggplot2, <span class="st">'#D55E00'</span>, <span class="st">'#0072B2'</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> bp, <span class="at">labels =</span> lab, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">tick =</span> <span class="cn">FALSE</span>, <span class="at">cex.axis =</span> <span class="fl">0.85</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">main =</span> <span class="st">'Non-base CRAN dependencies by package'</span>,</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">'declared Depends / Imports / LinkingTo outside base + recommended'</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">'orange = also depends on ggplot2'</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="fl">3.6</span>,</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">cex =</span> <span class="fl">0.75</span>, <span class="at">col =</span> <span class="st">'grey30'</span>)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(op)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-cran" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cran-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="why-base_files/figure-html/fig-cran-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1440">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cran-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.4: Declared non-base CRAN dependencies by package
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Read the blue bars. <code>TeachingDemos</code>, <code>plotrix</code> and base R itself declare <strong>zero</strong> non-base dependencies, and they still produce publication figures — <code>plotrix</code> is a dedicated graphics add-on. <code>faraway</code> needs one. <code>psych</code>, which has been drawing its own plots with base graphics for a decade, needs two.</p>
+<p>That is the practical shape of the argument. A base-graphics package on CRAN is cheap to install, cheap to check, cheap to run in a locked-down environment, and cheap to keep building in ten years, because its dependency graph is nearly empty.</p>
+<p>And here is the part that would be dishonest to leave out:</p>
+<blockquote class="blockquote">
+<p>The orange bars include this author’s own CRAN packages — <code>olsrr</code>, <code>rfm</code>, <code>blorr</code> and <code>descriptr</code> — and they all depend on <code>ggplot2</code>. They do not use base graphics. We checked their sources rather than inferring it from metadata: as of 2026-10-04, <code>rfm/R/rfm-plots.R</code> and <code>descriptr/R/ds-plots.R</code> are entirely ggplot2, and so are the diagnostic plots in <code>olsrr</code>. Metadata cannot tell you what a package draws with; you have to read the code.</p>
+</blockquote>
+<p>So what does that say about base graphics? Read it as a trajectory rather than an endorsement. Those packages got onto CRAN drawing base graphics, then outgrew it, exactly as this book predicts they would. The base layer was the on-ramp; ggplot2 is where they landed once the plotting became the product rather than a by-product. Chapter 2 covers the systems side by side, and Appendix A maps every argument in this chapter onto its ggplot2 equivalent so you can translate in either direction.</p>
+</section>
+<section id="what-it-weighs-in-a-container" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="what-it-weighs-in-a-container"><span class="header-section-number">1.6</span> What it weighs in a container</h2>
+<p>Dependency counts are an abstraction. If you ship R in a container — and if you ship R anywhere locked down, you probably do — the question stops being “how many packages” and becomes “how many bytes”.</p>
+<p>Two images from the same publisher make that measurable, because <code>rocker/tidyverse</code> is built <em>on top of</em> <code>rocker/r-ver</code>: the same R, the same base system, plus the package layer. The difference between them is therefore the cost of the tidyverse layer and nothing else, which is a cleaner comparison than diffing two unrelated images.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>docker <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'data/docker-sizes.csv'</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>docker[, <span class="fu">c</span>(<span class="st">'image'</span>, <span class="st">'tag'</span>, <span class="st">'layer'</span>, <span class="st">'size_mb'</span>, <span class="st">'extra_layer_mb'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             image    tag         layer size_mb extra_layer_mb
+1     rocker/r-ver  4.5.2        R only   349.4          574.5
+2     rocker/r-ver latest        R only   355.1          574.5
+3 rocker/tidyverse  4.5.2 R + tidyverse   923.9          574.5
+4 rocker/tidyverse latest R + tidyverse  1269.2          574.5</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>init <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">no.readonly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> docker[docker<span class="sc">$</span>tag <span class="sc">==</span> <span class="st">'4.5.2'</span>, ]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Bottom margin has to clear the x label AND the delta caption below it.</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">5.5</span>, <span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>bp <span class="ot">&lt;-</span> <span class="fu">barplot</span>(d<span class="sc">$</span>size_mb, <span class="at">horiz =</span> <span class="cn">TRUE</span>, <span class="at">names.arg =</span> <span class="cn">FALSE</span>, <span class="at">border =</span> <span class="cn">NA</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">space =</span> <span class="fl">0.7</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">'#0072B2'</span>, <span class="st">'#D55E00'</span>))</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> bp, <span class="at">labels =</span> d<span class="sc">$</span>image, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">tick =</span> <span class="cn">FALSE</span>, <span class="at">cex.axis =</span> <span class="fl">0.9</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Title kept short: a long one overflows the panel once the left margin has to</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># clear these labels.</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">main =</span> <span class="st">'Container image size, R 4.5.2'</span>, <span class="at">xlab =</span> <span class="st">'MB, compressed download'</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> d<span class="sc">$</span>size_mb[<span class="dv">2</span>] <span class="sc">-</span> d<span class="sc">$</span>size_mb[<span class="dv">1</span>]</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="fu">sprintf</span>(<span class="st">'the tidyverse layer adds %s MB on top of R, a %.2fx increase'</span>,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>              <span class="fu">format</span>(delta, <span class="at">big.mark =</span> <span class="st">','</span>, <span class="at">scientific =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>              d<span class="sc">$</span>size_mb[<span class="dv">2</span>] <span class="sc">/</span> d<span class="sc">$</span>size_mb[<span class="dv">1</span>]),</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="fl">4.2</span>, <span class="at">cex =</span> <span class="fl">0.75</span>, <span class="at">col =</span> <span class="st">'grey30'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="why-base_files/figure-html/docker-plot-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1440"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A base-R image is 349 MB; adding the tidyverse layer takes it to 924 MB. That 574 MB is not a mistake or a packaging artefact — it is the price of the dependency tree, paid on every pull, every CI run and every cold start, whether or not the code being run touches a single one of those packages.</p>
+<blockquote class="blockquote">
+<p>Two caveats, both recorded in the CSV. These are Docker Hub’s reported sizes for the whole tag, which is the sum of its <strong>compressed</strong> layers — a real number a real user downloads, but not the unpacked size on disk, and the ratio is only as fair as the fact that both tags were built at the same time by the same publisher. And they are published metadata read over HTTP, not a local build: no daemon was involved, which is why this is reproducible on any machine, and also why it cannot control the comparison.</p>
+</blockquote>
+<p>Read next to the CRAN table above, the pattern is consistent. Base graphics is not lighter by a little; it is lighter by an order of magnitude, because it inherits the empty part of R’s dependency graph rather than extending it.</p>
+</section>
+<section id="what-base-graphics-costs" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="what-base-graphics-costs"><span class="header-section-number">1.7</span> What base graphics costs</h2>
+<p>An honest chapter has to state the other side.</p>
+<ul>
+<li><strong>More typing.</strong> Base graphics is verbose by design. The same plot is longer in base than in ggplot2, and it stays that way.</li>
+<li><strong>No automatic grouping or faceting.</strong> You build panels yourself with <code>par()</code> or <code>layout()</code> and a loop, where ggplot2 has <code>facet_wrap()</code>. Chapter 11 covers this and it is the single biggest readability jump in the book.</li>
+<li><strong>No automatic scale transformation.</strong> Nothing is transformed unless you name it. This is a feature when you want control and a cost when you do not.</li>
+<li><strong>A smaller ecosystem.</strong> The reference grid, the grammar extensions, the themes, the colour scales: all of that ecosystem is ggplot2’s, not base’s.</li>
+<li><strong>Older idiom.</strong> Base graphics code from 2001 still runs. That cuts both ways.</li>
+</ul>
+</section>
+<section id="a-decision-tree" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="a-decision-tree"><span class="header-section-number">1.8</span> A decision tree</h2>
+<p>Most of the above reduces to one question: who decides what the plot looks like?</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>init <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">no.readonly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A flowchart is a picture, not a data plot: no axes, and the coordinates are</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># laid out by hand. ps is set explicitly because text size otherwise depends on</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the device knitr happened to open, which is how a hand-placed diagram ends up</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># with labels larger than its boxes.</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">xpd =</span> <span class="cn">NA</span>, <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">ps =</span> <span class="dv">9</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.new</span>()</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.window</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">104</span>))</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>box <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, w, h, label, sub, fill) {</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rect</span>(x, y <span class="sc">-</span> h <span class="sc">/</span> <span class="dv">2</span>, x <span class="sc">+</span> w, y <span class="sc">+</span> h <span class="sc">/</span> <span class="dv">2</span>, <span class="at">col =</span> fill, <span class="at">border =</span> <span class="st">'grey25'</span>, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(x <span class="sc">+</span> w <span class="sc">/</span> <span class="dv">2</span>, y <span class="sc">+</span> (<span class="cf">if</span> (<span class="fu">nzchar</span>(sub)) <span class="fl">3.2</span> <span class="cf">else</span> <span class="dv">0</span>), label, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">cex =</span> <span class="fl">0.92</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nzchar</span>(sub)) {</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">text</span>(x <span class="sc">+</span> w <span class="sc">/</span> <span class="dv">2</span>, y <span class="sc">-</span> <span class="fl">4.6</span>, sub, <span class="at">cex =</span> <span class="fl">0.66</span>, <span class="at">col =</span> <span class="st">'grey20'</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>yes_no <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, lab) <span class="fu">text</span>(x, y, lab, <span class="at">cex =</span> <span class="fl">0.7</span>, <span class="at">col =</span> <span class="st">'grey25'</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>Q <span class="ot">&lt;-</span> <span class="st">'#DCE9F5'</span>   <span class="co"># question</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="st">'#F7E2D5'</span>   <span class="co"># ggplot2 outcome</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="st">'#DFF0E3'</span>   <span class="co"># base outcome</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="dv">4</span>, <span class="dv">90</span>, <span class="dv">52</span>, <span class="dv">15</span>, <span class="st">'Is the plot final?'</span>,</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">'One answer, written once, no iteration'</span>, Q)</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="dv">4</span>, <span class="dv">57</span>, <span class="dv">52</span>, <span class="dv">19</span>, <span class="st">'Does it have to run somewhere</span><span class="sc">\n</span><span class="st">you do not control?'</span>,</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Locked-down server, CRAN check, minimal container'</span>, Q)</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="dv">64</span>, <span class="dv">90</span>, <span class="dv">34</span>, <span class="dv">15</span>, <span class="st">'ggplot2'</span>, <span class="st">'Explore, iterate, facet, publish'</span>, G)</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="dv">64</span>, <span class="dv">57</span>, <span class="dv">34</span>, <span class="dv">15</span>, <span class="st">'ggplot2'</span>, <span class="st">'Communicate, share, present'</span>, G)</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="dv">22</span>, <span class="dv">22</span>, <span class="dv">52</span>, <span class="dv">17</span>, <span class="st">'Base graphics'</span>,</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Package internals, batch reports,</span><span class="sc">\n</span><span class="st">exact control over the marks'</span>, B)</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">56</span>, <span class="dv">90</span>, <span class="fl">63.5</span>, <span class="dv">90</span>, <span class="at">length =</span> <span class="fl">0.07</span>, <span class="at">lwd =</span> <span class="fl">1.6</span>)</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">30</span>, <span class="fl">82.4</span>, <span class="dv">30</span>, <span class="fl">66.7</span>, <span class="at">length =</span> <span class="fl">0.07</span>, <span class="at">lwd =</span> <span class="fl">1.6</span>)</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">56</span>, <span class="dv">57</span>, <span class="fl">63.5</span>, <span class="dv">57</span>, <span class="at">length =</span> <span class="fl">0.07</span>, <span class="at">lwd =</span> <span class="fl">1.6</span>)</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">30</span>, <span class="fl">47.4</span>, <span class="dv">40</span>, <span class="fl">30.7</span>, <span class="at">length =</span> <span class="fl">0.07</span>, <span class="at">lwd =</span> <span class="fl">1.6</span>)</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a><span class="fu">yes_no</span>(<span class="fl">59.7</span>, <span class="dv">93</span>, <span class="st">'yes'</span>)</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="fu">yes_no</span>(<span class="fl">32.4</span>, <span class="fl">74.5</span>, <span class="st">'no'</span>)</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a><span class="fu">yes_no</span>(<span class="fl">59.7</span>, <span class="dv">60</span>, <span class="st">'yes'</span>)</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a><span class="fu">yes_no</span>(<span class="dv">24</span>, <span class="dv">39</span>, <span class="st">'no'</span>)</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-decision" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-decision-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="why-base_files/figure-html/fig-decision-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1536">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-decision-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.5: Choosing between base graphics and ggplot2
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Two questions, and note that “final” is doing more work than “simple”. A plot you will iterate on twenty times belongs to ggplot2 even if it is a single scatterplot, because the cost of base graphics is paid on every edit. A plot you will write once and run ten thousand times belongs to base graphics even if it is complicated, because that is where the per-plot cost actually lands.</p>
+<p>Note also that the second question overrides the first. A plot that must run on a server you do not control is a base-graphics plot even if you would rather be iterating, because “install ggplot2 on this locked-down box” is not a decision you get to make.</p>
+<p>That tree is a starting point, not a rulebook. Plenty of working code mixes the two: base graphics for the bulk of a report, one ggplot2 plot where the faceting carries the argument. The point is that the choice should be made deliberately, per plot, rather than by default.</p>
+</section>
+<section id="when-you-have-read-this-chapter" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="when-you-have-read-this-chapter"><span class="header-section-number">1.9</span> When you have read this chapter</h2>
+<p>You now have four measured numbers and a decision tree. In the rest of the book we stop arguing and start drawing, and every chapter is written to the assumption that you want the marks exactly where you put them.</p>
+<p>Chapter 2 surveys the three R graphics systems and walks the six dispatch cases of <code>plot()</code>. From Chapter 3 onward the argument is one argument at a time: here is the bare call, here is what changing <code>pch</code> does, here is everything combined. Nothing in this book requires installing anything.</p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Preface">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./intro.html" class="pagination-link" aria-label="Introduction">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb18" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Why Base R Graphics in 2026? {#why-base}</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>Base graphics have a reputation problem. The usual first question about them is</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>some version of *isn't this the old way?*, and the usual answer is a shrug. This</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>chapter argues the opposite: in 2026, base graphics are the correct first tool</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>for a specific and fairly large set of jobs, and this book is that tool's</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>documentation.</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>In this chapter, we will</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>establish what base graphics actually is, and what ships with R</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>measure how fast they draw, and how that measurement is usually faked</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>measure what a plotting session costs to start</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>count the dependencies that <span class="in">`ggplot2`</span> adds and base graphics does not</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>walk a decision tree for choosing between the two</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>We will do this with numbers rather than adjectives. Every figure in this</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>chapter is produced by a script in <span class="in">`scripts/`</span>, stored as a CSV in <span class="in">`data/`</span>, and</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>committed. Nothing here runs when the book is built, which is deliberate: a</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>book that argues for zero dependencies cannot quietly require two of them to</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>prove the point. If a number in this chapter is ever wrong, you can re-run the</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>script that produced it and find out which of us was wrong.</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## What "base graphics" means</span></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>Base graphics is the set of plotting functions that ship inside R itself, in</span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>the <span class="in">`graphics`</span> package. There is nothing to install.</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a><span class="in">```{r whatis, eval=FALSE}</span></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="in">?graphics</span></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>The package has been part of R since before R 1.0 and its core has barely</span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>changed, which is either its greatest strength or its most damning indictment</span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>depending on who is talking. The reason it survives is that it does one thing</span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>very well: it takes coordinates and draws them. Everything else in this book is</span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>an elaboration on that idea.</span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>The key practical fact is this one:</span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a><span class="in">```{r base-ready}</span></span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg)</span></span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>No <span class="in">`library()`</span> call. <span class="in">`graphics`</span> is one of the packages R attaches at startup,</span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>alongside <span class="in">`stats`</span>, <span class="in">`grDevices`</span>, <span class="in">`utils`</span> and <span class="in">`methods`</span>. It is not merely</span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>available, it is already loaded, which is a stronger guarantee than "cheap to</span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>install". We will quantify that in a moment.</span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>The three systems you are likely to meet in R are:</span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**base graphics** (<span class="in">`graphics`</span>) — in R, always present, coordinates in, marks</span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>  out</span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`ggplot2`** — a large, opinionated package built on the grammar of graphics,</span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>  with a large dependency tree</span>
+<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`lattice`** — a Trellis-style system for multivariate data, part of R's</span>
+<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a>  recommended packages</span>
+<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a>This book is about the first one. Chapter 2 surveys all three.</span>
+<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why the naming matters</span></span>
+<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a>Base graphics is frequently described as "low-level". That is accurate and</span>
+<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a>slightly misleading in equal measure. The *drawing* primitives are low-level:</span>
+<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a><span class="in">`plot()`</span>, <span class="in">`points()`</span>, <span class="in">`lines()`</span>, <span class="in">`text()`</span>, <span class="in">`polygon()`</span>, <span class="in">`arrows()`</span> and <span class="in">`rect()`</span></span>
+<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a>put marks at coordinates you choose. But the high-level functions you actually</span>
+<span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a>call most often — <span class="in">`barplot()`</span>, <span class="in">`boxplot()`</span>, <span class="in">`hist()`</span>, <span class="in">`pairs()`</span>, <span class="in">`plot()`</span> as a</span>
+<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a>scatterplot, <span class="in">`dotchart()`</span>, <span class="in">`stripchart()`</span>, <span class="in">`mosaicplot()`</span>, <span class="in">`image()`</span> — are</span>
+<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a>convenience wrappers that pick sensible defaults and let you override any of</span>
+<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a>them.</span>
+<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a>So base graphics is low-level in the sense that **you stay in control**. Nothing</span>
+<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a>is computed behind your back, no scale is transformed without being named, no</span>
+<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a>grouping is inferred. That control is the actual product here, and it is what</span>
+<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a>the rest of the book teaches you to spend.</span>
+<span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a><span class="fu">## Speed</span></span>
+<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a>The claim to test is that base graphics are fast, and the interesting part is</span>
+<span id="cb18-82"><a href="#cb18-82" aria-hidden="true" tabindex="-1"></a>that the claim is usually tested wrong.</span>
+<span id="cb18-83"><a href="#cb18-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-84"><a href="#cb18-84" aria-hidden="true" tabindex="-1"></a>We drew 10,000 and 100,000 points three ways, timing a real render each time:</span>
+<span id="cb18-85"><a href="#cb18-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-86"><a href="#cb18-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`base`** — <span class="in">`plot(x, y)`</span></span>
+<span id="cb18-87"><a href="#cb18-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`ggplot2_construct`** — <span class="in">`ggplot(df, aes(x, y))`</span>, with no <span class="in">`print()`</span></span>
+<span id="cb18-88"><a href="#cb18-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`ggplot2_render`** — the same, plus <span class="in">`print()`</span> so it actually draws</span>
+<span id="cb18-89"><a href="#cb18-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-90"><a href="#cb18-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{r bench}</span></span>
+<span id="cb18-91"><a href="#cb18-91" aria-hidden="true" tabindex="-1"></a><span class="in">bench &lt;- read.csv('data/bench-base-vs-ggplot2.csv')</span></span>
+<span id="cb18-92"><a href="#cb18-92" aria-hidden="true" tabindex="-1"></a><span class="in">bench</span></span>
+<span id="cb18-93"><a href="#cb18-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-94"><a href="#cb18-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-95"><a href="#cb18-95" aria-hidden="true" tabindex="-1"></a>Three approaches, two sizes, median of 15 runs. Now the part that matters:</span>
+<span id="cb18-96"><a href="#cb18-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-97"><a href="#cb18-97" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; The middle row measures almost nothing. </span><span class="in">`ggplot()`</span><span class="at"> *builds an object*. It does</span></span>
+<span id="cb18-98"><a href="#cb18-98" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; not draw. Until something calls </span><span class="in">`print()`</span><span class="at"> on it, no marks are laid down and no</span></span>
+<span id="cb18-99"><a href="#cb18-99" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; pixels or vector output are produced. So </span><span class="in">`ggplot2_construct`</span><span class="at"> is timing R's</span></span>
+<span id="cb18-100"><a href="#cb18-100" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; object system, not its graphics engine. If you have ever read that "ggplot2 is</span></span>
+<span id="cb18-101"><a href="#cb18-101" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; faster than base R", that is very likely the number you read.</span></span>
+<span id="cb18-102"><a href="#cb18-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-103"><a href="#cb18-103" aria-hidden="true" tabindex="-1"></a>Both sides here genuinely draw. Base renders to <span class="in">`pdf(NULL)`</span>, a device that</span>
+<span id="cb18-104"><a href="#cb18-104" aria-hidden="true" tabindex="-1"></a>accepts and discards output, so the plotting work happens with no window and no</span>
+<span id="cb18-105"><a href="#cb18-105" aria-hidden="true" tabindex="-1"></a>file.</span>
+<span id="cb18-106"><a href="#cb18-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-107"><a href="#cb18-107" aria-hidden="true" tabindex="-1"></a><span class="in">```{r bench-plot, fig.align='center', fig.width=9, fig.height=4.5}</span></span>
+<span id="cb18-108"><a href="#cb18-108" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: fig-bench</span></span>
+<span id="cb18-109"><a href="#cb18-109" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig-cap: "Median time to draw, by engine and problem size"</span></span>
+<span id="cb18-110"><a href="#cb18-110" aria-hidden="true" tabindex="-1"></a><span class="in">init &lt;- par(no.readonly = TRUE)</span></span>
+<span id="cb18-111"><a href="#cb18-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-112"><a href="#cb18-112" aria-hidden="true" tabindex="-1"></a><span class="in">sizes &lt;- sort(unique(bench$n))</span></span>
+<span id="cb18-113"><a href="#cb18-113" aria-hidden="true" tabindex="-1"></a><span class="in">approaches &lt;- c('base', 'ggplot2_construct', 'ggplot2_render')</span></span>
+<span id="cb18-114"><a href="#cb18-114" aria-hidden="true" tabindex="-1"></a><span class="in">cols &lt;- c(base = '#0072B2', ggplot2_construct = '#999999',</span></span>
+<span id="cb18-115"><a href="#cb18-115" aria-hidden="true" tabindex="-1"></a><span class="in">          ggplot2_render = '#D55E00')</span></span>
+<span id="cb18-116"><a href="#cb18-116" aria-hidden="true" tabindex="-1"></a><span class="in">labs &lt;- c(base = 'base plot()',</span></span>
+<span id="cb18-117"><a href="#cb18-117" aria-hidden="true" tabindex="-1"></a><span class="in">          ggplot2_construct = 'ggplot2\nconstruct only',</span></span>
+<span id="cb18-118"><a href="#cb18-118" aria-hidden="true" tabindex="-1"></a><span class="in">          ggplot2_render = 'ggplot2\nprint()')</span></span>
+<span id="cb18-119"><a href="#cb18-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-120"><a href="#cb18-120" aria-hidden="true" tabindex="-1"></a><span class="in"># 1e+05 formats as "1e+05" unless scientific is switched off, which is not a</span></span>
+<span id="cb18-121"><a href="#cb18-121" aria-hidden="true" tabindex="-1"></a><span class="in"># caption anyone wants on a figure.</span></span>
+<span id="cb18-122"><a href="#cb18-122" aria-hidden="true" tabindex="-1"></a><span class="in">fmt_n &lt;- function(x) format(x, big.mark = ',', scientific = FALSE, trim = TRUE)</span></span>
+<span id="cb18-123"><a href="#cb18-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-124"><a href="#cb18-124" aria-hidden="true" tabindex="-1"></a><span class="in">draw_panel &lt;- function(n) {</span></span>
+<span id="cb18-125"><a href="#cb18-125" aria-hidden="true" tabindex="-1"></a><span class="in">  v &lt;- bench$median_ms[match(approaches, bench$approach[bench$n == n])]</span></span>
+<span id="cb18-126"><a href="#cb18-126" aria-hidden="true" tabindex="-1"></a><span class="in">  # barplot stacks bottom-up, so rev() puts base first and reads top-down in the</span></span>
+<span id="cb18-127"><a href="#cb18-127" aria-hidden="true" tabindex="-1"></a><span class="in">  # same order as the prose does. Titles are kept short because a long one</span></span>
+<span id="cb18-128"><a href="#cb18-128" aria-hidden="true" tabindex="-1"></a><span class="in">  # overflows the panel once the left margin has to clear two-line labels.</span></span>
+<span id="cb18-129"><a href="#cb18-129" aria-hidden="true" tabindex="-1"></a><span class="in">  barplot(rev(v), horiz = TRUE, log = 'x', names.arg = rev(labs), las = 1,</span></span>
+<span id="cb18-130"><a href="#cb18-130" aria-hidden="true" tabindex="-1"></a><span class="in">          cex.names = 0.8, col = rev(cols[approaches]), border = NA, space = 0.4,</span></span>
+<span id="cb18-131"><a href="#cb18-131" aria-hidden="true" tabindex="-1"></a><span class="in">          xlim = c(1, 3000), main = sprintf('%s points', fmt_n(n)),</span></span>
+<span id="cb18-132"><a href="#cb18-132" aria-hidden="true" tabindex="-1"></a><span class="in">          xlab = 'median time to draw, milliseconds (log scale)')</span></span>
+<span id="cb18-133"><a href="#cb18-133" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb18-134"><a href="#cb18-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-135"><a href="#cb18-135" aria-hidden="true" tabindex="-1"></a><span class="in"># Left margin has to clear two-line category labels plus the axis; the default</span></span>
+<span id="cb18-136"><a href="#cb18-136" aria-hidden="true" tabindex="-1"></a><span class="in"># silently clipped them.</span></span>
+<span id="cb18-137"><a href="#cb18-137" aria-hidden="true" tabindex="-1"></a><span class="in">par(mfrow = c(1, 2), mar = c(4.5, 6, 3, 1))</span></span>
+<span id="cb18-138"><a href="#cb18-138" aria-hidden="true" tabindex="-1"></a><span class="in">draw_panel(sizes[1])</span></span>
+<span id="cb18-139"><a href="#cb18-139" aria-hidden="true" tabindex="-1"></a><span class="in">draw_panel(sizes[2])</span></span>
+<span id="cb18-140"><a href="#cb18-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-141"><a href="#cb18-141" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
+<span id="cb18-142"><a href="#cb18-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-143"><a href="#cb18-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-144"><a href="#cb18-144" aria-hidden="true" tabindex="-1"></a>@fig-bench shows the result. At 10,000 points, constructing the ggplot2 object is</span>
+<span id="cb18-145"><a href="#cb18-145" aria-hidden="true" tabindex="-1"></a>about as fast as drawing the whole thing in base graphics — and drawing it is</span>
+<span id="cb18-146"><a href="#cb18-146" aria-hidden="true" tabindex="-1"></a>roughly **80 times slower than drawing it in base**. At 100,000 points the gap is</span>
+<span id="cb18-147"><a href="#cb18-147" aria-hidden="true" tabindex="-1"></a>worse, and base graphics has not become slower so much as ggplot2 has failed to</span>
+<span id="cb18-148"><a href="#cb18-148" aria-hidden="true" tabindex="-1"></a>scale the way the underlying drawing work does.</span>
+<span id="cb18-149"><a href="#cb18-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-150"><a href="#cb18-150" aria-hidden="true" tabindex="-1"></a>Memory tells a similar story:</span>
+<span id="cb18-151"><a href="#cb18-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-152"><a href="#cb18-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r bench-mem, fig.align='center', fig.width=6.5, fig.height=4.5}</span></span>
+<span id="cb18-153"><a href="#cb18-153" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: fig-bench-mem</span></span>
+<span id="cb18-154"><a href="#cb18-154" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig-cap: "Peak memory to draw 100,000 points, by engine"</span></span>
+<span id="cb18-155"><a href="#cb18-155" aria-hidden="true" tabindex="-1"></a><span class="in">init &lt;- par(no.readonly = TRUE)</span></span>
+<span id="cb18-156"><a href="#cb18-156" aria-hidden="true" tabindex="-1"></a><span class="in">n &lt;- max(bench$n)</span></span>
+<span id="cb18-157"><a href="#cb18-157" aria-hidden="true" tabindex="-1"></a><span class="in">v &lt;- bench$peak_mem_mb[match(approaches, bench$approach[bench$n == n])]</span></span>
+<span id="cb18-158"><a href="#cb18-158" aria-hidden="true" tabindex="-1"></a><span class="in">barplot(rev(v), horiz = TRUE, names.arg = rev(labs), las = 1, cex.names = 0.8,</span></span>
+<span id="cb18-159"><a href="#cb18-159" aria-hidden="true" tabindex="-1"></a><span class="in">        col = rev(cols[approaches]), border = NA, space = 0.4,</span></span>
+<span id="cb18-160"><a href="#cb18-160" aria-hidden="true" tabindex="-1"></a><span class="in">        main = sprintf('Peak memory to draw (%s points)', fmt_n(n)),</span></span>
+<span id="cb18-161"><a href="#cb18-161" aria-hidden="true" tabindex="-1"></a><span class="in">        xlab = 'MB')</span></span>
+<span id="cb18-162"><a href="#cb18-162" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
+<span id="cb18-163"><a href="#cb18-163" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-164"><a href="#cb18-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-165"><a href="#cb18-165" aria-hidden="true" tabindex="-1"></a>Base peaks at 31 MB where ggplot2 peaks at 77 MB. Note the middle bar again: the</span>
+<span id="cb18-166"><a href="#cb18-166" aria-hidden="true" tabindex="-1"></a>object-only path uses *less* memory than base, which is a direct consequence of</span>
+<span id="cb18-167"><a href="#cb18-167" aria-hidden="true" tabindex="-1"></a>not drawing anything.</span>
+<span id="cb18-168"><a href="#cb18-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-169"><a href="#cb18-169" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; These are absolute timings from one machine — Windows, R 4.5.2, </span><span class="in">`x86_64-w64-mingw32`</span><span class="at">,</span></span>
+<span id="cb18-170"><a href="#cb18-170" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ggplot2 4.0.1 — and the script is committed at </span><span class="in">`scripts/bench.R`</span><span class="at">, so the numbers</span></span>
+<span id="cb18-171"><a href="#cb18-171" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; are reproducible rather than remembered. Treat them as an order of magnitude.</span></span>
+<span id="cb18-172"><a href="#cb18-172" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; What travels across machines is the *shape* of the result: one engine does the</span></span>
+<span id="cb18-173"><a href="#cb18-173" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; drawing work immediately, and the other builds a description of a plot that</span></span>
+<span id="cb18-174"><a href="#cb18-174" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; something else has to be asked to render. That extra step is the cost, and it</span></span>
+<span id="cb18-175"><a href="#cb18-175" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; is not a constant — it grows with what you ask for.</span></span>
+<span id="cb18-176"><a href="#cb18-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-177"><a href="#cb18-177" aria-hidden="true" tabindex="-1"></a>That last clause is the real argument. Base graphics is a direct-mode engine:</span>
+<span id="cb18-178"><a href="#cb18-178" aria-hidden="true" tabindex="-1"></a>your call draws. ggplot2 is deferred: your call records intent, and rendering is</span>
+<span id="cb18-179"><a href="#cb18-179" aria-hidden="true" tabindex="-1"></a>a separate step performed later, on a plot that may have grown additional layers</span>
+<span id="cb18-180"><a href="#cb18-180" aria-hidden="true" tabindex="-1"></a>in the meantime. Deferred is the right design for iteration and exploration. It</span>
+<span id="cb18-181"><a href="#cb18-181" aria-hidden="true" tabindex="-1"></a>is the wrong design when the answer is a fixed number in a fixed report.</span>
+<span id="cb18-182"><a href="#cb18-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-183"><a href="#cb18-183" aria-hidden="true" tabindex="-1"></a><span class="fu">## The cost of a session</span></span>
+<span id="cb18-184"><a href="#cb18-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-185"><a href="#cb18-185" aria-hidden="true" tabindex="-1"></a>Speed per plot only matters if you pay to start plotting at all. Here is what it</span>
+<span id="cb18-186"><a href="#cb18-186" aria-hidden="true" tabindex="-1"></a>costs to bring a session up, measured as wall clock around a whole <span class="in">`Rscript`</span></span>
+<span id="cb18-187"><a href="#cb18-187" aria-hidden="true" tabindex="-1"></a>process.</span>
+<span id="cb18-188"><a href="#cb18-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-189"><a href="#cb18-189" aria-hidden="true" tabindex="-1"></a><span class="in">```{r startup}</span></span>
+<span id="cb18-190"><a href="#cb18-190" aria-hidden="true" tabindex="-1"></a><span class="in">startup &lt;- read.csv('data/startup-latency.csv')</span></span>
+<span id="cb18-191"><a href="#cb18-191" aria-hidden="true" tabindex="-1"></a><span class="in">startup[, c('approach', 'wall_ms', 'spread_ms', 'overhead_ms', 'load_ms', 'namespaces')]</span></span>
+<span id="cb18-192"><a href="#cb18-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-193"><a href="#cb18-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-194"><a href="#cb18-194" aria-hidden="true" tabindex="-1"></a>Three rows, and they are not close.</span>
+<span id="cb18-195"><a href="#cb18-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-196"><a href="#cb18-196" aria-hidden="true" tabindex="-1"></a><span class="in">```{r startup-plot, fig.align='center', fig.width=7, fig.height=4}</span></span>
+<span id="cb18-197"><a href="#cb18-197" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: fig-startup</span></span>
+<span id="cb18-198"><a href="#cb18-198" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig-cap: "Wall clock to start a plotting session, by engine"</span></span>
+<span id="cb18-199"><a href="#cb18-199" aria-hidden="true" tabindex="-1"></a><span class="in">init &lt;- par(no.readonly = TRUE)</span></span>
+<span id="cb18-200"><a href="#cb18-200" aria-hidden="true" tabindex="-1"></a><span class="in">op &lt;- par(mar = c(4.5, 5, 3, 1))</span></span>
+<span id="cb18-201"><a href="#cb18-201" aria-hidden="true" tabindex="-1"></a><span class="in">barplot(</span></span>
+<span id="cb18-202"><a href="#cb18-202" aria-hidden="true" tabindex="-1"></a><span class="in">  startup$wall_ms,</span></span>
+<span id="cb18-203"><a href="#cb18-203" aria-hidden="true" tabindex="-1"></a><span class="in">  horiz = TRUE, names.arg = startup$approach, las = 1, cex.names = 0.9,</span></span>
+<span id="cb18-204"><a href="#cb18-204" aria-hidden="true" tabindex="-1"></a><span class="in">  col = c('#999999', '#0072B2', '#D55E00'), border = NA, space = 0.4,</span></span>
+<span id="cb18-205"><a href="#cb18-205" aria-hidden="true" tabindex="-1"></a><span class="in">  xlim = c(0, max(startup$wall_ms) * 1.15),</span></span>
+<span id="cb18-206"><a href="#cb18-206" aria-hidden="true" tabindex="-1"></a><span class="in">  main = 'Wall clock to start a plotting session (ms)',</span></span>
+<span id="cb18-207"><a href="#cb18-207" aria-hidden="true" tabindex="-1"></a><span class="in">  xlab = 'milliseconds, median of 15 runs'</span></span>
+<span id="cb18-208"><a href="#cb18-208" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb18-209"><a href="#cb18-209" aria-hidden="true" tabindex="-1"></a><span class="in">par(op)</span></span>
+<span id="cb18-210"><a href="#cb18-210" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
+<span id="cb18-211"><a href="#cb18-211" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-212"><a href="#cb18-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-213"><a href="#cb18-213" aria-hidden="true" tabindex="-1"></a><span class="in">`library(graphics)`</span> costs nothing measurable, and the reason is visible in the</span>
+<span id="cb18-214"><a href="#cb18-214" aria-hidden="true" tabindex="-1"></a>last column: the namespace count does not move from 8 to 8. <span class="in">`graphics`</span> is already</span>
+<span id="cb18-215"><a href="#cb18-215" aria-hidden="true" tabindex="-1"></a>attached at startup, so the call is a no-op. That is not "cheap" in the way a</span>
+<span id="cb18-216"><a href="#cb18-216" aria-hidden="true" tabindex="-1"></a>cached download is cheap — it is *free*, structurally.</span>
+<span id="cb18-217"><a href="#cb18-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-218"><a href="#cb18-218" aria-hidden="true" tabindex="-1"></a><span class="in">`library(ggplot2)`</span> takes about six seconds on this machine and pulls the loaded</span>
+<span id="cb18-219"><a href="#cb18-219" aria-hidden="true" tabindex="-1"></a>namespace count from 8 to 29. Twenty-one packages.</span>
+<span id="cb18-220"><a href="#cb18-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-221"><a href="#cb18-221" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; The </span><span class="in">`overhead_ms`</span><span class="at"> column for </span><span class="in">`graphics`</span><span class="at"> is near zero and can land slightly</span></span>
+<span id="cb18-222"><a href="#cb18-222" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; negative; </span><span class="in">`spread_ms`</span><span class="at"> is the run-to-run range, and it is larger than the</span></span>
+<span id="cb18-223"><a href="#cb18-223" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; difference. The honest reading is "below the noise floor", not "measurably</span></span>
+<span id="cb18-224"><a href="#cb18-224" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; fast". Again, one machine — but the namespace column is not machine-specific,</span></span>
+<span id="cb18-225"><a href="#cb18-225" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; and that is the number to remember.</span></span>
+<span id="cb18-226"><a href="#cb18-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-227"><a href="#cb18-227" aria-hidden="true" tabindex="-1"></a><span class="fu">## The dependency count</span></span>
+<span id="cb18-228"><a href="#cb18-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-229"><a href="#cb18-229" aria-hidden="true" tabindex="-1"></a>The strongest form of the zero-dependency claim is not an adjective but a count.</span>
+<span id="cb18-230"><a href="#cb18-230" aria-hidden="true" tabindex="-1"></a>Base graphics needs zero packages that are not already in R. Packages that build</span>
+<span id="cb18-231"><a href="#cb18-231" aria-hidden="true" tabindex="-1"></a>on it inherit that property, because there is nothing to pull in.</span>
+<span id="cb18-232"><a href="#cb18-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-233"><a href="#cb18-233" aria-hidden="true" tabindex="-1"></a>We read this from CRAN's own metadata, counting each package's declared</span>
+<span id="cb18-234"><a href="#cb18-234" aria-hidden="true" tabindex="-1"></a><span class="in">`Depends`</span>, <span class="in">`Imports`</span> and <span class="in">`LinkingTo`</span> entries and discarding everything that ships</span>
+<span id="cb18-235"><a href="#cb18-235" aria-hidden="true" tabindex="-1"></a>with R:</span>
+<span id="cb18-236"><a href="#cb18-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-237"><a href="#cb18-237" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cran}</span></span>
+<span id="cb18-238"><a href="#cb18-238" aria-hidden="true" tabindex="-1"></a><span class="in">deps &lt;- read.csv('data/cran-deps.csv')</span></span>
+<span id="cb18-239"><a href="#cb18-239" aria-hidden="true" tabindex="-1"></a><span class="in">deps[, c('package', 'role', 'version', 'n_nonbase', 'imports_ggplot2')]</span></span>
+<span id="cb18-240"><a href="#cb18-240" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-241"><a href="#cb18-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-242"><a href="#cb18-242" aria-hidden="true" tabindex="-1"></a>Sort that by dependency count and a pattern appears (@fig-cran):</span>
+<span id="cb18-243"><a href="#cb18-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-244"><a href="#cb18-244" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cran-plot, fig.align='center', fig.width=7.5, fig.height=5}</span></span>
+<span id="cb18-245"><a href="#cb18-245" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: fig-cran</span></span>
+<span id="cb18-246"><a href="#cb18-246" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig-cap: "Declared non-base CRAN dependencies by package"</span></span>
+<span id="cb18-247"><a href="#cb18-247" aria-hidden="true" tabindex="-1"></a><span class="in">init &lt;- par(no.readonly = TRUE)</span></span>
+<span id="cb18-248"><a href="#cb18-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-249"><a href="#cb18-249" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- deps[order(deps$n_nonbase, deps$package), ]</span></span>
+<span id="cb18-250"><a href="#cb18-250" aria-hidden="true" tabindex="-1"></a><span class="in">lab &lt;- sprintf('%-16s %2d', d$package, d$n_nonbase)</span></span>
+<span id="cb18-251"><a href="#cb18-251" aria-hidden="true" tabindex="-1"></a><span class="in"># Axis runs to the observed maximum. An earlier version capped it at 12 and</span></span>
+<span id="cb18-252"><a href="#cb18-252" aria-hidden="true" tabindex="-1"></a><span class="in"># warned about capping, which is a confusing thing to say when the cap happens</span></span>
+<span id="cb18-253"><a href="#cb18-253" aria-hidden="true" tabindex="-1"></a><span class="in"># to equal the largest bar and nothing is actually cut.</span></span>
+<span id="cb18-254"><a href="#cb18-254" aria-hidden="true" tabindex="-1"></a><span class="in">op &lt;- par(mar = c(5.5, 9, 3, 1))</span></span>
+<span id="cb18-255"><a href="#cb18-255" aria-hidden="true" tabindex="-1"></a><span class="in">bp &lt;- barplot(</span></span>
+<span id="cb18-256"><a href="#cb18-256" aria-hidden="true" tabindex="-1"></a><span class="in">  d$n_nonbase, horiz = TRUE, names.arg = FALSE, border = NA,</span></span>
+<span id="cb18-257"><a href="#cb18-257" aria-hidden="true" tabindex="-1"></a><span class="in">  space = 0.35, col = ifelse(d$imports_ggplot2, '#D55E00', '#0072B2')</span></span>
+<span id="cb18-258"><a href="#cb18-258" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb18-259"><a href="#cb18-259" aria-hidden="true" tabindex="-1"></a><span class="in">axis(2, at = bp, labels = lab, las = 1, tick = FALSE, cex.axis = 0.85)</span></span>
+<span id="cb18-260"><a href="#cb18-260" aria-hidden="true" tabindex="-1"></a><span class="in">title(main = 'Non-base CRAN dependencies by package',</span></span>
+<span id="cb18-261"><a href="#cb18-261" aria-hidden="true" tabindex="-1"></a><span class="in">      xlab = 'declared Depends / Imports / LinkingTo outside base + recommended')</span></span>
+<span id="cb18-262"><a href="#cb18-262" aria-hidden="true" tabindex="-1"></a><span class="in">mtext('orange = also depends on ggplot2', side = 1, line = 3.6,</span></span>
+<span id="cb18-263"><a href="#cb18-263" aria-hidden="true" tabindex="-1"></a><span class="in">      cex = 0.75, col = 'grey30')</span></span>
+<span id="cb18-264"><a href="#cb18-264" aria-hidden="true" tabindex="-1"></a><span class="in">par(op)</span></span>
+<span id="cb18-265"><a href="#cb18-265" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
+<span id="cb18-266"><a href="#cb18-266" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-267"><a href="#cb18-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-268"><a href="#cb18-268" aria-hidden="true" tabindex="-1"></a>Read the blue bars. <span class="in">`TeachingDemos`</span>, <span class="in">`plotrix`</span> and base R itself declare **zero**</span>
+<span id="cb18-269"><a href="#cb18-269" aria-hidden="true" tabindex="-1"></a>non-base dependencies, and they still produce publication figures — <span class="in">`plotrix`</span> is</span>
+<span id="cb18-270"><a href="#cb18-270" aria-hidden="true" tabindex="-1"></a>a dedicated graphics add-on. <span class="in">`faraway`</span> needs one. <span class="in">`psych`</span>, which has been drawing</span>
+<span id="cb18-271"><a href="#cb18-271" aria-hidden="true" tabindex="-1"></a>its own plots with base graphics for a decade, needs two.</span>
+<span id="cb18-272"><a href="#cb18-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-273"><a href="#cb18-273" aria-hidden="true" tabindex="-1"></a>That is the practical shape of the argument. A base-graphics package on CRAN is</span>
+<span id="cb18-274"><a href="#cb18-274" aria-hidden="true" tabindex="-1"></a>cheap to install, cheap to check, cheap to run in a locked-down environment, and</span>
+<span id="cb18-275"><a href="#cb18-275" aria-hidden="true" tabindex="-1"></a>cheap to keep building in ten years, because its dependency graph is nearly</span>
+<span id="cb18-276"><a href="#cb18-276" aria-hidden="true" tabindex="-1"></a>empty.</span>
+<span id="cb18-277"><a href="#cb18-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-278"><a href="#cb18-278" aria-hidden="true" tabindex="-1"></a>And here is the part that would be dishonest to leave out:</span>
+<span id="cb18-279"><a href="#cb18-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-280"><a href="#cb18-280" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; The orange bars include this author's own CRAN packages — </span><span class="in">`olsrr`</span><span class="at">, </span><span class="in">`rfm`</span><span class="at">, </span><span class="in">`blorr`</span></span>
+<span id="cb18-281"><a href="#cb18-281" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; and </span><span class="in">`descriptr`</span><span class="at"> — and they all depend on </span><span class="in">`ggplot2`</span><span class="at">. They do not use base</span></span>
+<span id="cb18-282"><a href="#cb18-282" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; graphics. We checked their sources rather than inferring it from metadata: as of</span></span>
+<span id="cb18-283"><a href="#cb18-283" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 2026-10-04, </span><span class="in">`rfm/R/rfm-plots.R`</span><span class="at"> and </span><span class="in">`descriptr/R/ds-plots.R`</span><span class="at"> are entirely</span></span>
+<span id="cb18-284"><a href="#cb18-284" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ggplot2, and so are the diagnostic plots in </span><span class="in">`olsrr`</span><span class="at">. Metadata cannot tell you</span></span>
+<span id="cb18-285"><a href="#cb18-285" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; what a package draws with; you have to read the code.</span></span>
+<span id="cb18-286"><a href="#cb18-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-287"><a href="#cb18-287" aria-hidden="true" tabindex="-1"></a>So what does that say about base graphics? Read it as a trajectory rather than an</span>
+<span id="cb18-288"><a href="#cb18-288" aria-hidden="true" tabindex="-1"></a>endorsement. Those packages got onto CRAN drawing base graphics, then outgrew it,</span>
+<span id="cb18-289"><a href="#cb18-289" aria-hidden="true" tabindex="-1"></a>exactly as this book predicts they would. The base layer was the on-ramp; ggplot2</span>
+<span id="cb18-290"><a href="#cb18-290" aria-hidden="true" tabindex="-1"></a>is where they landed once the plotting became the product rather than a</span>
+<span id="cb18-291"><a href="#cb18-291" aria-hidden="true" tabindex="-1"></a>by-product. Chapter 2 covers the systems side by side, and Appendix A maps every</span>
+<span id="cb18-292"><a href="#cb18-292" aria-hidden="true" tabindex="-1"></a>argument in this chapter onto its ggplot2 equivalent so you can translate in</span>
+<span id="cb18-293"><a href="#cb18-293" aria-hidden="true" tabindex="-1"></a>either direction.</span>
+<span id="cb18-294"><a href="#cb18-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-295"><a href="#cb18-295" aria-hidden="true" tabindex="-1"></a><span class="fu">## What it weighs in a container</span></span>
+<span id="cb18-296"><a href="#cb18-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-297"><a href="#cb18-297" aria-hidden="true" tabindex="-1"></a>Dependency counts are an abstraction. If you ship R in a container — and if you</span>
+<span id="cb18-298"><a href="#cb18-298" aria-hidden="true" tabindex="-1"></a>ship R anywhere locked down, you probably do — the question stops being "how</span>
+<span id="cb18-299"><a href="#cb18-299" aria-hidden="true" tabindex="-1"></a>many packages" and becomes "how many bytes".</span>
+<span id="cb18-300"><a href="#cb18-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-301"><a href="#cb18-301" aria-hidden="true" tabindex="-1"></a>Two images from the same publisher make that measurable, because</span>
+<span id="cb18-302"><a href="#cb18-302" aria-hidden="true" tabindex="-1"></a><span class="in">`rocker/tidyverse`</span> is built *on top of* <span class="in">`rocker/r-ver`</span>: the same R, the same base</span>
+<span id="cb18-303"><a href="#cb18-303" aria-hidden="true" tabindex="-1"></a>system, plus the package layer. The difference between them is therefore the</span>
+<span id="cb18-304"><a href="#cb18-304" aria-hidden="true" tabindex="-1"></a>cost of the tidyverse layer and nothing else, which is a cleaner comparison than</span>
+<span id="cb18-305"><a href="#cb18-305" aria-hidden="true" tabindex="-1"></a>diffing two unrelated images.</span>
+<span id="cb18-306"><a href="#cb18-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-307"><a href="#cb18-307" aria-hidden="true" tabindex="-1"></a><span class="in">```{r docker}</span></span>
+<span id="cb18-308"><a href="#cb18-308" aria-hidden="true" tabindex="-1"></a><span class="in">docker &lt;- read.csv('data/docker-sizes.csv')</span></span>
+<span id="cb18-309"><a href="#cb18-309" aria-hidden="true" tabindex="-1"></a><span class="in">docker[, c('image', 'tag', 'layer', 'size_mb', 'extra_layer_mb')]</span></span>
+<span id="cb18-310"><a href="#cb18-310" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-311"><a href="#cb18-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-312"><a href="#cb18-312" aria-hidden="true" tabindex="-1"></a><span class="in">```{r docker-plot, fig.align='center', fig.width=7.5, fig.height=4}</span></span>
+<span id="cb18-313"><a href="#cb18-313" aria-hidden="true" tabindex="-1"></a><span class="in">init &lt;- par(no.readonly = TRUE)</span></span>
+<span id="cb18-314"><a href="#cb18-314" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- docker[docker$tag == '4.5.2', ]</span></span>
+<span id="cb18-315"><a href="#cb18-315" aria-hidden="true" tabindex="-1"></a><span class="in"># Bottom margin has to clear the x label AND the delta caption below it.</span></span>
+<span id="cb18-316"><a href="#cb18-316" aria-hidden="true" tabindex="-1"></a><span class="in">par(mar = c(5.5, 9, 3, 1))</span></span>
+<span id="cb18-317"><a href="#cb18-317" aria-hidden="true" tabindex="-1"></a><span class="in">bp &lt;- barplot(d$size_mb, horiz = TRUE, names.arg = FALSE, border = NA,</span></span>
+<span id="cb18-318"><a href="#cb18-318" aria-hidden="true" tabindex="-1"></a><span class="in">              space = 0.7, col = c('#0072B2', '#D55E00'))</span></span>
+<span id="cb18-319"><a href="#cb18-319" aria-hidden="true" tabindex="-1"></a><span class="in">axis(2, at = bp, labels = d$image, las = 1, tick = FALSE, cex.axis = 0.9)</span></span>
+<span id="cb18-320"><a href="#cb18-320" aria-hidden="true" tabindex="-1"></a><span class="in"># Title kept short: a long one overflows the panel once the left margin has to</span></span>
+<span id="cb18-321"><a href="#cb18-321" aria-hidden="true" tabindex="-1"></a><span class="in"># clear these labels.</span></span>
+<span id="cb18-322"><a href="#cb18-322" aria-hidden="true" tabindex="-1"></a><span class="in">title(main = 'Container image size, R 4.5.2', xlab = 'MB, compressed download')</span></span>
+<span id="cb18-323"><a href="#cb18-323" aria-hidden="true" tabindex="-1"></a><span class="in">delta &lt;- d$size_mb[2] - d$size_mb[1]</span></span>
+<span id="cb18-324"><a href="#cb18-324" aria-hidden="true" tabindex="-1"></a><span class="in">mtext(sprintf('the tidyverse layer adds %s MB on top of R, a %.2fx increase',</span></span>
+<span id="cb18-325"><a href="#cb18-325" aria-hidden="true" tabindex="-1"></a><span class="in">              format(delta, big.mark = ',', scientific = FALSE),</span></span>
+<span id="cb18-326"><a href="#cb18-326" aria-hidden="true" tabindex="-1"></a><span class="in">              d$size_mb[2] / d$size_mb[1]),</span></span>
+<span id="cb18-327"><a href="#cb18-327" aria-hidden="true" tabindex="-1"></a><span class="in">      side = 1, line = 4.2, cex = 0.75, col = 'grey30')</span></span>
+<span id="cb18-328"><a href="#cb18-328" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
+<span id="cb18-329"><a href="#cb18-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-330"><a href="#cb18-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-331"><a href="#cb18-331" aria-hidden="true" tabindex="-1"></a>A base-R image is 349 MB; adding the tidyverse layer takes it to 924 MB. That</span>
+<span id="cb18-332"><a href="#cb18-332" aria-hidden="true" tabindex="-1"></a>574 MB is not a mistake or a packaging artefact — it is the price of the</span>
+<span id="cb18-333"><a href="#cb18-333" aria-hidden="true" tabindex="-1"></a>dependency tree, paid on every pull, every CI run and every cold start, whether</span>
+<span id="cb18-334"><a href="#cb18-334" aria-hidden="true" tabindex="-1"></a>or not the code being run touches a single one of those packages.</span>
+<span id="cb18-335"><a href="#cb18-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-336"><a href="#cb18-336" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Two caveats, both recorded in the CSV. These are Docker Hub's reported sizes</span></span>
+<span id="cb18-337"><a href="#cb18-337" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; for the whole tag, which is the sum of its **compressed** layers — a real</span></span>
+<span id="cb18-338"><a href="#cb18-338" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; number a real user downloads, but not the unpacked size on disk, and the ratio</span></span>
+<span id="cb18-339"><a href="#cb18-339" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; is only as fair as the fact that both tags were built at the same time by the</span></span>
+<span id="cb18-340"><a href="#cb18-340" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; same publisher. And they are published metadata read over HTTP, not a local</span></span>
+<span id="cb18-341"><a href="#cb18-341" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; build: no daemon was involved, which is why this is reproducible on any</span></span>
+<span id="cb18-342"><a href="#cb18-342" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; machine, and also why it cannot control the comparison.</span></span>
+<span id="cb18-343"><a href="#cb18-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-344"><a href="#cb18-344" aria-hidden="true" tabindex="-1"></a>Read next to the CRAN table above, the pattern is consistent. Base graphics is</span>
+<span id="cb18-345"><a href="#cb18-345" aria-hidden="true" tabindex="-1"></a>not lighter by a little; it is lighter by an order of magnitude, because it</span>
+<span id="cb18-346"><a href="#cb18-346" aria-hidden="true" tabindex="-1"></a>inherits the empty part of R's dependency graph rather than extending it.</span>
+<span id="cb18-347"><a href="#cb18-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-348"><a href="#cb18-348" aria-hidden="true" tabindex="-1"></a><span class="fu">## What base graphics costs</span></span>
+<span id="cb18-349"><a href="#cb18-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-350"><a href="#cb18-350" aria-hidden="true" tabindex="-1"></a>An honest chapter has to state the other side.</span>
+<span id="cb18-351"><a href="#cb18-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-352"><a href="#cb18-352" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**More typing.** Base graphics is verbose by design. The same plot is longer in</span>
+<span id="cb18-353"><a href="#cb18-353" aria-hidden="true" tabindex="-1"></a>  base than in ggplot2, and it stays that way.</span>
+<span id="cb18-354"><a href="#cb18-354" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**No automatic grouping or faceting.** You build panels yourself with</span>
+<span id="cb18-355"><a href="#cb18-355" aria-hidden="true" tabindex="-1"></a>  <span class="in">`par()`</span> or <span class="in">`layout()`</span> and a loop, where ggplot2 has <span class="in">`facet_wrap()`</span>. Chapter 11</span>
+<span id="cb18-356"><a href="#cb18-356" aria-hidden="true" tabindex="-1"></a>  covers this and it is the single biggest readability jump in the book.</span>
+<span id="cb18-357"><a href="#cb18-357" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**No automatic scale transformation.** Nothing is transformed unless you name</span>
+<span id="cb18-358"><a href="#cb18-358" aria-hidden="true" tabindex="-1"></a>  it. This is a feature when you want control and a cost when you do not.</span>
+<span id="cb18-359"><a href="#cb18-359" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**A smaller ecosystem.** The reference grid, the grammar extensions, the</span>
+<span id="cb18-360"><a href="#cb18-360" aria-hidden="true" tabindex="-1"></a>  themes, the colour scales: all of that ecosystem is ggplot2's, not base's.</span>
+<span id="cb18-361"><a href="#cb18-361" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Older idiom.** Base graphics code from 2001 still runs. That cuts both ways.</span>
+<span id="cb18-362"><a href="#cb18-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-363"><a href="#cb18-363" aria-hidden="true" tabindex="-1"></a><span class="fu">## A decision tree</span></span>
+<span id="cb18-364"><a href="#cb18-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-365"><a href="#cb18-365" aria-hidden="true" tabindex="-1"></a>Most of the above reduces to one question: who decides what the plot looks like?</span>
+<span id="cb18-366"><a href="#cb18-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-367"><a href="#cb18-367" aria-hidden="true" tabindex="-1"></a><span class="in">```{r decision, fig.align='center', fig.width=8, fig.height=5.5}</span></span>
+<span id="cb18-368"><a href="#cb18-368" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: fig-decision</span></span>
+<span id="cb18-369"><a href="#cb18-369" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig-cap: "Choosing between base graphics and ggplot2"</span></span>
+<span id="cb18-370"><a href="#cb18-370" aria-hidden="true" tabindex="-1"></a><span class="in">init &lt;- par(no.readonly = TRUE)</span></span>
+<span id="cb18-371"><a href="#cb18-371" aria-hidden="true" tabindex="-1"></a><span class="in"># A flowchart is a picture, not a data plot: no axes, and the coordinates are</span></span>
+<span id="cb18-372"><a href="#cb18-372" aria-hidden="true" tabindex="-1"></a><span class="in"># laid out by hand. ps is set explicitly because text size otherwise depends on</span></span>
+<span id="cb18-373"><a href="#cb18-373" aria-hidden="true" tabindex="-1"></a><span class="in"># the device knitr happened to open, which is how a hand-placed diagram ends up</span></span>
+<span id="cb18-374"><a href="#cb18-374" aria-hidden="true" tabindex="-1"></a><span class="in"># with labels larger than its boxes.</span></span>
+<span id="cb18-375"><a href="#cb18-375" aria-hidden="true" tabindex="-1"></a><span class="in">par(xpd = NA, mar = c(0, 0, 0, 0), ps = 9)</span></span>
+<span id="cb18-376"><a href="#cb18-376" aria-hidden="true" tabindex="-1"></a><span class="in">plot.new()</span></span>
+<span id="cb18-377"><a href="#cb18-377" aria-hidden="true" tabindex="-1"></a><span class="in">plot.window(xlim = c(0, 100), ylim = c(12, 104))</span></span>
+<span id="cb18-378"><a href="#cb18-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-379"><a href="#cb18-379" aria-hidden="true" tabindex="-1"></a><span class="in">box &lt;- function(x, y, w, h, label, sub, fill) {</span></span>
+<span id="cb18-380"><a href="#cb18-380" aria-hidden="true" tabindex="-1"></a><span class="in">  rect(x, y - h / 2, x + w, y + h / 2, col = fill, border = 'grey25', lwd = 1.5)</span></span>
+<span id="cb18-381"><a href="#cb18-381" aria-hidden="true" tabindex="-1"></a><span class="in">  text(x + w / 2, y + (if (nzchar(sub)) 3.2 else 0), label, font = 2, cex = 0.92)</span></span>
+<span id="cb18-382"><a href="#cb18-382" aria-hidden="true" tabindex="-1"></a><span class="in">  if (nzchar(sub)) {</span></span>
+<span id="cb18-383"><a href="#cb18-383" aria-hidden="true" tabindex="-1"></a><span class="in">    text(x + w / 2, y - 4.6, sub, cex = 0.66, col = 'grey20')</span></span>
+<span id="cb18-384"><a href="#cb18-384" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
+<span id="cb18-385"><a href="#cb18-385" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb18-386"><a href="#cb18-386" aria-hidden="true" tabindex="-1"></a><span class="in">yes_no &lt;- function(x, y, lab) text(x, y, lab, cex = 0.7, col = 'grey25')</span></span>
+<span id="cb18-387"><a href="#cb18-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-388"><a href="#cb18-388" aria-hidden="true" tabindex="-1"></a><span class="in">Q &lt;- '#DCE9F5'   # question</span></span>
+<span id="cb18-389"><a href="#cb18-389" aria-hidden="true" tabindex="-1"></a><span class="in">G &lt;- '#F7E2D5'   # ggplot2 outcome</span></span>
+<span id="cb18-390"><a href="#cb18-390" aria-hidden="true" tabindex="-1"></a><span class="in">B &lt;- '#DFF0E3'   # base outcome</span></span>
+<span id="cb18-391"><a href="#cb18-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-392"><a href="#cb18-392" aria-hidden="true" tabindex="-1"></a><span class="in">box(4, 90, 52, 15, 'Is the plot final?',</span></span>
+<span id="cb18-393"><a href="#cb18-393" aria-hidden="true" tabindex="-1"></a><span class="in">    'One answer, written once, no iteration', Q)</span></span>
+<span id="cb18-394"><a href="#cb18-394" aria-hidden="true" tabindex="-1"></a><span class="in">box(4, 57, 52, 19, 'Does it have to run somewhere\nyou do not control?',</span></span>
+<span id="cb18-395"><a href="#cb18-395" aria-hidden="true" tabindex="-1"></a><span class="in">    'Locked-down server, CRAN check, minimal container', Q)</span></span>
+<span id="cb18-396"><a href="#cb18-396" aria-hidden="true" tabindex="-1"></a><span class="in">box(64, 90, 34, 15, 'ggplot2', 'Explore, iterate, facet, publish', G)</span></span>
+<span id="cb18-397"><a href="#cb18-397" aria-hidden="true" tabindex="-1"></a><span class="in">box(64, 57, 34, 15, 'ggplot2', 'Communicate, share, present', G)</span></span>
+<span id="cb18-398"><a href="#cb18-398" aria-hidden="true" tabindex="-1"></a><span class="in">box(22, 22, 52, 17, 'Base graphics',</span></span>
+<span id="cb18-399"><a href="#cb18-399" aria-hidden="true" tabindex="-1"></a><span class="in">    'Package internals, batch reports,\nexact control over the marks', B)</span></span>
+<span id="cb18-400"><a href="#cb18-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-401"><a href="#cb18-401" aria-hidden="true" tabindex="-1"></a><span class="in">arrows(56, 90, 63.5, 90, length = 0.07, lwd = 1.6)</span></span>
+<span id="cb18-402"><a href="#cb18-402" aria-hidden="true" tabindex="-1"></a><span class="in">arrows(30, 82.4, 30, 66.7, length = 0.07, lwd = 1.6)</span></span>
+<span id="cb18-403"><a href="#cb18-403" aria-hidden="true" tabindex="-1"></a><span class="in">arrows(56, 57, 63.5, 57, length = 0.07, lwd = 1.6)</span></span>
+<span id="cb18-404"><a href="#cb18-404" aria-hidden="true" tabindex="-1"></a><span class="in">arrows(30, 47.4, 40, 30.7, length = 0.07, lwd = 1.6)</span></span>
+<span id="cb18-405"><a href="#cb18-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-406"><a href="#cb18-406" aria-hidden="true" tabindex="-1"></a><span class="in">yes_no(59.7, 93, 'yes')</span></span>
+<span id="cb18-407"><a href="#cb18-407" aria-hidden="true" tabindex="-1"></a><span class="in">yes_no(32.4, 74.5, 'no')</span></span>
+<span id="cb18-408"><a href="#cb18-408" aria-hidden="true" tabindex="-1"></a><span class="in">yes_no(59.7, 60, 'yes')</span></span>
+<span id="cb18-409"><a href="#cb18-409" aria-hidden="true" tabindex="-1"></a><span class="in">yes_no(24, 39, 'no')</span></span>
+<span id="cb18-410"><a href="#cb18-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-411"><a href="#cb18-411" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
+<span id="cb18-412"><a href="#cb18-412" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-413"><a href="#cb18-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-414"><a href="#cb18-414" aria-hidden="true" tabindex="-1"></a>Two questions, and note that "final" is doing more work than "simple". A plot</span>
+<span id="cb18-415"><a href="#cb18-415" aria-hidden="true" tabindex="-1"></a>you will iterate on twenty times belongs to ggplot2 even if it is a single</span>
+<span id="cb18-416"><a href="#cb18-416" aria-hidden="true" tabindex="-1"></a>scatterplot, because the cost of base graphics is paid on every edit. A plot you</span>
+<span id="cb18-417"><a href="#cb18-417" aria-hidden="true" tabindex="-1"></a>will write once and run ten thousand times belongs to base graphics even if it</span>
+<span id="cb18-418"><a href="#cb18-418" aria-hidden="true" tabindex="-1"></a>is complicated, because that is where the per-plot cost actually lands.</span>
+<span id="cb18-419"><a href="#cb18-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-420"><a href="#cb18-420" aria-hidden="true" tabindex="-1"></a>Note also that the second question overrides the first. A plot that must run on a</span>
+<span id="cb18-421"><a href="#cb18-421" aria-hidden="true" tabindex="-1"></a>server you do not control is a base-graphics plot even if you would rather be</span>
+<span id="cb18-422"><a href="#cb18-422" aria-hidden="true" tabindex="-1"></a>iterating, because "install ggplot2 on this locked-down box" is not a decision</span>
+<span id="cb18-423"><a href="#cb18-423" aria-hidden="true" tabindex="-1"></a>you get to make.</span>
+<span id="cb18-424"><a href="#cb18-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-425"><a href="#cb18-425" aria-hidden="true" tabindex="-1"></a>That tree is a starting point, not a rulebook. Plenty of working code mixes the</span>
+<span id="cb18-426"><a href="#cb18-426" aria-hidden="true" tabindex="-1"></a>two: base graphics for the bulk of a report, one ggplot2 plot where the faceting</span>
+<span id="cb18-427"><a href="#cb18-427" aria-hidden="true" tabindex="-1"></a>carries the argument. The point is that the choice should be made deliberately,</span>
+<span id="cb18-428"><a href="#cb18-428" aria-hidden="true" tabindex="-1"></a>per plot, rather than by default.</span>
+<span id="cb18-429"><a href="#cb18-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-430"><a href="#cb18-430" aria-hidden="true" tabindex="-1"></a><span class="fu">## When you have read this chapter</span></span>
+<span id="cb18-431"><a href="#cb18-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-432"><a href="#cb18-432" aria-hidden="true" tabindex="-1"></a>You now have four measured numbers and a decision tree. In the rest of the book</span>
+<span id="cb18-433"><a href="#cb18-433" aria-hidden="true" tabindex="-1"></a>we stop arguing and start drawing, and every chapter is written to the assumption</span>
+<span id="cb18-434"><a href="#cb18-434" aria-hidden="true" tabindex="-1"></a>that you want the marks exactly where you put them.</span>
+<span id="cb18-435"><a href="#cb18-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-436"><a href="#cb18-436" aria-hidden="true" tabindex="-1"></a>Chapter 2 surveys the three R graphics systems and walks the six dispatch cases</span>
+<span id="cb18-437"><a href="#cb18-437" aria-hidden="true" tabindex="-1"></a>of <span class="in">`plot()`</span>. From Chapter 3 onward the argument is one argument at a time: here</span>
+<span id="cb18-438"><a href="#cb18-438" aria-hidden="true" tabindex="-1"></a>is the bare call, here is what changing <span class="in">`pch`</span> does, here is everything combined.</span>
+<span id="cb18-439"><a href="#cb18-439" aria-hidden="true" tabindex="-1"></a>Nothing in this book requires installing anything.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
