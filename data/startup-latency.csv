@@ -1,0 +1,4 @@
+"approach","wall_ms","wall_min_ms","wall_max_ms","load_ms","namespaces","n_iter","overhead_ms","spread_ms","measured_on","r_version","platform","ggplot2"
+"vanilla",1210,1000,1350,0,8,15,0,350,"2026-10-04",4.5.2,"x86_64-w64-mingw32","4.0.1"
+"graphics",1220,1000,1450,0,8,15,10,450,"2026-10-04",4.5.2,"x86_64-w64-mingw32","4.0.1"
+"ggplot2",7170,6670,10010,5910,29,15,5960,3340,"2026-10-04",4.5.2,"x86_64-w64-mingw32","4.0.1"
