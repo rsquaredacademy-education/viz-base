@@ -19,11 +19,12 @@ jobs:
       - uses: actions/checkout@v4
 
       # Typst ships no fonts; the bare runner has none either, so the PDF dies
-      # with "font fallback list must not be empty".
-      - name: Install fonts
+      # with "font fallback list must not be empty". poppler-utils provides
+      # pdfinfo, used to assert the cheatsheet is still exactly one page.
+      - name: Install fonts and pdfinfo
         run: |
           sudo apt-get update
-          sudo apt-get install -y fonts-linuxlibertine fonts-dejavu-core
+          sudo apt-get install -y fonts-linuxlibertine fonts-dejavu-core poppler-utils
           fc-cache -f
 
       # Pinned to the toolchain verified locally for this book. Unpinned
@@ -66,9 +67,22 @@ jobs:
       - name: Render ePub
         run: quarto render --to epub --output-dir /tmp/stage-epub
 
+      # Standalone Typst artifact, linked from export-devices.html. Not a
+      # Quarto chapter: it must stay exactly one page and must not run R.
+      # Uses the same typst + Linux Libertine already set up above, so it adds
+      # no toolchain. The page-count assertion is the whole point of the check
+      # -- a "cheatsheet" that silently grows to two pages stops being one.
+      - name: Build cheatsheet
+        run: |
+          typst compile cheatsheet/base-par-cheatsheet.typ /tmp/base-par-cheatsheet.pdf
+          test -f /tmp/base-par-cheatsheet.pdf || { echo "CHEATSHEET MISSING"; exit 1; }
+          pages=$(pdfinfo /tmp/base-par-cheatsheet.pdf | awk '/^Pages:/ {print $2}')
+          echo "cheatsheet pages: $pages"
+          test "$pages" = "1" || { echo "CHEATSHEET MUST BE 1 PAGE, got $pages"; exit 1; }
+
       - name: Verify legacy slugs
         run: |
-          for f in index intro titlelabels scatter line bar box hist legend textann facet about-the-author; do
+          for f in index why-base intro titlelabels scatter line bar box hist legend textann facet export-devices rosetta about-the-author; do
             test -f "/tmp/stage-html/$f.html" || { echo "MISSING SLUG: /tmp/stage-html/$f.html"; exit 1; }
           done
           test -f /tmp/stage-html/sitemap.xml || { echo "sitemap.xml missing from staged output"; exit 1; }
@@ -84,6 +98,7 @@ jobs:
           cp -r /tmp/stage-html/. docs/
           cp /tmp/stage-pdf/*.pdf docs/
           cp /tmp/stage-epub/*.epub docs/
+          cp /tmp/base-par-cheatsheet.pdf docs/
           cp robots.txt sitemap.xml google02e424888b5e2def.html 404.html docs/ 2>/dev/null || true
           rm -rf docs/docs
           test -f docs/sitemap.xml || { echo "sitemap.xml missing after assemble"; exit 1; }
