@@ -11,6 +11,9 @@ In this chapter, we will build line graphs. To be more specific we will learn to
 - add points to the lines
 - modify axis range
 - add additional lines to the plot
+- add error bars with `segments()`
+- annotate the plot with `arrows()`
+- shade a confidence band with `polygon()`
 
 ## Basic Plot
 
@@ -163,6 +166,98 @@ plot(data1, type = "b", col = "blue", ylim = c(5, 9))
 lines(data2, type = "b", col = "red")
 ```
 
+## Uncertainty and Annotation
+
+A line through data points claims more precision than the data usually supports.
+Three functions close that gap, and they are the ones you will reach for the
+moment a plot leaves the screen and someone asks what it means.
+
+### segments()
+
+`segments()` draws straight line segments between coordinate pairs. Its commonest
+use on a line graph is an error bar: a vertical segment centred on each point.
+
+```{r seg1, fig.align='center', fig.height=5, fig.width=6}
+data1 <- c(7.2, 7.6, 6.8, 6.5, 7)
+sd1 <- c(0.4, 0.6, 0.5, 0.7, 0.3)
+plot(data1, type = 'b', col = 'blue', ylim = c(5, 9),
+     xlab = 'Index', ylab = 'Data')
+segments(1:5, data1 - sd1, 1:5, data1 + sd1, col = 'red', lwd = 2)
+```
+
+`segments()` takes four vectors: the x of each segment's start, the y of the
+start, the x of the end, and the y of the end. Because all four are vectorised,
+one call covers every point. It also draws caps if you want them, via the
+horizontal segments underneath:
+
+```{r seg2, fig.align='center', fig.height=5, fig.width=6}
+plot(data1, type = 'b', col = 'blue', ylim = c(5, 9),
+     xlab = 'Index', ylab = 'Data')
+segments(1:5, data1 - sd1, 1:5, data1 + sd1, col = 'red', lwd = 2)
+# caps: two short horizontal segments per error bar
+segments(1:5 - 0.1, data1 - sd1, 1:5 + 0.1, data1 - sd1, col = 'red')
+segments(1:5 - 0.1, data1 + sd1, 1:5 + 0.1, data1 + sd1, col = 'red')
+```
+
+### arrows()
+
+`arrows()` draws a line with a head at one end. Use it when the reader's eye
+needs to be sent somewhere specific.
+
+```{r arr1, fig.align='center', fig.height=5, fig.width=6}
+data2 <- c(6.8, 7.2, 7.8, 7, 6.2)
+plot(data1, type = 'b', col = 'blue', ylim = c(5, 9),
+     xlab = 'Index', ylab = 'Data', main = 'Arrow points at the gap')
+arrows(4.4, 6.1, 3, 7.6, col = 'red', lwd = 2)
+```
+
+The first two arguments are where the arrow **starts**, the next two where it
+**ends**. That is the opposite of the order you would guess, and it is worth
+remembering: `arrows(x0, y0, x1, y1)` reads "from here, to there".
+
+Useful arguments: `length` sets the head size (0.1 is the default; 0 leaves a
+plain line), `angle` opens the head, and `code` picks the head shape — 1 for a
+closed arrow, 2 for an open one.
+
+```{r arr2, fig.align='center', fig.height=5, fig.width=6}
+plot(data1, type = 'b', col = 'blue', ylim = c(5, 9),
+     xlab = 'Index', ylab = 'Data', main = 'Open head, thinner line')
+arrows(4.4, 6.1, 3, 7.6, col = 'red', lwd = 1.5, length = 0.15,
+       angle = 30, code = 2)
+```
+
+### polygon()
+
+`polygon()` draws a closed shape and fills it. On a line graph its use is a
+confidence band: shade the area between an upper and a lower bound, then draw
+the line on top.
+
+The order of the points matters, because that is the order they get joined. For
+a band you want to walk along the top from left to right, then back along the
+bottom from right to left, so the shape closes on itself instead of crossing.
+
+```{r poly1, fig.align='center', fig.height=5, fig.width=6}
+x <- 1:12
+mid <- c(4.5, 5.2, 5.0, 6.1, 6.8, 7.4, 7.1, 8.0, 8.6, 9.1, 9.4, 10.2)
+lo <- mid - 0.9
+hi <- mid + 0.9
+
+plot(x, mid, type = 'n', ylim = c(2, 12), col = 'blue',
+     xlab = 'Month', ylab = 'Value')
+polygon(c(x, rev(x)), c(hi, rev(lo)), col = '#DCE9F5', border = NA)
+lines(x, mid, col = 'blue', lwd = 2)
+points(x, mid, pch = 19, col = 'blue')
+```
+
+Two details carry that figure. The first is `type = 'n'`, which sets up the axes
+and the plot region without drawing anything — the standard way to draw a plot
+in layers when the first layer is not the data itself. The second is `rev()`,
+which reverses a vector so the polygon can be closed in one call instead of
+building the point list by hand.
+
+Note that `polygon()` is drawn first and `lines()` second. Anything you fill
+will cover anything already plotted, so background bands belong underneath.
+
 ## Putting it all together...
 
 Finally let us enhance the plot by adding a title and modifying the axis labels.
@@ -172,4 +267,7 @@ plot(data1, type = "b", col = "blue",
      ylim = c(5, 9), main = 'Line Graph',
      xlab = 'Index', ylab = 'Data')
 lines(data2, type = "b", col = "red")
+segments(1:5, data1 - 0.5, 1:5, data1 + 0.5, col = "blue", lwd = 2)
+# Approach the peak from above-right so the arrow crosses neither series.
+arrows(4.1, 8.5, 3.15, 7.85, col = "grey30", length = 0.1)
 ```
