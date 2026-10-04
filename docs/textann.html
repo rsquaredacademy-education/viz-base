@@ -837,7 +837,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-text-pos" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A grid of scatterplots of displacement against miles per gallon. In each panel the same single labelled point is annotated, but the label is placed in a different compass position relative to it, stepping through south-west, west, north-west, north and further around." data-fig-align="center">
+<div id="fig-text-pos" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A grid of scatterplots of displacement against miles per gallon. In each panel the same single labelled point is annotated, but the label is placed in a different compass position relative to it, stepping through south-west, west, north-west, north and further around.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-text-pos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="textann_files/figure-html/fig-text-pos-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="A grid of scatterplots of displacement against miles per gallon. In each panel the same single labelled point is annotated, but the label is placed in a different compass position relative to it, stepping through south-west, west, north-west, north and further around." width="1920">
@@ -857,7 +857,7 @@ Figure&nbsp;10.1: The pos argument placing text relative to a point
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">340</span>, <span class="at">y =</span> <span class="dv">30</span>, <span class="at">labels =</span> <span class="st">'Sample Text'</span>, <span class="at">pos =</span> <span class="dv">3</span>, <span class="at">offset =</span> <span class="fl">1.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-text-offset" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A scatterplot of displacement against miles per gallon with one point labelled, where the label is displaced a fixed distance from the point rather than sitting on top of it." data-fig-align="center">
+<div id="fig-text-offset" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A scatterplot of displacement against miles per gallon with one point labelled, where the label is displaced a fixed distance from the point rather than sitting on top of it.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-text-offset-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="textann_files/figure-html/fig-text-offset-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="A scatterplot of displacement against miles per gallon with one point labelled, where the label is displaced a fixed distance from the point rather than sitting on top of it." width="960">
@@ -908,7 +908,7 @@ Figure&nbsp;10.2: The offset argument pushing a label away from its point
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">'Sample Text'</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> <span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-mtext-at" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A scatterplot of displacement against miles per gallon with text added to the margin at explicitly chosen positions along the axes, rather than at the default margin locations." data-fig-align="center">
+<div id="fig-mtext-at" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A scatterplot of displacement against miles per gallon with text added to the margin at explicitly chosen positions along the axes, rather than at the default margin locations.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mtext-at-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="textann_files/figure-html/fig-mtext-at-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="A scatterplot of displacement against miles per gallon with text added to the margin at explicitly chosen positions along the axes, rather than at the default margin locations." width="960">
