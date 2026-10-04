@@ -1,0 +1,5 @@
+"image","tag","layer","size_mb","size_bytes","last_updated","extra_layer_mb","extra_layer_x","retrieved_on","source"
+"rocker/r-ver","4.5.2","R only",349.4,366420835,"2026-03-11T10:53:38.046421Z",574.5,2.64,"2026-10-04","Docker Hub v2 API (compressed layer total)"
+"rocker/r-ver","latest","R only",355.1,372316201,"2026-09-11T13:12:47.527591Z",574.5,2.64,"2026-10-04","Docker Hub v2 API (compressed layer total)"
+"rocker/tidyverse","4.5.2","R + tidyverse",923.9,968782137,"2026-03-11T11:13:38.08187Z",574.5,2.64,"2026-10-04","Docker Hub v2 API (compressed layer total)"
+"rocker/tidyverse","latest","R + tidyverse",1269.2,1330824837,"2026-09-11T14:45:32.873511Z",574.5,2.64,"2026-10-04","Docker Hub v2 API (compressed layer total)"
