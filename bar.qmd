@@ -1,3 +1,7 @@
+---
+description: "Base R bar plots with barplot(): table() frequencies, bar width and spacing, axis limits, colour, stacked versus beside bivariate bars, and horizontal bars."
+---
+
 # Bar Plots {#bar}
 
 ## Introduction

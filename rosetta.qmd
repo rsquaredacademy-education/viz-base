@@ -1,3 +1,7 @@
+---
+description: "A Rosetta Stone mapping base R graphics onto ggplot2: pch to shape, cex to size, mfrow to facet_wrap, legend to scale colour manual, with when to stop translating."
+---
+
 # Base R ↔ ggplot2: A Rosetta Stone {#rosetta}
 
 ## Introduction

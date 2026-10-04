@@ -1,3 +1,7 @@
+---
+description: "Base R histograms with hist(): choosing breaks and the interval count, frequency tables, colour and borders, frequency labels, and skewed data with rbeta()."
+---
+
 # Histograms {#hist}
 
 ## Introduction

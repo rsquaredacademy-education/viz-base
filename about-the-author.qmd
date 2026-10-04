@@ -1,3 +1,7 @@
+---
+description: "About the author of Data Visualization with R - Base Graphics, and the other books and packages."
+---
+
 # About the Author {.unnumbered}
 
 [Aravind Hebbali](https://www.aravindhebbali.com) is the founder of 

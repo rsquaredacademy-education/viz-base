@@ -1,3 +1,7 @@
+---
+description: "Add titles and axis labels to base R plots: main, sub, xlab, ylab, xlim, ylim and title(), for figures that are readable on their own."
+---
+
 # Title & Axis Labels {#titlelabels}
 
 ## Introduction

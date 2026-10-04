@@ -1,3 +1,7 @@
+---
+description: "The three R graphics systems - base graphics, ggplot2 and lattice - and the six plot() dispatch cases for continuous, categorical and mixed variables."
+---
+
 # Introduction {#intro}
 
 ## Introduction

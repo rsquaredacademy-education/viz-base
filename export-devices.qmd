@@ -1,3 +1,7 @@
+---
+description: "Export base R plots to file: png(), pdf() and svg(), dev.off(), batch report loops, the par() master set, custom axis() ticks and colourblind-safe palettes."
+---
+
 # Production Export & Graphical Devices {#export-devices}
 
 ## Introduction

@@ -1,3 +1,7 @@
+---
+description: "Combine base R plots into one figure: par(mfrow) and par(mfcol) panel grids, plot.new() to advance pages, and layout() with custom widths and heights."
+---
+
 # Faceting {#facet}
 
 ## Introduction

@@ -1,3 +1,7 @@
+---
+description: "Base R legends: position by coordinates or keyword, ncol and horiz layout, titles, the legend box, text styling and justification, and custom legend text."
+---
+
 # Legends {#legend}
 
 ## Introduction

@@ -1,3 +1,7 @@
+---
+description: "Base R vs ggplot2 in 2026: measured draw speed, session startup cost, CRAN dependency counts and container sizes, with a decision tree for choosing between them."
+---
+
 # Why Base R Graphics in 2026? {#why-base}
 
 ## Introduction

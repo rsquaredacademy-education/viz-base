@@ -1,3 +1,7 @@
+---
+description: "Base R text annotations: text() and mtext() with pos, offset, padj, outer and at, for labelling individual points and adding text to the margins."
+---
+
 # Text Annotations {#textann}
 
 ## Introduction

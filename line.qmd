@@ -1,3 +1,7 @@
+---
+description: "Base R line graphs: type for points, lines or both, lty and lwd styling, layering with lines(), plus segments() error bars and polygon() confidence bands."
+---
+
 # Line Graphs {#line}
 
 ## Introduction

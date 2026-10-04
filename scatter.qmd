@@ -1,3 +1,7 @@
+---
+description: "Base R scatter plots with plot(): control point shape with pch, size with cex, colour with col and bg, and map a third variable to shape or colour."
+---
+
 # Scatter Plots {#scatter}
 
 ## Introduction

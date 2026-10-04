@@ -1,3 +1,7 @@
+---
+description: "Base R box plots: the five-number summary, grouped boxplots from a formula, and notch for comparing medians, using the High School and Beyond survey data."
+---
+
 # Box Plots {#box}
 
 ## Introduction

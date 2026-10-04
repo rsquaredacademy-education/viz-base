@@ -1,5 +1,5 @@
 ---
-description: "Learn to visualize data with base R."
+description: "A free, modern book on data visualisation with base R: zero dependencies, publication-ready output, and a measured case for why base graphics still belongs in your toolkit."
 ---
 
 # Preface {.unnumbered}

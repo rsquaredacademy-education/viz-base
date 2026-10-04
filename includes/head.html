@@ -1,14 +1,21 @@
 <!-- Head metadata for every page.
 
-     Two distinct mechanisms are at work here:
+     Three distinct mechanisms are at work here:
 
-     1. The Open Graph / Twitter tags below are PLACEHOLDERS. Quarto rewrites
-        og:title, og:description, og:image and the twitter:* values per page
-        (see `open-graph` / `twitter-card` in _quarto.yml), so the literal
-        values here never reach the reader. Do not delete these tags -- with
-        them removed Quarto emits nothing. Verified: docs/scatter.html gets
-        "4 Scatter Plots", docs/line.html gets "5 Line Graphs".
-        og:site_name and og:type are ours; Quarto does not manage those.
+     1. The description and Open Graph / Twitter tags below are PLACEHOLDERS.
+        Quarto rewrites description, og:title, og:description, og:image and the
+        twitter:* values per page (see `open-graph` / `twitter-card` in
+        _quarto.yml), so the literal values here never reach the reader. Do not
+        delete these tags -- with them removed Quarto emits nothing. Verified:
+        docs/scatter.html gets "4 Scatter Plots", docs/line.html gets
+        "5 Line Graphs". og:site_name and og:type are ours; Quarto does not
+        manage those.
+
+        The plain `description` tag matters as much as the og: ones: it is the
+        text Google shows in a search result, and it was missing from every page
+        until each chapter got `description:` front matter. Keep the placeholder
+        -- without it Quarto emits no description tag at all, which is the
+        original bug.
 
      2. The citation_* tags are hand-written because Quarto has no native
         Highwire/Scholar support. This is the reason this file exists.
@@ -24,6 +31,7 @@
      and add a consent banner alongside it (no cookies are set until then). -->
 <meta property="og:site_name" content="Data Visualization with R">
 <meta property="og:type" content="book">
+<meta name="description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
 <meta property="og:title" content="Data Visualization with R — Base Graphics">
 <meta property="og:description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
 <meta property="og:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
