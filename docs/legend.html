@@ -134,8 +134,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
      neutral; a wrong one is destructive. sitemap.xml carries the real
      per-page URLs. See roadmap: Phase 3 SEO pass.
 
-     TODO(analytics): set google-analytics in _quarto.yml once the GA4 ID exists,
-     and add a consent banner alongside it (no cookies are set until then). -->
+     Analytics is NOT here either -- it lives in includes/analytics.html, which
+     is a separate file because it is consent-gated JavaScript rather than
+     metadata. Keep it that way: Quarto's own `website.google-analytics` injects
+     the tag unconditionally and is silently ignored for `type: book`, so the
+     gate has to be ours. -->
 <meta property="og:site_name" content="Data Visualization with R">
 <meta property="og:type" content="book">
 <meta name="description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
@@ -151,11 +154,210 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="citation_language" content="en">
 <meta name="citation_book_title" content="Data Visualization with R">
 <meta name="citation_pdf_url" content="https://viz-base.rsquaredacademy.com/Data-Visualization-with-R.pdf">
+<!-- Google Analytics, gated behind explicit consent.
+
+     Why this file exists instead of two lines in _quarto.yml:
+
+     Quarto's native `website.google-analytics` is SILENTLY IGNORED for
+     `type: book`. Verified, not assumed: the same config emits the gtag tag in a
+     minimal `type: website` project and emits nothing at all in this book, with
+     no warning. `website.cookie-consent` does not exist in Quarto 1.6.40 either
+     (it landed later; the CI toolchain is pinned to 1.6.40 because newer Quarto
+     breaks the Typst PDF). So both halves are hand-rolled here.
+
+     The gate is the whole point. Quarto's own `google-analytics` injects the tag
+     unconditionally, which means no visitor can refuse -- the banner would be
+     theatre. Here the Google script element is only ever created inside the
+     accept branch, so before a reader clicks accept:
+
+       * no request is made to googletagmanager.com or google-analytics.com
+       * no cookie is written
+       * no measurement ID is sent anywhere
+
+     That is the arrangement Google calls basic consent mode, and it is the only
+     one of the two that is GDPR-defensible, because advanced mode still sends
+     cookieless pings before consent.
+
+     This file is included under `format.html` only (see _quarto.yml), so it
+     cannot reach the Typst PDF or the ePub. Verified: the citation_* tags in
+     head.html are absent from the PDF, which is the same mechanism.
+
+     Note there is no anonymize_ip option here. It was dropped in GA4 -- IP
+     anonymisation is automatic -- so setting it would be cargo cult.
+-->
+
+<style>
+  /* Scoped under a book-specific id so nothing here can leak into the navbar,
+     sidebar or code blocks. Kept deliberately small and dependency-free: no
+     cookieconsent.com CDN, because a consent banner that cannot load when a
+     third party is unreachable is not a consent mechanism. */
+  #qz-consent {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2000;
+    display: none;
+    padding: 0.85rem 1.25rem;
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
+    font-size: 0.83rem;
+    line-height: 1.45;
+    color: #212529;
+  }
+  #qz-consent.show { display: block; }
+
+  #qz-consent p { margin: 0 0 0.6rem 0; }
+
+  #qz-consent a { color: #0072b2; }
+
+  #qz-consent .qz-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+  #qz-consent button {
+    font: inherit;
+    font-size: 0.83rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 0.2rem;
+    border: 1px solid #0072b2;
+    cursor: pointer;
+  }
+  #qz-consent .qz-accept { background: #0072b2; color: #fff; }
+  #qz-consent .qz-decline { background: transparent; color: #0072b2; }
+
+  /* The persistent "change your mind" affordance. GDPR requires withdrawal to
+     be as easy as consent, so this cannot live only in the banner. Anchored
+     bottom-left because the 1.6.40 book template has no <footer> element to
+     inject into. */
+  #qz-prefs {
+    display: none;
+    position: fixed;
+    left: 0.6rem;
+    bottom: 0.6rem;
+    z-index: 1999;
+    font-size: 0.72rem;
+    padding: 0.2rem 0.45rem;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid #dee2e6;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    color: #6c757d;
+  }
+  #qz-prefs.show { display: block; }
+  #qz-prefs:hover { color: #0072b2; border-color: #0072b2; }
+
+  @media (prefers-color-scheme: dark) {
+    #qz-consent { background: #222; border-top-color: #444; color: #eee; }
+    #qz-consent a { color: #6cb2e0; }
+    #qz-prefs { background: rgba(34, 34, 34, 0.92); border-color: #444; color: #adb5bd; }
+  }
+</style>
+
+</head><body class="nav-sidebar floating"><div id="qz-consent" role="region" aria-label="Cookie consent">
+  <p>
+    This site uses Google Analytics to find out which chapters are useful and
+    which are not. Nothing is sent to Google and no cookies are set unless you
+    accept. See the <a href="privacy.html">privacy notice</a>.
+  </p>
+  <div class="qz-actions">
+    <button type="button" class="qz-accept" id="qz-accept">Accept analytics</button>
+    <button type="button" class="qz-decline" id="qz-decline">Decline</button>
+  </div>
+</div>
+
+<button type="button" id="qz-prefs">Analytics preferences</button>
+
+<script>
+  (function () {
+    "use strict";
+
+    // The GA4 measurement ID. Same value as _quarto.yml records, which is
+    // documentation only -- the tag is never emitted from there, see above.
+    var GA_ID = "G-P98W8WC0XC";
+    var KEY = "qz-analytics-consent";
+
+    var banner = document.getElementById("qz-consent");
+    var prefs = document.getElementById("qz-prefs");
+
+    function readChoice() {
+      try {
+        return window.localStorage.getItem(KEY);
+      } catch (e) {
+        // Private browsing modes can throw on localStorage. Treat as "not yet
+        // decided" rather than silently defaulting to tracking.
+        return null;
+      }
+    }
+
+    function writeChoice(value) {
+      try {
+        window.localStorage.setItem(KEY, value);
+      } catch (e) {
+        /* No persistence available; the session still behaves correctly. */
+      }
+    }
+
+    var loaded = false;
+
+    // The only place the Google tag is ever created.
+    function loadGoogleAnalytics() {
+      if (loaded) return;
+      loaded = true;
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { window.dataLayer.push(arguments); }
+      window.gtag = gtag;
+
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+      document.head.appendChild(s);
+
+      gtag("js", new Date());
+      gtag("config", GA_ID);
+    }
+
+    function showBanner() {
+      banner.classList.add("show");
+    }
+
+    function hideBanner() {
+      banner.classList.remove("show");
+    }
+
+    document.getElementById("qz-accept").addEventListener("click", function () {
+      writeChoice("accepted");
+      loadGoogleAnalytics();
+      hideBanner();
+      prefs.classList.add("show");
+    });
+
+    document.getElementById("qz-decline").addEventListener("click", function () {
+      writeChoice("declined");
+      hideBanner();
+      prefs.classList.add("show");
+    });
+
+    // Re-open the banner to change a decision already made.
+    prefs.addEventListener("click", showBanner);
+
+    var choice = readChoice();
+    if (choice === "accepted") {
+      loadGoogleAnalytics();
+      prefs.classList.add("show");
+    } else if (choice === "declined") {
+      prefs.classList.add("show");
+    } else {
+      // Never asked. Ask, and track nothing until the answer is yes.
+      showBanner();
+    }
+  })();
+</script>
 
 
-</head>
 
-<body class="nav-sidebar floating">
+
+
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -418,7 +620,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Below is the line graph that represents the above GDP data set:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-legend-motivate" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A line chart of five economic growth series for the BRICS countries between 2010 and 2014. The lines cross repeatedly and none is labelled, so there is no way to tell which line represents which country. One series falls steeply to near zero by 2014 and another falls almost to zero." data-fig-align="center">
+<div id="fig-legend-motivate" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A line chart of five economic growth series for the BRICS countries between 2010 and 2014. The lines cross repeatedly and none is labelled, so there is no way to tell which line represents which country. One series falls steeply to near zero by 2014 and another falls almost to zero.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-legend-motivate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="legend_files/figure-html/fig-legend-motivate-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="A line chart of five economic growth series for the BRICS countries between 2010 and 2014. The lines cross repeatedly and none is labelled, so there is no way to tell which line represents which country. One series falls steeply to near zero by 2014 and another falls almost to zero." width="1344">
@@ -808,7 +1010,7 @@ Figure&nbsp;9.1: The problem a legend solves: five series with nothing to tell t
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">'blue'</span>, <span class="st">'red'</span>), <span class="at">title =</span> <span class="st">'Nations'</span>,</span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">text.col =</span> <span class="st">'green'</span>, <span class="at">text.font =</span> <span class="dv">3</span>)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-legend-final" class="quarto-float quarto-figure quarto-figure-center anchored" alt="The same five-series growth chart, now with a legend in the top left corner. The legend has a title and a bordered box, and each entry pairs a short coloured line segment with the country name it identifies." data-fig-align="center">
+<div id="fig-legend-final" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="The same five-series growth chart, now with a legend in the top left corner. The legend has a title and a bordered box, and each entry pairs a short coloured line segment with the country name it identifies.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-legend-final-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="legend_files/figure-html/fig-legend-final-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="The same five-series growth chart, now with a legend in the top left corner. The legend has a title and a bordered box, and each entry pairs a short coloured line segment with the country name it identifies." width="960">
