@@ -1,0 +1,32 @@
+{
+  "title": "Data Visualization with R: Base Graphics",
+  "description": "A free, modern book on data visualisation with base R graphics: zero dependencies, publication-ready output, and a measured case for why base graphics still belongs in your toolkit. Builds to HTML, PDF and ePub with Quarto.",
+  "license": "cc-by-nc-sa-4.0",
+  "upload_type": "publication",
+  "publication_type": "book",
+  "creators": [
+    {
+      "name": "Hebbali, Aravind",
+      "affiliation": "Rsquared Academy"
+    }
+  ],
+  "keywords": [
+    "R",
+    "data visualization",
+    "base graphics",
+    "graphics",
+    "plot",
+    "ggplot2",
+    "Quarto",
+    "teaching"
+  ],
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://viz-base.rsquaredacademy.com",
+      "resource_type": "other"
+    }
+  ],
+  "notes": "Version 1.0. All measurements quoted in Chapter 1 are regenerable from the scripts in scripts/, stored as committed CSVs in data/. Nothing in scripts/ runs at knit time, so the book builds with no dependencies beyond knitr and rmarkdown.",
+  "version": "1.0"
+}

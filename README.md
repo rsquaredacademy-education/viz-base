@@ -6,6 +6,21 @@
 
 📖 **Read the book:** https://viz-base.rsquaredacademy.com
 
+## Cite this book
+
+```bibtex
+@misc{vizbase2026,
+  author    = {Aravind Hebbali},
+  title     = {Data Visualization with R: Base Graphics},
+  year      = {2026},
+  publisher = {Rsquared Academy},
+  url       = {https://viz-base.rsquaredacademy.com},
+  note      = {Version 1.0. Source: https://github.com/rsquaredacademy-education/viz-base}
+}
+```
+
+The entry is also in [`citation.bib`](citation.bib), and the Preface carries the same block. A `doi` field will be added once a Zenodo record exists for a versioned release — see [HOW-TO-CITE.md](HOW-TO-CITE.md). There is deliberately no placeholder DOI in the meantime: one that looks authoritative but does not resolve is worse than none.
+
 Free to read, built with [Quarto](https://quarto.org/). No packages to install — the book uses only the `graphics` package that ships with R, and Chapters 2–4 each close with a live playground that runs in your browser via [WebR](https://docs.r-wasm.org/webr/latest/).
 
 ## Syllabus
