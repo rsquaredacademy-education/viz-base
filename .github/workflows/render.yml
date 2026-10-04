@@ -82,10 +82,14 @@ jobs:
 
       - name: Verify legacy slugs
         run: |
-          for f in index why-base intro titlelabels scatter line bar box hist legend textann facet export-devices rosetta about-the-author; do
+          for f in index why-base intro titlelabels scatter line bar box hist legend textann facet export-devices rosetta references about-the-author; do
             test -f "/tmp/stage-html/$f.html" || { echo "MISSING SLUG: /tmp/stage-html/$f.html"; exit 1; }
           done
           test -f /tmp/stage-html/sitemap.xml || { echo "sitemap.xml missing from staged output"; exit 1; }
+          # references.html is a legacy bookdown URL that went missing during the
+          # Quarto migration. It is back as a chapter; assert it, because a
+          # silent drop is exactly how it disappeared the first time.
+          test -f /tmp/stage-html/references.html || { echo "references.html regressed"; exit 1; }
 
       - name: Verify downloads are present
         run: |

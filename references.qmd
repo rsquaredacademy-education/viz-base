@@ -1,0 +1,130 @@
+---
+description: "Sources cited by Data Visualization with R - Base Graphics: the R manuals and papers that define base graphics, the colour vision research behind the Okabe-Ito palette, and provenance for every dataset and benchmark in the book."
+---
+
+# References {.unnumbered}
+
+Everything this book depends on, in one place. The primary sources for base
+graphics are the R manuals that ship with the software — they are free, they are
+current, and `?graphics` is more accurate than any blog post.
+
+## Base R graphics
+
+> R Core Team (2026). *R: A Language and Environment for Statistical Computing*.
+> R Foundation for Statistical Computing, Vienna, Austria.
+> Available at <https://www.R-project.org/>.
+
+> Chambers, J. M. (1993). *Statistical Models in S*. Chapman & Hall, London.
+
+> Chambers, J. M. (2008). *Software for Data Analysis: R and S-PLUS*. Springer, New York.
+
+> Chambers, J. M. (2018). *Scripting R: Analyzing and Programming with the R Language*. O'Reilly Media, Sebastopol, CA.
+
+> Murrell, P. (2017). *R Graphics*, 3rd edition. Chapman & Hall/CRC, Boca Raton, FL.
+> The definitive reference for base graphics specifically. `?graphics` and the
+> `R Graphics` help pages are abridged versions of it.
+
+> Venables, W. N. and Ripley, B. D. (2002). *Modern Applied Statistics with S*.
+> Springer, New York. The `S` ancestor of base graphics, and still the clearest
+> account of why the design is shaped the way it is.
+
+## The grammar of graphics, and the alternative
+
+> Wilkinson, L. (2005). *The Grammar of Graphics*. Springer, New York.
+
+> Wickham, H. and Grolemund, G. (2017). *R for Data Science: Import, Tidy,
+> Transform, Visualize, and Model Data*. O'Reilly Media, Sebastopol, CA.
+> Available at <https://r4ds.hadley.nz/>.
+
+> Wickham, H. (2016). *ggplot2: Elegant Graphics for Data Analysis*, 3rd
+> edition. Springer, New York.
+
+> Chang, W. (2024). *R Graphics Cookbook*, 2nd edition. O'Reilly Media,
+> Sebastopol, CA. Available at <https://r-graphics.org/>.
+> Recipe-first, and covers base and ggplot2 side by side.
+
+## Colour and accessibility
+
+> Okabe, M. and Ito, K. (2008). "Color Universal Design (CUD): How to make
+> figures and presentations that are friendly to Colorblind people." In
+> *Proceedings of the 2008 Symposium on Universal Design and Accessibility*,
+> Tokyo, Japan.
+
+> Masataka, D. (2020). *Color Design: Methods, Tools, and Applications*.
+> Apress, Singapore. Background on perceptual colour spaces, lightness and
+> contrast that Chapter 12's greyscale check relies on.
+
+The Okabe-Ito palette used in Chapter 12 is available in R 4.1 and later without
+any additional package, via `palette.colors(palette = 'Okabe-Ito')`.
+
+## Datasets used in this book
+
+Most figures are drawn from datasets that ship with R, and the two that do not
+are vendored in this repository so the book builds offline. Full provenance:
+
+- `AirPassengers` — Box & Jenkins (1975) monthly airline passengers, 1949–1960.
+  Distributed with R from the `datasets` package.
+- `mtcars` — extracted from the 1974 *Motor Trend* US magazine. Distributed with
+  R from the `datasets` package.
+- `iris` — Anderson, E. (1935). "The irises of the Gaspé Peninsula." *Bulletin of
+  the American Iris Society*, 59, 17–50. Distributed with R from the `datasets`
+  package.
+- `ToothGrowth` — the growth of 60 guinea pigs, distributed with R from the
+  `datasets` package.
+- `hsb2.csv` — High School and Beyond survey, 200 observations, originally from
+  the UCLA Institute for Digital Research and Education. Vendored as
+  `data/hsb2.csv`. Used illustratively; not redistributable as an authoritative
+  source, and no claim is made about the sampling frame.
+- `brics-gdp-2010-14.csv` — a frozen vintage of annual GDP growth for the BRICS
+  nations, 2010–2014, hand-entered as a teaching dataset. It differs slightly
+  from the World Bank's current revised series and should be treated as
+  illustrative, **not** as a citable statistic. Where the numbers matter, use the
+  World Bank directly.
+
+## Reproducing the measurements in Chapter 1
+
+Chapter 1's claims are measured, not asserted. Each figure in that chapter is
+drawn from a CSV committed to this repository, and each CSV is produced by a
+script in `scripts/`. None of them runs when the book is built, which is
+deliberate: a book arguing for zero dependencies cannot quietly require two of
+them to make its case.
+
+| Claim | Script | Output |
+|:--|:--|:--|
+| Draw time and peak memory, base versus ggplot2, 10k and 100k points | `scripts/bench.R` | `data/bench-base-vs-ggplot2.csv` |
+| Wall clock to start a plotting session, by engine | `scripts/startup.R` | `data/startup-latency.csv` |
+| Declared non-base CRAN dependencies, per package | `scripts/cran-deps.R` | `data/cran-deps.csv` |
+| Published container image sizes, R versus R + tidyverse | `scripts/docker-sizes.R` | `data/docker-sizes.csv` |
+
+Run any of them with `Rscript scripts/<name>.R`. Each stamps the date, R
+version and platform it ran under into its output, so a stale row is visibly
+stale. Absolute timings are machine-specific and should be read as an order of
+magnitude; the shape of each result travels across machines far better than the
+individual numbers do.
+
+`scripts/bench.R` requires `bench` and `ggplot2`, which the book itself never
+needs. `scripts/docker-sizes.R` and `scripts/cran-deps.R` read published metadata
+over HTTP, so their numbers reflect the state of the world on their
+`retrieved_on` date.
+
+## Further reading in the R ecosystem
+
+The author's own CRAN packages are adjacent to this book's subject matter rather
+than part of it. Their plotting layers use ggplot2; Chapter 1 discusses that
+honestly, and Appendix A maps the two systems onto each other.
+
+- [`olsrr`](https://github.com/rsquaredacademy/olsrr) — companion functions for
+  ordinary least squares, including diagnostic plots.
+- [`rfm`](https://github.com/rsquaredacademy/rfm) — recency, frequency and
+  monetary analysis, with cohort and segment plots.
+- [`blorr`](https://github.com/rsquaredacademy/blorr) — logistic regression
+  diagnostics and plots.
+- [`descriptr`](https://github.com/rsquaredacademy/descriptr) — frequency tables,
+  cross-tabulations and summary statistics, each with a plot.
+
+## A note on the sources for this chapter
+
+The author packages above were checked by reading their source on
+**2026-10-04**, not inferred from dependency metadata. Dependency metadata
+records what a package *needs*, not what it *draws with*, and drawing that
+distinction incorrectly is exactly the error Chapter 1 warns about.

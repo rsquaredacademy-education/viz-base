@@ -41,6 +41,7 @@ book:
     - textann.qmd
     - facet.qmd
     - export-devices.qmd
+    - references.qmd
     - about-the-author.qmd
   downloads: [pdf, epub]
   appendices:
