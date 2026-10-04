@@ -292,6 +292,59 @@ by-product. Chapter 2 covers the systems side by side, and Appendix A maps every
 argument in this chapter onto its ggplot2 equivalent so you can translate in
 either direction.
 
+## What it weighs in a container
+
+Dependency counts are an abstraction. If you ship R in a container — and if you
+ship R anywhere locked down, you probably do — the question stops being "how
+many packages" and becomes "how many bytes".
+
+Two images from the same publisher make that measurable, because
+`rocker/tidyverse` is built *on top of* `rocker/r-ver`: the same R, the same base
+system, plus the package layer. The difference between them is therefore the
+cost of the tidyverse layer and nothing else, which is a cleaner comparison than
+diffing two unrelated images.
+
+```{r docker}
+docker <- read.csv('data/docker-sizes.csv')
+docker[, c('image', 'tag', 'layer', 'size_mb', 'extra_layer_mb')]
+```
+
+```{r docker-plot, fig.align='center', fig.width=7.5, fig.height=4}
+init <- par(no.readonly = TRUE)
+d <- docker[docker$tag == '4.5.2', ]
+# Bottom margin has to clear the x label AND the delta caption below it.
+par(mar = c(5.5, 9, 3, 1))
+bp <- barplot(d$size_mb, horiz = TRUE, names.arg = FALSE, border = NA,
+              space = 0.7, col = c('#0072B2', '#D55E00'))
+axis(2, at = bp, labels = d$image, las = 1, tick = FALSE, cex.axis = 0.9)
+# Title kept short: a long one overflows the panel once the left margin has to
+# clear these labels.
+title(main = 'Container image size, R 4.5.2', xlab = 'MB, compressed download')
+delta <- d$size_mb[2] - d$size_mb[1]
+mtext(sprintf('the tidyverse layer adds %s MB on top of R, a %.2fx increase',
+              format(delta, big.mark = ',', scientific = FALSE),
+              d$size_mb[2] / d$size_mb[1]),
+      side = 1, line = 4.2, cex = 0.75, col = 'grey30')
+par(init)
+```
+
+A base-R image is 349 MB; adding the tidyverse layer takes it to 924 MB. That
+574 MB is not a mistake or a packaging artefact — it is the price of the
+dependency tree, paid on every pull, every CI run and every cold start, whether
+or not the code being run touches a single one of those packages.
+
+> Two caveats, both recorded in the CSV. These are Docker Hub's reported sizes
+> for the whole tag, which is the sum of its **compressed** layers — a real
+> number a real user downloads, but not the unpacked size on disk, and the ratio
+> is only as fair as the fact that both tags were built at the same time by the
+> same publisher. And they are published metadata read over HTTP, not a local
+> build: no daemon was involved, which is why this is reproducible on any
+> machine, and also why it cannot control the comparison.
+
+Read next to the CRAN table above, the pattern is consistent. Base graphics is
+not lighter by a little; it is lighter by an order of magnitude, because it
+inherits the empty part of R's dependency graph rather than extending it.
+
 ## What base graphics costs
 
 An honest chapter has to state the other side.
