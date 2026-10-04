@@ -1,62 +1,103 @@
-# Minting a DOI (one-time, needs your Zenodo account)
+# Citing this book, and minting the next DOI
 
-Everything that can be prepared in advance has been. Two steps remain, and both
-require you: they are account actions, not code.
+**Current version:** 1.0.0, released 2026-10-04
+**Version DOI:** [`10.5281/zenodo.23138733`](https://doi.org/10.5281/zenodo.23138733)
+**Concept DOI:** `10.5281/zenodo.23138732` — always resolves to the latest version
 
-## What is already in place
+## Which DOI to use
 
-| File | What it does |
+Zenodo issues two, and the difference matters.
+
+| | Value | Behaviour |
+|:--|:--|:--|
+| **Version DOI** | `10.5281/zenodo.23138733` | Pinned to v1.0.0 forever. A citation to it keeps resolving to this exact content after v1.1 exists. |
+| **Concept DOI** | `10.5281/zenodo.23138732` | Always resolves to whichever version is current. |
+
+The published citation uses the **version DOI**, because the citation also
+carries `version = {1.0}` and a reader who cites "Version 1.0" should get
+Version 1.0, not whatever comes next.
+
+Use the **concept DOI** instead if you are citing the book as a living work and
+want readers to land on the latest edition — which is the convention most
+journals prefer for anything that gets revised.
+
+Whichever you pick, keep the two consistent. A book whose README cites the
+concept DOI and whose Preface cites the version DOI is citing itself two
+different ways.
+
+## What is where
+
+The DOI now appears in four places. They are hand-maintained; nothing generates
+them.
+
+| File | What it holds |
 |:--|:--|
-| `.zenodo.json` | Zenodo's metadata schema, filled in: title, creator, CC BY-NC-SA 4.0 licence, keywords, publication type `book`, and a `related_identifiers` link back to the live site. Zenodo reads this on publish. |
-| `citation.bib` | The BibTeX entry for the book. `doi` is deliberately a `10.5281/zenodo.XXXXXXX` placeholder. |
-| Preface, *How to cite this book* | A copy-pasteable BibTeX block with **no** `doi` field, plus a note explaining why. |
-| `references.qmd` | Sources for every claim in Chapter 1, and provenance for both vendored datasets. |
+| `citation.bib` | The BibTeX entry, with `doi` and `version` fields |
+| `index.qmd` | *How to cite this book*, in the Preface — the block a reader copies |
+| `README.md` | The same block, plus a rendered link to the DOI |
+| Release notes | Attached to the GitHub release for the matching tag |
 
-## Step 1 — connect the repository on Zenodo
+` HOW-TO-CITE.md ` (this file) and `.zenodo.json` carry no DOI. The former
+explains, the latter is the input Zenodo reads.
 
-1. Log in at <https://zenodo.org> (a GitHub login works, and is the easy path).
-2. Go to **GitHub** → **New** → pick `rsquaredacademy-education/viz-base`.
-3. Zenodo reads `.zenodo.json` and pre-fills the form. Check the title and
-   licence, then **Enable**.
+## Why `.zenodo.json` exists
 
-Zenodo now snapshots the repository. The first publish creates the concept DOI
-and a version DOI; every later release gets its own version DOI, and the concept
-DOI always resolves to the latest.
+Zenodo's GitHub integration pre-fills the deposition form from `.zenodo.json`, so
+title, creator, licence, publication type and keywords are declared once in the
+repository rather than retyped into a web form each release. Verified against the
+minted record: title, `version`, `Book`, `cc-by-nc-sa-4.0` and the creator all came
+through unchanged.
 
-## Step 2 — publish, then fill in the DOI
+Change the metadata there, not in the Zenodo form, or the two drift.
 
-1. **Create new version**, then **Publish**. Copy the DOI from the landing page.
-2. Put it in **two** places in this repo:
-   - `citation.bib` — replace `10.5281/zenodo.XXXXXXX`
-   - `README.md` — append the DOI to the `doi` field in the *Cite this book*
-     BibTeX block
-3. Then add the same DOI to the Preface BibTeX block in `index.qmd`, so the
-   block on the site matches the downloadable file.
+## Releasing v1.1
 
-Do all three in one commit. A DOI present in one place and missing from another
-is worse than no DOI, because readers will trust whichever one they find first.
+The order matters and it is the reverse of what the first release needed.
 
-## Why the placeholder is a placeholder
+1. Land the content changes on `master`. Let CI finish — it rebuilds `docs/`,
+   the PDF, the ePub and the cheatsheet, and asserts the cheatsheet is still one
+   page.
+2. **Publish the GitHub release first.** Push the annotated tag, then create the
+   release with the PDF, ePub and cheatsheet attached:
+   ```bash
+   git tag -a v1.1.0 -m "Version 1.1"
+   git push origin v1.1.0
+   gh release create v1.1.0 \
+     --title "Data Visualization with R: Base Graphics — v1.1" \
+     --notes-file release-notes.md \
+     docs/Data-Visualization-with-R.pdf \
+     docs/Data-Visualization-with-R.epub \
+     docs/base-par-cheatsheet.pdf
+   ```
+3. **Then** publish the new Zenodo version and copy its **version** DOI.
+4. Update all four places from the table above, in **one commit**.
 
-An unresolvable DOI looks authoritative and fails silently — a reader pastes it
-into their reference list and nobody notices until a reviewer tries to follow it.
-So the placeholder is inert rather than plausible-looking: `zenodo.XXXXXXX`
-cannot be mistaken for a real DOI.
+Releasing before minting is what makes the mapping unambiguous: the GitHub
+release for `v1.1.0` is demonstrably the artifact Zenodo archived. Doing it the
+other way round leaves you reasoning about which commit was current at the moment
+someone clicked a button.
 
-The Preface block has no `doi` field at all for the same reason. A citation
-without a DOI is honest; a citation with a broken one is not.
+### On automatic versioning
 
-## Versioning, if this is ever tagged
+If Zenodo offers to version automatically on new GitHub releases, **decline**.
+Every tag would mint a DOI, and a book gets a lot of tags — a typo fix, a
+dependency bump, a CI pin. Manual publishing keeps one DOI per deliberate
+release.
 
-Zenodo tracks **Git tags**, not commits. A DOI minted now versions from the
-default branch forever unless you publish a release. When you are ready for a
-citable version:
+## What not to do
+
+**Do not put a placeholder DOI in a citation.** It was avoided for the whole
+period before minting, and the reason still holds: `10.5281/zenodo.XXXXXXX` looks
+exactly like a real DOI and resolves to nothing. A reader pastes it into their
+reference list and the first person to find out is a reviewer a year later. An
+absent `doi` field is honest; a broken one is not.
+
+**Do not trust the DOI without resolving it.** Before publishing a new one:
 
 ```bash
-git tag -a v1.0.0 -m "Version 1.0"
-git push origin v1.0.0
+curl -s https://zenodo.org/api/records/<id> | head -c 400
 ```
 
-Then **Create new version** on Zenodo. Book-in-progress releases are not worth
-a DOI each; one versioned release plus a rolling concept DOI is the normal
-pattern.
+Check that `metadata.version`, `metadata.resource_type.title` and
+`metadata.license.id` match what you intended to publish. A DOI that resolves to
+the wrong version is worse than one that is missing.

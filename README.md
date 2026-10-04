@@ -63,13 +63,17 @@ CI renders HTML, Typst PDF, and ePub, builds the cheatsheet, verifies every slug
   author    = {Aravind Hebbali},
   title     = {Data Visualization with R: Base Graphics},
   year      = {2026},
+  version   = {1.0},
   publisher = {Rsquared Academy},
+  doi       = {10.5281/zenodo.23138733},
   url       = {https://viz-base.rsquaredacademy.com},
   note      = {Version 1.0. Source: https://github.com/rsquaredacademy-education/viz-base}
 }
 ```
 
-The entry is also in [`citation.bib`](citation.bib), and the Preface carries the same block. A `doi` field will be added once a Zenodo record exists for a versioned release — see [HOW-TO-CITE.md](HOW-TO-CITE.md). There is deliberately no placeholder DOI in the meantime: one that looks authoritative but does not resolve is worse than none.
+DOI: [10.5281/zenodo.23138733](https://doi.org/10.5281/zenodo.23138733) — the Zenodo version DOI for v1.0.0, so the citation stays pinned to the edition you read. For a citation that tracks the current edition instead, the concept DOI `10.5281/zenodo.23138732` always resolves to the latest release.
+
+The entry is also in [`citation.bib`](citation.bib), and the Preface carries the same block. See [HOW-TO-CITE.md](HOW-TO-CITE.md) for how the DOI is minted and what to do at the next release.
 
 ## License
 

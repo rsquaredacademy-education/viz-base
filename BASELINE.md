@@ -50,10 +50,8 @@ is the planning document.
 ## Still outstanding
 
 - ~~GA4 measurement ID~~ — resolved 2026-10-04, see below.
-- **No citable DOI yet.** `.zenodo.json` is filled in and `citation.bib` exists, but
-  minting requires a Zenodo account action. See `HOW-TO-CITE.md`. Until it exists the
-  citation deliberately has no `doi` field rather than a placeholder that would resolve
-  to nothing.
+- ~~Zenodo DOI~~ — minted 2026-10-04 as `10.5281/zenodo.23138733` (version) /
+  `10.5281/zenodo.23138732` (concept). See `HOW-TO-CITE.md`.
 - **Figure captions and alt-text are partial.** 49 of 191 figures — the argument-carrying
   ones plus everything in the three Phase 2 chapters — have both. The remainder are
   gallery figures (a 3x2 grid of `lty` values, a 3x3 grid of `pch` values) whose content
@@ -61,7 +59,26 @@ is the planning document.
 - **Lighthouse and build time are still unmeasured.** No figure recorded for either.
 - **No end-of-chapter exercises outside Chapter 12.** The roadmap blocker list also called
   for a `solutions/` directory; Chapter 12's solutions are inline and collapsed.
-- **Search Console and outreach** need browser access, not code.
+- **Search Console and outreach** are the site owner's; Search Console was submitted
+  2026-10-04, the outreach post is pending.
+
+## Citability (added 2026-10-04)
+
+v1.0.0 tagged, GitHub release published with the PDF, ePub and one-page cheatsheet
+attached, and the Zenodo record minted. The DOI was verified against Zenodo's API
+before being written into `citation.bib`, the Preface and `README.md` — title,
+`version`, `Book`, `cc-by-nc-sa-4.0` and creator all matched what `.zenodo.json`
+declared.
+
+Two DOIs exist and they are not interchangeable: the **version** DOI
+(`…23138733`) pins to v1.0.0 forever, the **concept** DOI (`…23138732`) always
+resolves to the newest release. The published citation uses the version DOI,
+because it also carries `version = {1.0}` and a reader citing Version 1.0 should
+receive Version 1.0. `HOW-TO-CITE.md` records the tradeoff and the release order.
+
+The DOI is hand-maintained in four places because nothing generates it. A DOI
+present in one and missing from another is worse than none, so the next release
+updates all four in one commit.
 
 ## Analytics (added 2026-10-04)
 
