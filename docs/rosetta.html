@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="A Rosetta Stone mapping base R graphics onto ggplot2: pch to shape, cex to size, mfrow to facet_wrap, legend to scale colour manual, with when to stop translating.">
 
 <title>Appendix A — Base R ↔ ggplot2: A Rosetta Stone – Data Visualization with R</title>
 <style>
@@ -105,15 +106,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <!-- Head metadata for every page.
 
-     Two distinct mechanisms are at work here:
+     Three distinct mechanisms are at work here:
 
-     1. The Open Graph / Twitter tags below are PLACEHOLDERS. Quarto rewrites
-        og:title, og:description, og:image and the twitter:* values per page
-        (see `open-graph` / `twitter-card` in _quarto.yml), so the literal
-        values here never reach the reader. Do not delete these tags -- with
-        them removed Quarto emits nothing. Verified: docs/scatter.html gets
-        "4 Scatter Plots", docs/line.html gets "5 Line Graphs".
-        og:site_name and og:type are ours; Quarto does not manage those.
+     1. The description and Open Graph / Twitter tags below are PLACEHOLDERS.
+        Quarto rewrites description, og:title, og:description, og:image and the
+        twitter:* values per page (see `open-graph` / `twitter-card` in
+        _quarto.yml), so the literal values here never reach the reader. Do not
+        delete these tags -- with them removed Quarto emits nothing. Verified:
+        docs/scatter.html gets "4 Scatter Plots", docs/line.html gets
+        "5 Line Graphs". og:site_name and og:type are ours; Quarto does not
+        manage those.
+
+        The plain `description` tag matters as much as the og: ones: it is the
+        text Google shows in a search result, and it was missing from every page
+        until each chapter got `description:` front matter. Keep the placeholder
+        -- without it Quarto emits no description tag at all, which is the
+        original bug.
 
      2. The citation_* tags are hand-written because Quarto has no native
         Highwire/Scholar support. This is the reason this file exists.
@@ -129,12 +137,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
      and add a consent banner alongside it (no cookies are set until then). -->
 <meta property="og:site_name" content="Data Visualization with R">
 <meta property="og:type" content="book">
+<meta name="description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
 <meta property="og:title" content="Appendix A — Base R ↔︎ ggplot2: A Rosetta Stone – Data Visualization with R">
-<meta property="og:description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
+<meta property="og:description" content="A Rosetta Stone mapping base R graphics onto ggplot2: pch to shape, cex to size, mfrow to facet_wrap, legend to scale colour manual, with when to stop translating.">
 <meta property="og:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Appendix A — Base R ↔︎ ggplot2: A Rosetta Stone – Data Visualization with R">
-<meta name="twitter:description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
+<meta name="twitter:description" content="A Rosetta Stone mapping base R graphics onto ggplot2: pch to shape, cex to size, mfrow to facet_wrap, legend to scale colour manual, with when to stop translating.">
 <meta name="twitter:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
 <meta name="citation_title" content="Data Visualization with R — Base Graphics">
 <meta name="citation_author" content="Aravind Hebbali">
@@ -275,6 +284,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./export-devices.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Production Export &amp; Graphical Devices</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -616,9 +631,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'topright'</span>, <span class="at">legend =</span> <span class="fu">levels</span>(g), <span class="at">pch =</span> <span class="dv">19</span>,</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">palette</span>()[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="at">bty =</span> <span class="st">'n'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="rosetta_files/figure-html/group-base-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1248"></p>
+<div id="fig-group-base" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A scatterplot of engine displacement against miles per gallon with 32 points in three colours, keyed in a frameless legend at the top right. Four-cylinder cars are black circles clustered at the top left with the highest miles per gallon; six-cylinder cars are crimson circles in the middle; eight-cylinder cars are green circles at the right and bottom. The legend text reads 4, 6 and 8.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-group-base-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="rosetta_files/figure-html/fig-group-base-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="A scatterplot of engine displacement against miles per gallon with 32 points in three colours, keyed in a frameless legend at the top right. Four-cylinder cars are black circles clustered at the top left with the highest miles per gallon; six-cylinder cars are crimson circles in the middle; eight-cylinder cars are green circles at the right and bottom. The legend text reads 4, 6 and 8." width="1248">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-group-base-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;A.1: Mapping a factor to colour in base R: recycle the palette, then build the legend by hand
+</figcaption>
 </figure>
 </div>
 </div>
@@ -1466,240 +1486,247 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-next">
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Base R ↔ ggplot2: A Rosetta Stone {#rosetta}</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "A Rosetta Stone mapping base R graphics onto ggplot2: pch to shape, cex to size, mfrow to facet_wrap, legend to scale colour manual, with when to stop translating."</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Appendix A is a lookup table, not a chapter. You do not read it; you keep it</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>open next to whichever system you are working in and use it to move a plot</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>across.</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu"># Base R ↔ ggplot2: A Rosetta Stone {#rosetta}</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Every row maps one base R construct to its nearest ggplot2 equivalent, and the</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>last column is the part that matters: **when to stop translating and switch.**</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>Two things this appendix is not. It is not a ggplot2 tutorial — there are better</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>ones, and the ggplot2 documentation is excellent. And it is not an argument for</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>either system. Chapter 1 made that argument; this is the translation layer.</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Appendix A is a lookup table, not a chapter. You do not read it; you keep it</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>open next to whichever system you are working in and use it to move a plot</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>across.</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>Every row maps one base R construct to its nearest ggplot2 equivalent, and the</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>last column is the part that matters: **when to stop translating and switch.**</span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **This book does not use ggplot2.** No example here is evaluated, and no</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; figure on this page requires it. The ggplot2 side appears as code you can read</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; and run yourself, but the book is built without the dependency and stays that</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; way. Only the base R column is rendered.</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## The one-sentence version</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>ggplot2 is a **declarative** system: you describe what the data means and let</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>the package decide how to draw it. Base graphics is a **direct** system: you</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>issue drawing commands and the marks appear.</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>Two things this appendix is not. It is not a ggplot2 tutorial — there are better</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>ones, and the ggplot2 documentation is excellent. And it is not an argument for</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>either system. Chapter 1 made that argument; this is the translation layer.</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **This book does not use ggplot2.** No example here is evaluated, and no</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; figure on this page requires it. The ggplot2 side appears as code you can read</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; and run yourself, but the book is built without the dependency and stays that</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; way. Only the base R column is rendered.</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## The one-sentence version</span></span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>Everything below is a consequence of that difference. Declarative systems infer</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>grouping, transform scales and build facets for you. Direct systems do none of</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>it until you write it.</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>ggplot2 is a **declarative** system: you describe what the data means and let</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>the package decide how to draw it. Base graphics is a **direct** system: you</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>issue drawing commands and the marks appear.</span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Marks and coordinates</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>The most-used arguments translate almost one to one, because they describe</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>marks rather than structure.</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>| Base R | ggplot2 | When to switch |</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>|:-------|:--------|:---------------|</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>| <span class="in">`pch = 19`</span> | <span class="in">`shape = 19`</span> | Never. Same idea. |</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>| <span class="in">`cex = 1.4`</span> | <span class="in">`size = 3`</span> | Never — but note <span class="in">`size`</span> is not a linear multiple of <span class="in">`cex`</span>; it is in millimetres, so you must retune. |</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>| <span class="in">`col = 'red'`</span> | <span class="in">`colour = 'red'`</span> | Never. |</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>| <span class="in">`bg = 'yellow'`</span> | <span class="in">`fill = 'yellow'`</span> | Never. <span class="in">`bg`</span> only applies to shapes 21–25, which are already filled. |</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>| <span class="in">`lwd = 2`</span> | <span class="in">`linewidth = 1`</span> | Never — same non-linearity as <span class="in">`cex`</span>. |</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>| <span class="in">`lty = 2`</span> | <span class="in">`linetype = 'dashed'`</span> | Never, though ggplot2 also accepts the numeric codes. |</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>| <span class="in">`type = 'p'`</span> | <span class="in">`geom_point()`</span> | Switch when you start mapping a variable to mark properties. |</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>| <span class="in">`type = 'l'`</span> | <span class="in">`geom_line()`</span> | Never. |</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>| <span class="in">`type = 'b'`</span>, <span class="in">`'o'`</span> | <span class="in">`geom_line()`</span> + <span class="in">`geom_point()`</span> | Never — two layers, which is the ggplot2 idiom. |</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>| <span class="in">`type = 'h'`</span> | <span class="in">`geom_histogram()`</span> | Switch. ggplot2 bins separately from the plot. |</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>| <span class="in">`type = 'n'`</span> | <span class="in">`ggplot()`</span> + a layer only | Never, but <span class="in">`type = 'n'`</span> is *how* you set up axes for manual layering. |</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>| <span class="in">`plot(x, y)`</span> | <span class="in">`ggplot(df, aes(x, y)) + geom_point()`</span> | Switch as soon as the plot has a third variable. |</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>| <span class="in">`points(x, y)`</span> | <span class="in">`+ geom_point(data = ...)`</span> | Stay in base for overlays onto an existing plot. |</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>| <span class="in">`lines(x, y)`</span> | <span class="in">`+ geom_line(data = ...)`</span> | Stay in base for overlays. |</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>| <span class="in">`text(x, y, labels)`</span> | <span class="in">`geom_text(aes(label = ...))`</span> | Switch when labels are data-driven rather than hand-placed. |</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>| <span class="in">`mtext(s, side)`</span> | <span class="in">`labs(title=, caption=)`</span> | Never for titles; <span class="in">`side`</span> has no ggplot2 equivalent. |</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>| <span class="in">`title(main, sub)`</span> | <span class="in">`labs(title, subtitle)`</span> | Never. |</span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>| <span class="in">`abline(a, b)`</span> | <span class="in">`geom_abline(intercept=, slope=)`</span> | Never. |</span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>| <span class="in">`segments()`</span>, <span class="in">`arrows()`</span> | <span class="in">`geom_segment()`</span>, <span class="in">`geom_arrow()`</span> | Never. <span class="in">`geom_segment`</span> is the easy one to miss. |</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>| <span class="in">`polygon()`</span> | <span class="in">`geom_polygon()`</span> | Never. |</span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="fu">### The scale trap</span></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="in">`cex = 2`</span> is not <span class="in">`size = 2`</span>. <span class="in">`cex`</span> is a multiplier on the device's default text</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>size; ggplot2's <span class="in">`size`</span> is an absolute diameter in millimetres. If you carry a</span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>plot across and change nothing else, the marks will be the wrong size, and the</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>usual response — nudging the number until it looks right — makes the code</span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>meaningless to the next reader.</span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="fu">## Titles, labels and ranges</span></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>| Base R | ggplot2 | When to switch |</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>|:-------|:--------|:---------------|</span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>| <span class="in">`main = 'x'`</span> | <span class="in">`labs(title = 'x')`</span> | Never. |</span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>| <span class="in">`sub = 'x'`</span> | <span class="in">`labs(subtitle = 'x')`</span> | Never. |</span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>| <span class="in">`xlab`</span>, <span class="in">`ylab`</span> | <span class="in">`labs(x = , y = )`</span> | Never. |</span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>| <span class="in">`xlim`</span>, <span class="in">`ylim`</span> | <span class="in">`coord_cartesian(xlim=, ylim=)`</span> | **Always.** See below. |</span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>| <span class="in">`log = 'x'`</span> | <span class="in">`scale_x_log10()`</span> | Switch. <span class="in">`plot(log = '')`</span> rescales in place with no warning; <span class="in">`scale_*`</span> transforms the data and labels the axis for you. |</span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>| <span class="in">`asp = 1`</span> | <span class="in">`coord_fixed()`</span> | Never. |</span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="fu">### `xlim` is not `coord_cartesian(xlim =)`</span></span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>This is the single most damaging translation error, so it is worth being precise.</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>Everything below is a consequence of that difference. Declarative systems infer</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>grouping, transform scales and build facets for you. Direct systems do none of</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>it until you write it.</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Marks and coordinates</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>The most-used arguments translate almost one to one, because they describe</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>marks rather than structure.</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>| Base R | ggplot2 | When to switch |</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>|:-------|:--------|:---------------|</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>| <span class="in">`pch = 19`</span> | <span class="in">`shape = 19`</span> | Never. Same idea. |</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>| <span class="in">`cex = 1.4`</span> | <span class="in">`size = 3`</span> | Never — but note <span class="in">`size`</span> is not a linear multiple of <span class="in">`cex`</span>; it is in millimetres, so you must retune. |</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>| <span class="in">`col = 'red'`</span> | <span class="in">`colour = 'red'`</span> | Never. |</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>| <span class="in">`bg = 'yellow'`</span> | <span class="in">`fill = 'yellow'`</span> | Never. <span class="in">`bg`</span> only applies to shapes 21–25, which are already filled. |</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>| <span class="in">`lwd = 2`</span> | <span class="in">`linewidth = 1`</span> | Never — same non-linearity as <span class="in">`cex`</span>. |</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>| <span class="in">`lty = 2`</span> | <span class="in">`linetype = 'dashed'`</span> | Never, though ggplot2 also accepts the numeric codes. |</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>| <span class="in">`type = 'p'`</span> | <span class="in">`geom_point()`</span> | Switch when you start mapping a variable to mark properties. |</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>| <span class="in">`type = 'l'`</span> | <span class="in">`geom_line()`</span> | Never. |</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>| <span class="in">`type = 'b'`</span>, <span class="in">`'o'`</span> | <span class="in">`geom_line()`</span> + <span class="in">`geom_point()`</span> | Never — two layers, which is the ggplot2 idiom. |</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>| <span class="in">`type = 'h'`</span> | <span class="in">`geom_histogram()`</span> | Switch. ggplot2 bins separately from the plot. |</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>| <span class="in">`type = 'n'`</span> | <span class="in">`ggplot()`</span> + a layer only | Never, but <span class="in">`type = 'n'`</span> is *how* you set up axes for manual layering. |</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>| <span class="in">`plot(x, y)`</span> | <span class="in">`ggplot(df, aes(x, y)) + geom_point()`</span> | Switch as soon as the plot has a third variable. |</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>| <span class="in">`points(x, y)`</span> | <span class="in">`+ geom_point(data = ...)`</span> | Stay in base for overlays onto an existing plot. |</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>| <span class="in">`lines(x, y)`</span> | <span class="in">`+ geom_line(data = ...)`</span> | Stay in base for overlays. |</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>| <span class="in">`text(x, y, labels)`</span> | <span class="in">`geom_text(aes(label = ...))`</span> | Switch when labels are data-driven rather than hand-placed. |</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>| <span class="in">`mtext(s, side)`</span> | <span class="in">`labs(title=, caption=)`</span> | Never for titles; <span class="in">`side`</span> has no ggplot2 equivalent. |</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>| <span class="in">`title(main, sub)`</span> | <span class="in">`labs(title, subtitle)`</span> | Never. |</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>| <span class="in">`abline(a, b)`</span> | <span class="in">`geom_abline(intercept=, slope=)`</span> | Never. |</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>| <span class="in">`segments()`</span>, <span class="in">`arrows()`</span> | <span class="in">`geom_segment()`</span>, <span class="in">`geom_arrow()`</span> | Never. <span class="in">`geom_segment`</span> is the easy one to miss. |</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>| <span class="in">`polygon()`</span> | <span class="in">`geom_polygon()`</span> | Never. |</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### The scale trap</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="in">`cex = 2`</span> is not <span class="in">`size = 2`</span>. <span class="in">`cex`</span> is a multiplier on the device's default text</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>size; ggplot2's <span class="in">`size`</span> is an absolute diameter in millimetres. If you carry a</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>plot across and change nothing else, the marks will be the wrong size, and the</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>usual response — nudging the number until it looks right — makes the code</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>meaningless to the next reader.</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## Titles, labels and ranges</span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>| Base R | ggplot2 | When to switch |</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>|:-------|:--------|:---------------|</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>| <span class="in">`main = 'x'`</span> | <span class="in">`labs(title = 'x')`</span> | Never. |</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>| <span class="in">`sub = 'x'`</span> | <span class="in">`labs(subtitle = 'x')`</span> | Never. |</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>| <span class="in">`xlab`</span>, <span class="in">`ylab`</span> | <span class="in">`labs(x = , y = )`</span> | Never. |</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>| <span class="in">`xlim`</span>, <span class="in">`ylim`</span> | <span class="in">`coord_cartesian(xlim=, ylim=)`</span> | **Always.** See below. |</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>| <span class="in">`log = 'x'`</span> | <span class="in">`scale_x_log10()`</span> | Switch. <span class="in">`plot(log = '')`</span> rescales in place with no warning; <span class="in">`scale_*`</span> transforms the data and labels the axis for you. |</span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>| <span class="in">`asp = 1`</span> | <span class="in">`coord_fixed()`</span> | Never. |</span>
 <span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r xlim, eval=FALSE}</span></span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, xlim = c(100, 200))   # DROPS points outside the range</span></span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="in">ggplot(mtcars, aes(disp, mpg)) + geom_point() +</span></span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="in">  coord_cartesian(xlim = c(100, 200))               # zooms, keeps every point</span></span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>The base version **removes** observations outside the limits before drawing.</span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>The ggplot2 version **zooms** and keeps them, ready to be revealed if the limits</span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>move. The base idiom is faster and the ggplot2 one is almost always what you</span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>meant. If you are unsure which you have, count your points either way.</span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Grouping and the language difference</span></span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>Base graphics has no concept of a grouping variable. You make groups by</span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>subsetting and looping. ggplot2 has one, and it is the reason people switch.</span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>| Base R | ggplot2 | When to switch |</span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>|:-------|:--------|:---------------|</span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>| <span class="in">`col = as.numeric(factor(g))`</span> | <span class="in">`aes(colour = g)`</span> | Switch. ggplot2 recycles a palette; base gives you <span class="in">`1..k`</span> integers that look like nonsense colours. |</span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>| <span class="in">`pch = as.numeric(factor(g))`</span> | <span class="in">`aes(shape = g)`</span> | Switch. |</span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>| <span class="in">`legend('topright', legend, pch, col)`</span> | automatic, via mapped aesthetics | Switch. This is the big one — base legends are written by hand. |</span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>| <span class="in">`text(..., labels = g)`</span> on points | <span class="in">`geom_text(aes(label = g))`</span> | Stay in base for a handful of direct labels. |</span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>| <span class="in">`for (g in g) { plot(d[g,]); }`</span> | <span class="in">`facet_wrap(~ g)`</span> | Switch once there are more than about three panels. |</span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>| <span class="in">`par(mfrow = c(2, 2))`</span> + <span class="in">`plot()`</span> | <span class="in">`facet_wrap(~ g, nrow = 2)`</span> | Switch, but see the caveat below. |</span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>| <span class="in">`layout(matrix(...))`</span> | <span class="in">`facet_grid()`</span> / <span class="in">`patchwork`</span> | Switch. Ragged panels are the one thing base <span class="in">`layout()`</span> does that ggplot2 does not do well without a second package. |</span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>Colour is where the difference bites hardest, and it is worth showing what the</span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>base version actually costs:</span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r group-base, fig.align='center', fig.width=6.5, fig.height=4.5}</span></span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="in"># The base R idiom. Correct, and nobody writes it twice.</span></span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="in">g &lt;- factor(mtcars$cyl)</span></span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="in"># as.numeric(g) gives the factor CODES 1..k, not the labels. Hand them to</span></span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="in"># palette() to get colours, because R will happily accept the raw integers</span></span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a><span class="in"># and draw palette entries 1, 2, 3 as if you had meant them.</span></span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="in">cols &lt;- palette()[as.numeric(g)]</span></span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, col = cols, pch = 19,</span></span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a><span class="in">     xlab = 'Displacement', ylab = 'Miles per gallon')</span></span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="in">legend('topright', legend = levels(g), pch = 19,</span></span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a><span class="in">       col = palette()[1:3], bty = 'n')</span></span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>Three things had to happen by hand that ggplot2 would have done for you: recycle</span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>a palette across the groups, label the groups from the factor levels, and build</span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>a legend whose colours match the plot. Worse, the code above is one careless edit</span>
-<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>away from silently wrong — change <span class="in">`as.numeric(g)`</span> to <span class="in">`as.numeric(levels(g))`</span></span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>and the legend no longer matches the points, with no warning from R.</span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>The same plot in ggplot2 is one <span class="in">`aes(colour = cyl)`</span> mapping and a free legend,</span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>but it needs ggplot2. That trade is Chapter 1's argument in miniature.</span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="fu">## High-level functions</span></span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>These are the ones that do the most work per line in base R, and most have no</span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>ggplot2 counterpart because ggplot2 builds them from layers.</span>
-<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>| Base R | ggplot2 | When to switch |</span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>|:-------|:--------|:---------------|</span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>| <span class="in">`barplot(table(g))`</span> | <span class="in">`geom_bar()`</span> on counts | Stay in base for a quick categorical count — <span class="in">`table()`</span> is one call. |</span>
-<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a>| <span class="in">`barplot(h, beside = TRUE)`</span> | <span class="in">`geom_bar(position = 'dodge')`</span> | Never. |</span>
-<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a>| <span class="in">`barplot(m, beside = FALSE)`</span> | <span class="in">`geom_bar(position = 'stack')`</span> | Never. |</span>
-<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>| <span class="in">`barplot(..., horiz = TRUE)`</span> | <span class="in">`coord_flip()`</span> | Never. |</span>
-<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a>| <span class="in">`boxplot(y ~ g)`</span> | <span class="in">`geom_boxplot(aes(x = g, y = y))`</span> | Stay in base; <span class="in">`boxplot()`</span> with a formula is excellent. |</span>
-<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>| <span class="in">`boxplot(..., notch = TRUE)`</span> | <span class="in">`geom_boxplot(notch = TRUE)`</span> | Never. |</span>
-<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>| <span class="in">`hist(x, breaks = 20)`</span> | <span class="in">`geom_histogram(bins = 20)`</span> | **Careful.** <span class="in">`breaks`</span> and <span class="in">`bins`</span> are not the same parameter. |</span>
-<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a>| <span class="in">`pairs(df)`</span> | <span class="in">`pairs()`</span> in <span class="in">`GGally`</span>, or <span class="in">`geom_bin2d`</span> | Stay in base — <span class="in">`pairs()`</span> has no base-R equivalent in ggplot2 at all. |</span>
-<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>| <span class="in">`dotchart(table(g))`</span> | <span class="in">`geom_dotplot()`</span> | Stay in base; no ggplot2 function does this cleanly. |</span>
-<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>| <span class="in">`stripchart(y ~ g)`</span> | <span class="in">`geom_jitter()`</span> or <span class="in">`geom_dotplot()`</span> | Never. |</span>
-<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>| <span class="in">`mosaicplot(table(a, b))`</span> | <span class="in">`geom_mosaic()`</span> (a **different package**) | Stay in base. The ggplot2 version is not in ggplot2. |</span>
-<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a>| <span class="in">`rug(x)`</span> | <span class="in">`geom_rug()`</span> | Never. |</span>
-<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>| <span class="in">`curve(f, from, to)`</span> | <span class="in">`geom_function()`</span> | Never. |</span>
-<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>| <span class="in">`matplot(m)`</span> | no equivalent | Stay in base. |</span>
-<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>| <span class="in">`image(m)`</span> | <span class="in">`geom_raster()`</span> | Stay in base unless you need a ggplot2 theme. |</span>
-<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`hist(x, breaks = 20)`</span><span class="at"> sets 20 *breakpoints*, which R expands into some number</span></span>
-<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; of *bins* — and not always 20. </span><span class="in">`geom_histogram(bins = 20)`</span><span class="at"> sets 20 bins</span></span>
-<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; exactly. A histogram that changes height when you move it between systems is</span></span>
-<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; this, not a bug.</span></span>
-<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a><span class="fu">## Devices, layout and everything else</span></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="fu">### `xlim` is not `coord_cartesian(xlim =)`</span></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>This is the single most damaging translation error, so it is worth being precise.</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{r xlim, eval=FALSE}</span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, xlim = c(100, 200))   # DROPS points outside the range</span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="in">ggplot(mtcars, aes(disp, mpg)) + geom_point() +</span></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a><span class="in">  coord_cartesian(xlim = c(100, 200))               # zooms, keeps every point</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>The base version **removes** observations outside the limits before drawing.</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>The ggplot2 version **zooms** and keeps them, ready to be revealed if the limits</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>move. The base idiom is faster and the ggplot2 one is almost always what you</span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>meant. If you are unsure which you have, count your points either way.</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## Grouping and the language difference</span></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>Base graphics has no concept of a grouping variable. You make groups by</span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>subsetting and looping. ggplot2 has one, and it is the reason people switch.</span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>| Base R | ggplot2 | When to switch |</span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>|:-------|:--------|:---------------|</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>| <span class="in">`col = as.numeric(factor(g))`</span> | <span class="in">`aes(colour = g)`</span> | Switch. ggplot2 recycles a palette; base gives you <span class="in">`1..k`</span> integers that look like nonsense colours. |</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>| <span class="in">`pch = as.numeric(factor(g))`</span> | <span class="in">`aes(shape = g)`</span> | Switch. |</span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>| <span class="in">`legend('topright', legend, pch, col)`</span> | automatic, via mapped aesthetics | Switch. This is the big one — base legends are written by hand. |</span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>| <span class="in">`text(..., labels = g)`</span> on points | <span class="in">`geom_text(aes(label = g))`</span> | Stay in base for a handful of direct labels. |</span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>| <span class="in">`for (g in g) { plot(d[g,]); }`</span> | <span class="in">`facet_wrap(~ g)`</span> | Switch once there are more than about three panels. |</span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>| <span class="in">`par(mfrow = c(2, 2))`</span> + <span class="in">`plot()`</span> | <span class="in">`facet_wrap(~ g, nrow = 2)`</span> | Switch, but see the caveat below. |</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>| <span class="in">`layout(matrix(...))`</span> | <span class="in">`facet_grid()`</span> / <span class="in">`patchwork`</span> | Switch. Ragged panels are the one thing base <span class="in">`layout()`</span> does that ggplot2 does not do well without a second package. |</span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>Colour is where the difference bites hardest, and it is worth showing what the</span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>base version actually costs:</span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.align='center', fig.width=6.5, fig.height=4.5}</span></span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: fig-group-base</span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig-cap: "Mapping a factor to colour in base R: recycle the palette, then build the legend by hand"</span></span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig-alt: "A scatterplot of engine displacement against miles per gallon with 32 points in three colours, keyed in a frameless legend at the top right. Four-cylinder cars are black circles clustered at the top left with the highest miles per gallon; six-cylinder cars are crimson circles in the middle; eight-cylinder cars are green circles at the right and bottom. The legend text reads 4, 6 and 8."</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="in"># The base R idiom. Correct, and nobody writes it twice.</span></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a><span class="in">g &lt;- factor(mtcars$cyl)</span></span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="in"># as.numeric(g) gives the factor CODES 1..k, not the labels. Hand them to</span></span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a><span class="in"># palette() to get colours, because R will happily accept the raw integers</span></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="in"># and draw palette entries 1, 2, 3 as if you had meant them.</span></span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a><span class="in">cols &lt;- palette()[as.numeric(g)]</span></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg, col = cols, pch = 19,</span></span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="in">     xlab = 'Displacement', ylab = 'Miles per gallon')</span></span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a><span class="in">legend('topright', legend = levels(g), pch = 19,</span></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a><span class="in">       col = palette()[1:3], bty = 'n')</span></span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>Three things had to happen by hand that ggplot2 would have done for you: recycle</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>a palette across the groups, label the groups from the factor levels, and build</span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a>a legend whose colours match the plot. Worse, the code above is one careless edit</span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>away from silently wrong — change <span class="in">`as.numeric(g)`</span> to <span class="in">`as.numeric(levels(g))`</span></span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>and the legend no longer matches the points, with no warning from R.</span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>The same plot in ggplot2 is one <span class="in">`aes(colour = cyl)`</span> mapping and a free legend,</span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>but it needs ggplot2. That trade is Chapter 1's argument in miniature.</span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a><span class="fu">## High-level functions</span></span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a>These are the ones that do the most work per line in base R, and most have no</span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>ggplot2 counterpart because ggplot2 builds them from layers.</span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a>| Base R | ggplot2 | When to switch |</span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a>|:-------|:--------|:---------------|</span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a>| <span class="in">`barplot(table(g))`</span> | <span class="in">`geom_bar()`</span> on counts | Stay in base for a quick categorical count — <span class="in">`table()`</span> is one call. |</span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>| <span class="in">`barplot(h, beside = TRUE)`</span> | <span class="in">`geom_bar(position = 'dodge')`</span> | Never. |</span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>| <span class="in">`barplot(m, beside = FALSE)`</span> | <span class="in">`geom_bar(position = 'stack')`</span> | Never. |</span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>| <span class="in">`barplot(..., horiz = TRUE)`</span> | <span class="in">`coord_flip()`</span> | Never. |</span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a>| <span class="in">`boxplot(y ~ g)`</span> | <span class="in">`geom_boxplot(aes(x = g, y = y))`</span> | Stay in base; <span class="in">`boxplot()`</span> with a formula is excellent. |</span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>| <span class="in">`boxplot(..., notch = TRUE)`</span> | <span class="in">`geom_boxplot(notch = TRUE)`</span> | Never. |</span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>| <span class="in">`hist(x, breaks = 20)`</span> | <span class="in">`geom_histogram(bins = 20)`</span> | **Careful.** <span class="in">`breaks`</span> and <span class="in">`bins`</span> are not the same parameter. |</span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>| <span class="in">`pairs(df)`</span> | <span class="in">`pairs()`</span> in <span class="in">`GGally`</span>, or <span class="in">`geom_bin2d`</span> | Stay in base — <span class="in">`pairs()`</span> has no base-R equivalent in ggplot2 at all. |</span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a>| <span class="in">`dotchart(table(g))`</span> | <span class="in">`geom_dotplot()`</span> | Stay in base; no ggplot2 function does this cleanly. |</span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>| <span class="in">`stripchart(y ~ g)`</span> | <span class="in">`geom_jitter()`</span> or <span class="in">`geom_dotplot()`</span> | Never. |</span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a>| <span class="in">`mosaicplot(table(a, b))`</span> | <span class="in">`geom_mosaic()`</span> (a **different package**) | Stay in base. The ggplot2 version is not in ggplot2. |</span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a>| <span class="in">`rug(x)`</span> | <span class="in">`geom_rug()`</span> | Never. |</span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a>| <span class="in">`curve(f, from, to)`</span> | <span class="in">`geom_function()`</span> | Never. |</span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a>| <span class="in">`matplot(m)`</span> | no equivalent | Stay in base. |</span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a>| <span class="in">`image(m)`</span> | <span class="in">`geom_raster()`</span> | Stay in base unless you need a ggplot2 theme. |</span>
 <span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a>This is where the systems have nothing in common, so the honest answer is that</span>
-<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a>these do not translate.</span>
-<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a>| Base R | ggplot2 | When to switch |</span>
-<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a>|:-------|:--------|:---------------|</span>
-<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a>| <span class="in">`png('a.png', res = 300)`</span> | <span class="in">`ggsave('a.png', dpi = 300)`</span> | Either. <span class="in">`ggsave()`</span> also needs a device for non-standard formats. |</span>
-<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a>| <span class="in">`pdf('a.pdf')`</span> | <span class="in">`ggsave('a.pdf')`</span> | Either. |</span>
-<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a>| <span class="in">`svg('a.svg')`</span> | <span class="in">`svglite::svglite()`</span> | Stay in base — this needs another package in ggplot2. |</span>
-<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a>| <span class="in">`dev.off()`</span> | automatic | ggplot2. One fewer thing to forget. |</span>
-<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a>| <span class="in">`par(mar=, oma=, mgp=)`</span> | <span class="in">`theme(plot.margin, ...)`</span> | Stay in base. <span class="in">`theme()`</span> has ~80 elements and this book has 11. |</span>
-<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a>| <span class="in">`par(las = 1)`</span> | <span class="in">`theme(axis.text.x = element_text(angle = 0))`</span> | Stay in base; far less typing. |</span>
-<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a>| <span class="in">`par(bty = 'l')`</span> | <span class="in">`theme(panel.border = element_blank(), panel.grid = element_blank())`</span> | Stay in base. |</span>
-<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a>| <span class="in">`palette.colors('Okabe-Ito')`</span> | <span class="in">`scale_color_OkabeIto()`</span> (a **different package**) | Either. Base gives it to you with no dependency. |</span>
-<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a>| <span class="in">`xlab`</span>, <span class="in">`main`</span>, legend styling | <span class="in">`theme()`</span>, <span class="in">`guides()`</span> | Stay in base for a single figure. |</span>
-<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a>| <span class="in">`expression(beta[1] * x)`</span> | <span class="in">`parse()`</span>, or <span class="in">`labs()`</span> with <span class="in">`parse = TRUE`</span> | Never. |</span>
-<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a>| <span class="in">`suppressWarnings()`</span> | <span class="in">`suppressWarnings()`</span> | Same. |</span>
-<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a><span class="fu">## When to switch</span></span>
-<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a>The rule from Chapter 1, restated as a checklist. Switch when **most** of these</span>
-<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a>are true:</span>
-<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>the plot has a variable mapped to colour, shape, size or linetype</span>
-<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>it needs facets, and there are more than about three panels</span>
-<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>you are on your third or fourth iteration and still changing the chart</span>
-<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>someone else will maintain it and needs to read it without learning base R</span>
-<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>it is going into a report where the theme must match a house style</span>
-<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a>Stay in base when:</span>
-<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>the plot is written once and drawn many times</span>
-<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>it has to run somewhere you do not control — a CRAN check, a locked-down</span>
-<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a>  server, a minimal container</span>
-<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>it must be reproducible with <span class="in">`install.packages()`</span> not appearing anywhere</span>
-<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>you want to place one specific mark at one specific coordinate</span>
-<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>the plot *is* the thing you are building, and the analysis is incidental</span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`hist(x, breaks = 20)`</span><span class="at"> sets 20 *breakpoints*, which R expands into some number</span></span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; of *bins* — and not always 20. </span><span class="in">`geom_histogram(bins = 20)`</span><span class="at"> sets 20 bins</span></span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; exactly. A histogram that changes height when you move it between systems is</span></span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; this, not a bug.</span></span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a><span class="fu">## Devices, layout and everything else</span></span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a>This is where the systems have nothing in common, so the honest answer is that</span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a>these do not translate.</span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a>| Base R | ggplot2 | When to switch |</span>
+<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a>|:-------|:--------|:---------------|</span>
+<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a>| <span class="in">`png('a.png', res = 300)`</span> | <span class="in">`ggsave('a.png', dpi = 300)`</span> | Either. <span class="in">`ggsave()`</span> also needs a device for non-standard formats. |</span>
+<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a>| <span class="in">`pdf('a.pdf')`</span> | <span class="in">`ggsave('a.pdf')`</span> | Either. |</span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a>| <span class="in">`svg('a.svg')`</span> | <span class="in">`svglite::svglite()`</span> | Stay in base — this needs another package in ggplot2. |</span>
+<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a>| <span class="in">`dev.off()`</span> | automatic | ggplot2. One fewer thing to forget. |</span>
+<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a>| <span class="in">`par(mar=, oma=, mgp=)`</span> | <span class="in">`theme(plot.margin, ...)`</span> | Stay in base. <span class="in">`theme()`</span> has ~80 elements and this book has 11. |</span>
+<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a>| <span class="in">`par(las = 1)`</span> | <span class="in">`theme(axis.text.x = element_text(angle = 0))`</span> | Stay in base; far less typing. |</span>
+<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a>| <span class="in">`par(bty = 'l')`</span> | <span class="in">`theme(panel.border = element_blank(), panel.grid = element_blank())`</span> | Stay in base. |</span>
+<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a>| <span class="in">`palette.colors('Okabe-Ito')`</span> | <span class="in">`scale_color_OkabeIto()`</span> (a **different package**) | Either. Base gives it to you with no dependency. |</span>
+<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a>| <span class="in">`xlab`</span>, <span class="in">`main`</span>, legend styling | <span class="in">`theme()`</span>, <span class="in">`guides()`</span> | Stay in base for a single figure. |</span>
+<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a>| <span class="in">`expression(beta[1] * x)`</span> | <span class="in">`parse()`</span>, or <span class="in">`labs()`</span> with <span class="in">`parse = TRUE`</span> | Never. |</span>
+<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a>| <span class="in">`suppressWarnings()`</span> | <span class="in">`suppressWarnings()`</span> | Same. |</span>
+<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a><span class="fu">## When to switch</span></span>
+<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a>The rule from Chapter 1, restated as a checklist. Switch when **most** of these</span>
+<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a>are true:</span>
+<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>the plot has a variable mapped to colour, shape, size or linetype</span>
+<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>it needs facets, and there are more than about three panels</span>
+<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>you are on your third or fourth iteration and still changing the chart</span>
+<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>someone else will maintain it and needs to read it without learning base R</span>
+<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>it is going into a report where the theme must match a house style</span>
+<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a>Stay in base when:</span>
 <span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a>Mixed codebases are normal and fine. Plenty of working reports draw 95% of</span>
-<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a>their figures in base graphics and reach for ggplot2 once, for the one chart</span>
-<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a>where faceting carries the argument. The mistake is picking one system by</span>
-<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a>default and never reconsidering — not mixing them.</span>
-<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a><span class="fu">## What does not translate</span></span>
+<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>the plot is written once and drawn many times</span>
+<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>it has to run somewhere you do not control — a CRAN check, a locked-down</span>
+<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a>  server, a minimal container</span>
+<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>it must be reproducible with <span class="in">`install.packages()`</span> not appearing anywhere</span>
+<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>you want to place one specific mark at one specific coordinate</span>
+<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>the plot *is* the thing you are building, and the analysis is incidental</span>
 <span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a>For completeness, so you do not waste time looking:</span>
-<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`par()`** is entirely base R. There is no ggplot2 equivalent, because</span>
-<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a>  everything it does is a global device setting that ggplot2 replaces with</span>
-<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a>  <span class="in">`theme()`</span> applied per plot. If your base R code is heavy on <span class="in">`par()`</span>, that is a</span>
-<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a>  signal it wants <span class="in">`theme()`</span>, not a sign that <span class="in">`par()`</span> has a translation.</span>
-<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The graphics device stack** is base R. ggplot2 removes it from your</span>
-<span id="cb3-215"><a href="#cb3-215" aria-hidden="true" tabindex="-1"></a>  vocabulary entirely, which is genuinely one of its advantages.</span>
-<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`layout()`** ragged panels have no first-class ggplot2 equivalent.</span>
-<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`type = 'n'`** layering has no ggplot2 equivalent, and does not need one —</span>
-<span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a>  it is the direct-mode idiom that ggplot2's layers replace.</span>
-<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a><span class="fu">## Where to go next</span></span>
-<span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **R Graphics Cookbook** by Winston Chang (<span class="in">`r-graphics.org`</span>) is</span>
-<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a>  recipe-first and covers both systems side by side. It is the right book when</span>
-<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a>  you know what you want to draw and need the code.</span>
-<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **ggplot2 book** by Wickham and Grolemund is the right book when you want</span>
-<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a>  to understand the system rather than copy from it.</span>
-<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`?graphics`**, <span class="in">`?par`</span>, and <span class="in">`?palette`</span> in your own R installation remain the</span>
-<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a>  most accurate and most current reference for base graphics, and they ship with</span>
-<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a>  the software.</span>
-<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a>*Data Visualization with R — Base Graphics* · <span class="co">[</span><span class="ot">viz-base.rsquaredacademy.com</span><span class="co">](https://viz-base.rsquaredacademy.com)</span> ·</span>
-<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">base-par-cheatsheet.pdf</span><span class="co">](base-par-cheatsheet.pdf)</span> · CC BY-NC-SA 4.0</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a>Mixed codebases are normal and fine. Plenty of working reports draw 95% of</span>
+<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a>their figures in base graphics and reach for ggplot2 once, for the one chart</span>
+<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a>where faceting carries the argument. The mistake is picking one system by</span>
+<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a>default and never reconsidering — not mixing them.</span>
+<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a><span class="fu">## What does not translate</span></span>
+<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-215"><a href="#cb3-215" aria-hidden="true" tabindex="-1"></a>For completeness, so you do not waste time looking:</span>
+<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`par()`** is entirely base R. There is no ggplot2 equivalent, because</span>
+<span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a>  everything it does is a global device setting that ggplot2 replaces with</span>
+<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a>  <span class="in">`theme()`</span> applied per plot. If your base R code is heavy on <span class="in">`par()`</span>, that is a</span>
+<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a>  signal it wants <span class="in">`theme()`</span>, not a sign that <span class="in">`par()`</span> has a translation.</span>
+<span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**The graphics device stack** is base R. ggplot2 removes it from your</span>
+<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a>  vocabulary entirely, which is genuinely one of its advantages.</span>
+<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`layout()`** ragged panels have no first-class ggplot2 equivalent.</span>
+<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`type = 'n'`** layering has no ggplot2 equivalent, and does not need one —</span>
+<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a>  it is the direct-mode idiom that ggplot2's layers replace.</span>
+<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a><span class="fu">## Where to go next</span></span>
+<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **R Graphics Cookbook** by Winston Chang (<span class="in">`r-graphics.org`</span>) is</span>
+<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a>  recipe-first and covers both systems side by side. It is the right book when</span>
+<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a>  you know what you want to draw and need the code.</span>
+<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **ggplot2 book** by Wickham and Grolemund is the right book when you want</span>
+<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a>  to understand the system rather than copy from it.</span>
+<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`?graphics`**, <span class="in">`?par`</span>, and <span class="in">`?palette`</span> in your own R installation remain the</span>
+<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a>  most accurate and most current reference for base graphics, and they ship with</span>
+<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a>  the software.</span>
+<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a>*Data Visualization with R — Base Graphics* · <span class="co">[</span><span class="ot">viz-base.rsquaredacademy.com</span><span class="co">](https://viz-base.rsquaredacademy.com)</span> ·</span>
+<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">base-par-cheatsheet.pdf</span><span class="co">](base-par-cheatsheet.pdf)</span> · CC BY-NC-SA 4.0</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
