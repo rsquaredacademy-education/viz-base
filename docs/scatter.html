@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Base R scatter plots with plot(): control point shape with pch, size with cex, colour with col and bg, and map a third variable to shape or colour.">
 
 <title>4&nbsp; Scatter Plots – Data Visualization with R</title>
 <style>
@@ -106,15 +107,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <!-- Head metadata for every page.
 
-     Two distinct mechanisms are at work here:
+     Three distinct mechanisms are at work here:
 
-     1. The Open Graph / Twitter tags below are PLACEHOLDERS. Quarto rewrites
-        og:title, og:description, og:image and the twitter:* values per page
-        (see `open-graph` / `twitter-card` in _quarto.yml), so the literal
-        values here never reach the reader. Do not delete these tags -- with
-        them removed Quarto emits nothing. Verified: docs/scatter.html gets
-        "4 Scatter Plots", docs/line.html gets "5 Line Graphs".
-        og:site_name and og:type are ours; Quarto does not manage those.
+     1. The description and Open Graph / Twitter tags below are PLACEHOLDERS.
+        Quarto rewrites description, og:title, og:description, og:image and the
+        twitter:* values per page (see `open-graph` / `twitter-card` in
+        _quarto.yml), so the literal values here never reach the reader. Do not
+        delete these tags -- with them removed Quarto emits nothing. Verified:
+        docs/scatter.html gets "4 Scatter Plots", docs/line.html gets
+        "5 Line Graphs". og:site_name and og:type are ours; Quarto does not
+        manage those.
+
+        The plain `description` tag matters as much as the og: ones: it is the
+        text Google shows in a search result, and it was missing from every page
+        until each chapter got `description:` front matter. Keep the placeholder
+        -- without it Quarto emits no description tag at all, which is the
+        original bug.
 
      2. The citation_* tags are hand-written because Quarto has no native
         Highwire/Scholar support. This is the reason this file exists.
@@ -130,12 +138,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
      and add a consent banner alongside it (no cookies are set until then). -->
 <meta property="og:site_name" content="Data Visualization with R">
 <meta property="og:type" content="book">
+<meta name="description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
 <meta property="og:title" content="4&nbsp; Scatter Plots – Data Visualization with R">
-<meta property="og:description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
+<meta property="og:description" content="Base R scatter plots with plot(): control point shape with pch, size with cex, colour with col and bg, and map a third variable to shape or colour.">
 <meta property="og:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="4&nbsp; Scatter Plots – Data Visualization with R">
-<meta name="twitter:description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
+<meta name="twitter:description" content="Base R scatter plots with plot(): control point shape with pch, size with cex, colour with col and bg, and map a third variable to shape or colour.">
 <meta name="twitter:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
 <meta name="citation_title" content="Data Visualization with R — Base Graphics">
 <meta name="citation_author" content="Aravind Hebbali">
@@ -1833,6 +1842,12 @@ globalThis.qwebrExecuteCode = async function (
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./about-the-author.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">About the Author</span></a>
   </div>
@@ -2233,9 +2248,14 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Let us check out a few of the other shapes:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="scatter_files/figure-html/scatter-pch-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1920"></p>
+<div id="fig-scatter-pch" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A grid of 25 scatterplots of displacement against miles per gallon, all drawing identical points. Each panel shows one plotting symbol in turn, from the open circle of pch 1 through the filled circle, triangle, square and cross, numbered by pch value in a blue label at the top.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scatter-pch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="scatter_files/figure-html/fig-scatter-pch-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="A grid of 25 scatterplots of displacement against miles per gallon, all drawing identical points. Each panel shows one plotting symbol in turn, from the open circle of pch 1 through the filled circle, triangle, square and cross, numbered by pch value in a blue label at the top." width="1920">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatter-pch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.1: The pch argument across the plotting symbols
+</figcaption>
 </figure>
 </div>
 </div>
@@ -2246,9 +2266,14 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(mtcars<span class="sc">$</span>cyl)))</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'topright'</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">'4 cyl'</span>, <span class="st">'6 cyl'</span>, <span class="st">'8 cyl'</span>), <span class="at">pch =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="scatter_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="1344"></p>
+<div id="fig-scatter-factor" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A scatterplot of displacement against miles per gallon in which the points take three different open-circle-to-triangle shapes according to the number of cylinders. A legend at the top right labels the three groups 4 cyl, 6 cyl and 8 cyl. The four-cylinder points cluster at the top left, the eight-cylinder points at the right and bottom.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scatter-factor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="scatter_files/figure-html/fig-scatter-factor-1.png" class="img-fluid figure-img" alt="A scatterplot of displacement against miles per gallon in which the points take three different open-circle-to-triangle shapes according to the number of cylinders. A legend at the top right labels the three groups 4 cyl, 6 cyl and 8 cyl. The four-cylinder points cluster at the top left, the eight-cylinder points at the right and bottom." width="1344">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatter-factor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.2: Mapping a third variable to point shape using as.numeric(factor())
+</figcaption>
 </figure>
 </div>
 </div>
@@ -2263,7 +2288,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="scatter_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="1344"></p>
+<p><img src="scatter_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
@@ -2271,9 +2296,14 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>The below plots show the size of the points for values relative to 1.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="scatter_files/figure-html/scatter-cex-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="1920"></p>
+<div id="fig-scatter-cex" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A grid of nine scatterplots of displacement against miles per gallon drawing identical points, each panel showing the same symbol at a progressively larger size, from a tiny cross in the first panel to a large filled circle in the last.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scatter-cex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="scatter_files/figure-html/fig-scatter-cex-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="A grid of nine scatterplots of displacement against miles per gallon drawing identical points, each panel showing the same symbol at a progressively larger size, from a tiny cross in the first panel to a large filled circle in the last." width="1920">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatter-cex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.3: The cex argument across a range of point sizes
+</figcaption>
 </figure>
 </div>
 </div>
@@ -2288,7 +2318,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="scatter_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="1344"></p>
+<p><img src="scatter_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
@@ -2300,7 +2330,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="scatter_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="1344"></p>
+<p><img src="scatter_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="1344"></p>
 </figure>
 </div>
 </div>
@@ -2310,9 +2340,14 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># color based on a third variable</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">5</span>, <span class="at">col =</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(mtcars<span class="sc">$</span>cyl)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="scatter_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="1344"></p>
+<div id="fig-scatter-two-vars" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A scatterplot of displacement against miles per gallon combining both mappings. Point shape encodes the cylinder count and point colour encodes transmission, with a legend at the top right showing the three cylinder shapes.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scatter-two-vars-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="scatter_files/figure-html/fig-scatter-two-vars-1.png" class="img-fluid figure-img" alt="A scatterplot of displacement against miles per gallon combining both mappings. Point shape encodes the cylinder count and point colour encodes transmission, with a legend at the top right showing the three cylinder shapes." width="1344">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatter-two-vars-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.4: Two variables mapped at once: shape to cylinders, colour to transmission
+</figcaption>
 </figure>
 </div>
 </div>
@@ -2957,129 +2992,145 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Scatter Plots {#scatter}</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Base R scatter plots with plot(): control point shape with pch, size with cex, colour with col and bg, and map a third variable to shape or colour."</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>In this chapter, we will learn how to create scatter plots. </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu"># Scatter Plots {#scatter}</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>adding color to the points</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>modify shape of the points</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>modify size of the points</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>In this chapter, we will learn how to create scatter plots. </span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basic Plot</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>Let us recreate the plot that we had created in Chapter 2 by using the <span class="in">`mtcars`</span> data set. We will use the <span class="in">`disp`</span> (displacement) and <span class="in">`mpg`</span> (miles per gallon) variables. <span class="in">`disp`</span> will be on the X axis and <span class="in">`mpg`</span> will be on the Y axis.</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>adding color to the points</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>modify shape of the points</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>modify size of the points</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>We have created a very basic plot and any one looking at it for the first time will get confused with the axis labels <span class="in">`mtcars$disp`</span> and <span class="in">`mtcars$mpg`</span>. Let us put into practice what we learnt in Chapter 3, and add a title to the plot, and make the axis labels more meaningful.</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg,</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">'Displacement vs Miles Per Gallon'</span>,</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">'Displacement'</span>, <span class="at">ylab =</span> <span class="st">'Miles Per Gallon'</span>)</span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>Now the plot clearly communicates that it represents the relationship between the displacement and mileage of cars. Now the color of the points in the plot is black by default. Some of us may agree that black is beautiful but not all of us will like it. As a first step in enhancing the way our plot looks, let us change the shape of the points. </span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Shape</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Basic Plot</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>Let us recreate the plot that we had created in Chapter 2 by using the <span class="in">`mtcars`</span> data set. We will use the <span class="in">`disp`</span> (displacement) and <span class="in">`mpg`</span> (miles per gallon) variables. <span class="in">`disp`</span> will be on the X axis and <span class="in">`mpg`</span> will be on the Y axis.</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>We have created a very basic plot and any one looking at it for the first time will get confused with the axis labels <span class="in">`mtcars$disp`</span> and <span class="in">`mtcars$mpg`</span>. Let us put into practice what we learnt in Chapter 3, and add a title to the plot, and make the axis labels more meaningful.</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg,</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">'Displacement vs Miles Per Gallon'</span>,</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">'Displacement'</span>, <span class="at">ylab =</span> <span class="st">'Miles Per Gallon'</span>)</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>The shape of the point can be specified using the <span class="in">`pch`</span> argument. It will take values between **0** and **25**. Below is an example:</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>Now the plot clearly communicates that it represents the relationship between the displacement and mileage of cars. Now the color of the points in the plot is black by default. Some of us may agree that black is beautiful but not all of us will like it. As a first step in enhancing the way our plot looks, let us change the shape of the points. </span>
 <span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="co"># point shape</span></span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">6</span>)</span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>Let us check out a few of the other shapes:</span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="in">```{r scatter-pch, echo=FALSE, fig.align='center', fig.width=10, fig.height=10}</span></span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="in">init &lt;- par(no.readonly = TRUE)</span></span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="in">par(mfrow = c(2, 2))</span></span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="in">values &lt;- c(4, 10, 16, 22)</span></span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a><span class="in">for (i in values) {</span></span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="in">    plot(mtcars$disp, mtcars$mpg, pch = i, cex = 1.5)</span></span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="in">    mtext(paste("pch = ", i), side = 3, col = "blue")</span></span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
-<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>We can specify the shape based on a third (categorical variable as well). In the below plot, the shape is based on the levels of the categorical variable <span class="in">`cyl`</span> (number of cylinders) from the <span class="in">`mtcars`</span> data set. Note that <span class="in">`nlevels(factor(mtcars$cyl))`</span> returns a single value (<span class="in">`3`</span>), so it would give every point the same shape — instead, map each observation to its own level with <span class="in">`as.numeric(factor(...))`</span>:</span>
-<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a><span class="co"># shape based on a third categorical variable</span></span>
-<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(mtcars<span class="sc">$</span>cyl)))</span>
-<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'topright'</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">'4 cyl'</span>, <span class="st">'6 cyl'</span>, <span class="st">'8 cyl'</span>), <span class="at">pch =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
-<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a><span class="fu">## Size</span></span>
-<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>The size of the points in the scatter plot can be specified using the <span class="in">`cex`</span> argument in the <span class="in">`plot()`</span> function. The default value for <span class="in">`cex`</span> is 1. </span>
-<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a><span class="co"># point size</span></span>
-<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
-<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>The below plots show the size of the points for values relative to 1.</span>
-<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a><span class="in">```{r scatter-cex, echo=FALSE, fig.align='center', fig.width=10, fig.height=10}</span></span>
-<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a><span class="in"># different point sizes</span></span>
-<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a><span class="in">init &lt;- par(no.readonly = TRUE)</span></span>
-<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a><span class="in">par(mfrow = c(2, 2))</span></span>
-<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a><span class="in">values &lt;- c(0.5, 1, 1.5, 2)</span></span>
-<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a><span class="in">for (i in values) {</span></span>
-<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a><span class="in">    plot(mtcars$disp, mtcars$mpg, pch = 6, cex = i)</span></span>
-<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a><span class="in">    mtext(paste("cex = ", i), side = 3, col = "blue")</span></span>
-<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
-<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Color</span></span>
-<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a>We can specify a border color for the points using the <span class="in">`col`</span> argument and a background color using the <span class="in">`bg`</span> argument. The background color can be specified only for points whose <span class="in">`pch`</span> argument takes values between **21** and **25**. Let us look at some examples to understand this distinction between border and background color.</span>
-<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a><span class="co"># shape between 0 and 21</span></span>
-<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">5</span>, <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">bg =</span> <span class="st">'red'</span>)</span>
-<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a>You can observe that although we have specified a background color using the <span class="in">`bg`</span> argument, we do not see the red background color as the value specified for the <span class="in">`pch`</span> (shape) argument is not between 21 and 25. In the next example, we will use a value between 21 and 25 so that the <span class="in">`pch`</span> argument is effective.</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## Shape</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>The shape of the point can be specified using the <span class="in">`pch`</span> argument. It will take values between **0** and **25**. Below is an example:</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="co"># point shape</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">6</span>)</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>Let us check out a few of the other shapes:</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE, fig.align='center', fig.width=10, fig.height=10}</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: fig-scatter-pch</span></span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig-cap: "The pch argument across the plotting symbols"</span></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig-alt: "A grid of 25 scatterplots of displacement against miles per gallon, all drawing identical points. Each panel shows one plotting symbol in turn, from the open circle of pch 1 through the filled circle, triangle, square and cross, numbered by pch value in a blue label at the top."</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a><span class="in">init &lt;- par(no.readonly = TRUE)</span></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a><span class="in">par(mfrow = c(2, 2))</span></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a><span class="in">values &lt;- c(4, 10, 16, 22)</span></span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a><span class="in">for (i in values) {</span></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a><span class="in">    plot(mtcars$disp, mtcars$mpg, pch = i, cex = 1.5)</span></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="in">    mtext(paste("pch = ", i), side = 3, col = "blue")</span></span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>We can specify the shape based on a third (categorical variable as well). In the below plot, the shape is based on the levels of the categorical variable <span class="in">`cyl`</span> (number of cylinders) from the <span class="in">`mtcars`</span> data set. Note that <span class="in">`nlevels(factor(mtcars$cyl))`</span> returns a single value (<span class="in">`3`</span>), so it would give every point the same shape — instead, map each observation to its own level with <span class="in">`as.numeric(factor(...))`</span>:</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-scatter-factor</span></span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Mapping a third variable to point shape using as.numeric(factor())"</span></span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: "A scatterplot of displacement against miles per gallon in which the points take three different open-circle-to-triangle shapes according to the number of cylinders. A legend at the top right labels the three groups 4 cyl, 6 cyl and 8 cyl. The four-cylinder points cluster at the top left, the eight-cylinder points at the right and bottom."</span></span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a><span class="co"># shape based on a third categorical variable</span></span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(mtcars<span class="sc">$</span>cyl)))</span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">'topright'</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">'4 cyl'</span>, <span class="st">'6 cyl'</span>, <span class="st">'8 cyl'</span>), <span class="at">pch =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## Size</span></span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>The size of the points in the scatter plot can be specified using the <span class="in">`cex`</span> argument in the <span class="in">`plot()`</span> function. The default value for <span class="in">`cex`</span> is 1. </span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a><span class="co"># point size</span></span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a>The below plots show the size of the points for values relative to 1.</span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE, fig.align='center', fig.width=10, fig.height=10}</span></span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: fig-scatter-cex</span></span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig-cap: "The cex argument across a range of point sizes"</span></span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a><span class="in">#| fig-alt: "A grid of nine scatterplots of displacement against miles per gallon drawing identical points, each panel showing the same symbol at a progressively larger size, from a tiny cross in the first panel to a large filled circle in the last."</span></span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a><span class="in"># different point sizes</span></span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a><span class="in">init &lt;- par(no.readonly = TRUE)</span></span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a><span class="in">par(mfrow = c(2, 2))</span></span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a><span class="in">values &lt;- c(0.5, 1, 1.5, 2)</span></span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a><span class="in">for (i in values) {</span></span>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a><span class="in">    plot(mtcars$disp, mtcars$mpg, pch = 6, cex = i)</span></span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a><span class="in">    mtext(paste("cex = ", i), side = 3, col = "blue")</span></span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a><span class="in">par(init)</span></span>
+<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a><span class="co"># shape between 22 and 25</span></span>
-<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">24</span>, <span class="at">col =</span> <span class="st">'red'</span>, <span class="at">bg =</span> <span class="st">'blue'</span>)</span>
-<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a>The color of the points can be specified using (levels) of a categorical variable as well. In the next example, we will use the <span class="in">`cyl`</span> variable to specify the color of the points.</span>
-<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a><span class="co"># color based on a third variable</span></span>
-<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">5</span>, <span class="at">col =</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(mtcars<span class="sc">$</span>cyl)))</span>
-<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a>Since <span class="in">`cyl`</span> is a categorical variable with 3 levels, we can see that the points now have 3 different colors. The above method is useful when you want to segregate the points in a scatter plot based on a third variable.</span>
-<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a><span class="fu">## Try it live {.unnumbered}</span></span>
+<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a><span class="fu">## Color</span></span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a>We can specify a border color for the points using the <span class="in">`col`</span> argument and a background color using the <span class="in">`bg`</span> argument. The background color can be specified only for points whose <span class="in">`pch`</span> argument takes values between **21** and **25**. Let us look at some examples to understand this distinction between border and background color.</span>
+<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a><span class="co"># shape between 0 and 21</span></span>
+<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">5</span>, <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">bg =</span> <span class="st">'red'</span>)</span>
+<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a>You can observe that although we have specified a background color using the <span class="in">`bg`</span> argument, we do not see the red background color as the value specified for the <span class="in">`pch`</span> (shape) argument is not between 21 and 25. In the next example, we will use a value between 21 and 25 so that the <span class="in">`pch`</span> argument is effective.</span>
+<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a><span class="co"># shape between 22 and 25</span></span>
+<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">24</span>, <span class="at">col =</span> <span class="st">'red'</span>, <span class="at">bg =</span> <span class="st">'blue'</span>)</span>
+<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Try it in your browser.** Edit the code below and press **Run** -- it</span></span>
-<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; executes entirely in your browser via</span></span>
-<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="co">[</span><span class="ot">WebR</span><span class="co">](https://docs.r-wasm.org/webr/latest/)</span><span class="at">, so no R installation is</span></span>
-<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; needed. The runtime downloads once, on this page only. The printed plots</span></span>
-<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; are produced in your browser and are not part of the PDF or ePub editions.</span></span>
-<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
-<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a><span class="in"># combine shape, size and color from this chapter</span></span>
-<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg,</span></span>
-<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a><span class="in">     pch = as.numeric(factor(mtcars$cyl)),</span></span>
-<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a><span class="in">     cex = mtcars$wt * 4,</span></span>
-<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a><span class="in">     col = as.numeric(factor(mtcars$am)))</span></span>
-<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a><span class="in">legend("topright", legend = c("4 cyl", "6 cyl", "8 cyl"), pch = 1:3)</span></span>
-<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a>The color of the points can be specified using (levels) of a categorical variable as well. In the next example, we will use the <span class="in">`cyl`</span> variable to specify the color of the points.</span>
+<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-scatter-two-vars</span></span>
+<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Two variables mapped at once: shape to cylinders, colour to transmission"</span></span>
+<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: "A scatterplot of displacement against miles per gallon combining both mappings. Point shape encodes the cylinder count and point colour encodes transmission, with a legend at the top right showing the three cylinder shapes."</span></span>
+<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a><span class="co"># color based on a third variable</span></span>
+<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>disp, mtcars<span class="sc">$</span>mpg, <span class="at">pch =</span> <span class="dv">5</span>, <span class="at">col =</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(mtcars<span class="sc">$</span>cyl)))</span>
+<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a>Since <span class="in">`cyl`</span> is a categorical variable with 3 levels, we can see that the points now have 3 different colors. The above method is useful when you want to segregate the points in a scatter plot based on a third variable.</span>
+<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a><span class="fu">## Try it live {.unnumbered}</span></span>
+<span id="cb9-141"><a href="#cb9-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-142"><a href="#cb9-142" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Try it in your browser.** Edit the code below and press **Run** -- it</span></span>
+<span id="cb9-143"><a href="#cb9-143" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; executes entirely in your browser via</span></span>
+<span id="cb9-144"><a href="#cb9-144" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="co">[</span><span class="ot">WebR</span><span class="co">](https://docs.r-wasm.org/webr/latest/)</span><span class="at">, so no R installation is</span></span>
+<span id="cb9-145"><a href="#cb9-145" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; needed. The runtime downloads once, on this page only. The printed plots</span></span>
+<span id="cb9-146"><a href="#cb9-146" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; are produced in your browser and are not part of the PDF or ePub editions.</span></span>
+<span id="cb9-147"><a href="#cb9-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-148"><a href="#cb9-148" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
+<span id="cb9-149"><a href="#cb9-149" aria-hidden="true" tabindex="-1"></a><span class="in"># combine shape, size and color from this chapter</span></span>
+<span id="cb9-150"><a href="#cb9-150" aria-hidden="true" tabindex="-1"></a><span class="in">plot(mtcars$disp, mtcars$mpg,</span></span>
+<span id="cb9-151"><a href="#cb9-151" aria-hidden="true" tabindex="-1"></a><span class="in">     pch = as.numeric(factor(mtcars$cyl)),</span></span>
+<span id="cb9-152"><a href="#cb9-152" aria-hidden="true" tabindex="-1"></a><span class="in">     cex = mtcars$wt * 4,</span></span>
+<span id="cb9-153"><a href="#cb9-153" aria-hidden="true" tabindex="-1"></a><span class="in">     col = as.numeric(factor(mtcars$am)))</span></span>
+<span id="cb9-154"><a href="#cb9-154" aria-hidden="true" tabindex="-1"></a><span class="in">legend("topright", legend = c("4 cyl", "6 cyl", "8 cyl"), pch = 1:3)</span></span>
+<span id="cb9-155"><a href="#cb9-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

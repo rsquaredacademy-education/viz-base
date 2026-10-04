@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="About the author of Data Visualization with R - Base Graphics, and the other books and packages.">
+<meta name="description" content="Sources cited by Data Visualization with R - Base Graphics: the R manuals and papers that define base graphics, the colour vision research behind the Okabe-Ito palette, and provenance for every dataset and benchmark in the book.">
 
-<title>About the Author – Data Visualization with R</title>
+<title>References – Data Visualization with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./rosetta.html" rel="next">
-<link href="./references.html" rel="prev">
+<link href="./about-the-author.html" rel="next">
+<link href="./export-devices.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -139,12 +139,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta property="og:site_name" content="Data Visualization with R">
 <meta property="og:type" content="book">
 <meta name="description" content="Learn to visualize data with base R: zero-dependency, publication-ready graphics.">
-<meta property="og:title" content="About the Author – Data Visualization with R">
-<meta property="og:description" content="About the author of Data Visualization with R - Base Graphics, and the other books and packages.">
+<meta property="og:title" content="References – Data Visualization with R">
+<meta property="og:description" content="Sources cited by Data Visualization with R - Base Graphics: the R manuals and papers that define base graphics, the colour vision research behind the Okabe-Ito palette, and provenance for every dataset and benchmark in the book.">
 <meta property="og:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="About the Author – Data Visualization with R">
-<meta name="twitter:description" content="About the author of Data Visualization with R - Base Graphics, and the other books and packages.">
+<meta name="twitter:title" content="References – Data Visualization with R">
+<meta name="twitter:description" content="Sources cited by Data Visualization with R - Base Graphics: the R manuals and papers that define base graphics, the colour vision research behind the Okabe-Ito palette, and provenance for every dataset and benchmark in the book.">
 <meta name="twitter:image" content="https://viz-base.rsquaredacademy.com/img/viz-base.png">
 <meta name="citation_title" content="Data Visualization with R — Base Graphics">
 <meta name="citation_author" content="Aravind Hebbali">
@@ -164,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./about-the-author.html">About the Author</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -289,13 +289,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="./references.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">References</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about-the-author.html" class="sidebar-item-text sidebar-link active">
+  <a href="./about-the-author.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">About the Author</span></a>
   </div>
 </li>
@@ -321,15 +321,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#base-r-graphics" id="toc-base-r-graphics" class="nav-link active" data-scroll-target="#base-r-graphics">Base R graphics</a></li>
+  <li><a href="#the-grammar-of-graphics-and-the-alternative" id="toc-the-grammar-of-graphics-and-the-alternative" class="nav-link" data-scroll-target="#the-grammar-of-graphics-and-the-alternative">The grammar of graphics, and the alternative</a></li>
+  <li><a href="#colour-and-accessibility" id="toc-colour-and-accessibility" class="nav-link" data-scroll-target="#colour-and-accessibility">Colour and accessibility</a></li>
+  <li><a href="#datasets-used-in-this-book" id="toc-datasets-used-in-this-book" class="nav-link" data-scroll-target="#datasets-used-in-this-book">Datasets used in this book</a></li>
+  <li><a href="#reproducing-the-measurements-in-chapter-1" id="toc-reproducing-the-measurements-in-chapter-1" class="nav-link" data-scroll-target="#reproducing-the-measurements-in-chapter-1">Reproducing the measurements in Chapter 1</a></li>
+  <li><a href="#further-reading-in-the-r-ecosystem" id="toc-further-reading-in-the-r-ecosystem" class="nav-link" data-scroll-target="#further-reading-in-the-r-ecosystem">Further reading in the R ecosystem</a></li>
+  <li><a href="#a-note-on-the-sources-for-this-chapter" id="toc-a-note-on-the-sources-for-this-chapter" class="nav-link" data-scroll-target="#a-note-on-the-sources-for-this-chapter">A note on the sources for this chapter</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">About the Author</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">References</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -346,20 +358,125 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><a href="https://www.aravindhebbali.com">Aravind Hebbali</a> is the founder of <a href="https://www.rsquaredacademy.com">Rsquared Academy</a>. He earned his Masters in Economics from <a href="https://www.mse.ac.in">Madras School of Economics</a>. As an active R user, he has authored several R packages such as</p>
+<p>Everything this book depends on, in one place. The primary sources for base graphics are the R manuals that ship with the software — they are free, they are current, and <code>?graphics</code> is more accurate than any blog post.</p>
+<section id="base-r-graphics" class="level2">
+<h2 class="anchored" data-anchor-id="base-r-graphics">Base R graphics</h2>
+<blockquote class="blockquote">
+<p>R Core Team (2026). <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing, Vienna, Austria. Available at <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Chambers, J. M. (1993). <em>Statistical Models in S</em>. Chapman &amp; Hall, London.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Chambers, J. M. (2008). <em>Software for Data Analysis: R and S-PLUS</em>. Springer, New York.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Chambers, J. M. (2018). <em>Scripting R: Analyzing and Programming with the R Language</em>. O’Reilly Media, Sebastopol, CA.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Murrell, P. (2017). <em>R Graphics</em>, 3rd edition. Chapman &amp; Hall/CRC, Boca Raton, FL. The definitive reference for base graphics specifically. <code>?graphics</code> and the <code>R Graphics</code> help pages are abridged versions of it.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Venables, W. N. and Ripley, B. D. (2002). <em>Modern Applied Statistics with S</em>. Springer, New York. The <code>S</code> ancestor of base graphics, and still the clearest account of why the design is shaped the way it is.</p>
+</blockquote>
+</section>
+<section id="the-grammar-of-graphics-and-the-alternative" class="level2">
+<h2 class="anchored" data-anchor-id="the-grammar-of-graphics-and-the-alternative">The grammar of graphics, and the alternative</h2>
+<blockquote class="blockquote">
+<p>Wilkinson, L. (2005). <em>The Grammar of Graphics</em>. Springer, New York.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Wickham, H. and Grolemund, G. (2017). <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. O’Reilly Media, Sebastopol, CA. Available at <a href="https://r4ds.hadley.nz/" class="uri">https://r4ds.hadley.nz/</a>.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Wickham, H. (2016). <em>ggplot2: Elegant Graphics for Data Analysis</em>, 3rd edition. Springer, New York.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Chang, W. (2024). <em>R Graphics Cookbook</em>, 2nd edition. O’Reilly Media, Sebastopol, CA. Available at <a href="https://r-graphics.org/" class="uri">https://r-graphics.org/</a>. Recipe-first, and covers base and ggplot2 side by side.</p>
+</blockquote>
+</section>
+<section id="colour-and-accessibility" class="level2">
+<h2 class="anchored" data-anchor-id="colour-and-accessibility">Colour and accessibility</h2>
+<blockquote class="blockquote">
+<p>Okabe, M. and Ito, K. (2008). “Color Universal Design (CUD): How to make figures and presentations that are friendly to Colorblind people.” In <em>Proceedings of the 2008 Symposium on Universal Design and Accessibility</em>, Tokyo, Japan.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Masataka, D. (2020). <em>Color Design: Methods, Tools, and Applications</em>. Apress, Singapore. Background on perceptual colour spaces, lightness and contrast that Chapter 12’s greyscale check relies on.</p>
+</blockquote>
+<p>The Okabe-Ito palette used in Chapter 12 is available in R 4.1 and later without any additional package, via <code>palette.colors(palette = 'Okabe-Ito')</code>.</p>
+</section>
+<section id="datasets-used-in-this-book" class="level2">
+<h2 class="anchored" data-anchor-id="datasets-used-in-this-book">Datasets used in this book</h2>
+<p>Most figures are drawn from datasets that ship with R, and the two that do not are vendored in this repository so the book builds offline. Full provenance:</p>
 <ul>
-<li><a href="https://olsrr.rsquaredacademy.com">olsrr</a></li>
-<li><a href="https://rfm.rsquaredacademy.com">rfm</a></li>
-<li><a href="https://descriptr.rsquaredacademy.com">descriptr</a></li>
-<li><a href="https://blorr.rsquaredacademy.com">blorr</a></li>
-<li><a href="https://xplorerr.rsquaredacademy.com">xplorerr</a></li>
+<li><code>AirPassengers</code> — Box &amp; Jenkins (1975) monthly airline passengers, 1949–1960. Distributed with R from the <code>datasets</code> package.</li>
+<li><code>mtcars</code> — extracted from the 1974 <em>Motor Trend</em> US magazine. Distributed with R from the <code>datasets</code> package.</li>
+<li><code>iris</code> — Anderson, E. (1935). “The irises of the Gaspé Peninsula.” <em>Bulletin of the American Iris Society</em>, 59, 17–50. Distributed with R from the <code>datasets</code> package.</li>
+<li><code>ToothGrowth</code> — the growth of 60 guinea pigs, distributed with R from the <code>datasets</code> package.</li>
+<li><code>hsb2.csv</code> — High School and Beyond survey, 200 observations, originally from the UCLA Institute for Digital Research and Education. Vendored as <code>data/hsb2.csv</code>. Used illustratively; not redistributable as an authoritative source, and no claim is made about the sampling frame.</li>
+<li><code>brics-gdp-2010-14.csv</code> — a frozen vintage of annual GDP growth for the BRICS nations, 2010–2014, hand-entered as a teaching dataset. It differs slightly from the World Bank’s current revised series and should be treated as illustrative, <strong>not</strong> as a citable statistic. Where the numbers matter, use the World Bank directly.</li>
 </ul>
-<p>In 2015, he founded <a href="https://www.rsquaredacademy.com">Rsquared Academy</a>, a free and open source education initiative with focus on data science and analytics. Apart from self paced online courses, Rsquared Academy offers customized learning modules for corporates and universities.</p>
-<p>You can find him on <a href="https://github.com/aravindhebbali">GitHub</a>.</p>
+</section>
+<section id="reproducing-the-measurements-in-chapter-1" class="level2">
+<h2 class="anchored" data-anchor-id="reproducing-the-measurements-in-chapter-1">Reproducing the measurements in Chapter 1</h2>
+<p>Chapter 1’s claims are measured, not asserted. Each figure in that chapter is drawn from a CSV committed to this repository, and each CSV is produced by a script in <code>scripts/</code>. None of them runs when the book is built, which is deliberate: a book arguing for zero dependencies cannot quietly require two of them to make its case.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Claim</th>
+<th style="text-align: left;">Script</th>
+<th style="text-align: left;">Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Draw time and peak memory, base versus ggplot2, 10k and 100k points</td>
+<td style="text-align: left;"><code>scripts/bench.R</code></td>
+<td style="text-align: left;"><code>data/bench-base-vs-ggplot2.csv</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wall clock to start a plotting session, by engine</td>
+<td style="text-align: left;"><code>scripts/startup.R</code></td>
+<td style="text-align: left;"><code>data/startup-latency.csv</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Declared non-base CRAN dependencies, per package</td>
+<td style="text-align: left;"><code>scripts/cran-deps.R</code></td>
+<td style="text-align: left;"><code>data/cran-deps.csv</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Published container image sizes, R versus R + tidyverse</td>
+<td style="text-align: left;"><code>scripts/docker-sizes.R</code></td>
+<td style="text-align: left;"><code>data/docker-sizes.csv</code></td>
+</tr>
+</tbody>
+</table>
+<p>Run any of them with <code>Rscript scripts/&lt;name&gt;.R</code>. Each stamps the date, R version and platform it ran under into its output, so a stale row is visibly stale. Absolute timings are machine-specific and should be read as an order of magnitude; the shape of each result travels across machines far better than the individual numbers do.</p>
+<p><code>scripts/bench.R</code> requires <code>bench</code> and <code>ggplot2</code>, which the book itself never needs. <code>scripts/docker-sizes.R</code> and <code>scripts/cran-deps.R</code> read published metadata over HTTP, so their numbers reflect the state of the world on their <code>retrieved_on</code> date.</p>
+</section>
+<section id="further-reading-in-the-r-ecosystem" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading-in-the-r-ecosystem">Further reading in the R ecosystem</h2>
+<p>The author’s own CRAN packages are adjacent to this book’s subject matter rather than part of it. Their plotting layers use ggplot2; Chapter 1 discusses that honestly, and Appendix A maps the two systems onto each other.</p>
+<ul>
+<li><a href="https://github.com/rsquaredacademy/olsrr"><code>olsrr</code></a> — companion functions for ordinary least squares, including diagnostic plots.</li>
+<li><a href="https://github.com/rsquaredacademy/rfm"><code>rfm</code></a> — recency, frequency and monetary analysis, with cohort and segment plots.</li>
+<li><a href="https://github.com/rsquaredacademy/blorr"><code>blorr</code></a> — logistic regression diagnostics and plots.</li>
+<li><a href="https://github.com/rsquaredacademy/descriptr"><code>descriptr</code></a> — frequency tables, cross-tabulations and summary statistics, each with a plot.</li>
+</ul>
+</section>
+<section id="a-note-on-the-sources-for-this-chapter" class="level2">
+<h2 class="anchored" data-anchor-id="a-note-on-the-sources-for-this-chapter">A note on the sources for this chapter</h2>
+<p>The author packages above were checked by reading their source on <strong>2026-10-04</strong>, not inferred from dependency metadata. Dependency metadata records what a package <em>needs</em>, not what it <em>draws with</em>, and drawing that distinction incorrectly is exactly the error Chapter 1 warns about.</p>
 
 
 <!-- -->
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -976,39 +1093,146 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./references.html" class="pagination-link" aria-label="References">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">References</span>
+      <a href="./export-devices.html" class="pagination-link" aria-label="Production Export &amp; Graphical Devices">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Production Export &amp; Graphical Devices</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./rosetta.html" class="pagination-link" aria-label="Base R ↔ ggplot2: A Rosetta Stone">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Base R ↔︎ ggplot2: A Rosetta Stone</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./about-the-author.html" class="pagination-link" aria-label="About the Author">
+        <span class="nav-page-text">About the Author</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "About the author of Data Visualization with R - Base Graphics, and the other books and packages."</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Sources cited by Data Visualization with R - Base Graphics: the R manuals and papers that define base graphics, the colour vision research behind the Okabe-Ito palette, and provenance for every dataset and benchmark in the book."</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu"># About the Author {.unnumbered}</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu"># References {.unnumbered}</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Aravind Hebbali</span><span class="co">](https://www.aravindhebbali.com)</span> is the founder of </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Rsquared Academy</span><span class="co">](https://www.rsquaredacademy.com)</span>. He earned his Masters in </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Economics from <span class="co">[</span><span class="ot">Madras School of Economics</span><span class="co">](https://www.mse.ac.in)</span>. As an </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>active R user, he has authored several R packages such as </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">olsrr</span><span class="co">](https://olsrr.rsquaredacademy.com)</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">rfm</span><span class="co">](https://rfm.rsquaredacademy.com)</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">descriptr</span><span class="co">](https://descriptr.rsquaredacademy.com)</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">blorr</span><span class="co">](https://blorr.rsquaredacademy.com)</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">xplorerr</span><span class="co">](https://xplorerr.rsquaredacademy.com)</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>In 2015, he founded <span class="co">[</span><span class="ot">Rsquared Academy</span><span class="co">](https://www.rsquaredacademy.com)</span>, a </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>free and open source education initiative with focus on data science and </span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>analytics. Apart from self paced online courses, Rsquared Academy offers </span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>customized learning modules for corporates and universities. </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Everything this book depends on, in one place. The primary sources for base</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>graphics are the R manuals that ship with the software — they are free, they are</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>current, and <span class="in">`?graphics`</span> is more accurate than any blog post.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Base R graphics</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; R Core Team (2026). *R: A Language and Environment for Statistical Computing*.</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; R Foundation for Statistical Computing, Vienna, Austria.</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Available at </span><span class="ot">&lt;https://www.R-project.org/&gt;</span><span class="at">.</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Chambers, J. M. (1993). *Statistical Models in S*. Chapman &amp; Hall, London.</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Chambers, J. M. (2008). *Software for Data Analysis: R and S-PLUS*. Springer, New York.</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Chambers, J. M. (2018). *Scripting R: Analyzing and Programming with the R Language*. O'Reilly Media, Sebastopol, CA.</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>You can find him on <span class="co">[</span><span class="ot">GitHub</span><span class="co">](https://github.com/aravindhebbali)</span>.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Murrell, P. (2017). *R Graphics*, 3rd edition. Chapman &amp; Hall/CRC, Boca Raton, FL.</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; The definitive reference for base graphics specifically. </span><span class="in">`?graphics`</span><span class="at"> and the</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`R Graphics`</span><span class="at"> help pages are abridged versions of it.</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Venables, W. N. and Ripley, B. D. (2002). *Modern Applied Statistics with S*.</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Springer, New York. The </span><span class="in">`S`</span><span class="at"> ancestor of base graphics, and still the clearest</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; account of why the design is shaped the way it is.</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## The grammar of graphics, and the alternative</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Wilkinson, L. (2005). *The Grammar of Graphics*. Springer, New York.</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Wickham, H. and Grolemund, G. (2017). *R for Data Science: Import, Tidy,</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Transform, Visualize, and Model Data*. O'Reilly Media, Sebastopol, CA.</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Available at </span><span class="ot">&lt;https://r4ds.hadley.nz/&gt;</span><span class="at">.</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Wickham, H. (2016). *ggplot2: Elegant Graphics for Data Analysis*, 3rd</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; edition. Springer, New York.</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Chang, W. (2024). *R Graphics Cookbook*, 2nd edition. O'Reilly Media,</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Sebastopol, CA. Available at </span><span class="ot">&lt;https://r-graphics.org/&gt;</span><span class="at">.</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Recipe-first, and covers base and ggplot2 side by side.</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Colour and accessibility</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Okabe, M. and Ito, K. (2008). "Color Universal Design (CUD): How to make</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; figures and presentations that are friendly to Colorblind people." In</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *Proceedings of the 2008 Symposium on Universal Design and Accessibility*,</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Tokyo, Japan.</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Masataka, D. (2020). *Color Design: Methods, Tools, and Applications*.</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Apress, Singapore. Background on perceptual colour spaces, lightness and</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; contrast that Chapter 12's greyscale check relies on.</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>The Okabe-Ito palette used in Chapter 12 is available in R 4.1 and later without</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>any additional package, via <span class="in">`palette.colors(palette = 'Okabe-Ito')`</span>.</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Datasets used in this book</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>Most figures are drawn from datasets that ship with R, and the two that do not</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>are vendored in this repository so the book builds offline. Full provenance:</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`AirPassengers`</span> — Box &amp; Jenkins (1975) monthly airline passengers, 1949–1960.</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>  Distributed with R from the <span class="in">`datasets`</span> package.</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`mtcars`</span> — extracted from the 1974 *Motor Trend* US magazine. Distributed with</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>  R from the <span class="in">`datasets`</span> package.</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`iris`</span> — Anderson, E. (1935). "The irises of the Gaspé Peninsula." *Bulletin of</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>  the American Iris Society*, 59, 17–50. Distributed with R from the <span class="in">`datasets`</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>  package.</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`ToothGrowth`</span> — the growth of 60 guinea pigs, distributed with R from the</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>  <span class="in">`datasets`</span> package.</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`hsb2.csv`</span> — High School and Beyond survey, 200 observations, originally from</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>  the UCLA Institute for Digital Research and Education. Vendored as</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>  <span class="in">`data/hsb2.csv`</span>. Used illustratively; not redistributable as an authoritative</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>  source, and no claim is made about the sampling frame.</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`brics-gdp-2010-14.csv`</span> — a frozen vintage of annual GDP growth for the BRICS</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>  nations, 2010–2014, hand-entered as a teaching dataset. It differs slightly</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>  from the World Bank's current revised series and should be treated as</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>  illustrative, **not** as a citable statistic. Where the numbers matter, use the</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>  World Bank directly.</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reproducing the measurements in Chapter 1</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>Chapter 1's claims are measured, not asserted. Each figure in that chapter is</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>drawn from a CSV committed to this repository, and each CSV is produced by a</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>script in <span class="in">`scripts/`</span>. None of them runs when the book is built, which is</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>deliberate: a book arguing for zero dependencies cannot quietly require two of</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>them to make its case.</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>| Claim | Script | Output |</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>|:--|:--|:--|</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>| Draw time and peak memory, base versus ggplot2, 10k and 100k points | <span class="in">`scripts/bench.R`</span> | <span class="in">`data/bench-base-vs-ggplot2.csv`</span> |</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>| Wall clock to start a plotting session, by engine | <span class="in">`scripts/startup.R`</span> | <span class="in">`data/startup-latency.csv`</span> |</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>| Declared non-base CRAN dependencies, per package | <span class="in">`scripts/cran-deps.R`</span> | <span class="in">`data/cran-deps.csv`</span> |</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>| Published container image sizes, R versus R + tidyverse | <span class="in">`scripts/docker-sizes.R`</span> | <span class="in">`data/docker-sizes.csv`</span> |</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>Run any of them with <span class="in">`Rscript scripts/&lt;name&gt;.R`</span>. Each stamps the date, R</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>version and platform it ran under into its output, so a stale row is visibly</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>stale. Absolute timings are machine-specific and should be read as an order of</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>magnitude; the shape of each result travels across machines far better than the</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>individual numbers do.</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="in">`scripts/bench.R`</span> requires <span class="in">`bench`</span> and <span class="in">`ggplot2`</span>, which the book itself never</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>needs. <span class="in">`scripts/docker-sizes.R`</span> and <span class="in">`scripts/cran-deps.R`</span> read published metadata</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>over HTTP, so their numbers reflect the state of the world on their</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="in">`retrieved_on`</span> date.</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further reading in the R ecosystem</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>The author's own CRAN packages are adjacent to this book's subject matter rather</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>than part of it. Their plotting layers use ggplot2; Chapter 1 discusses that</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>honestly, and Appendix A maps the two systems onto each other.</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">`olsrr`</span><span class="co">](https://github.com/rsquaredacademy/olsrr)</span> — companion functions for</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>  ordinary least squares, including diagnostic plots.</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">`rfm`</span><span class="co">](https://github.com/rsquaredacademy/rfm)</span> — recency, frequency and</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>  monetary analysis, with cohort and segment plots.</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">`blorr`</span><span class="co">](https://github.com/rsquaredacademy/blorr)</span> — logistic regression</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>  diagnostics and plots.</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">`descriptr`</span><span class="co">](https://github.com/rsquaredacademy/descriptr)</span> — frequency tables,</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>  cross-tabulations and summary statistics, each with a plot.</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a><span class="fu">## A note on the sources for this chapter</span></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>The author packages above were checked by reading their source on</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>**2026-10-04**, not inferred from dependency metadata. Dependency metadata</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>records what a package *needs*, not what it *draws with*, and drawing that</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>distinction incorrectly is exactly the error Chapter 1 warns about.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
