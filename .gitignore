@@ -6,5 +6,8 @@ roadmap/
 daily-logs.md
 data-visualization-with-base_files/
 _bookdown_files/
+# knitr scratch dirs for chapters rendered outside docs/ (e.g. --output-dir .stage)
+*_files/
+/.stage/
 
 /.quarto/

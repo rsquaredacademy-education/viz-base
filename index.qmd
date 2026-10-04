@@ -1,7 +1,4 @@
 ---
-title: "Data Visualization with R"
-subtitle: "Base Graphics"
-author: "Aravind Hebbali"
 description: "Learn to visualize data with base R."
 ---
 
