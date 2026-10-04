@@ -597,29 +597,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R version 4.5.2 (2025-10-31 ucrt)
-Platform: x86_64-w64-mingw32/x64
-Running under: Windows 10 x64 (build 19045)
+<pre><code>R version 4.5.3 (2026-03-11)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 24.04.5 LTS
 
 Matrix products: default
-  LAPACK version 3.12.1
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
 
 locale:
-[1] LC_COLLATE=English_India.utf8  LC_CTYPE=English_India.utf8   
-[3] LC_MONETARY=English_India.utf8 LC_NUMERIC=C                  
-[5] LC_TIME=English_India.utf8    
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 
-time zone: Asia/Calcutta
-tzcode source: internal
+time zone: UTC
+tzcode source: system (glibc)
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] htmlwidgets_1.6.4 compiler_4.5.2    fastmap_1.2.0     cli_3.6.5        
- [5] tools_4.5.2       htmltools_0.5.9   yaml_2.3.12       rmarkdown_2.30   
- [9] knitr_1.50        jsonlite_2.0.0    xfun_0.61         digest_0.6.39    
-[13] rlang_1.2.0       evaluate_1.0.5   </code></pre>
+ [1] compiler_4.5.3  fastmap_1.2.0   cli_3.6.6       tools_4.5.3    
+ [5] htmltools_0.5.9 yaml_2.3.12     rmarkdown_2.32  knitr_1.52     
+ [9] jsonlite_2.0.0  xfun_0.61       digest_0.6.39   rlang_1.3.0    
+[13] evaluate_1.0.5 </code></pre>
 </div>
 </div>
 <p>We do not add prompts (<code>&gt;</code> and <code>+</code>) to R source code in this book, and we comment out the text output with two hashes <code>##</code> by default, as you can see from the R session information above. This is for your convenience when you want to copy and run the code (the text output will be ignored since it is commented out). Package names are in bold text (e.g., <strong>rmarkdown</strong>), and function names are followed by parentheses (e.g., <code>knitr::knit()</code>). The double-colon operator <code>::</code> means accessing an object from a package.</p>
@@ -631,12 +633,14 @@ loaded via a namespace (and not attached):
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>    = {Aravind Hebbali},</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>     = {Data Visualization with R: Base Graphics},</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>      = {2026},</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">publisher</span> = {Rsquared Academy},</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">url</span>       = {https://viz-base.rsquaredacademy.com},</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">note</span>      = {Version 1.0. Source: https://github.com/rsquaredacademy-education/viz-base}</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">version</span>   = {1.0},</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">publisher</span> = {Rsquared Academy},</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span>       = {10.5281/zenodo.23138733},</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">url</span>       = {https://viz-base.rsquaredacademy.com},</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">note</span>      = {Version 1.0. Source: https://github.com/rsquaredacademy-education/viz-base}</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <blockquote class="blockquote">
-<p>The <code>doi</code> field is absent on purpose until a Zenodo DOI is minted for a specific release. A placeholder DOI would look authoritative and fail silently for every reader who tried it, so it will be added when there is a real one to point at.</p>
+<p>The DOI is the Zenodo <em>version</em> DOI for v1.0.0, so this citation keeps resolving to the edition you are reading even after a later release. If you would rather your citation track the current edition, use the concept DOI <code>10.5281/zenodo.23138732</code> instead — it always resolves to the latest version.</p>
 </blockquote>
 </section>
 <section id="corrections" class="level2 unnumbered">
@@ -1307,26 +1311,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="in">  author    = {Aravind Hebbali},</span></span>
 <span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="in">  title     = {Data Visualization with R: Base Graphics},</span></span>
 <span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="in">  year      = {2026},</span></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="in">  publisher = {Rsquared Academy},</span></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="in">  url       = {https://viz-base.rsquaredacademy.com},</span></span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="in">  note      = {Version 1.0. Source: https://github.com/rsquaredacademy-education/viz-base}</span></span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; The </span><span class="in">`doi`</span><span class="at"> field is absent on purpose until a Zenodo DOI is minted for a</span></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; specific release. A placeholder DOI would look authoritative and fail silently</span></span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; for every reader who tried it, so it will be added when there is a real one to</span></span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; point at.</span></span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Corrections {-}</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="in">  version   = {1.0},</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="in">  publisher = {Rsquared Academy},</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="in">  doi       = {10.5281/zenodo.23138733},</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="in">  url       = {https://viz-base.rsquaredacademy.com},</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="in">  note      = {Version 1.0. Source: https://github.com/rsquaredacademy-education/viz-base}</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; The DOI is the Zenodo *version* DOI for v1.0.0, so this citation keeps</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; resolving to the edition you are reading even after a later release. If you</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; would rather your citation track the current edition, use the concept DOI</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="in">`10.5281/zenodo.23138732`</span><span class="at"> instead — it always resolves to the latest version.</span></span>
 <span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>This book is a living document and mistakes will be found. If you find one,</span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>please open an issue at</span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">rsquaredacademy-education/viz-base</span><span class="co">](https://github.com/rsquaredacademy-education/viz-base/issues)</span>.</span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>Every measurement quoted in Chapter 1 is regenerable from the scripts in</span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="in">`scripts/`</span>, so a disputed number is a reproducible question rather than an</span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>argument. See the References chapter for the full list. </span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="fu">## Corrections {-}</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>This book is a living document and mistakes will be found. If you find one,</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>please open an issue at</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">rsquaredacademy-education/viz-base</span><span class="co">](https://github.com/rsquaredacademy-education/viz-base/issues)</span>.</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>Every measurement quoted in Chapter 1 is regenerable from the scripts in</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="in">`scripts/`</span>, so a disputed number is a reproducible question rather than an</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>argument. See the References chapter for the full list. </span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
