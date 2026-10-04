@@ -6,21 +6,6 @@
 
 📖 **Read the book:** https://viz-base.rsquaredacademy.com
 
-## Cite this book
-
-```bibtex
-@misc{vizbase2026,
-  author    = {Aravind Hebbali},
-  title     = {Data Visualization with R: Base Graphics},
-  year      = {2026},
-  publisher = {Rsquared Academy},
-  url       = {https://viz-base.rsquaredacademy.com},
-  note      = {Version 1.0. Source: https://github.com/rsquaredacademy-education/viz-base}
-}
-```
-
-The entry is also in [`citation.bib`](citation.bib), and the Preface carries the same block. A `doi` field will be added once a Zenodo record exists for a versioned release — see [HOW-TO-CITE.md](HOW-TO-CITE.md). There is deliberately no placeholder DOI in the meantime: one that looks authoritative but does not resolve is worse than none.
-
 Free to read, built with [Quarto](https://quarto.org/). No packages to install — the book uses only the `graphics` package that ships with R, and Chapters 2–4 each close with a live playground that runs in your browser via [WebR](https://docs.r-wasm.org/webr/latest/).
 
 ## Syllabus
@@ -68,40 +53,23 @@ Rscript scripts/webr-smoke.R       # static check of every live {webr-r} cell
 typst compile cheatsheet/base-par-cheatsheet.typ docs/base-par-cheatsheet.pdf
 ```
 
-CI renders HTML, Typst PDF, and ePub, builds the cheatsheet, verifies every slug, and deploys `docs/` via GitHub Pages. `master` is the production branch.
+CI renders HTML, Typst PDF, and ePub, builds the cheatsheet, verifies every slug, and deploys `docs/` via GitHub Pages. `master` is the production branch. Editing the book has its own set of traps — read [AUTHORING.md](AUTHORING.md) before changing anything.
 
-### Authoring constraints
 
-Verified against Quarto 1.6.40 + Typst 0.11.0. All three formats build in CI and PDF/ePub are
-required steps, so anything below breaks the build rather than degrading quietly.
+## Cite this book
 
-- **Callouts are unavailable.** `:::{.callout-tip}` fails the PDF with
-  `error: unknown variable: callout` — Quarto's book-merge path drops Typst's
-  `definitions.typ`. Use a blockquote signpost instead (house style, see `legend.qmd`).
-- **`<details>` works** in HTML, ePub and PDF, including nested executable R chunks, so
-  collapsed exercise solutions are safe to use.
-- **Cross-references split by type.** `@fig-`/`@tbl-` resolve in all three formats. Any
-  `@sec-` heading reference — same chapter or cross-chapter — resolves in HTML and ePub but
-  fails the PDF with `error: cannot reference heading without numbering`. Chapter pointers
-  in prose are therefore written as literal numbers (`Chapter 2`); keep them correct by hand
-  when the chapter list changes.
-- **Never hardcode Open Graph or canonical tags.** `includes/head.html` holds
-  `og:title`/`twitter:*` as *placeholders* that Quarto rewrites per page; delete them and
-  Quarto emits nothing. Quarto emits no `canonical` or `og:url` for `type: book` — see the
-  comment in that file for why they are absent on purpose.
-- **Clear `.quarto/` when a cross-reference misbehaves.** A stale cache silently emits
-  same-page anchors and unresolved text instead of erroring.
-- **Figure cross-references need a cell label, not a chunk name.** `@fig-x` resolves only
-  when the chunk carries both, as Quarto cell options:
-  ` ```{r chunkname}` / `#| label: fig-x` / `#| fig-cap: "..."` `. A bare `fig.cap=` in the
-  chunk header produces the caption but leaves `@fig-x` unresolved, with only a warning.
-- **`format(1e5, big.mark = ',')` returns `"1e+05"`.** Add `scientific = FALSE` or large
-  tick and point counts render as exponents in figure titles.
-- **The cheatsheet is not a Quarto chapter.** `cheatsheet/base-par-cheatsheet.typ` is Typst,
-  built separately, and CI asserts it is still exactly one page. Its R snippets live in
-  ```` ```r ```` raw blocks because `#` starts a comment in R but escapes into code mode in
-  Typst markup — a bare `# comment` in a `.typ` file is a parse error.
+```bibtex
+@misc{vizbase2026,
+  author    = {Aravind Hebbali},
+  title     = {Data Visualization with R: Base Graphics},
+  year      = {2026},
+  publisher = {Rsquared Academy},
+  url       = {https://viz-base.rsquaredacademy.com},
+  note      = {Version 1.0. Source: https://github.com/rsquaredacademy-education/viz-base}
+}
+```
 
+The entry is also in [`citation.bib`](citation.bib), and the Preface carries the same block. A `doi` field will be added once a Zenodo record exists for a versioned release — see [HOW-TO-CITE.md](HOW-TO-CITE.md). There is deliberately no placeholder DOI in the meantime: one that looks authoritative but does not resolve is worse than none.
 
 ## License
 
