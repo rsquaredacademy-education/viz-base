@@ -40,6 +40,7 @@ book:
     - legend.qmd
     - textann.qmd
     - facet.qmd
+    - export-devices.qmd
     - about-the-author.qmd
   downloads: [pdf, epub]
 
