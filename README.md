@@ -44,6 +44,22 @@ Chapter 1's claims are measured rather than asserted, and every number is regene
 
 None of these run at knit time — the book never requires `ggplot2` or `bench` to build. Each script prints its own caveats and stamps the date and versions it ran under.
 
+## Authoring documentation
+
+This repository is the **canonical home** for the workspace-wide book standard:
+
+- **[`AUTHOR-STANDARDS.md`](AUTHOR-STANDARDS.md)** — the conformance standard
+  and template for all six books in the Rsquared ebooks workspace, plus the
+  migration plan. Read this first.
+- [`AUTHORING.md`](AUTHORING.md) — the constraints specific to *this* book,
+  including the four failure modes that break silently.
+- [`revision.md`](revision.md), [`revision-w2.md`](revision-w2.md) — what
+  changed here in each review wave, and what is still open.
+
+Every book in the workspace points at `AUTHOR-STANDARDS.md` here, so this
+repository is versioned alongside the standard rather than duplicated into
+six repos.
+
 ## Develop
 
 ```bash
