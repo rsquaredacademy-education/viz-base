@@ -406,7 +406,7 @@ plot(mtcars$mpg)
 layout(1)
 ```
 
-## Putting it all together...
+## Putting it all together
 
 Before we end this section, let us combine plots using both the widths and heights option
 

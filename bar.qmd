@@ -181,7 +181,7 @@ You can similarly modify the range of the Y axes using the `ylim` argument. Alth
 barplot(cyl_freq, ylim = c(0, 30))
 ```
 
-## Putting it all together...
+## Putting it all together
 
 Let us quickly revise what we have learnt so far and build a bar plot for visualizing the `cyl` variable in the `mtcars` data set:
 

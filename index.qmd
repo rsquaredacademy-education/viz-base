@@ -12,8 +12,7 @@ knitr::include_graphics('img/viz-base.png')
 
 This book requires R 4.1 or later.
 
-## Software information {-}
-
+## Software information {.unnumbered}
 The R session information when compiling this book is shown below:
 
 ```{r session}
@@ -22,8 +21,7 @@ sessionInfo()
 
 We do not add prompts (`>` and `+`) to R source code in this book, and we comment out the text output with two hashes `##` by default, as you can see from the R session information above. This is for your convenience when you want to copy and run the code (the text output will be ignored since it is commented out). Package names are in bold text (e.g., **rmarkdown**), and function names are followed by parentheses (e.g., `knitr::knit()`). The double-colon operator `::` means accessing an object from a package. 
 
-## How to cite this book {-}
-
+## How to cite this book {.unnumbered}
 If this book is useful to your work, please cite it. A ready-made BibTeX entry is
 in [`citation.bib`](https://github.com/rsquaredacademy-education/viz-base/blob/master/citation.bib)
 and is reproduced below.
@@ -46,8 +44,7 @@ and is reproduced below.
 > would rather your citation track the current edition, use the concept DOI
 > `10.5281/zenodo.23138732` instead — it always resolves to the latest version.
 
-## Corrections {-}
-
+## Corrections {.unnumbered}
 This book is a living document and mistakes will be found. If you find one,
 please open an issue at
 [rsquaredacademy-education/viz-base](https://github.com/rsquaredacademy-education/viz-base/issues).

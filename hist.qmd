@@ -240,7 +240,7 @@ Specify the label values in a character vector.
 hist(mtcars$mpg, labels = c("6", "12", "8", "2", "4"))
 ```
 
-## Putting it all together..
+## Putting it all together
 
 Let us add a title and axis labels to the histogram. 
 

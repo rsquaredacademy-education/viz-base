@@ -280,7 +280,7 @@ building the point list by hand.
 Note that `polygon()` is drawn first and `lines()` second. Anything you fill
 will cover anything already plotted, so background bands belong underneath.
 
-## Putting it all together...
+## Putting it all together
 
 Finally let us enhance the plot by adding a title and modifying the axis labels.
 
