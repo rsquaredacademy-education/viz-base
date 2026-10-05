@@ -17,8 +17,13 @@ lives at the repository root and is copied in by the workflow. That already
 happened once: `HOW-TO-CITE.md` was drafted into `docs/` and would have been
 deleted on the next build.
 
-`sitemap.xml` is hand-maintained for the same reason — Quarto book sitemap
-generation is unreliable here. It must stay in sync with `_quarto.yml`.
+`sitemap.xml` is **generated** by `scripts/make-sitemap.sh` after the HTML render,
+not hand-maintained. The hand-maintained copy this replaced had drifted out of
+order against `_quarto.yml` and had dropped `privacy.html` from the sitemap
+entirely. There is no root `sitemap.xml` to edit -- do not add one back. To change
+what is listed, edit the exclusions in the generator.
+`scripts/verify-sitemap.sh` asserts the generated sitemap covers exactly the pages
+that were built.
 
 ## The four that fail silently
 

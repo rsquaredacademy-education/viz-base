@@ -1,11 +1,12 @@
 project:
   type: book
   output-dir: docs
+  # sitemap.xml is deliberately NOT a resource: it is generated after the HTML
+  # render by scripts/make-sitemap.sh, so there is no root copy to copy in.
   resources:
     - "google02e424888b5e2def.html"
     - "privacy.html"
     - "robots.txt"
-    - "sitemap.xml"
 
 quarto-required: ">=1.6.0"
 

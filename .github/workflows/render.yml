@@ -54,8 +54,11 @@ jobs:
       - name: Render HTML
         run: quarto render --to html --output-dir /tmp/stage-html
 
-      - name: Install static sitemap (Quarto reserves the path)
-        run: cp sitemap.xml /tmp/stage-html/sitemap.xml
+      # Generated, not hand-maintained. The hand-maintained copy this replaced had
+      # drifted out of order against _quarto.yml and had dropped privacy.html
+      # entirely. Generating it here means it cannot drift.
+      - name: Generate sitemap
+        run: bash scripts/make-sitemap.sh /tmp/stage-html https://viz-base.rsquaredacademy.com
 
       # PDF/EPUB are required, not advisory: the roadmap's Phase 1 DoD is
       # "PDF + EPUB build clean in CI", and `downloads: [pdf, epub]` is
@@ -80,16 +83,24 @@ jobs:
           echo "cheatsheet pages: $pages"
           test "$pages" = "1" || { echo "CHEATSHEET MUST BE 1 PAGE, got $pages"; exit 1; }
 
-      - name: Verify legacy slugs
+      # Slug list is derived from _quarto.yml, not hand-maintained. references.html
+      # is a legacy bookdown URL that went missing during the Quarto migration and
+      # came back only by luck; a derived list cannot rot the same way.
+      - name: Verify slugs rendered
+        run: sh scripts/verify-slugs.sh /tmp/stage-html
+
+      # Set comparison, not a count. The old hand-maintained sitemap had 17
+      # entries for 17 pages while omitting privacy.html, because a bare "/"
+      # root entry offset the missing one -- a count-based gate passes that.
+      - name: Verify sitemap covers every page
+        run: sh scripts/verify-sitemap.sh /tmp/stage-html /tmp/stage-html/sitemap.xml
+
+      - name: Verify no unresolved cross-references
         run: |
-          for f in index why-base intro titlelabels scatter line bar box hist legend textann facet export-devices rosetta references about-the-author; do
-            test -f "/tmp/stage-html/$f.html" || { echo "MISSING SLUG: /tmp/stage-html/$f.html"; exit 1; }
-          done
-          test -f /tmp/stage-html/sitemap.xml || { echo "sitemap.xml missing from staged output"; exit 1; }
-          # references.html is a legacy bookdown URL that went missing during the
-          # Quarto migration. It is back as a chapter; assert it, because a
-          # silent drop is exactly how it disappeared the first time.
-          test -f /tmp/stage-html/references.html || { echo "references.html regressed"; exit 1; }
+          if grep -r '??</strong>' /tmp/stage-html/*.html; then
+            echo "FAIL: unresolved cross-references (??) found"; exit 1
+          fi
+          echo "OK: no unresolved cross-references"
 
       - name: Verify downloads are present
         run: |
@@ -103,7 +114,7 @@ jobs:
           cp /tmp/stage-pdf/*.pdf docs/
           cp /tmp/stage-epub/*.epub docs/
           cp /tmp/base-par-cheatsheet.pdf docs/
-          cp robots.txt sitemap.xml google02e424888b5e2def.html privacy.html 404.html docs/ 2>/dev/null || true
+          cp robots.txt google02e424888b5e2def.html privacy.html 404.html docs/ 2>/dev/null || true
           rm -rf docs/docs
           test -f docs/sitemap.xml || { echo "sitemap.xml missing after assemble"; exit 1; }
           ls docs/*.pdf docs/*.epub
