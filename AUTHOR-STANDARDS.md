@@ -569,7 +569,7 @@ shippable and none blocks a later one.
 |:--|:--|:--|:--|
 | 1 | Correctness | viz-ggplot2 `quicktour`/`scatter` mislink; `LICENSE` ×6; missing solutions (bash-intro `git-appendix`); heading-string and `{.unnumbered}` unification | **Done 2026-10-05** |
 | 2 | Pin the toolchain | Quarto + Typst pinned as a pair; PDF/ePub fatal; `fc-cache -f`; `mainfont` resolvable | **Done 2026-10-05** |
-| 3 | One CI file per book | Adopt the template; add the missing slug gate (bash-intro, rdbsql); extract `scripts/verify-slugs.sh` | Not started |
+| 3 | One CI file per book | `render.yml` everywhere; slug + sitemap + cross-ref gates derived from `_quarto.yml`; weekly link check | **Done 2026-10-05** |
 | 4 | Migrate to Netlify | rdbsql, viz-base — add `netlify.toml` + `_redirects`, switch the deploy step | Not started |
 | 5 | Typst migration | data-wrangling (16 callouts), viz-ggplot2 (48 callouts) | Not started |
 | 6 | Solutions normalisation | data-wrangling chapter → folder; viz-base inline → folder; rename all files to exact slugs | Partly done (see below) |
@@ -580,7 +580,51 @@ shippable and none blocks a later one.
 Waves 1–3 are risk reduction with no content decisions. Wave 5 is 64 mechanical
 callout edits plus a PDF read per chapter. Waves 7–9 are the cosmetic tail.
 
-### 4.0 Wave 2 record — shipped 2026-10-05
+### 4.0 Wave 3 record - shipped 2026-10-05
+
+Gates that cannot drift. Every workflow is `render.yml`; every book has the same
+blocking gates.
+
+| Gate | Script | Asserts |
+|:--|:--|:--|
+| Slugs | `scripts/verify-slugs.sh` | every chapter in `_quarto.yml` rendered |
+| Cross-refs | inline grep | no `??</strong>` in output |
+| Downloads | inline `ls` | PDF and ePub exist |
+| Sitemap | `scripts/verify-sitemap.sh` | sitemap covers exactly the built pages |
+| Redirects | `scripts/test-redirects.sh` | redirect targets resolve |
+
+Plus a weekly `linkcheck.yml` in all six, separate from the build. The in-build
+link check is advisory everywhere; only the weekly one fails.
+
+**Slug lists are derived, not written.** All six read `book.chapters` and
+`book.appendices` from `_quarto.yml` via `yq` (preinstalled on GitHub runners).
+Four books previously hardcoded 15-25 slugs, and two had no gate at all.
+
+**Sitemap gates compare sets, not counts.** Counting cannot detect a missing page
+when a bare `/` root entry offsets it - which is exactly the state viz-base was
+in: 17 entries for 17 pages while `privacy.html` was absent.
+
+**Four live pages were recovered.** Regenerating the sitemaps surfaced pages
+that were missing from them: `privacy.html` (viz-base), `cheatsheet.html` /
+`production.html` / `duckdb.html` (rdbsql), `first-plot.html` /
+`first-wrangle.html` / `projects-import.html` (intro-r). All were live and
+linked; only the sitemaps were wrong.
+
+**`set -e` is banned in gate scripts.** Under it, a failing `[ ! -f ]` can abort
+before the explicit `exit 1` and the shell reports success - the gate prints
+FAIL while CI stays green. Both scripts set exit status explicitly and say so.
+
+**Correction to the wave-3 plan.** data-wrangling's sitemap was reported as
+broken with three 404ing appendix URLs. That was wrong - the test used
+`data-wrangling.rsquaredacademy.com` instead of the real host,
+`wrangle-r.rsquaredacademy.com`. The file was correct. It was still replaced,
+because nothing verified it; that is a different argument than "it was broken".
+
+**The shared sitemap generator recurses and sorts.** A flat listing emits
+`/foo.html` for a page served at `/appendices/foo.html`, a 404 for a crawler.
+Sorting keeps regenerated output a stable diff.
+
+### 4.1 Wave 2 record — shipped 2026-10-05
 
 Toolchain pinned across all six; viz-base needed no changes and is the
 reference implementation.
@@ -630,7 +674,7 @@ is `book.output-file`, set in `_quarto.yml`, not a post-render `mv`.
 caught only because the toolchain was exercised locally before pushing. CI
 had been green throughout.
 
-### 4.1 Wave 1 record — shipped 2026-10-05
+### 4.2 Wave 1 record — shipped 2026-10-05
 
 All changes render-verified with Quarto 1.6.40 (the version CI pins).
 
