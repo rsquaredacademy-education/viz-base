@@ -473,8 +473,8 @@
     "objectID": "line.html#putting-it-all-together",
     "href": "line.html#putting-it-all-together",
     "title": "5  Line Graphs",
-    "section": "5.9 Putting it all together…",
-    "text": "5.9 Putting it all together…\nFinally let us enhance the plot by adding a title and modifying the axis labels.\n\nplot(data1, type = \"b\", col = \"blue\", \n     ylim = c(5, 9), main = 'Line Graph',\n     xlab = 'Index', ylab = 'Data')\nlines(data2, type = \"b\", col = \"red\")\nsegments(1:5, data1 - 0.5, 1:5, data1 + 0.5, col = \"blue\", lwd = 2)\n# Approach the peak from above-right so the arrow crosses neither series.\narrows(4.1, 8.5, 3.15, 7.85, col = \"grey30\", length = 0.1)\n\n\n\n\n\n\n\nFigure 5.7: Layering error bars and an annotation onto a two-series line chart",
+    "section": "5.9 Putting it all together",
+    "text": "5.9 Putting it all together\nFinally let us enhance the plot by adding a title and modifying the axis labels.\n\nplot(data1, type = \"b\", col = \"blue\", \n     ylim = c(5, 9), main = 'Line Graph',\n     xlab = 'Index', ylab = 'Data')\nlines(data2, type = \"b\", col = \"red\")\nsegments(1:5, data1 - 0.5, 1:5, data1 + 0.5, col = \"blue\", lwd = 2)\n# Approach the peak from above-right so the arrow crosses neither series.\narrows(4.1, 8.5, 3.15, 7.85, col = \"grey30\", length = 0.1)\n\n\n\n\n\n\n\nFigure 5.7: Layering error bars and an annotation onto a two-series line chart",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Line Graphs</span>"
     ]
@@ -563,8 +563,8 @@
     "objectID": "bar.html#putting-it-all-together",
     "href": "bar.html#putting-it-all-together",
     "title": "6  Bar Plots",
-    "section": "6.8 Putting it all together…",
-    "text": "6.8 Putting it all together…\nLet us quickly revise what we have learnt so far and build a bar plot for visualizing the cyl variable in the mtcars data set:\n\nbarplot(cyl_freq, col = c('blue', 'red', 'green'),\n        horiz = TRUE, width = c(1, 1, 2),\n        names.arg = c('Four', 'Six', 'Eight'),\n        axis.lty = 2, offset = 2)\n\n\n\n\n\n\n\n\n\n6.8.1 Title & Axis Labels\nWell the plot looks good but for someone who does not know the underlying data, it will diffficult to understand what is being communicated. Let us add a title and labels for the axes.\n\nbarplot(cyl_freq, col = c('blue', 'red', 'green'),\n        horiz = TRUE, width = c(1, 1, 2),\n        names.arg = c('Four', 'Six', 'Eight'),\n        axis.lty = 2, offset = 2)\ntitle(main = 'Distribution of Cylinders',\n      xlab = 'Frequency', ylab = 'Number of Cylinders')\n\n\n\n\n\n\n\nFigure 6.1: A complete bar chart with labels, axis limits and a colour palette",
+    "section": "6.8 Putting it all together",
+    "text": "6.8 Putting it all together\nLet us quickly revise what we have learnt so far and build a bar plot for visualizing the cyl variable in the mtcars data set:\n\nbarplot(cyl_freq, col = c('blue', 'red', 'green'),\n        horiz = TRUE, width = c(1, 1, 2),\n        names.arg = c('Four', 'Six', 'Eight'),\n        axis.lty = 2, offset = 2)\n\n\n\n\n\n\n\n\n\n6.8.1 Title & Axis Labels\nWell the plot looks good but for someone who does not know the underlying data, it will diffficult to understand what is being communicated. Let us add a title and labels for the axes.\n\nbarplot(cyl_freq, col = c('blue', 'red', 'green'),\n        horiz = TRUE, width = c(1, 1, 2),\n        names.arg = c('Four', 'Six', 'Eight'),\n        axis.lty = 2, offset = 2)\ntitle(main = 'Distribution of Cylinders',\n      xlab = 'Frequency', ylab = 'Number of Cylinders')\n\n\n\n\n\n\n\nFigure 6.1: A complete bar chart with labels, axis limits and a colour palette",
     "crumbs": [
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Bar Plots</span>"
     ]
@@ -740,11 +740,11 @@
     ]
   },
   {
-    "objectID": "hist.html#putting-it-all-together..",
-    "href": "hist.html#putting-it-all-together..",
+    "objectID": "hist.html#putting-it-all-together",
+    "href": "hist.html#putting-it-all-together",
     "title": "8  Histograms",
-    "section": "8.10 Putting it all together..",
-    "text": "8.10 Putting it all together..\nLet us add a title and axis labels to the histogram.\n\nhist(mtcars$mpg, labels = TRUE, prob = TRUE,\n     ylim = c(0, 0.1), xlab = 'Miles Per Gallon',\n     main = 'Distribution of Miles Per Gallon',\n     col = rainbow(5))",
+    "section": "8.10 Putting it all together",
+    "text": "8.10 Putting it all together\nLet us add a title and axis labels to the histogram.\n\nhist(mtcars$mpg, labels = TRUE, prob = TRUE,\n     ylim = c(0, 0.1), xlab = 'Miles Per Gallon',\n     main = 'Distribution of Miles Per Gallon',\n     col = rainbow(5))",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Histograms</span>"
     ]
@@ -1103,8 +1103,8 @@
     "objectID": "facet.html#putting-it-all-together",
     "href": "facet.html#putting-it-all-together",
     "title": "11  Faceting",
-    "section": "11.6 Putting it all together…",
-    "text": "11.6 Putting it all together…\nBefore we end this section, let us combine plots using both the widths and heights option\n\n# specify the matrix\nmatrix(c(1, 2, 3, 4, 5, 6), nrow = 3, byrow = TRUE)\n##      [,1] [,2]\n## [1,]    1    2\n## [2,]    3    4\n## [3,]    5    6\n\n# 6 plots to be combined in 3 row/ 2 columns and arranged by rows\nlayout(matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, byrow = TRUE), heights= c(1, 2, 1),\nwidths = c(2, 1))\n \n# specify the 6 plots\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\nplot(mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\n\n\n\n\n\n\n\nlayout(1)",
+    "section": "11.6 Putting it all together",
+    "text": "11.6 Putting it all together\nBefore we end this section, let us combine plots using both the widths and heights option\n\n# specify the matrix\nmatrix(c(1, 2, 3, 4, 5, 6), nrow = 3, byrow = TRUE)\n##      [,1] [,2]\n## [1,]    1    2\n## [2,]    3    4\n## [3,]    5    6\n\n# 6 plots to be combined in 3 row/ 2 columns and arranged by rows\nlayout(matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, byrow = TRUE), heights= c(1, 2, 1),\nwidths = c(2, 1))\n \n# specify the 6 plots\nplot(mtcars$disp, mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\nplot(mtcars$mpg)\nhist(mtcars$mpg)\nboxplot(mtcars$mpg)\n\n\n\n\n\n\n\nlayout(1)",
     "crumbs": [
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Faceting</span>"
     ]

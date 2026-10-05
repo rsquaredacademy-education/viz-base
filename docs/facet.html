@@ -558,7 +558,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#cs-layout-8" id="toc-cs-layout-8" class="nav-link" data-scroll-target="#cs-layout-8"><span class="header-section-number">11.5.8</span> Case Study 8</a></li>
   <li><a href="#cs-layout-9" id="toc-cs-layout-9" class="nav-link" data-scroll-target="#cs-layout-9"><span class="header-section-number">11.5.9</span> Case Study 9</a></li>
   </ul></li>
-  <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together"><span class="header-section-number">11.6</span> Putting it all together…</a></li>
+  <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together"><span class="header-section-number">11.6</span> Putting it all together</a></li>
   </ul>
 </nav>
     </div>
@@ -637,7 +637,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># restore the setting stored in init</span></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-facet-mfrow" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Four scatterplots of displacement against miles per gallon arranged in a two-by-two grid, each occupying one panel of a single figure and each showing the same four-cylinder cars with a different point symbol.">
+<div id="fig-facet-mfrow" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four scatterplots of displacement against miles per gallon arranged in a two-by-two grid, each occupying one panel of a single figure and each showing the same four-cylinder cars with a different point symbol." data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-facet-mfrow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="facet_files/figure-html/fig-facet-mfrow-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Four scatterplots of displacement against miles per gallon arranged in a two-by-two grid, each occupying one panel of a single figure and each showing the same four-cylinder cars with a different point symbol." width="1344">
@@ -692,7 +692,7 @@ Figure&nbsp;11.1: A 2 by 2 panel grid drawn with par(mfrow)
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># restore the setting stored in init</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-facet-mfcol" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Four scatterplots in a two-by-two grid, but the panels are filled down each column first rather than across each row, so the reading order of the symbols differs from the previous figure.">
+<div id="fig-facet-mfcol" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four scatterplots in a two-by-two grid, but the panels are filled down each column first rather than across each row, so the reading order of the symbols differs from the previous figure." data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-facet-mfcol-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="facet_files/figure-html/fig-facet-mfcol-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Four scatterplots in a two-by-two grid, but the panels are filled down each column first rather than across each row, so the reading order of the symbols differs from the previous figure." width="1344">
@@ -929,7 +929,7 @@ Figure&nbsp;11.2: The same grid drawn with par(mfcol), filling by column
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>mpg)</span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-facet-layout" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="Four plots arranged in one figure with deliberately unequal panel sizes, produced by layout() rather than by mfrow. One panel is wider than the others and the rows are of differing heights, which mfrow cannot express.">
+<div id="fig-facet-layout" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four plots arranged in one figure with deliberately unequal panel sizes, produced by layout() rather than by mfrow. One panel is wider than the others and the rows are of differing heights, which mfrow cannot express." data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-facet-layout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="facet_files/figure-html/fig-facet-layout-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Four plots arranged in one figure with deliberately unequal panel sizes, produced by layout() rather than by mfrow. One panel is wider than the others and the rows are of differing heights, which mfrow cannot express." width="1344">
@@ -1138,7 +1138,7 @@ Figure&nbsp;11.3: Ragged panels drawn with layout() and custom widths and height
 </section>
 </section>
 <section id="putting-it-all-together" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="putting-it-all-together"><span class="header-section-number">11.6</span> Putting it all together…</h2>
+<h2 data-number="11.6" class="anchored" data-anchor-id="putting-it-all-together"><span class="header-section-number">11.6</span> Putting it all together</h2>
 <p>Before we end this section, let us combine plots using both the widths and heights option</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify the matrix</span></span>
@@ -2207,7 +2207,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-406"><a href="#cb35-406" aria-hidden="true" tabindex="-1"></a><span class="in">layout(1)</span></span>
 <span id="cb35-407"><a href="#cb35-407" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb35-408"><a href="#cb35-408" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-409"><a href="#cb35-409" aria-hidden="true" tabindex="-1"></a><span class="fu">## Putting it all together...</span></span>
+<span id="cb35-409"><a href="#cb35-409" aria-hidden="true" tabindex="-1"></a><span class="fu">## Putting it all together</span></span>
 <span id="cb35-410"><a href="#cb35-410" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-411"><a href="#cb35-411" aria-hidden="true" tabindex="-1"></a>Before we end this section, let us combine plots using both the widths and heights option</span>
 <span id="cb35-412"><a href="#cb35-412" aria-hidden="true" tabindex="-1"></a></span>

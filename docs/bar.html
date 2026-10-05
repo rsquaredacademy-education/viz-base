@@ -554,7 +554,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#remove-axes" id="toc-remove-axes" class="nav-link" data-scroll-target="#remove-axes"><span class="header-section-number">6.7.1</span> Remove axes</a></li>
   </ul></li>
-  <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together"><span class="header-section-number">6.8</span> Putting it all together…</a>
+  <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together"><span class="header-section-number">6.8</span> Putting it all together</a>
   <ul class="collapse">
   <li><a href="#title-axis-labels" id="toc-title-axis-labels" class="nav-link" data-scroll-target="#title-axis-labels"><span class="header-section-number">6.8.1</span> Title &amp; Axis Labels</a></li>
   </ul></li>
@@ -879,7 +879,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="putting-it-all-together" class="level2" data-number="6.8">
-<h2 data-number="6.8" class="anchored" data-anchor-id="putting-it-all-together"><span class="header-section-number">6.8</span> Putting it all together…</h2>
+<h2 data-number="6.8" class="anchored" data-anchor-id="putting-it-all-together"><span class="header-section-number">6.8</span> Putting it all together</h2>
 <p>Let us quickly revise what we have learnt so far and build a bar plot for visualizing the <code>cyl</code> variable in the <code>mtcars</code> data set:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(cyl_freq, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">'blue'</span>, <span class="st">'red'</span>, <span class="st">'green'</span>),</span>
@@ -905,7 +905,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="at">main =</span> <span class="st">'Distribution of Cylinders'</span>,</span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">'Frequency'</span>, <span class="at">ylab =</span> <span class="st">'Number of Cylinders'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-bar-final" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A vertical bar chart of counts by transmission type, with the vertical axis labelled Count, the horizontal axis labelled Transmission, a title reading Cars by Transmission, and the bars shaded in a light-to-dark blue sequence." data-fig-align="center">
+<div id="fig-bar-final" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A vertical bar chart of counts by transmission type, with the vertical axis labelled Count, the horizontal axis labelled Transmission, a title reading Cars by Transmission, and the bars shaded in a light-to-dark blue sequence.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bar-final-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="bar_files/figure-html/fig-bar-final-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="A vertical bar chart of counts by transmission type, with the vertical axis labelled Count, the horizontal axis labelled Transmission, a title reading Cars by Transmission, and the bars shaded in a light-to-dark blue sequence." width="960">
@@ -950,7 +950,7 @@ Figure&nbsp;6.1: A complete bar chart with labels, axis limits and a colour pale
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(cyl_gear)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-bar-bivariate" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A grouped bar chart of car counts split by number of gears and number of cylinders, with six bars grouped in pairs and the axes labelled Gears and Count." data-fig-align="center">
+<div id="fig-bar-bivariate" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A grouped bar chart of car counts split by number of gears and number of cylinders, with six bars grouped in pairs and the axes labelled Gears and Count.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bar-bivariate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="bar_files/figure-html/fig-bar-bivariate-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="A grouped bar chart of car counts split by number of gears and number of cylinders, with six bars grouped in pairs and the axes labelled Gears and Count." width="960">
@@ -966,7 +966,7 @@ Figure&nbsp;6.2: A two-way table of counts by gear and cylinder
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(cyl_gear, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">'blue'</span>, <span class="st">'red'</span>, <span class="st">'green'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-bar-stacked" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A chart of three stacked bars, one for each gear count of 3, 4 and 5. Each bar is divided into three coloured segments running the full height of the bar. The segments are coloured by cylinder count: blue for 4 cylinders, red for 6 and green for 8, and the legend at the top names each colour with its cylinder count." data-fig-align="center">
+<div id="fig-bar-stacked" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="A chart of three stacked bars, one for each gear count of 3, 4 and 5. Each bar is divided into three coloured segments running the full height of the bar. The segments are coloured by cylinder count: blue for 4 cylinders, red for 6 and green for 8, and the legend at the top names each colour with its cylinder count.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bar-stacked-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="bar_files/figure-html/fig-bar-stacked-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="A chart of three stacked bars, one for each gear count of 3, 4 and 5. Each bar is divided into three coloured segments running the full height of the bar. The segments are coloured by cylinder count: blue for 4 cylinders, red for 6 and green for 8, and the legend at the top names each colour with its cylinder count." width="960">
@@ -990,7 +990,7 @@ Figure&nbsp;6.3: Stacked bars: each bar is one gear group, segmented by cylinder
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">'Gears vs Cylinders'</span>, <span class="at">legend.text =</span> <span class="fu">c</span>(<span class="st">'4 cyl'</span>, <span class="st">'6 cyl'</span>, <span class="st">'8 cyl'</span>),</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">'Number of Gears'</span>, <span class="at">ylab =</span> <span class="st">'Frequency'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-bar-beside" class="quarto-float quarto-figure quarto-figure-center anchored" alt="The same three gear groups as the stacked chart, but drawn as clusters of separate bars standing side by side, so each cylinder count can be compared directly across the three gear groups." data-fig-align="center">
+<div id="fig-bar-beside" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" alt="The same three gear groups as the stacked chart, but drawn as clusters of separate bars standing side by side, so each cylinder count can be compared directly across the three gear groups.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bar-beside-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="bar_files/figure-html/fig-bar-beside-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="The same three gear groups as the stacked chart, but drawn as clusters of separate bars standing side by side, so each cylinder count can be compared directly across the three gear groups." width="960">
@@ -1835,7 +1835,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb31-181"><a href="#cb31-181" aria-hidden="true" tabindex="-1"></a><span class="in">barplot(cyl_freq, ylim = c(0, 30))</span></span>
 <span id="cb31-182"><a href="#cb31-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb31-183"><a href="#cb31-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-184"><a href="#cb31-184" aria-hidden="true" tabindex="-1"></a><span class="fu">## Putting it all together...</span></span>
+<span id="cb31-184"><a href="#cb31-184" aria-hidden="true" tabindex="-1"></a><span class="fu">## Putting it all together</span></span>
 <span id="cb31-185"><a href="#cb31-185" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-186"><a href="#cb31-186" aria-hidden="true" tabindex="-1"></a>Let us quickly revise what we have learnt so far and build a bar plot for visualizing the <span class="in">`cyl`</span> variable in the <span class="in">`mtcars`</span> data set:</span>
 <span id="cb31-187"><a href="#cb31-187" aria-hidden="true" tabindex="-1"></a></span>
