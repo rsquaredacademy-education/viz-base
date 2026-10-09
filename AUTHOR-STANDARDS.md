@@ -248,11 +248,11 @@ website:
   description: "<same string as book.description>"
   open-graph: true
   twitter-card: true
-  repo-url: https://github.com/rsquaredacademy-education/<slug>
+  repo-url: https://github.com/rsquaredacademy-publications/<slug>
   navbar:
     right:
       - text: "GitHub"
-        href: https://github.com/rsquaredacademy-education/<slug>
+        href: https://github.com/rsquaredacademy-publications/<slug>
 
 execute:
   freeze: auto
@@ -316,7 +316,7 @@ In this chapter, you will learn how to ...
 3. ...
 
 Worked solutions in
-[`solutions/chapter-slug.md`](https://github.com/rsquaredacademy-education/<repo>/blob/master/solutions/chapter-slug.md)
+[`solutions/chapter-slug.md`](https://github.com/rsquaredacademy-publications/<repo>/blob/master/solutions/chapter-slug.md)
 (attempt first).
 ````
 

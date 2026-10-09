@@ -24,7 +24,7 @@
     "href": "index.html#how-to-cite-this-book",
     "title": "Data Visualization with R",
     "section": "How to cite this book",
-    "text": "How to cite this book\nIf this book is useful to your work, please cite it. A ready-made BibTeX entry is in citation.bib and is reproduced below.\n@misc{vizbase2026,\n  author    = {Aravind Hebbali},\n  title     = {Data Visualization with R: Base Graphics},\n  year      = {2026},\n  version   = {1.0},\n  publisher = {Rsquared Academy},\n  doi       = {10.5281/zenodo.23138733},\n  url       = {https://viz-base.rsquaredacademy.com},\n  note      = {Version 1.0. Source: https://github.com/rsquaredacademy-education/viz-base}\n}\n\nThe DOI is the Zenodo version DOI for v1.0.0, so this citation keeps resolving to the edition you are reading even after a later release. If you would rather your citation track the current edition, use the concept DOI 10.5281/zenodo.23138732 instead — it always resolves to the latest version.",
+    "text": "How to cite this book\nIf this book is useful to your work, please cite it. A ready-made BibTeX entry is in citation.bib and is reproduced below.\n@misc{vizbase2026,\n  author    = {Aravind Hebbali},\n  title     = {Data Visualization with R: Base Graphics},\n  year      = {2026},\n  version   = {1.0},\n  publisher = {Rsquared Academy},\n  doi       = {10.5281/zenodo.23138733},\n  url       = {https://viz-base.rsquaredacademy.com},\n  note      = {Version 1.0. Source: https://github.com/rsquaredacademy-publications/viz-base}\n}\n\nThe DOI is the Zenodo version DOI for v1.0.0, so this citation keeps resolving to the edition you are reading even after a later release. If you would rather your citation track the current edition, use the concept DOI 10.5281/zenodo.23138732 instead — it always resolves to the latest version.",
     "crumbs": [
       "Preface"
     ]
@@ -34,7 +34,7 @@
     "href": "index.html#corrections",
     "title": "Data Visualization with R",
     "section": "Corrections",
-    "text": "Corrections\nThis book is a living document and mistakes will be found. If you find one, please open an issue at rsquaredacademy-education/viz-base.\nEvery measurement quoted in Chapter 1 is regenerable from the scripts in scripts/, so a disputed number is a reproducible question rather than an argument. See the References chapter for the full list.",
+    "text": "Corrections\nThis book is a living document and mistakes will be found. If you find one, please open an issue at rsquaredacademy-publications/viz-base.\nEvery measurement quoted in Chapter 1 is regenerable from the scripts in scripts/, so a disputed number is a reproducible question rather than an argument. See the References chapter for the full list.",
     "crumbs": [
       "Preface"
     ]

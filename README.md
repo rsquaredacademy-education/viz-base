@@ -83,7 +83,7 @@ CI renders HTML, Typst PDF, and ePub, builds the cheatsheet, verifies every slug
   publisher = {Rsquared Academy},
   doi       = {10.5281/zenodo.23138733},
   url       = {https://viz-base.rsquaredacademy.com},
-  note      = {Version 1.0. Source: https://github.com/rsquaredacademy-education/viz-base}
+  note      = {Version 1.0. Source: https://github.com/rsquaredacademy-publications/viz-base}
 }
 ```
 

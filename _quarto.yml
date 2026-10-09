@@ -17,11 +17,11 @@ website:
   description: "Learn to visualize data with base R: zero-dependency, publication-ready graphics."
   open-graph: true
   twitter-card: true
-  repo-url: https://github.com/rsquaredacademy-education/viz-base
+  repo-url: https://github.com/rsquaredacademy-publications/viz-base
   navbar:
     right:
       - text: "GitHub"
-        href: https://github.com/rsquaredacademy-education/viz-base
+        href: https://github.com/rsquaredacademy-publications/viz-base
   # Analytics: measurement ID is G-P98W8WC0XC, wired up in
   # includes/analytics.html rather than here. Two reasons, both verified:
   #
