@@ -59,7 +59,7 @@ output. What differs is the pins and which gates block.
 | | bash-intro | data-wrangling | intro-r | rdbsql | viz-base | viz-ggplot2 |
 |:--|:--|:--|:--|:--|:--|:--|
 | Preface | 2nd H1 *inside* `index.qmd` | own chapter | own chapter | own chapter | own chapter | own chapter (17 lines — thinnest) |
-| About the Author | **absent** | 2nd | 2nd | 2nd | **last of 15** | 2nd |
+| About the Author | 2nd | 2nd | 2nd | 2nd | **last of 15** | 2nd |
 | Exercise solutions | `solutions/` (12), **0 chapter links** | **rendered chapter 14** | n/a | `solutions/` (3) | **inline `<details>`** | `solutions/` (16, **1 mislinked**) |
 | Appendices | **no `appendices:` key at all** | 3 | n/a | 2 | 1 | **no `appendices:` key** |
 | References | `##` inside conclusion | absent | absent | absent | **own chapter** | absent |
@@ -77,7 +77,7 @@ output. What differs is the pins and which gates block.
 | Exercises coverage | **13/13** | 6/14 | n/a | 3/7 | **1/12** | 16/22 |
 | Exercise heading | `## Exercises` | `##/### Your Turn…` | — | `## Exercises` | `## Exercises` | `## Exercises` |
 | H1 discipline | 3 violations | clean | clean | clean | clean | clean |
-| Front matter | 5 mixed schemes | `description:` only | mixed | none | `description:` only | none |
+| Front matter | 5 mixed schemes | `description:` only | `description:` only | none | `description:` only | none |
 | Filename scheme | slug | `00-`…`14-` | slug | slug | slug | `ggplot2-` prefix |
 | Closing section | `## Exercises` | `## Try it live` (9/14) | — | none | `## Putting it all together` (5/12) | `## Where to go next` (22/22) |
 
@@ -713,7 +713,7 @@ State after wave 1. Resolved items struck through.
 
 | Book | Blocking gaps | Notable |
 |:--|:--|:--|
-| **bash-intro** | No About the Author; no References chapter; no `appendices:` key; no slug gate; `style.css` orphaned (no `css:` key in `_quarto.yml`) | ~~Chapter numbering off by one~~ fixed and verified; ~~no chapter linked to `solutions/`~~ all 13 now do; ships two analytics files with different IDs; still has both, wave 9 |
+| **bash-intro** | No References chapter; no `appendices:` key; no slug gate; `style.css` orphaned (no `css:` key in `_quarto.yml`) | ~~Chapter numbering off by one~~ fixed and verified; ~~no chapter linked to `solutions/`~~ all 13 now do; ~~no About the Author~~ added 2026-10-09, renders unnumbered at position 2; ships two analytics files with different IDs; still has both, wave 9 |
 | **data-wrangling** | Unpinned Quarto; lualatex; solutions as a book chapter; 39 MB of root fixtures; no `make-sitemap.sh` | Most internally consistent chapter structure of the six; only book with `00-`…`14-` numbering |
 | **intro-r** | No `renv.lock` gate in CI (uses an explicit package list) | Only book with a `DESCRIPTION` and `.Rbuildignore`; best `AGENTS.md` in the workspace; deploy target ambiguous between Pages and Netlify |
 | **rdbsql** | No `renv.lock`; no `netlify.toml`; no slug gate; `sitemap.xml` not in resources and omits appendices | `code/ch1`–`ch7` numbered correctly and linked from every chapter — the pattern others should copy |
@@ -721,6 +721,18 @@ State after wave 1. Resolved items struck through.
 | **viz-ggplot2** | `output-dir: _book` vs CI `docs/`; 16 orphaned `code/` files; stub cheat sheet shipped live; unpinned Quarto | ~~Solutions mislink~~ fixed and verified; duplicate `_extensions/webr`; `.quarto/` listed twice in `.gitignore` |
 
 **House state.** All six books now carry a `LICENSE`. All solutions pointers
-resolve. Heading strings and the unnumbered attribute are consistent. No book
-has a chapter-level `title:` except intro-r's `index.qmd`, which is correct —
-that is the book landing page, where `title`/`author`/`date` belong.
+resolve. Heading strings and the unnumbered attribute are consistent. No book has
+a chapter-level `title:` — including `index.qmd`. Landing pages take their title
+block from `book.title` and carry `description:` only in front matter.
+
+**Correction to the wave-1 review (2026-10-09).** Wave 1 recorded intro-r's
+`index.qmd` `title:` as "correct — that is the book landing page, where
+`title`/`author`/`date` belong". That was wrong, and it shipped a live off-by-one:
+the landing page rendered as *numbered chapter 1*, so the book's 13 chapters
+rendered as 2–14 while its own README counted them 1–13. `{.unnumbered}` on the
+markdown H1 does not suppress the number the YAML `title:` claims; the rendered
+output, not the source, settles it. The key is now removed from intro-r's
+`index.qmd`, render-verified with chapters 1–13 and both front-matter pages
+unnumbered (`intro-r/revision-2026-10-09.md`). bash-intro gained the missing
+`about-the-author.qmd` at position 2 the same day
+(`bash-intro/revision-2026-10-09.md`).
